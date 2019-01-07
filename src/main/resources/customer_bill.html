@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>Monginis</title>
+<link href="css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/monginis.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" href="images/feviconicon.png" type="image/x-icon"/> 
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
+<!--autocomplete-->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="js/autocomplete.js"></script>
+  <link rel="stylesheet" href="css/autocomplete.css">
+
+<!--rightNav-->
+<script type="text/javascript" src="js/menuzord.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("#menuzord").menuzord({
+		align:"left"
+	});
+});
+</script>
+<!--rightNav-->
+
+        
+</head>
+<body>
+
+<!--topLeft-nav-->
+<div class="sidebarOuter"></div>
+<!--topLeft-nav-->
+
+<!--wrapper-start-->
+<div class="wrapper">
+
+<!--topHeader-->
+<div class="fullGrid center logoBarbg slideposi">
+	<div class="wrapperIn positionR">
+    	<div class="logoBarLeft"><a href="#"><img src="images/monginislogo.jpg" alt="monginis"></a></div>  
+        <div class="logoBarRight"><div id="menuzord" class="menuzord red menuzord-responsive">
+            <ul class="menuzord-menu menuzord-right menuzord-indented scrollable">
+                <li><a href="#"><div class="usericon">John doe</div> <div class="userimg"><img src="images/userimg.jpg"></div> </a>
+                	<ul class="dropdown">
+                        <li><a href="#">My Account</a></li>
+						<li><a href="#">Edit Profile</a></li>
+						<li><a href="#">Setting</a></li>
+						<li><a href="#">Log out</a></li>
+					</ul>
+                </li>
+            </ul>
+        </div></div>
+    </div>
+</div>
+<!--topHeader-->
+
+<!--rightContainer-->
+<div class="fullGrid center">
+<!--fullGrid-->
+<div class="wrapperIn2">
+
+<!--leftNav-->
+<div class="sidebarhome">
+	<ul>
+		<li><a href="#" class="active" onClick="openNav()"><div class="img"><img src="images/nav-orderbook.png" alt="img"></div><div class="title">Order <span>Booking</span></div></a></li>
+		<li><a href="#" onClick="openNav1()"><div class="img"><img src="images/nav-goodsreturn.png" alt="img"></div><div class="title">Goods <span>Return</span></div></a></li>
+		<li><a href="#"><div class="img"><img src="images/nav-orerhistory.png" alt="img"></div><div class="title">Order <span>History</span></div></a></li>
+		<li><a href="#" onClick="openNav3()"><div class="img"><img src="images/nav-editprofile.png" alt="img"></div><div class="title">Edit <span>Profile</span></div></a></li>
+	</ul>
+</div>
+<!--leftNav-->
+
+<!--navInner-->
+
+<!--1nav-->
+<div id="mySidenav" class="sidenav">
+  <div class="topSlide">
+  <div class="topSlide2">
+  	<a href="javascript:void(0)" class="closebtn" onClick="closeNav()"><img src="images/closebtn.png" alt="monginis"></a>
+	<div class="listarea">
+		<ul>
+			<li><div class="listareaBox ">
+			<a class="listareaBoximg">
+				<img src="images/icon1.png" alt="monginis">
+				<img src="images/icon1-h.png" alt="monginis"></a>
+				<h2>Savouries</h2>
+				<h3>Booking Up to 12.30 PM</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon2.png" alt="monginis">
+				<img src="images/icon2-h.png" alt="monginis"></a>
+				<h2>Cakes & Pastries</h2>
+				<h3>Booking Up to 12.30 PM</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon3.png" alt="monginis">
+				<img src="images/icon3-h.png" alt="monginis"></a>
+				<h2>Special Cake</h2>
+				<h3>At Any Time Till Shop Closing</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon4.png" alt="monginis">
+				<img src="images/icon4-h.png" alt="monginis"></a>
+				<h2>Trading & Packing</h2>
+				<h3>At Any Time Till Shop Closing</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon5.png" alt="monginis">
+				<img src="images/icon5-h.png" alt="monginis"></a>
+				<h2>Pack Product Booking </h2>
+				<h3>At Any Time Till Shop Closing</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon6.png" alt="monginis">
+				<img src="images/icon6-h.png" alt="monginis"></a>
+				<h2>Special Day  Cakes</h2>
+				<h3>At Any Time Till Shop Closing</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+		</ul>
+	</div>
+	
+  </div>
+  </div>
+</div>
+<!--1nav-->
+
+<!--2nav-->
+<div id="mySidenav1" class="sidenav">
+  <div class="topSlide">
+  <div class="topSlide2">
+  	<a href="javascript:void(0)" class="closebtn" onClick="closeNav1()"><img src="images/closebtn.png" alt="monginis"></a>
+	<div class="listarea">
+		<ul>
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon7.png" alt="monginis">
+				<img src="images/icon7-h.png" alt="monginis"></a>
+				<h2>GRN1 </h2>
+				<h3>Booking Up to 12.30 PM</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon8.png" alt="monginis">
+				<img src="images/icon8-h.png" alt="monginis"></a>
+				<h2>GRN2</h2>
+				<h3>Booking Up to 12.30 PM</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+			<li><div class="listareaBox">
+				<a class="listareaBoximg">
+				<img src="images/icon9.png" alt="monginis">
+				<img src="images/icon9-h.png" alt="monginis"></a>
+				<h2>GVN</h2>
+				<h3>At Any Time Till Shop Closing</h3>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Add <i class="fa fa-pencil"></i></a></div>
+				<div class="listareaBoxdown"><a href="order-savouries.html">Upload <i class="fa fa-cloud-upload"></i></a></div>
+			</div></li>
+			
+		</ul>
+	</div>
+	
+  </div>
+  </div>
+</div>
+<!--2nav-->
+
+<!--3nav-->
+<div id="mySidenav3" class="sidenav">
+  
+ <div class="topSlide">
+ <div class="topSlide2 textcen">
+ 	<a href="javascript:void(0)" class="closebtn" onClick="closeNav3()"><img src="images/closebtn.png" alt="monginis"></a>
+	<div class="profileinsite">
+	
+	<div class="profileinsiteLeft">
+		
+		<div class="profile">
+		<div class="profilefildset">Franchisee Name</div>
+		<div class="profileinput"><input class="texboxitemcode" placeholder="franchisee Name" name="" type="text"></div>
+	</div>
+	
+	<div class="profile">
+		<div class="profilefildset">Franchisee Profile Pic</div>
+		<div class="profileinput">
+		<div class="editimg">
+			<div class="editpics">
+			<div class="fileUpload">
+    <span><i class="fa fa-pencil"></i></span>
+    <input type="file" class="upload" />
+</div>
+			</div>
+		<img src="images/editimg.jpg" alt="img"></div></div>
+	</div>
+	
+	<div class="profile">
+		<div class="profilefildset">City</div>
+		<div class="profileinput"><input class="texboxitemcode" placeholder="City Name" name="" type="text"></div>
+	</div>
+	
+	<div class="profile">
+		<div class="profilefildset">Email id</div>
+		<div class="profileinput"><input class="texboxitemcode" name="" placeholder="example@gmail.com" type="text"></div>
+	</div>
+	
+	
+		
+	</div>
+	
+	<div class="profileinsiteRight">
+		<div class="profile">
+		<div class="profilefildset">Mobile No.</div>
+		<div class="profileinput"><input class="texboxitemcode" placeholder="9876543201" name="" type="text"></div>
+	</div>
+	
+		<div class="profile">
+		<div class="profilefildset">Owner Name</div>
+		<div class="profileinput"><input class="texboxitemcode" placeholder="Owner Name" name="" type="text"></div>
+	</div>
+	
+	<div class="profile">
+		<div class="profilefildset">Shop Opening Date </div>
+		<div class="profileinput mardis">26 Feb. 2017</div>
+	</div>
+	
+	<div class="profile">
+		<div class="profilefildset">Edit Password</div>
+		<div class="profileinput"><input class="texboxitemcode" placeholder="Edit Password" name="" type="text"></div>
+	</div>
+	
+	<div class="profile">
+		<div class="profilefildset">Confirm Password</div>
+		<div class="profileinput"><input class="texboxitemcode" placeholder="Confirm Password" name="" type="text"></div>
+	</div>
+	
+	<div class="profile">
+		<div class="profileinput"><input name="" class="buttonsaveorder" value="SUBMIT" type="button"></div>
+	</div>
+	
+	</div>
+	
+	</div>
+ </div>
+ </div>
+</div>
+<!--3nav-->
+
+<!--navInner-->
+
+<!--rightSidebar-->
+<div class="sidebarright">
+<div class="order-left">
+<h2 class="pageTitle">Customer Bill</h2>
+
+</div>
+
+<div class="order-right">
+	<button class="pull-right btn view_bill_btn"><a href="view_bill.html">View Bill</a></button>
+</div>
+
+<!--tabNavigation-->
+<div class="cd-tabs">
+<!--tabMenu-->
+<nav>
+	<ul class="cd-tabs-navigation">
+		<li><a data-content="tab1" class="selected" href="#0">Token 1</a></li>
+		<li><a data-content="tab2" href="#0">Token 2</a></li>
+		<li><a data-content="tab3" href="#0">Token 3</a></li>
+		<li><a data-content="tab4" href="#0">Token 4</a></li>
+		<li><a data-content="tab5" href="#0">Token 5</a></li>
+		<li><a data-content="tab6" href="#0">Token 6</a></li>
+		<li><a data-content="tab7" href="#0">Token 7</a></li>
+	</ul> 
+</nav>
+<!--tabMenu-->
+<ul class="cd-tabs-content">
+<!--tab1-->
+<li data-content="tab1" class="selected">
+    <div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+						    <a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	   
+
+</li>
+<!--tab1-->
+
+<!--tab2-->
+<li data-content="tab2">
+<div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+						    <a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	
+</li>
+<!--tab2-->
+
+<!--tab3-->
+<li data-content="tab3">
+<div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+						    <a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	
+</li>
+<!--tab4-->
+<li data-content="tab4">
+<div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+						    <a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	
+</li>
+<!--tab5-->
+<li data-content="tab5">
+<div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+						    <a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	
+</li>
+<!--tab6-->
+<li data-content="tab6">
+<div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+						    <a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	
+</li>
+<!--tab7-->
+<li data-content="tab7">
+<div class="row">
+        <div class="col-md-2 control-label">
+		    <h4 style="margin-top:5px;">Customer name:-</h4>
+		</div>
+		<div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Name" >		
+		</div>
+			
+        <div class="col-md-2">
+		    <h4 class="pull-right" style="margin-top:5px;">GST No:-</h4>
+		</div>
+		<div class="col-md-2 ">
+			<input type="text" class="form-control" placeholder="Enter GST No.">
+		</div>
+		<div class="col-md-2 ">
+		    <h4 class="pull-right" style="margin-top:5px;">Phone No:-</h4>
+		</div>
+		<div class="col-md-2">   
+			<input type="text" class="form-control" placeholder="Enter phone No.">		
+		</div>
+	</div><br/><br/>
+    <div class="table-responsive">
+	    <div class="shInnerwidth">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			    <tr>
+					<td align="center" valign="middle" style="padding:0px;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr class="bgpink">
+							<td>Barcode</td>
+							<td>Item Name</td>
+							<td>Qty</td>
+							<td>Rate</td>
+						  </tr>
+                        <tr>
+					       <td>
+						        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Enter Barcode">
+						   </td>
+						   <td>
+						        <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter Item Name">
+						   </td>
+						   <td>
+						    <input type="number" min="0" max="500" class="form-control"placeholder="1">
+						   </td>
+						   <td>100</td>
+				        </tr>							  
+						</table> 
+					</td>
+                </tr>
+                			
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+	    <div class="col-md-12">
+		    <center>
+				<button class="btn additem_btn">Add Item</button>
+		    </center>
+		</div>
+	</div>
+	<br/>
+	<div class="table-responsive">
+		<div class="shInnerwidth">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+			  <tr>
+				<td align="center" valign="middle" style="padding:0px;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr class="bgpink">
+						<td style="width:130px;">Sr no.</td>
+						<td>Barcode</td>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Rate</td>
+						<td>Amount</td>
+						<td>Action</td>
+					  </tr>
+					  <tr>
+						<td>1</td>
+						<td>#ppp</td>
+						<td>cake</td>
+						<td>5</td>
+						<td>900</td>
+						<td>10</td>
+						<td><a href="#" class="action_btn"><abbr title="edit"><i class="fa fa-edit"></i></abbr></a>
+							<a href="#" class="action_btn"><abbr title="Delete"><i class="fa fa-trash"></i></abbr></a>
+						</td>
+						
+					  </tr>	  
+					</table>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" > 
+				  <h4 class="col-md-2"><b>Total:-</b></h4>
+				  <h4 class="col-md-1" >123</h4> 
+				</div>
+			</div><br/>
+			<div class="row">
+				<div class=" col-md-12">
+					  <h4 class="col-md-2" style="margin-top:5px"><b>Discount:-</b></h4>
+					  <div class="col-md-2 pull-left" ><input type="text" class="form-control"></div>
+					  
+				</div>
+			</div><br/>
+			<div class="row">	
+				<div class="col-md-12">  
+					<h4 class="col-md-2"><b>Grand Total:-</b></h4>
+					<h4 class="col-md-3 pull-left">123</h4> 
+				</div>
+			</div>
+		</div>
+	</div>	    	
+</li>
+<!--tab8-->
+</ul> 
+</div>
+<!--tabNavigation-->
+
+
+ 
+		
+</div>
+<!--rightSidebar-->
+
+</div>
+<!--fullGrid-->
+</div>
+<!--rightContainer-->
+
+</div>
+<!--wrapper-end-->
+
+<!--easyTabs-->
+<script src="js/main.js"></script>
+<!--easyTabs-->
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+function openNav1() {
+    document.getElementById("mySidenav1").style.width = "100%";
+}
+
+function closeNav1() {
+    document.getElementById("mySidenav1").style.width = "0";
+}
+function openNav3() {
+    document.getElementById("mySidenav3").style.width = "100%";
+}
+
+function closeNav3() {
+    document.getElementById("mySidenav3").style.width = "0";
+}
+
+</script>
+
+
+</body>
+</html>
