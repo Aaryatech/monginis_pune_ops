@@ -274,13 +274,25 @@ select {
               <option value="">Select Type</option>
                  <c:set var= "spCakeType" value="${specialCake.spType}"></c:set>
                <c:choose>
-                  
+                
                    <c:when test="${spCakeType=='1'}"> <option value="1">Chocolate</option>   </c:when> 
                     <c:when test="${spCakeType=='2'}"> <option value="2">FC</option>          </c:when>
-                <c:otherwise>
-                    
-                      <option value="1">Chocolate</option>
+                    <c:when test="${spCakeType=='3'}"> <option value="3">BC</option>          </c:when>
+                       <c:when test="${spCakeType=='4'}"> 
+						<option value="1">Chocolate</option> <option value="2">FC</option> 
+                       </c:when>
+                        <c:when test="${spCakeType=='5'}"> 
+						<option value="1">Chocolate</option> <option value="3">BC</option> 
+                       </c:when>
+                        <c:when test="${spCakeType=='6'}"> 
+						<option value="2">FC</option> <option value="3">BC</option> 
+                       </c:when>
+                        <c:otherwise>
+                     
+                        <option value="1">Chocolate</option>
                         <option value="2">FC</option>
+                        <option value="3">BC</option>
+                     
                 </c:otherwise>    
               </c:choose>
               

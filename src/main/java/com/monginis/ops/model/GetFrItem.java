@@ -1,6 +1,5 @@
 package com.monginis.ops.model;
 
-import java.io.Serializable;
 
 public class GetFrItem  {
 
@@ -32,6 +31,17 @@ public class GetFrItem  {
 	private int menuId;
 	
 	private int minQty;
+
+	private float discPer;//new
+	
+	
+	public float getDiscPer() {
+		return discPer;
+	}
+
+	public void setDiscPer(float discPer) {
+		this.discPer = discPer;
+	}
 
 	public Integer getId() {
 		return id;
@@ -238,17 +248,7 @@ public class GetFrItem  {
 				+ ", itemMrp3=" + itemMrp3 + ", itemImage=" + itemImage + ", itemTax1=" + itemTax1 + ", itemTax2="
 				+ itemTax2 + ", itemTax3=" + itemTax3 + ", itemIsUsed=" + itemIsUsed + ", itemSortId=" + itemSortId
 				+ ", grnTwo=" + grnTwo + ", itemQty=" + itemQty + ", delStatus=" + delStatus + ", subCatName="
-				+ subCatName + ", menuId=" + menuId + ", minQty=" + minQty + "]";
+				+ subCatName + ", menuId=" + menuId + ", minQty=" + minQty + ", discPer=" + discPer + "]";
 	}
-	
-	
-	
-	
-	
-
-	
-	
-
-	
-
+     
 }

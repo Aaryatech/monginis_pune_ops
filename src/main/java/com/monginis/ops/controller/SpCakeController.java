@@ -200,7 +200,8 @@ public class SpCakeController {
 		RestTemplate restTemplate = new RestTemplate();
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-		map.add("spCode", spCode);
+		 String arraySp[]= spCode.split("~~~");
+			map.add("spCode", arraySp[0]);
 		try {
 			SearchSpCakeResponse searchSpCakeResponse = restTemplate.postForObject(Constant.URL + "/searchSpecialCake",
 					map, SearchSpCakeResponse.class);
@@ -272,7 +273,7 @@ public class SpCakeController {
 				weightList.add(minWt);
 				float currentWt = minWt;
 				while (currentWt < maxWt) {
-					currentWt = currentWt + 0.5f;
+					currentWt = currentWt + specialCake.getSpRate2();//spr rate 2 means weight increment by 
 					weightList.add(currentWt);
 				} 
 
@@ -282,10 +283,10 @@ public class SpCakeController {
 					sprRate = specialCake.getMrpRate1();
 					spBackendRate = specialCake.getSpRate1();
 
-				} else if (frDetails.getFrRateCat() == 2) {
+				} /*else if (frDetails.getFrRateCat() == 2) {
 					sprRate = specialCake.getMrpRate2();
-					spBackendRate = specialCake.getSpRate2();
-				} else {
+					spBackendRate = specialCake.getSpRate2(); //No frRateCate 2 is present in franchisee
+				}*/ else {
 					sprRate = specialCake.getMrpRate3();
 					spBackendRate = specialCake.getSpRate3();
 
@@ -364,8 +365,9 @@ public class SpCakeController {
 		model.addObject("menuId", currentMenuId);
 		model.addObject("menuTitle", menuTitle);
 		return model;
+		
 	}
-
+   
 	// --------------------------END----------------------------------------------------------------------------
 	@RequestMapping(value = "/getFlavourBySpfId", method = RequestMethod.GET)
 	public @ResponseBody List<Flavour> flavourById(@RequestParam(value = "spType", required = true) int spType) {
@@ -394,7 +396,13 @@ public class SpCakeController {
 			}
 			for (Flavour flavour : filterFlavoursList) {
 				if (specialCake.getIsAddonRateAppli() == 1) {
+					List<String> list = Arrays.asList(specialCake.getErpLinkcode().split(","));
+					if (list.contains(""+flavour.getSpfId())) {
+						flavour.setSpfAdonRate(0.0);
+					}
 					flavoursListWithAddonRate.add(flavour);
+					System.err.println(flavour.getSpfId());
+					System.err.println(flavoursListWithAddonRate.toString());
 				} else {
 					flavour.setSpfAdonRate(0.0);
 					flavoursListWithAddonRate.add(flavour);
