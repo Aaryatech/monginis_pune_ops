@@ -33,16 +33,17 @@ public class GetBillDetail {
     private float totalTax;
     private int grnType;
     private String expiryDate;
-    
+    private float discPer;
     private int isGrngvnApplied;
     
     
     
-    
-    
-    
-    
-	
+	public float getDiscPer() {
+		return discPer;
+	}
+	public void setDiscPer(float discPer) {
+		this.discPer = discPer;
+	}
 	public int getIsGrngvnApplied() {
 		return isGrngvnApplied;
 	}

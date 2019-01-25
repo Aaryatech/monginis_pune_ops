@@ -172,7 +172,11 @@ public class StockController {
 
 			menuId = 34;
 
-		}
+		} /*else if (catId.equalsIgnoreCase("6")) {//added to sp day 
+
+			menuId =81;
+
+		}*/
 
 		String itemShow = "";
 
