@@ -84,7 +84,7 @@ However, delay the fade out process for 2.5 seconds */
 }
 </style>
 <!--new css added by kalpesh -->
-	<link href="/ops/resources/css/style.css"
+	<link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
 	
 	<!--new css added by kalpesh -->

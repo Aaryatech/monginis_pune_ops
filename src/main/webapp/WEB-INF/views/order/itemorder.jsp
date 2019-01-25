@@ -155,7 +155,7 @@ a:hover {
 					<!--tabNavigation-->
 					<div class="cd-tabs">
 						<!--tabMenu-->
-						<nav>
+					<%-- 	<nav>
 							<ul class="cd-tabs-navigation">
 
 								<c:forEach var="tab" items="${subCatListTitle}" varStatus="loop">
@@ -179,15 +179,15 @@ a:hover {
 								</c:forEach>
 
 							</ul>
-						</nav>
+						</nav> --%>
 						<!--tabMenu-->
 						<ul class="cd-tabs-content">
 							<!--tab1-->
 
-							<c:forEach var="tabs" items="${subCatListTitle}" varStatus="loop">
+						<%-- 	<c:forEach var="tabs" items="${subCatListTitle}" varStatus="loop"> change--%>
 
 
-								<c:choose>
+								<%-- <c:choose>
 									<c:when test='${loop.index==0}'>
 										<li data-content='${tabs.name}' class="selected">
 									</c:when>
@@ -195,7 +195,7 @@ a:hover {
 										<li data-content='${tabs.name}'>
 									</c:otherwise>
 								</c:choose>
-
+ --%>
 
 
 								<div class="clearfix"></div>
@@ -249,7 +249,7 @@ a:hover {
 
 
 												<c:forEach var="items" items="${itemList}" varStatus="loop">
-													<c:if test="${items.subCatName eq tabs.name}">
+												<%-- 	<c:if test="${items.subCatName eq tabs.name}"> change --%>
 
 														<c:choose>
 															<c:when test="${frDetails.frRateCat=='1'}">
@@ -395,7 +395,7 @@ a:hover {
 															</c:when>
 														</c:choose>
 
-													</c:if>
+													<%-- </c:if> change--%>
 												</c:forEach>
 
 							</tbody>
@@ -409,7 +409,7 @@ a:hover {
 				
 			
 
-							</c:forEach>
+						<%-- 	</c:forEach>  change  --%>
 								
 
 						</ul>

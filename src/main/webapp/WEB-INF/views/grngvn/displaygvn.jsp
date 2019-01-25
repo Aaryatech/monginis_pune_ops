@@ -518,7 +518,7 @@ table, th, td {
 
 <script type="text/javascript">
 	function show_image(data) {
-		alert(data);
+	//	alert(data);
 		var image = new Image();
 		image.src = data;
 

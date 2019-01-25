@@ -212,7 +212,7 @@ table, th, td {
 											<input type="hidden" id="b_qty${gvnConfList.itemId}"
 												value="${gvnConfList.billQty}" />
 
-											<tr>
+											<tr id="row${gvnConfList.billDetailNo}">
 												<td class="col-md-1" style="text-align: center;"><input type="checkbox" 
 													name="select_to_gvn" id="${gvnConfList.billDetailNo}"
 													value="${gvnConfList.billDetailNo}" /></td>
@@ -222,7 +222,7 @@ table, th, td {
 												<td class="col-md-1" style="text-align: center;"><input type="text"
 													name="gvn_qty${gvnConfList.itemId}"
 													id='gvn_qty${gvnConfList.itemId}' size="5" value="0" 
-													onkeyup="calcGvn(${gvnConfList.calcBaseRate},${gvnConfList.itemId},${gvnConfList.sgstPer},${gvnConfList.cgstPer})" /></td>
+													onkeyup="calcGvn(${gvnConfList.calcBaseRate},${gvnConfList.itemId},${gvnConfList.sgstPer},${gvnConfList.cgstPer},${gvnConfList.billDetailNo})" /></td>
 
 												<td class="col-md-1" style="text-align: right;">${gvnConfList.rate}</td>
 
@@ -328,8 +328,11 @@ table, th, td {
 </script>
 
 <script type="text/javascript">
-function calcGvn(baseRate,itemId,sgstPer,cgstPer){
+function calcGvn(baseRate,itemId,sgstPer,cgstPer,billDetailNo){
 	
+	$("#"+billDetailNo).prop("checked", false);
+		document.getElementById("row"+billDetailNo).style.backgroundColor="white";
+		$("#gvn_amt"+itemId).html(0);//new
 	var gvnQty=$("#gvn_qty"+itemId).val();
 	var billQty=$("#b_qty"+itemId).val();
 //	alert("gvnQty ="+gvnQty+ "Bill Qty "+billQty);
@@ -362,6 +365,10 @@ function calcGvn(baseRate,itemId,sgstPer,cgstPer){
 
 var x=$("#gvn_remark"+itemId).val();
 
+if(gvnQty>0){
+document.getElementById(""+billDetailNo).checked = true;
+document.getElementById("row"+billDetailNo).style.backgroundColor="pink";
+}
 };
 }
 

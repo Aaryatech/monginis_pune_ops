@@ -456,8 +456,8 @@ function getGrnData(id){
 	var grnQty=$("#grnqtyauto"+id).val();
 	var itemId=id;
 	
-	alert(grnQty);
-	alert(itemId);
+	//alert(grnQty);
+	//alert(itemId);
 	
 	$.getJSON('${getGrnData}',
 			{

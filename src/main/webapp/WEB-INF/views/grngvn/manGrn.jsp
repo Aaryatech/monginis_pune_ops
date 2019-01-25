@@ -193,7 +193,7 @@ table, th, td {
 
 										<c:forEach items="${grnConfList}" var="grnConfList"
 										varStatus="count">
-										<tr>
+										<tr id="row${grnConfList.billDetailNo}">
 
 											<td class="col-md-1" style="text-align: center;"><input type="checkbox" 
 													name="select_to_grn" id="${grnConfList.billDetailNo}"
@@ -241,7 +241,7 @@ table, th, td {
 												value="0" 
 												id='grnqtyauto${grnConfList.itemId}' size="3"  style="text-align: center;"
 												onkeyup="calcGrn(${grnConfList.grnType},${grnConfList.rate},${grnConfList.itemId},
-																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.billQty})" />
+																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.billQty},${grnConfList.billDetailNo})" />
 
 
 											</td>
@@ -373,8 +373,10 @@ table, th, td {
 
 <script type="text/javascript">
 	
-	function calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty){
+	function calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty,detailId){
 		
+		document.getElementById(""+detailId).checked = false;
+		document.getElementById("row"+detailId).style.backgroundColor="white";
 		
 		var baseRate=rate*100/(sgstPer+cgstPer+100);
 	
@@ -385,7 +387,17 @@ table, th, td {
 		
 		if(parseInt(grnQty)>autoQty){
 			alert("Edit Quantity can not be greater than Bill Quantity");
-			document.getElementById("grnqtyauto"+itemId).value=autoQty;
+			//document.getElementById("grnqtyauto"+itemId).value=autoQty;
+			document.getElementById("grnqtyauto"+itemId).value=0.00;
+			//---------Extra-------------
+			$("#grn_amt"+itemId).html(0);
+			
+			$("#taxable_amt"+itemId).html(0);
+
+			$("#tax_amt"+itemId).html(0);
+			//---------------------
+			document.getElementById(""+detailId).checked = false;
+			document.getElementById("row"+detailId).style.backgroundColor="white";
 			//calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty)
 		}else{
 		
@@ -476,7 +488,12 @@ table, th, td {
 		$("#taxable_amt"+itemId).html(taxableAmt.toFixed(2));
 
 		$("#tax_amt"+itemId).html(totalTax.toFixed(2));
-
+		
+		if(grnQty>0)
+		{
+		document.getElementById(""+detailId).checked = true;
+		document.getElementById("row"+detailId).style.backgroundColor="pink";
+		}
 		/* var x=$("#grn_remark"+itemId).val();
 		if(grnQty>0){
 		
