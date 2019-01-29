@@ -180,11 +180,11 @@ public class ManualGrnController {
 					float grnRate = 0.0f;
 
 					if (objShowGrn.getGrnType() == 0) {
-						grnBaseRate = baseRate * 75 / 100;
+						grnBaseRate = baseRate * 80 / 100;
 
-						// grnRate = (objShowGrn.getRate() * 75) / 100;
+						// grnRate = (objShowGrn.getRate() * 80) / 100;
 
-						grnRate = (baseRate * 75) / 100;
+						grnRate = (baseRate * 80) / 100;
 					}
 
 					if (objShowGrn.getGrnType() == 1) {
@@ -338,7 +338,7 @@ System.err.println("Inside Manual Grn POST method ");
 				Calendar calDate = Calendar.getInstance();
 				GrnGvn postGrnGvn = new GrnGvn();
 
-				String tempGrnQtyAuto = request.getParameter("grnqtyauto" + objShowGrnList.get(i).getItemId() + "");
+				String tempGrnQtyAuto = request.getParameter("grnqtyauto" + objShowGrnList.get(i).getBillDetailNo() + "");
 				/*tempGrnQtyAuto="2";
 				String tempGrnQty = request.getParameter("grnqty" + objShowGrnList.get(i).getItemId() + "");
 				tempGrnQty="3";
@@ -356,7 +356,7 @@ System.err.println("Inside Manual Grn POST method ");
 					isEdit = 0;
 				}*/
 				int isEdit=1;
-				String frGrnRemark = request.getParameter("grn_remark" + objShowGrnList.get(i).getItemId());
+				String frGrnRemark = request.getParameter("grn_remark" + objShowGrnList.get(i).getBillDetailNo());
 
 				if (frGrnRemark == null || frGrnRemark == "") {
 					frGrnRemark = "no remark entered";
@@ -371,9 +371,9 @@ System.err.println("Inside Manual Grn POST method ");
 				float grnRate = 0.0f;
 
 				if (objShowGrnList.get(i).getGrnType() == 0) {
-					grnBaseRate = baseRate * 75 / 100;
+					grnBaseRate = baseRate * 80 / 100;
 
-					grnRate = (objShowGrnList.get(i).getRate() * 75) / 100;
+					grnRate = (objShowGrnList.get(i).getRate() * 80) / 100;
 					// postGrnGvn.setGrnGvnAmt(roundUp(grnAmt));
 				}
 

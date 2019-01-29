@@ -166,7 +166,7 @@ table, th, td {
 										<c:forEach items="${tempGvnList}" var="gvnConfList"
 											varStatus="count">
 
-											<input type="hidden" id="b_qty${gvnConfList.itemId}"
+											<input type="hidden" id="b_qty${gvnConfList.billDetailNo}"
 												value="${gvnConfList.billQty}" />
 
 											<tr>
@@ -177,7 +177,7 @@ table, th, td {
 
 												<td class="col-md-1" style="text-align: center;">${gvnConfList.rate}</td>
 
-												<td class="col-md-1" style="text-align: center;" id="tax_per${gvnConfList.itemId}"><c:out
+												<td class="col-md-1" style="text-align: center;" id="tax_per${gvnConfList.billDetailNo}"><c:out
 														value="${gvnConfList.sgstPer + gvnConfList.cgstPer}"></c:out></td>
 
 												<c:set var="taxPer"
@@ -189,14 +189,14 @@ table, th, td {
 
 												<c:set var="grandTotal" value="${taxableAmt+ totalTax}" />
 
-												<td class="col-md-1" style="text-align: center;" id="gvn_amt${gvnConfList.itemId}">
+												<td class="col-md-1" style="text-align: center;" id="gvn_amt${gvnConfList.billDetailNo}">
 													<fmt:formatNumber value="${grandTotal}" type="number"
 														maxFractionDigits="2" />
 												</td>
 
 												<td class="col-md-1" style="text-align: center;"><select
-													name="gvn_remark${gvnConfList.itemId}" style="width: 200px"
-													id="gvn_remark${gvnConfList.itemId}" class="form-control" required="required">
+													name="gvn_remark${gvnConfList.billDetailNo}" style="width: 200px"
+													id="gvn_remark${gvnConfList.billDetailNo}" class="form-control" required="required">
 														<option selected value="">Select Remark</option>
 														<c:forEach items="${remarkList}" var="remarkList">
 																${remarkList.remark}
@@ -211,7 +211,7 @@ table, th, td {
 
 														<div class="fileUpload">
 															<input class="upload upld" type='file' name="gvn_photo1" 
-																id="gvn_photo1${gvnConfList.itemId}"
+																id="gvn_photo1${gvnConfList.billDetailNo}"
 																data-rule-required="true" /> <img style="width: 45px"
 																src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
 																alt="" />
@@ -229,7 +229,7 @@ table, th, td {
 														<div>
 															<div class="fileUpload">
 																<input class="upload upld" type='file' name="gvn_photo2" 
-																	id="gvn_photo2${gvnConfList.itemId}"
+																	id="gvn_photo2${gvnConfList.billDetailNo}"
 																	data-rule-required="true" /> <img style="width: 45px"
 																	src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
 																	alt="" />

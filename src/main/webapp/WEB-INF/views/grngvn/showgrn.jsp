@@ -132,7 +132,7 @@ table, th, td {
 													value="${grnConfList.itemName}"></c:out></td>
 											<c:choose>
 												<c:when test="${grnConfList.grnType==0}">
-													<td class="col-md-1" style="text-align: center;"><c:out value="GRN 1(75%)"></c:out></td>
+													<td class="col-md-1" style="text-align: center;"><c:out value="GRN 1(80%)"></c:out></td>
 												</c:when>
 												<c:when test="${grnConfList.grnType==1}">
 													<td class="col-md-1" style="text-align: center;"><c:out value="GRN 2(90%)"></c:out></td>
@@ -155,25 +155,25 @@ table, th, td {
 										
 											<td class="col-md-1" style="text-align: center;"><c:out
 													value="${grnConfList.autoGrnQty}"></c:out> <input
-												type="hidden" name="grnqty${grnConfList.itemId}"
-												id="grnqty${grnConfList.itemId}" size="3"
+												type="hidden" name="grnqty${grnConfList.billDetailNo}"
+												id="grnqty${grnConfList.billDetailNo}" size="3"
 												readonly="readonly" value="${grnConfList.autoGrnQty}" /></td>
 
-											<td class="col-md-1"  style="text-align: center;" id="grn_rate${grnConfList.itemId}"><c:out
+											<td class="col-md-1"  style="text-align: center;" id="grn_rate${grnConfList.billDetailNo}"><c:out
 													value="${grnConfList.rate}"></c:out></td>
 											
 
 											<td class="col-md-1" style="text-align: center;"><input type="text"
-												name="grnqtyauto${grnConfList.itemId}"
+												name="grnqtyauto${grnConfList.billDetailNo}"
 												value="${grnConfList.autoGrnQty}" 
-												id='grnqtyauto${grnConfList.itemId}' size="3" readonly
+												id='grnqtyauto${grnConfList.billDetailNo}' size="3" readonly
 												onkeyup="calcGrn(${grnConfList.grnType},${grnConfList.rate},${grnConfList.itemId},
-																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.autoGrnQty})" />
+																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.autoGrnQty},${grnConfList.billDetailNo})" />
 
 
 											</td>
 
-											<td class="col-md-1"  style="text-align: center;" id="tax_per${grnConfList.itemId}"><c:out
+											<td class="col-md-1"  style="text-align: center;" id="tax_per${grnConfList.billDetailNo}"><c:out
 													value="${grnConfList.taxPer}"></c:out></td>
 
 											<fmt:formatNumber var="taxableAmt" type="number"
@@ -182,10 +182,10 @@ table, th, td {
 
 											<c:set var="taxableAmt" value="${taxableAmt}" />
 
-											<td id='taxable_amt${grnConfList.itemId}' style="text-align: center;" class="col-md-1"><c:out value="${taxableAmt}"></c:out></td>
+											<td id='taxable_amt${grnConfList.billDetailNo}' style="text-align: center;" class="col-md-1"><c:out value="${taxableAmt}"></c:out></td>
 
 
-											<td  style="text-align: center;" id='tax_amt${grnConfList.itemId}' class="col-md-1"><c:out value="${grnConfList.taxAmt}"></c:out></td>
+											<td  style="text-align: center;" id='tax_amt${grnConfList.billDetailNo}' class="col-md-1"><c:out value="${grnConfList.taxAmt}"></c:out></td>
 
 											<fmt:formatNumber var="grnAmt" type="number"
 												minFractionDigits="2" maxFractionDigits="2"
@@ -193,12 +193,12 @@ table, th, td {
 
 											<c:set var="grnAmt" value="${grnAmt}" />
 
-											<td  style="text-align: center;" class="col-md-1" id="grn_amt${grnConfList.itemId}"><c:out
+											<td  style="text-align: center;" class="col-md-1" id="grn_amt${grnConfList.billDetailNo}"><c:out
 													value="${grnAmt}"></c:out></td>
 
 											<td  style="text-align: center;" class="col-md-1"><select
-												name="grn_remark${grnConfList.itemId}" style="width: 200px" required="required"
-												id="grn_remark${grnConfList.itemId}" class="form-control" onchange="changeQty(${grnConfList.itemId},${grnConfList.autoGrnQty})">
+												name="grn_remark${grnConfList.billDetailNo}" style="width: 200px" required="required"
+												id="grn_remark${grnConfList.billDetailNo}" class="form-control" onchange="changeQty(${grnConfList.billDetailNo},${grnConfList.autoGrnQty})">
 													<option selected value="0">Goods Expired</option>
 													<c:forEach items="${remarkList}" var="remarkList">
 																${remarkList.remark}
@@ -268,16 +268,16 @@ table, th, td {
 	
 	<script type="text/javascript">
 	
-	function changeQty(itemId,autoQty){
+	function changeQty(billDetailNo,autoQty){
 		//alert("HIII "+ itemId);
 		
-		var remark = document.getElementById("grn_remark"+itemId).value;
+		var remark = document.getElementById("grn_remark"+billDetailNo).value;
 	 //	alert(remark);
 	 	if(remark==0){
 	 		//alert("In remark ==0");
-			    document.getElementById("grnqtyauto"+itemId).value=autoQty;
+			    document.getElementById("grnqtyauto"+billDetailNo).value=autoQty;
 	 	}else{
-			 $("#grnqtyauto"+itemId).removeAttr("readonly"); 
+			 $("#grnqtyauto"+billDetailNo).removeAttr("readonly"); 
 	 	}
 		 
 	}
@@ -286,7 +286,7 @@ table, th, td {
 
 <script type="text/javascript">
 	
-	function calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty){
+	function calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty,billDetailNo){
 		
 		
 		var baseRate=rate*100/(sgstPer+cgstPer+100);
@@ -294,11 +294,11 @@ table, th, td {
 		var grnBaseRate;
 		
 		var grnRate;
-		var grnQty=$("#grnqtyauto"+itemId).val();
+		var grnQty=$("#grnqtyauto"+billDetailNo).val();
 		
 		if(parseInt(grnQty)>autoQty){
 			alert("Edit Quantity can not be greater than Auto Quantity");
-			document.getElementById("grnqtyauto"+itemId).value=autoQty;
+			document.getElementById("grnqtyauto"+billDetailNo).value=autoQty;
 			//calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty)
 		}else{
 		
@@ -310,14 +310,14 @@ table, th, td {
 			var hidden=$("#hidden_auto_qty"+itemId).val();
 			alert(hidden); */
 			
-			var grnRate=$("#grn_rate"+itemId).text();
+			var grnRate=$("#grn_rate"+billDetailNo).text();
 			
-			grnBaseRate = baseRate * 75 / 100;
+			grnBaseRate = baseRate * 80 / 100;
 			 
-			 grnRate=(rate * 75) / 100;
+			 grnRate=(rate * 80) / 100;
 			
 			//var grnAmt=parseFloat(grnQty)*parseFloat(grnRate);
-			//grnAmt=grnAmt*75/100;	
+			//grnAmt=grnAmt*80/100;	
 			//$("#grn_amt"+itemId).html(grnAmt.toFixed(2));
 		
 		}
@@ -329,7 +329,7 @@ table, th, td {
 			var hidden=$("#hidden_auto_qty"+itemId).val();
 			alert(hidden); */
 			
-			var grnRate=$("#grn_rate"+itemId).text();
+			var grnRate=$("#grn_rate"+billDetailNo).text();
 			
 			grnBaseRate = baseRate * 90 / 100;
 			
@@ -351,7 +351,7 @@ table, th, td {
 			alert(hidden); */
 			
 			
-			var grnRate=$("#grn_rate"+itemId).text();
+			var grnRate=$("#grn_rate"+billDetailNo).text();
 			
 			grnBaseRate=baseRate;
 			grnRate=rate;
@@ -366,7 +366,7 @@ table, th, td {
 			if(grnType==4){
 				
 				//var grnQty=$("#grnqtyauto"+itemId).val();
-				var grnRate=$("#grn_rate"+itemId).text();
+				var grnRate=$("#grn_rate"+billDetailNo).text();
 				grnBaseRate=baseRate;
 				grnRate=rate;
 				
@@ -383,12 +383,12 @@ table, th, td {
 			 */
 		//$("#grn_rate"+itemId).html(baseRate.toFixed(2));
 
-		$("#grn_amt"+itemId).html(grandTotal.toFixed(2));
-		$("#tax_per"+itemId).html(totTaxPer.toFixed(2));
+		$("#grn_amt"+billDetailNo).html(grandTotal.toFixed(2));
+		$("#tax_per"+billDetailNo).html(totTaxPer.toFixed(2));
 		
-		$("#taxable_amt"+itemId).html(taxableAmt.toFixed(2));
+		$("#taxable_amt"+billDetailNo).html(taxableAmt.toFixed(2));
 
-		$("#tax_amt"+itemId).html(totalTax.toFixed(2));
+		$("#tax_amt"+billDetailNo).html(totalTax.toFixed(2));
 
 		/* var x=$("#grn_remark"+itemId).val();
 		if(grnQty>0){

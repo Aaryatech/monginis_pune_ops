@@ -606,11 +606,11 @@ public class GrnGvnController {
 					float grnRate = 0.0f;
 
 					if (objShowGrn.getGrnType() == 0) {
-						grnBaseRate = baseRate * 75 / 100;
+						grnBaseRate = baseRate * 80 / 100;
 
-						// grnRate = (objShowGrn.getRate() * 75) / 100;
+						// grnRate = (objShowGrn.getRate() * 80) / 100;
 
-						grnRate = (baseRate * 75) / 100;
+						grnRate = (baseRate * 80) / 100;
 					}
 
 					if (objShowGrn.getGrnType() == 1) {
@@ -805,9 +805,9 @@ public class GrnGvnController {
 				DateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
 				Calendar calDate = Calendar.getInstance();
 
-				String tempGrnQtyAuto = request.getParameter("grnqtyauto" + objShowGrnList.get(i).getItemId() + "");
+				String tempGrnQtyAuto = request.getParameter("grnqtyauto" + objShowGrnList.get(i).getBillDetailNo() + "");
 
-				String tempGrnQty = request.getParameter("grnqty" + objShowGrnList.get(i).getItemId() + "");
+				String tempGrnQty = request.getParameter("grnqty" + objShowGrnList.get(i).getBillDetailNo() + "");
 
 				System.out.println("tempGrnQty ===" + tempGrnQty);
 
@@ -824,7 +824,7 @@ public class GrnGvnController {
 					isEdit = 0;
 				}
 
-				String frGrnRemark = request.getParameter("grn_remark" + objShowGrnList.get(i).getItemId());
+				String frGrnRemark = request.getParameter("grn_remark" + objShowGrnList.get(i).getBillDetailNo());
 
 				if (frGrnRemark == null || frGrnRemark == "") {
 					frGrnRemark = "no remark entered";
@@ -843,9 +843,9 @@ public class GrnGvnController {
 				float grnRate = 0.0f;
 
 				if (objShowGrnList.get(i).getGrnType() == 0) {
-					grnBaseRate = baseRate * 75 / 100;
+					grnBaseRate = baseRate * 80 / 100;
 
-					grnRate = (objShowGrnList.get(i).getRate() * 75) / 100;
+					grnRate = (objShowGrnList.get(i).getRate() * 80) / 100;
 					// postGrnGvn.setGrnGvnAmt(roundUp(grnAmt));
 				}
 
@@ -1294,7 +1294,7 @@ public class GrnGvnController {
 					
 				}
 
-				System.out.println("info :" + sellBillHeaderRes.toString());
+				//System.out.println("info :" + sellBillHeaderRes.toString());
 
 				// update frSetting value for frGrnGvnSrNo
 				map = new LinkedMultiValueMap<String, Object>();
@@ -1606,7 +1606,7 @@ public class GrnGvnController {
 
 						System.out.println("Bill Detail Matched " + gvnItemBillDetailNo[i]);
 
-						String strGvnQty = request.getParameter("gvn_qty" + objShowGvnList.get(j).getItemId());
+						String strGvnQty = request.getParameter("gvn_qty" + objShowGvnList.get(j).getBillDetailNo());
 
 						int gvnQty = Integer.parseInt(strGvnQty);
 
@@ -1672,7 +1672,7 @@ public class GrnGvnController {
 				DateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
 				Calendar calDate = Calendar.getInstance();
 
-				String frGvnRemark = request.getParameter("gvn_remark" + gvnList.get(i).getItemId());
+				String frGvnRemark = request.getParameter("gvn_remark" + gvnList.get(i).getBillDetailNo());
 
 				if (frGvnRemark.equalsIgnoreCase("Customer Complaint")) {
 
@@ -2054,7 +2054,7 @@ public class GrnGvnController {
 				float refRate = 0;
 				if (grnDetailList.get(i).getGrnType() == 0) {
 
-					refRate = grnDetailList.get(i).getItemRate() * 75 / 100;
+					refRate = grnDetailList.get(i).getItemRate() * 80 / 100;
 				}
 				if (grnDetailList.get(i).getGrnType() == 1) {
 

@@ -209,7 +209,7 @@ table, th, td {
 										<c:forEach items="${gvnConfList}" var="gvnConfList"
 											varStatus="count">
 
-											<input type="hidden" id="b_qty${gvnConfList.itemId}"
+											<input type="hidden" id="b_qty${gvnConfList.billDetailNo}"
 												value="${gvnConfList.billQty}" />
 
 											<tr id="row${gvnConfList.billDetailNo}">
@@ -220,16 +220,16 @@ table, th, td {
 												<td class="col-md-3">${gvnConfList.itemName}</td>
 												<td class="col-md-2" style="text-align: right;">${gvnConfList.billQty}</td>
 												<td class="col-md-1" style="text-align: center;"><input type="text"
-													name="gvn_qty${gvnConfList.itemId}"
-													id='gvn_qty${gvnConfList.itemId}' size="5" value="0" 
+													name="gvn_qty${gvnConfList.billDetailNo}"
+													id='gvn_qty${gvnConfList.billDetailNo}' size="5" value="0" 
 													onkeyup="calcGvn(${gvnConfList.calcBaseRate},${gvnConfList.itemId},${gvnConfList.sgstPer},${gvnConfList.cgstPer},${gvnConfList.billDetailNo})" /></td>
 
 												<td class="col-md-1" style="text-align: right;">${gvnConfList.rate}</td>
 
-												<td class="col-md-1" id="tax_per${gvnConfList.itemId}" style="text-align: right;"><c:out
+												<td class="col-md-1" id="tax_per${gvnConfList.billDetailNo}" style="text-align: right;"><c:out
 														value="00"></c:out></td>
 
-												<td class="col-md-2" id="gvn_amt${gvnConfList.itemId}" style="text-align: right;"><c:out
+												<td class="col-md-2" id="gvn_amt${gvnConfList.billDetailNo}" style="text-align: right;"><c:out
 														value="00"></c:out></td>
 
 											</tr>
@@ -332,13 +332,13 @@ function calcGvn(baseRate,itemId,sgstPer,cgstPer,billDetailNo){
 	
 	$("#"+billDetailNo).prop("checked", false);
 		document.getElementById("row"+billDetailNo).style.backgroundColor="white";
-		$("#gvn_amt"+itemId).html(0);//new
-	var gvnQty=$("#gvn_qty"+itemId).val();
-	var billQty=$("#b_qty"+itemId).val();
+		$("#gvn_amt"+billDetailNo).html(0);//new
+	var gvnQty=$("#gvn_qty"+billDetailNo).val();
+	var billQty=$("#b_qty"+billDetailNo).val();
 //	alert("gvnQty ="+gvnQty+ "Bill Qty "+billQty);
 	if(parseInt(gvnQty) > parseInt(billQty)){
 		
-		document.getElementById("gvn_qty"+itemId).value=0;
+		document.getElementById("gvn_qty"+billDetailNo).value=0;
 		alert("GVN Qty can not be greater than Purchase Qty ");
 		//var zero=0;
 		//$("#gvn_qty"+itemId).value=0;
@@ -358,12 +358,12 @@ function calcGvn(baseRate,itemId,sgstPer,cgstPer,billDetailNo){
 		
 		var grandTotal=taxableAmt+totalTax;
 		
-		$("#gvn_amt"+itemId).html(grandTotal.toFixed(2));
+		$("#gvn_amt"+billDetailNo).html(grandTotal.toFixed(2));
 		
 		var taxPer=parseFloat(sgstPer)+parseFloat(cgstPer);
-		$("#tax_per"+itemId).html(taxPer.toFixed(2));
+		$("#tax_per"+billDetailNo).html(taxPer.toFixed(2));
 
-var x=$("#gvn_remark"+itemId).val();
+var x=$("#gvn_remark"+billDetailNo).val();
 
 if(gvnQty>0){
 document.getElementById(""+billDetailNo).checked = true;
