@@ -30,8 +30,19 @@ public class ShowGrnBean {
         
         private float taxAmt;
         
+       private float discPer;
+       
         
-	    public float getTaxableAmt() {
+        
+	    public float getDiscPer() {
+		return discPer;
+	}
+
+	public void setDiscPer(float discPer) {
+		this.discPer = discPer;
+	}
+
+		public float getTaxableAmt() {
 			return taxableAmt;
 		}
 
@@ -209,7 +220,7 @@ public class ShowGrnBean {
 					+ cgstPer + ", igstPer=" + igstPer + ", calcBaseRate=" + calcBaseRate + ", menuId=" + menuId
 					+ ", catId=" + catId + ", invoiceNo=" + invoiceNo + ", autoGrnQty=" + autoGrnQty + ", taxPer="
 					+ taxPer + ", grnAmt=" + grnAmt + ", billDateTime=" + billDateTime + ", taxableAmt=" + taxableAmt
-					+ ", grnRate=" + grnRate + ", taxAmt=" + taxAmt + "]";
+					+ ", grnRate=" + grnRate + ", taxAmt=" + taxAmt + ", discPer=" + discPer + "]";
 		}
 		
 }

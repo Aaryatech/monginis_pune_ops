@@ -31,7 +31,19 @@ public class GetGrnItemConfig {
 
     private String billDateTime;
     
+    private float discPer;
     
+    
+    
+    
+	public float getDiscPer() {
+		return discPer;
+	}
+
+	public void setDiscPer(float discPer) {
+		this.discPer = discPer;
+	}
+
 	public int getCatId() {
 		return catId;
 	}
@@ -190,7 +202,8 @@ public class GetGrnItemConfig {
 				+ ", itemName=" + itemName + ", grnType=" + grnType + ", billNo=" + billNo + ", rate=" + rate + ", mrp="
 				+ mrp + ", billQty=" + billQty + ", billDate=" + billDate + ", sgstPer=" + sgstPer + ", cgstPer="
 				+ cgstPer + ", igstPer=" + igstPer + ", catId=" + catId + ", menuId=" + menuId + ", invoiceNo="
-				+ invoiceNo + ", autoGrnQty=" + autoGrnQty + ", billDateTime=" + billDateTime + "]";
+				+ invoiceNo + ", autoGrnQty=" + autoGrnQty + ", billDateTime=" + billDateTime + ", discPer=" + discPer
+				+ "]";
 	}
 
 	

@@ -329,7 +329,7 @@ table, th, td {
 
 <script type="text/javascript">
 function calcGvn(baseRate,itemId,sgstPer,cgstPer,billDetailNo){
-	
+	alert(baseRate);
 	$("#"+billDetailNo).prop("checked", false);
 		document.getElementById("row"+billDetailNo).style.backgroundColor="white";
 		$("#gvn_amt"+billDetailNo).html(0);//new
@@ -349,6 +349,7 @@ function calcGvn(baseRate,itemId,sgstPer,cgstPer,billDetailNo){
 
 	
 	var gvnAmt=parseFloat(gvnQty)*parseFloat(baseRate);
+	gvnAmt.toFixed(2);
 	//alert(gvnAmt);
 	//$("#gvn_amt"+itemId).html(gvnAmt.toFixed(2));
 

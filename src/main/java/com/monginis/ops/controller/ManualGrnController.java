@@ -104,7 +104,7 @@ public class ManualGrnController {
 	List<GetAllRemarks> getAllRemarks;
 	List<ShowGrnBean> objShowGrnList = new ArrayList<>();
 	public static float roundUp(float d) {
-		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+		return BigDecimal.valueOf(d).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 
 	@RequestMapping(value = "/getGrnBillDetail", method = RequestMethod.GET)
@@ -150,6 +150,8 @@ public class ManualGrnController {
 
 					objShowGrn = new ShowGrnBean();
 
+					objShowGrn.setDiscPer(grnConfList.get(i).getDiscPer());
+					
 					objShowGrn.setBillDate(grnConfList.get(i).getBillDate());
 					objShowGrn.setBillDetailNo(grnConfList.get(i).getBillDetailNo());
 					objShowGrn.setBillNo(grnConfList.get(i).getBillNo());
@@ -203,6 +205,8 @@ public class ManualGrnController {
 					// objShowGrn.setGrnRate(roundUp(grnRate));
 
 					float taxableAmt = grnRate * objShowGrn.getAutoGrnQty();
+					float discAmt=(taxableAmt*objShowGrn.getDiscPer()/100);
+					taxableAmt=taxableAmt-discAmt;
 					objShowGrn.setTaxableAmt(roundUp(taxableAmt));
 
 					float totalTax = (taxableAmt * (objShowGrn.getSgstPer() + objShowGrn.getCgstPer())) / 100;
@@ -337,6 +341,8 @@ System.err.println("Inside Manual Grn POST method ");
 				DateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
 				Calendar calDate = Calendar.getInstance();
 				GrnGvn postGrnGvn = new GrnGvn();
+				
+				
 
 				String tempGrnQtyAuto = request.getParameter("grnqtyauto" + objShowGrnList.get(i).getBillDetailNo() + "");
 				/*tempGrnQtyAuto="2";
@@ -391,13 +397,15 @@ System.err.println("Inside Manual Grn POST method ");
 				}
 
 				float taxableAmt = grnBaseRate * grnQty;
-
+				float discAmt=(taxableAmt*objShowGrnList.get(i).getDiscPer()/100);
+				taxableAmt=taxableAmt-discAmt;
 				float totalTax = (taxableAmt
 						* (objShowGrnList.get(i).getSgstPer() + objShowGrnList.get(i).getCgstPer())) / 100;
 
 				float grandTotal = taxableAmt + totalTax;
 
-				float finalAmt = grnRate * grnQty;
+				//float finalAmt = grnRate * grnQty;
+				float finalAmt = (objShowGrnList.get(i).getRate() * grnQty)-((objShowGrnList.get(i).getRate() * grnQty) *   objShowGrnList.get(i).getDiscPer()/100);
 
 				postGrnGvn.setGrnGvnAmt(roundUp(grandTotal));
 				float roundUpAmt = finalAmt - grandTotal;
@@ -421,12 +429,15 @@ System.err.println("Inside Manual Grn POST method ");
 					postGrnGvn.setBillDetailNo(objShowGrnList.get(i).getBillDetailNo());// 15 Feb added
 
 					curDateTime = dateFormat.format(cal.getTime());
-
+					
+					postGrnGvn.setItemMrp(objShowGrnList.get(i).getDiscPer());//setting disc Per in Grn_gvn detail 4 Feb 2019
+					
+					
 					postGrnGvn.setBillNo(objShowGrnList.get(i).getBillNo());
 					postGrnGvn.setFrId(frDetails.getFrId());
 					postGrnGvn.setItemId(objShowGrnList.get(i).getItemId());
 					postGrnGvn.setItemRate(objShowGrnList.get(i).getRate());
-					postGrnGvn.setItemMrp(objShowGrnList.get(i).getMrp());
+					//postGrnGvn.setItemMrp(objShowGrnList.get(i).getMrp());
 					postGrnGvn.setGrnGvnQty(grnQty);
 					postGrnGvn.setGrnType(objShowGrnList.get(i).getGrnType());
 					postGrnGvn.setIsGrn(1);
