@@ -649,7 +649,7 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" max="500"
+																		<td><input type="number" min="0" 
 																			class="form-control" name="qty2" id="qty2" value="1"
 																			onkeypress="onQty(event,2)" onblur="onTab(2)"
 																			oninput="validity.valid||(value='');"></td>
@@ -896,7 +896,7 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" max="500"
+																		<td><input type="number" min="0" 
 																			class="form-control" name="qty3" id="qty3" value="1"
 																			onkeypress="onQty(event,3)" onblur="onTab(3)"
 																			oninput="validity.valid||(value='');"></td>
@@ -1140,7 +1140,7 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" max="500"
+																		<td><input type="number" min="0" 
 																			class="form-control" name="qty4" id="qty4" value="1"
 																			onkeypress="onQty(event,4)" onblur="onTab(4)"
 																			oninput="validity.valid||(value='');"></td>
@@ -1383,7 +1383,7 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" max="500"
+																		<td><input type="number" min="0" 
 																			class="form-control" name="qty5" id="qty5" value="1"
 																			onkeypress="onQty(event,5)" onblur="onTab(5)"
 																			oninput="validity.valid||(value='');"></td>
@@ -1617,7 +1617,7 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" max="500"
+																		<td><input type="number" min="0" 
 																			class="form-control" name="qty6" id="qty6" value="1"
 																			onkeypress="onQty(event,6)" onblur="onTab(6)"
 																			oninput="validity.valid||(value='');"></td>
@@ -1860,7 +1860,7 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" max="500"
+																		<td><input type="number" min="0" 
 																			class="form-control" name="qty7" id="qty7" value="1"
 																			onkeypress="onQty(event,7)" onblur="onTab(7)"
 																			oninput="validity.valid||(value='');"></td>

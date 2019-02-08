@@ -329,10 +329,9 @@ $("#tech").change(function() {
 <!--rightForm-->	
 <div class="right">
 	<div class="priceBox">
-		<h2 class="inrbox">INR - 
-        <span id="pro_grand_totla_1">
+		<h2 class="inrbox"  style="font-size: 20px;">INR - 
+        <span id="pro_grand_totla_1"   style="font-size: 20px;">
 		 ${specialCake.spGrandTotal}</span></h2>
-        
 		<div class="inrboxmiddle">
 			<ul>
 				<li>
@@ -347,6 +346,16 @@ $("#tech").change(function() {
 					<div class="priceLeft">Add Rate </div>
 					<div class="priceRight" id="pro_adon_price">${specialCake.spTotalAddRate}</div>
                     
+				</li>
+				<li>
+					<div class="priceLeft">Extra Charges </div>
+					<div class="priceRight" id="ex_charges">${exCharges}</div>
+                   
+				</li>
+				<li>
+					<div class="priceLeft">Discount(%) </div>
+					<div class="priceRight" id="ex_disc">${disc}</div>
+                   
 				</li>
 				<li>
 					<div class="priceLeft">Sub Total </div>

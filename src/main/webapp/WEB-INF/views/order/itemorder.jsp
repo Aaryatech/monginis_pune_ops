@@ -536,7 +536,7 @@ a:hover {
 			if(qty % minqty==0){
 			    var total = rate * qty;
 			
-			   $('#total'+id).html(total);
+			   $('#total'+id).html(total.toFixed(2));
 			}else
 			{
 				 var total =0;

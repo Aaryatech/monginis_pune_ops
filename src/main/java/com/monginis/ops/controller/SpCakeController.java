@@ -1,6 +1,7 @@
 package com.monginis.ops.controller;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -63,8 +64,8 @@ public class SpCakeController {
 	FlavourList flavourList;
 	List<SpMessage> spMessageList;
 	List<String> configuredSpCodeList;
-
-	private int globalIndex = 2;
+	int cutSec=0;
+	private int globalIndex = 0;
 	ArrayList<FrMenu> menuList;
 
 	private int currentMenuId = 0;
@@ -74,7 +75,12 @@ public class SpCakeController {
 	SpecialCake specialCake;
 	String flavour = "";
 	String spImage= "";// Default Image to spCake order Page
-
+	
+	float exCharges;
+	float disc;
+	String ctype;
+	
+	
 	//--------------------------------------------------------
 	String menuTitle="";
 	int spType; 
@@ -207,6 +213,10 @@ public class SpCakeController {
 					map, SearchSpCakeResponse.class);
 			ErrorMessage errorMessage = searchSpCakeResponse.getErrorMessage();
 			specialCake = searchSpCakeResponse.getSpecialCake();
+			System.out.println("sp id is:::"+specialCake.getSpId());
+			 cutSec =searchSpCakeResponse.getSpCakeSup().getCutSection();
+			
+			System.out.println("cutSec is ::::"+cutSec);
           //-------------------------------------------------Order No Generation------------------------------
 			String spNo="";
 		      try {
@@ -364,6 +374,8 @@ public class SpCakeController {
 		model.addObject("configuredSpCodeList", configuredSpCodeList);
 		model.addObject("menuId", currentMenuId);
 		model.addObject("menuTitle", menuTitle);
+		model.addObject("cutSec", cutSec);
+		
 		return model;
 		
 	}
@@ -436,6 +448,8 @@ public class SpCakeController {
 	}
 
 	int globalFrId;
+
+	private float extraCharges;
 
 	// --------------------------------------END--------------------------------------------------------------
 	public String getInvoiceNo(HttpServletRequest request, HttpServletResponse response) {
@@ -660,6 +674,16 @@ public class SpCakeController {
 			String spPlace = request.getParameter("sp_place");
 			logger.info("33" + spPlace);
  
+			 exCharges = Float.parseFloat(request.getParameter("sp_ex_charges"));
+				logger.info("34" + exCharges);
+				
+				
+				 disc = Float.parseFloat(request.getParameter("sp_disc"));
+				logger.info("35" + disc);
+				
+				 ctype = request.getParameter("ctype");
+					logger.info("36" + ctype);
+	 
 			 spPhoUpload = request.getParameter("spPhoUpload");
 
 			String eventName = request.getParameter("event_name");
@@ -869,12 +893,20 @@ public class SpCakeController {
 			spCakeOrder.setMenuId(currentMenuId);
 			spCakeOrder.setIsSlotUsed(isSlotUsed);
 			spCakeOrder.setIsAllocated(0);
-
+			
+			spCakeOrder.setExtraCharges(extraCharges);;
+			spCakeOrder.setDisc(disc);
+			spCakeOrder.setExVar1(ctype);
 			// Float floatBackEndRate = backendSpRate*spWeight;
 			// float intAddonRatePerKG = Float.parseFloat(spAddRate);
 
+			/*float intAddonRatePerKG = (dbAdonRate * 0.8f);
+			float floatBackEndRate = (backendSpRate + intAddonRatePerKG) * spWeight;*/
+			
+			
 			float intAddonRatePerKG = (dbAdonRate * 0.8f);
-			float floatBackEndRate = (backendSpRate + intAddonRatePerKG) * spWeight;
+			float extraCharges = (exCharges * 0.8f);
+			float floatBackEndRate = ((backendSpRate + intAddonRatePerKG) * spWeight)+extraCharges;
 			System.out.println("Placing Order: \n Back End Rate " + floatBackEndRate);
 			System.out.println("Placing Order: \n Add On Rate " + intAddonRatePerKG);
 
@@ -1024,6 +1056,9 @@ public class SpCakeController {
 					mav.addObject("PHOTO_URL", Constant.PHOTO_CAKE_URL);
 					mav.addObject("globalIndex", globalIndex);
 					mav.addObject("isFound", true);
+					mav.addObject("exCharges", exCharges);
+					mav.addObject("disc", disc);
+
 				}
 				else
 				{
@@ -1052,7 +1087,7 @@ public class SpCakeController {
 				mav.addObject("sprRate", 0);
 				mav.addObject("isFound", false);
 				mav.addObject("globalIndex", globalIndex);
-
+				
 			}
 			
 		}catch (Exception e) {

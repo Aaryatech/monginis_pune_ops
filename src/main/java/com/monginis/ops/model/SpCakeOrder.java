@@ -50,8 +50,57 @@ private int isSlotUsed;
 private int isBillGenerated;
 private int isAllocated;
 
+private float extraCharges;
+
+private float disc;
+
+private int exInt1;
+
+private int exInt2;
+
+private String exVar1;
+
+private String exVar2;
 
 
+
+
+public float getExtraCharges() {
+	return extraCharges;
+}
+public void setExtraCharges(float extraCharges) {
+	this.extraCharges = extraCharges;
+}
+public float getDisc() {
+	return disc;
+}
+public void setDisc(float disc) {
+	this.disc = disc;
+}
+public int getExInt1() {
+	return exInt1;
+}
+public void setExInt1(int exInt1) {
+	this.exInt1 = exInt1;
+}
+public int getExInt2() {
+	return exInt2;
+}
+public void setExInt2(int exInt2) {
+	this.exInt2 = exInt2;
+}
+public String getExVar1() {
+	return exVar1;
+}
+public void setExVar1(String exVar1) {
+	this.exVar1 = exVar1;
+}
+public String getExVar2() {
+	return exVar2;
+}
+public void setExVar2(String exVar2) {
+	this.exVar2 = exVar2;
+}
 public int getIsAllocated() {
 	return isAllocated;
 }
@@ -316,7 +365,6 @@ public int getIsBillGenerated() {
 public void setIsBillGenerated(int isBillGenerated) {
 	this.isBillGenerated = isBillGenerated;
 }
-
 @Override
 public String toString() {
 	return "SpCakeOrder [spOrderNo=" + spOrderNo + ", frId=" + frId + ", frCode=" + frCode + ", spType=" + spType
@@ -331,7 +379,10 @@ public String toString() {
 			+ ", spTotalAddRate=" + spTotalAddRate + ", spSubTotal=" + spSubTotal + ", spAdvance=" + spAdvance
 			+ ", rmAmount=" + rmAmount + ", tax1=" + tax1 + ", tax2=" + tax2 + ", tax1Amt=" + tax1Amt + ", tax2Amt="
 			+ tax2Amt + ", orderPhoto=" + orderPhoto + ", orderDate=" + orderDate + ", orderPhoto2=" + orderPhoto2
-			+ ", isSlotUsed=" + isSlotUsed + ", isBillGenerated=" + isBillGenerated + "]";
+			+ ", isSlotUsed=" + isSlotUsed + ", isBillGenerated=" + isBillGenerated + ", isAllocated=" + isAllocated
+			+ ", extraCharges=" + extraCharges + ", disc=" + disc + ", exInt1=" + exInt1 + ", exInt2=" + exInt2
+			+ ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
 }
+
 
 }

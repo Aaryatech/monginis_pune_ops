@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
-    
+  <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -145,7 +145,9 @@ document.body.onload = function()
           <tr>
             <td rowspan="3">&nbsp;</td>
             <td colspan="2" align="right"><strong>Total :</strong></td>
-            <td align="right"><strong>${spCakeOrder.spSubTotal}</strong></td>
+             <td align="right"><strong><fmt:formatNumber type = "number" 
+         maxFractionDigits = "2"   minFractionDigits = "2" value = "${spCakeOrder.spSubTotal}"/></strong></td>
+            
           </tr>
           <tr>
             <td colspan="2" align="right"><strong>Advance :</strong></td>

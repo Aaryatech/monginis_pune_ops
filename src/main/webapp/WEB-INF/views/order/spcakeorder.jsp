@@ -68,6 +68,11 @@ select {
         // Enable transliteration in the textbox with id
         // 'transliterateTextarea'.
         control.makeTransliteratable(['transliterateTextarea']);
+        
+        showCtype();
+        
+        
+        
       }
       google.setOnLoadCallback(onLoad);
     </script>
@@ -461,6 +466,28 @@ select {
 			<div class="col2full"><input class="texboxitemcode" placeholder="Mobile No." name="sp_cust_mobile_no" type="text" id="sp_cust_mobile_no" required ></div>
 	
 	</div>
+	
+	<div class="colOuter" id="ctype1">
+			<div class="col1"><div class="col1title">Cake Type</div></div>
+	
+			<div class="col2full"><input class="texboxitemcode"  name="ctype" type="text" id="ctype" required ></div>
+	
+	</div>
+	
+<!-- 	<div class="colOuter">
+			<div class="col1"><div class="col1title">Cake Type1</div></div>
+	
+			<div class="col2full"><input class="texboxitemcode"  name="ctype1" type="text" id="ctype1" required ></div>
+	
+	</div>
+	 -->
+	
+	<div class="colOuter">
+			<div class="col1"><div class="col1title"></div></div>
+	
+			<div class="col2full"><input class="texboxitemcode"  name="temp" type="hidden" id="temp" value="${cutSec}" required ></div>
+	
+	</div>
 	 <span class="cakename"id="slotsNotAvailable"></span>
 	
 	<div class="colOuter">
@@ -499,6 +526,15 @@ select {
 					<div class="priceLeft">Add Rate </div>
 					<div class="priceRight"  id="rate" >00</div>
 					 <input name="sp_add_rate" id="sp_add_rate"  type="hidden" value="0">
+				</li>
+				
+				<li>
+					<div class="priceLeft">Extra Charges </div>
+					<div class="priceRight"><input name="sp_ex_charges" id="sp_ex_charges"  type="text"  value="0" oninput="chChange()"  style="width:75px;border-radius:20px;text-align:center;height: 27px;"></div>
+				</li>
+				<li>
+					<div class="priceLeft">Discount(%) </div>
+					<div class="priceRight"><input name="sp_disc" id="sp_disc"  type="text"  value="0"  oninput="chChange()" style="width:75px;border-radius:20px;text-align:center;height: 27px;"></div>
 				</li>
 				<li>
 					<div class="priceLeft">Sub Total </div>
@@ -660,15 +696,24 @@ $(document).ready(function() {
 			var tax3 = parseFloat($("#tax3").val());
 			var tax1 = parseFloat($("#tax1").val());
 			var tax2 = parseFloat($("#tax2").val());
+			var sp_ex_charges= parseFloat($("#sp_ex_charges").val());
+			var sp_disc=parseFloat($("#sp_disc").val());
 			//alert("tax1:"+tax1+"tax2"+tax2+"tax3"+tax3);
-			
+			document.getElementById("adv").value=0;
 			
 			var totalCakeRate = wt*dbRate;
 			var totalFlavourAddonRate = wt*flavourAdonRate;
 		    var add=parseFloat(totalCakeRate+totalFlavourAddonRate);
 		    var grandTotal=parseFloat(add);
-			var spSubtotal=add;
+		    var spSubtotal=add+sp_ex_charges;
+//alert("with sp_ex_charges"+spSubtotal);
 			
+			
+			var disc_amt=(spSubtotal*sp_disc)/100;
+			//alert("disc_amt"+disc_amt);
+			
+			spSubtotal=spSubtotal-disc_amt;
+			//alert("final "+spSubtotal);
 			var mrpBaseRate=parseFloat((spSubtotal*100)/(tax3+100));
 			
 			var gstInRs=0;
@@ -718,15 +763,15 @@ $(document).ready(function() {
 			$('sp_calc_price').html(wt*dbRate);
 			$('#rate').html(wt*flavourAdonRate);	
 			document.getElementById("sp_add_rate").setAttribute('value',wt*flavourAdonRate);
-			$('#subtotal').html(grandTotal);	
-			document.getElementById("sp_sub_total").setAttribute('value',add);
+			$('#subtotal').html(spSubtotal);	
+			document.getElementById("sp_sub_total").setAttribute('value',spSubtotal);
 			
-			$('#INR').html('INR-'+grandTotal);
-			document.getElementById("sp_grand").setAttribute('value',grandTotal);
-			$('#tot').html('TOTAL-'+grandTotal);
-			document.getElementById("total_amt").setAttribute('value',grandTotal);
+			$('#INR').html('INR-'+spSubtotal);
+			document.getElementById("sp_grand").setAttribute('value',spSubtotal);
+			$('#tot').html('TOTAL-'+spSubtotal);
+			document.getElementById("total_amt").setAttribute('value',spSubtotal);
 			$('#rmAmt').html(grandTotal);
-			document.getElementById("rm_amount").setAttribute('value',grandTotal);
+			document.getElementById("rm_amount").setAttribute('value',spSubtotal);
 			
 			document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
 			
@@ -749,7 +794,7 @@ $(document).ready(function() {
 				
 					document.getElementById("sp_add_rate").setAttribute('value',data.spfAdonRate);
 				
-					
+					document.getElementById("adv").value=0;
 					var wt = $('#spwt').find(":selected").text();
 					
 					var flavourAdonRate =data.spfAdonRate;
@@ -757,14 +802,21 @@ $(document).ready(function() {
 					var tax3 = parseFloat($("#tax3").val());
 					var tax1 = parseFloat($("#tax1").val());
 					var tax2 = parseFloat($("#tax2").val());
-					
+					var sp_ex_charges= parseFloat($("#sp_ex_charges").val());
+					//alert("sp_ex_charges"+sp_ex_charges);
+					var sp_disc=parseFloat($("#sp_disc").val());
+					//alert("sp_disc"+sp_disc);
 					var price = $("#dbPrice").val();
 				
 					var totalFlavourAddonRate= wt*flavourAdonRate;
 					
 					 var totalCakeRate= wt*price;
-					 var totalAmount=parseFloat(totalCakeRate+totalFlavourAddonRate);
+					 var totalAmount=parseFloat(totalCakeRate+totalFlavourAddonRate)+sp_ex_charges;
+					 //alert("total amt is  without sp_ex_charges :"+totalAmount);
 					 
+					 var disc_amt=(totalAmount*sp_disc)/100;
+					 //alert("disc amt  is :"+disc_amt);
+					 totalAmount=totalAmount-disc_amt;
 					 var mrpBaseRate=parseFloat((totalAmount*100)/(tax3+100));
 				    /*  var gstInRs=parseFloat((mrpBaseRate*tax3)/100);
 				     
@@ -814,15 +866,15 @@ $(document).ready(function() {
 					    $('#price').html(totalCakeRate);$('#sp_calc_price').html(totalCakeRate);
 						$('#rate').html(totalFlavourAddonRate);$('#sp_add_rate').html(totalFlavourAddonRate);
 						document.getElementById("sp_add_rate").setAttribute('value',totalFlavourAddonRate);
-						$('#subtotal').html(totalCakeRate+totalFlavourAddonRate);
+						$('#subtotal').html( totalAmount);
 						
-						document.getElementById("sp_sub_total").setAttribute('value',totalCakeRate+totalFlavourAddonRate);
-						$('#INR').html('INR-'+grandTotal);
-						document.getElementById("sp_grand").setAttribute('value',grandTotal);
-						$('#tot').html('TOTAL-'+grandTotal);
-						document.getElementById("total_amt").setAttribute('value',grandTotal);
+						document.getElementById("sp_sub_total").setAttribute('value', totalAmount);
+						$('#INR').html('INR-'+ totalAmount);
+						document.getElementById("sp_grand").setAttribute('value', totalAmount);
+						$('#tot').html('TOTAL-'+ totalAmount);
+						document.getElementById("total_amt").setAttribute('value', totalAmount);
 						$('#rmAmt').html(grandTotal);
-						document.getElementById("rm_amount").setAttribute('value',grandTotal);
+						document.getElementById("rm_amount").setAttribute('value', totalAmount);
 						
 						document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
 						
@@ -837,6 +889,114 @@ $(document).ready(function() {
 			});
 });
 </script>
+
+
+<script>
+
+function chChange() {
+	var wt = $('#spwt').find(":selected").text();
+	var flavourAdonRate =$("#dbAdonRate").val();
+	var tax3 = parseFloat($("#tax3").val());
+	var tax1 = parseFloat($("#tax1").val());
+	var tax2 = parseFloat($("#tax2").val());
+	document.getElementById("adv").value=0;
+	var sp_ex_charges= parseFloat($("#sp_ex_charges").val());
+	//alert("sp_ex_charges"+sp_ex_charges);
+	var sp_disc=parseFloat($("#sp_disc").val());
+	//alert("sp_disc"+sp_disc);
+	var dbRate = $("#dbPrice").val();//dbRate
+	//alert("tax1:"+tax1+"tax2"+tax2+"tax3"+tax3);
+	
+	
+	var totalCakeRate = wt*dbRate;
+	var totalFlavourAddonRate = wt*flavourAdonRate;
+    var add=parseFloat(totalCakeRate+totalFlavourAddonRate);
+    var grandTotal=parseFloat(add);
+    //alert("without sp_ex_charges"+add);
+	var spSubtotal=add+sp_ex_charges;
+	//alert("with sp_ex_charges"+spSubtotal);
+	document.getElementById("adv").value=0;
+	
+	var disc_amt=(spSubtotal*sp_disc)/100;
+	//alert("disc_amt"+disc_amt);
+	
+	spSubtotal=spSubtotal-disc_amt;
+	
+	
+	//alert("final "+spSubtotal);
+	
+	
+	var mrpBaseRate=parseFloat((spSubtotal*100)/(tax3+100));
+	
+	var gstInRs=0;
+	var taxPerPerc1=0;
+	var taxPerPerc2=0;
+	var tax1Amt=0;
+	var tax2Amt=0;
+	if(tax3==0)
+		{
+		    gstInRs=0;
+		
+		}
+    else
+	{
+	   gstInRs=(mrpBaseRate*tax3)/100;
+		
+	   if(tax1==0)
+		{
+		   taxPerPerc1=0;
+		}
+	   else
+		{
+		    taxPerPerc1=parseFloat((tax1*100)/tax3);
+		    tax1Amt=parseFloat((gstInRs*taxPerPerc1)/100);
+
+		}
+	   if(tax2==0)
+		{
+		   taxPerPerc2=0;
+		}
+	   else
+		{
+			taxPerPerc2=parseFloat((tax2*100)/tax3);
+			tax2Amt=parseFloat((gstInRs*taxPerPerc2)/100);
+
+		}
+	}
+	
+ 
+
+	$('#gstrs').html(gstInRs.toFixed(2));  document.getElementById("gst_rs").setAttribute('value',gstInRs.toFixed(2));
+
+	var mGstAmt=mrpBaseRate;
+	$('#mgstamt').html('AMT-'+mGstAmt.toFixed(2));  document.getElementById("m_gst_amt").setAttribute('value',mGstAmt.toFixed(2));
+	
+	$('#price').html(wt*dbRate);
+	document.getElementById("sp_calc_price").value=wt*dbRate;
+	$('#rate').html(wt*flavourAdonRate);	
+	document.getElementById("sp_add_rate").setAttribute('value',wt*flavourAdonRate);
+	//$('#subtotal').html(grandTotal);	
+	
+	$('#subtotal').html(spSubtotal);	
+	/* document.getElementById("sp_sub_total").setAttribute('value',add); */
+	document.getElementById("sp_sub_total").setAttribute('value',spSubtotal);
+	
+	$('#INR').html('INR-'+spSubtotal);
+	document.getElementById("sp_grand").setAttribute('value',spSubtotal);
+	$('#tot').html('TOTAL-'+spSubtotal);
+	document.getElementById("total_amt").setAttribute('value',spSubtotal);
+	$('#rmAmt').html(spSubtotal);
+	document.getElementById("rm_amount").setAttribute('value',spSubtotal);
+	
+	document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
+	
+	document.getElementById("t2amt").setAttribute('value',tax2Amt.toFixed(2));
+	
+}
+
+
+</script>
+
 <!------------------------------------------------END------------------------------------------------>	
 <!------------------------------------REMAINING AMOUNT ONKEYUP FUNCTION------------------------------>	
 <script type="text/javascript">
@@ -1092,5 +1252,21 @@ function showDiv(elem){
 </script>
 <!------------------------END--------------------------------------------> 
 
+
+
+<script type="text/javascript">
+function showCtype(){
+var temp=document.getElementById('temp').value;
+alert("cut sec is :"+temp);
+
+	if (temp == 2 ) {  ///regular
+		alert("hii...");
+
+		document.getElementById("ctype1").style = "display:none" //hide numeric
+	}
+	
+}
+
+</script>
 </body>
 </html>
