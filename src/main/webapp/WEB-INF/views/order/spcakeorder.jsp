@@ -468,7 +468,7 @@ select {
 	</div>
 	
 	<div class="colOuter" id="ctype1">
-			<div class="col1"><div class="col1title">Cake Type</div></div>
+			<div class="col1"><div class="col1title" id="cktype">Cake Type</div></div>
 	
 			<div class="col2full"><input class="texboxitemcode"  name="ctype" type="text" id="ctype" required ></div>
 	
@@ -1257,11 +1257,15 @@ function showDiv(elem){
 <script type="text/javascript">
 function showCtype(){
 var temp=document.getElementById('temp').value;
-alert("cut sec is :"+temp);
+	if(temp==0)
+		{
+		document.getElementById('cktype').innerHTML = 'Alphabetical';
 
+		}else if(temp==1)
+		{
+			document.getElementById('cktype').innerHTML = 'Numerical';
+		}else
 	if (temp == 2 ) {  ///regular
-		alert("hii...");
-
 		document.getElementById("ctype1").style = "display:none" //hide numeric
 	}
 	
