@@ -212,8 +212,12 @@ table, th, td {
 
 							<option value="-1">Select Category</option>
 							<c:forEach items="${category}" var="category" varStatus="count">
-								<option value="${category.catId}"><c:out
-										value="${category.catName}" /></option>
+							<c:choose>
+							<c:when test="${category.catId != '5' and category.catId != '7' }">  <!-- and category.catId != '6' -->
+							
+								<option value="${category.catId}"><c:out value="${category.catName}" /></option>
+							</c:when>
+							</c:choose>
 							</c:forEach>
 
 						</select>
@@ -324,14 +328,12 @@ table, th, td {
 				<div class="row">
 					<div class="col-md-12">
 						<!--table-->
-						<form action="monthEndProcess" method="POST">
-						
-
-							<div class="clearfix"></div>
-<div class="col-md-9" ></div> 
+					<form action="monthEndProcess" method="POST">
+					<div class="clearfix"></div>
+					<div class="col-md-9" ></div> 
 					<label for="search" class="col-md-3" id="search">
-    <i class="fa fa-search" style="font-size:20px"></i>
-									<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search items by name" title="Type item name">
+    				<i class="fa fa-search" style="font-size:20px"></i>
+									<input type="text"  id="myInput" onkeyup="myFunction()" style="border-radius:25px;" placeholder="Search items by name" title="Type item name">
 										</label>  
 						
 
@@ -376,10 +378,10 @@ table, th, td {
 												<th class="col-md-1">Reg Cur Stock</th>
 												<th class="col-md-1">Sp Cur Stock</th>
 
-												<c:if test="${isMonthCloseApplicable eq true}">
+											<%-- 	<c:if test="${isMonthCloseApplicable eq true}">
 													<th>Physical Stock</th>
 													<th>Stock Difference</th>
-												</c:if>
+												</c:if> --%>
 
 											</tr>
 										</thead>
@@ -595,8 +597,9 @@ table, th, td {
 					var len = data.length;
 					$('#table_grid td').remove();
 					//alert(isMonthClose+ "month close");			
-					
-					if(isMonthClose && selectedStockOption == 1){
+				var list= data.currentStockDetailList;	//alert(data.monthClosed);	alert(selectedStockOption);
+
+				if(data.monthClosed && selectedStockOption == 1){
 					
 				
 						document.getElementById('monthEnd').style.display = "block";
@@ -631,7 +634,7 @@ table, th, td {
 					}
 					
 					
-					$.each(data, function(key, item) {
+					$.each(list, function(key, item) {
 
 						
 						var regCurrentStock = item.currentRegStock;
@@ -671,8 +674,8 @@ table, th, td {
 							tr.append($('<td class="col-md-1"> </td>').html(regCurrentStock));
 							}
 						tr.append($('<td class="col-md-1"> </td>').html(item.currentSpStock));
-					
-						if(isMonthClose && selectedStockOption == 1){
+				
+						if(data.monthClosed && selectedStockOption == 1){
 							
 						 	tr.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
 									+ item.itemId +','+regCurrentStock+') onchange= updateStockDiff('+ item.itemId + ','+regCurrentStock+')  id= physicalStockQty'+ item.itemId+ ' name=physicalStockQty'+item.itemId+' value = '+ regCurrentStock+ '></td>'));

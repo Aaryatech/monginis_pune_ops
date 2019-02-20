@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.CategoryList;
+import com.monginis.ops.model.CurrentStockResponse;
 import com.monginis.ops.model.FrMenu;
 import com.monginis.ops.model.Franchisee;
 import com.monginis.ops.model.GetCurrentStockDetails;
@@ -142,7 +143,7 @@ public class StockController {
 
 	// AJAX Call
 	@RequestMapping(value = "/getStockDetails", method = RequestMethod.GET)
-	public @ResponseBody List<GetCurrentStockDetails> getMenuListByFr(HttpServletRequest request,
+	public @ResponseBody CurrentStockResponse getMenuListByFr(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		 catId = request.getParameter("cat_id");
@@ -150,13 +151,14 @@ public class StockController {
 
 		
 		HttpSession session = request.getSession();
+		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
 
 		menuList = (ArrayList<FrMenu>) session.getAttribute("allMenuList");
 		System.out.println("Menu List "+menuList.toString());
 
 		int menuId = 0;
 
-		if (catId.equalsIgnoreCase("1")) {
+		/*if (catId.equalsIgnoreCase("1")) {
 
 			menuId = 26;
 
@@ -172,11 +174,97 @@ public class StockController {
 
 			menuId = 34;
 
-		} /*else if (catId.equalsIgnoreCase("6")) {//added to sp day 
+		} else if (catId.equalsIgnoreCase("6")) {//added to sp day 
 
 			menuId =81;
 
+		}
+
+		String itemShow = "";
+
+		for (int i = 0; i < menuList.size(); i++) {
+
+			if (menuList.get(i).getMenuId() == menuId) {
+
+				itemShow = menuList.get(i).getItemShow();
+
+			}
+
 		}*/
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+		map.add("frId", frDetails.getFrId());
+		RestTemplate restTemplate = new RestTemplate();
+
+		ParameterizedTypeReference<List<PostFrItemStockHeader>> typeRef1 = new ParameterizedTypeReference<List<PostFrItemStockHeader>>() {
+		};
+		ResponseEntity<List<PostFrItemStockHeader>> responseEntity1 = restTemplate
+				.exchange(Constant.URL + "getCurrentMonthOfCatId", HttpMethod.POST, new HttpEntity<>(map), typeRef1);
+		List<PostFrItemStockHeader> list = responseEntity1.getBody();
+		int intCatId = Integer.parseInt(catId);
+		System.out.println("## catId" + intCatId);
+
+		if (catId.equalsIgnoreCase("1")) {
+
+			for (PostFrItemStockHeader header : list) {
+
+				if (header.getCatId() == intCatId) {
+					runningMonth = header.getMonth();
+				}
+
+			}
+
+			menuId = 26;
+
+		} else if (catId.equalsIgnoreCase("2")) {
+
+			menuId = 31;
+			for (PostFrItemStockHeader header : list) {
+
+
+				if (header.getCatId() == intCatId) {
+					runningMonth = header.getMonth();
+				}
+
+			}
+		} else if (catId.equalsIgnoreCase("3")) {
+
+			menuId = 33;
+			for (PostFrItemStockHeader header : list) {
+
+
+				if (header.getCatId() == intCatId) {
+					runningMonth = header.getMonth();
+				}
+
+			}
+
+		} else if (catId.equalsIgnoreCase("4")) {
+
+			menuId = 34;
+			for (PostFrItemStockHeader header : list) {
+
+
+				if (header.getCatId() == intCatId) {
+					runningMonth = header.getMonth();
+				}
+
+			}
+
+		}else if (catId.equalsIgnoreCase("6")) {
+
+			menuId = 49;
+			for (PostFrItemStockHeader header : list) {
+
+
+				if (header.getCatId() == intCatId) {
+					runningMonth = header.getMonth();
+				}
+
+			}
+
+		}
+		System.err.println("Cat Id: " + catId + "running month " + runningMonth);
 
 		String itemShow = "";
 
@@ -190,7 +278,6 @@ public class StockController {
 
 		}
 
-		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		DateFormat yearFormat = new SimpleDateFormat("yyyy");
 
@@ -209,15 +296,10 @@ public class StockController {
 		String strFirstDay=dateFormat.format(firstDay);
 		
 		System.out.println("Year " + yearFormat.format(todaysDate));
-		
-		if (showOption.equals("1")) {
-			
-			
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		boolean isMonthCloseApplicable = false;
 
-			
-			
-			boolean isMonthCloseApplicable = false;
+		if (showOption.equals("1")) {
+			 map = new LinkedMultiValueMap<String, Object>();
 
 			DateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
@@ -226,18 +308,27 @@ public class StockController {
 			Calendar cal1 = Calendar.getInstance();
 			cal1.setTime(date);
 
-			Integer dayOfMonth = cal1.get(Calendar.DATE);
+			int dayOfMonth = cal1.get(Calendar.DATE);
 
-			Integer calCurrentMonth = cal1.get(Calendar.MONTH) + 1;
+			int calCurrentMonth = cal1.get(Calendar.MONTH) + 1;
 			System.out.println("Current Cal Month " + calCurrentMonth);
 
 			System.out.println("Day Of Month is: " + dayOfMonth);
 
-			if (dayOfMonth == Constant.dayOfMonthEnd && runningMonth != calCurrentMonth) {
+			/*if (dayOfMonth == Constant.dayOfMonthEnd && runningMonth != calCurrentMonth) {
 
 				isMonthCloseApplicable = true;
 				System.out.println("Day Of Month End ......" );
 
+			}*/
+			if (runningMonth < calCurrentMonth) {
+
+				isMonthCloseApplicable = true;
+				System.out.println("Day Of Month End ......");
+
+			}else if (runningMonth==12 && calCurrentMonth==1) 
+			{
+				isMonthCloseApplicable = true;
 			}
 			
 			if(isMonthCloseApplicable) {
@@ -276,8 +367,6 @@ public class StockController {
 			map.add("catId",catId );
 			map.add("itemIdList", itemShow);
 
-			RestTemplate restTemplate = new RestTemplate();
-
 			ParameterizedTypeReference<List<GetCurrentStockDetails>> typeRef = new ParameterizedTypeReference<List<GetCurrentStockDetails>>() {
 			};
 			ResponseEntity<List<GetCurrentStockDetails>> responseEntity = restTemplate
@@ -314,7 +403,7 @@ public class StockController {
 
 			System.out.println("toDate "+to);
 			
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frDetails.getFrId());
 			map.add("fromDate", fr);
 			map.add("toDate", to);
@@ -322,8 +411,6 @@ public class StockController {
 			map.add("catId",catId );
 			map.add("frStockType", frDetails.getStockType());
 			
-			RestTemplate restTemplate = new RestTemplate();
-
 			try {
 			ParameterizedTypeReference<List<GetCurrentStockDetails>> typeRef = new ParameterizedTypeReference<List<GetCurrentStockDetails>>() {
 			};
@@ -339,8 +426,11 @@ public class StockController {
 			
 			
 		} 
+		CurrentStockResponse currentStockResponse=new CurrentStockResponse();
+		currentStockResponse.setMonthClosed(isMonthCloseApplicable);
+		currentStockResponse.setCurrentStockDetailList(currentStockDetailList);
 		
-		return currentStockDetailList;
+		return currentStockResponse;
 	}
 
 	/*@RequestMapping(value = "/monthEndProcess", method = RequestMethod.POST)

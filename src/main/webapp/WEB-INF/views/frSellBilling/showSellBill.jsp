@@ -133,7 +133,7 @@ jQuery(document).ready(function(){
 				<table width="100%" border="1" cellspacing="0"
 														cellpadding="1" id="table_grid"  class="main-table">
 								<thead>	<tr class="bgpink">
-									<th style="text-align:center;">Bill No</th>
+									<th style="text-align:center;">Sr No</th>
 										<th style="text-align:center;">Invoice No</th>
 									<th style="text-align:center;">Bill Date</th>
 										<th style="text-align:center;">Grand Total</th>
@@ -152,7 +152,7 @@ jQuery(document).ready(function(){
 								<table width="100%" border="1" cellspacing="0"
 														cellpadding="1" id="table_grid"  class="main-table">
 								<thead>	<tr class="bgpink">
-									<th style="text-align:center;">Bill No</th>
+									<th style="text-align:center;">Sr No</th>
 										<th style="text-align:center;" >Invoice No</th>
 									<th style="text-align:center;">Bill Date</th>
 										<th style="text-align:center;">Grand Total</th>
@@ -240,11 +240,11 @@ jQuery(document).ready(function(){
 													tr.append($('<td style="text-align:right;"></td>').html((sellBillData.payableAmt).toFixed(2)));
 													tr.append($('<td style="text-align:right;"></td>').html((sellBillData.paidAmt).toFixed(2)));
 													var payMode="";
-													if(sellBillData.paymentMode==0)
+													if(sellBillData.paymentMode==1)
 													payMode="Cash";
-													else if(sellBillData.paymentMode==1)
-													payMode="Card";	
 													else if(sellBillData.paymentMode==2)
+													payMode="Card";	
+													else if(sellBillData.paymentMode==3)
 													payMode="Other";	
 													
 													tr.append($('<td style="text-align:center;"></td>').html(payMode));

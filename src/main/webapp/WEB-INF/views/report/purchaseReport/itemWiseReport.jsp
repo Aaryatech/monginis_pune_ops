@@ -122,7 +122,7 @@ table, th, td {
 															
 								
 									<th class="col-md-1" style="text-align:center;">Sr.No.</th>
-									<th class="col-md-1"style="text-align:center;">Party Name</th>
+									<th class="col-md-2"style="text-align:center;">Party Name</th>
 									<th class="col-md-2"style="text-align:center;">Item Name</th>
 									<th class="col-md-1"style="text-align:center;">Qty</th>
 									<th class="col-md-1"style="text-align:center;">Rate</th>
@@ -211,13 +211,13 @@ table, th, td {
 										document.getElementById('range').style.display = 'block';
 									
 										
-								var partyname="GFPL";
+								var partyname="LUTF FOODS PVT. LTD.";
 									
 								var tr = $('<tr></tr>');
 
 								tr.append($('<td class="col-md-1"></td>').html(key+1));
 								
-								tr.append($('<td class="col-md-1"style="text-align:center;"></td>').html(partyname));
+								tr.append($('<td class="col-md-2"style="text-align:left;"></td>').html(partyname));
 
 							  	tr.append($('<td class="col-md-2"></td>').html(itemWiseTaxData.itemName));
 

@@ -16,6 +16,12 @@
   } );
  
   </script>
+  <style>
+table, th, td {
+    border: 1px solid #9da88d;
+}
+</style>
+  
 <!--datepicker--> 
 
 <c:url var="getBillWiseTaxReport" value="/findBillWiseTaxReport" />
@@ -86,15 +92,15 @@
 
 
 				<div id="table-scroll" class="table-scroll">
-					<div id="faux-table" class="faux-table" aria="hidden"></div>
-					<div class="table-wrap">
+<!-- 					<div id="faux-table" class="faux-table" aria="hidden"></div>
+ -->					<div class="table-wrap">
 						<table id="table_grid" class="main-table">
 							<thead>
 								<tr class="bgpink">
 
 															
 									<th class="col-md-1">Sr. NO.</th>
-									<th class="col-md-1">Party Name</th>
+									<th class="col-md-2">Party Name</th>
 									<th class="col-md-1">GSTIN</th>
 									<th class="col-md-1">Bill No</th>
 									<th class="col-md-1">Bill Date</th>
@@ -184,14 +190,14 @@
 
 								$.each(data,function(key, billWiseTaxData) {
 									
-									 var partyname="GFPL";
+									 var partyname="LUTF FOODS PVT. LTD.";
                                      var gstNo="#012";
 
 								var tr = $('<tr></tr>');
 
 								tr.append($('<td class="col-md-1"></td>').html(key+1));
 
-							  	tr.append($('<td class="col-md-1"></td>').html(partyname));
+							  	tr.append($('<td class="col-md-2"></td>').html(partyname));
 
 							  	tr.append($('<td class="col-md-1"></td>').html(gstNo));
 
@@ -199,19 +205,19 @@
 
 							  	tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.billDate));
 
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.taxableAmt));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.taxableAmt));
 
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.taxRate));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.taxRate));
 								
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.igstRs));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.igstRs));
 
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.cgstRs));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.cgstRs));
 
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.sgstRs));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.sgstRs));
 
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.grandTotal));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.grandTotal));
 
-								tr.append($('<td class="col-md-1"></td>').html(billWiseTaxData.cess));
+								tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(billWiseTaxData.cess));
 
 								
 								$('#table_grid tbody').append(tr);

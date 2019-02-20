@@ -2139,6 +2139,7 @@ if(currentNewItem.getCatId()==7) {
 	@RequestMapping(value = "/pdfSellBill", method = RequestMethod.GET)
 	public ModelAndView demoBill(HttpServletRequest request, HttpServletResponse response) {
 		String sellBillNo = request.getParameter("billNo");
+		//String billType=request.getParameter("type");
 		// String fr_Id=request.getParameter("frId");
 		int billNo = Integer.parseInt(sellBillNo);
 		// int billNo=Integer.parseInt(fr_Id);
@@ -2168,10 +2169,10 @@ if(currentNewItem.getCatId()==7) {
 
 		GetCustmoreBillResponse billResponse = getCustmoreBillResponseList.get(0);
 
-		int billAmt = billResponse.getIntDiscAmt();
+		float billAmt = billResponse.getIntDiscAmt();
 		float discPer = billResponse.getDiscountPer();
 
-		int intDiscAmt = Math.round((billAmt * discPer) / 100);
+		float intDiscAmt = (billAmt * discPer) / 100;
 
 		getCustmoreBillResponseList.get(0).setIntDiscAmt(intDiscAmt);
 
@@ -2179,6 +2180,7 @@ if(currentNewItem.getCatId()==7) {
 
 		model.addObject("billList", getCustmoreBillResponseList);
 		model.addObject("frGstType", frGstType);
+		//model.addObject("billType", billType);
 		return model;
 	}
 

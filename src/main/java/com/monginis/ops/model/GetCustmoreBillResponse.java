@@ -1,7 +1,4 @@
 package com.monginis.ops.model;
-import java.sql.Date;
-import java.util.List;
-
 
 
 public class GetCustmoreBillResponse {
@@ -13,7 +10,7 @@ private int sellBillNo;
 
 private String invoiceNo;
 
-private Date billDate;
+private String billDate;
 
 private String custName;
 
@@ -39,9 +36,9 @@ private float discountPer;
 private float discountAmt;
 
  
-private int intBillAmt;
+private float intBillAmt;
 
-private int intDiscAmt;
+private float intDiscAmt;
 
 private float cgstPer;
 
@@ -64,6 +61,35 @@ private float cgstRs;
 
 private float sgstRs;
 
+private String userGstNo;//new
+
+private String userPhone;//new
+private String billType;//new
+
+
+public String getBillType() {
+	return billType;
+}
+
+public void setBillType(String billType) {
+	this.billType = billType;
+}
+
+public String getUserGstNo() {
+	return userGstNo;
+}
+
+public void setUserGstNo(String userGstNo) {
+	this.userGstNo = userGstNo;
+}
+
+public String getUserPhone() {
+	return userPhone;
+}
+
+public void setUserPhone(String userPhone) {
+	this.userPhone = userPhone;
+}
 
 public String getHsnCode() {
 	return hsnCode;
@@ -97,11 +123,11 @@ public void setInvoiceNo(String invoiceNo) {
 	this.invoiceNo = invoiceNo;
 }
 
-public Date getBillDate() {
+public String getBillDate() {
 	return billDate;
 }
 
-public void setBillDate(Date billDate) {
+public void setBillDate(String billDate) {
 	this.billDate = billDate;
 }
 
@@ -265,19 +291,19 @@ public void setDiscountAmt(float discountAmt) {
 	this.discountAmt = discountAmt;
 }
 
-public int getIntBillAmt() {
+public float getIntBillAmt() {
 	return intBillAmt;
 }
 
-public void setIntBillAmt(int intBillAmt) {
+public void setIntBillAmt(float intBillAmt) {
 	this.intBillAmt = intBillAmt;
 }
 
-public int getIntDiscAmt() {
+public float getIntDiscAmt() {
 	return intDiscAmt;
 }
 
-public void setIntDiscAmt(int intDiscAmt) {
+public void setIntDiscAmt(float intDiscAmt) {
 	this.intDiscAmt = intDiscAmt;
 }
 
@@ -286,11 +312,12 @@ public String toString() {
 	return "GetCustmoreBillResponse [sellBillDetailNo=" + sellBillDetailNo + ", sellBillNo=" + sellBillNo
 			+ ", invoiceNo=" + invoiceNo + ", billDate=" + billDate + ", custName=" + custName + ", frAddress="
 			+ frAddress + ", frId=" + frId + ", frMob=" + frMob + ", frName=" + frName + ", itemId=" + itemId
-			+ ", itemName=" + itemName + ", taxableAmt=" + taxableAmt + ", discountPer=" + discountPer
-			+ ", discountAmt=" + discountAmt + ", intBillAmt=" + intBillAmt + ", intDiscAmt=" + intDiscAmt
+			+ ", itemName=" + itemName + ", hsnCode=" + hsnCode + ", taxableAmt=" + taxableAmt + ", discountPer="
+			+ discountPer + ", discountAmt=" + discountAmt + ", intBillAmt=" + intBillAmt + ", intDiscAmt=" + intDiscAmt
 			+ ", cgstPer=" + cgstPer + ", sgstPer=" + sgstPer + ", igstPer=" + igstPer + ", gstn=" + gstn
 			+ ", bill_amount=" + bill_amount + ", mrp=" + mrp + ", qty=" + qty + ", igstRs=" + igstRs + ", cgstRs="
-			+ cgstRs + ", sgstRs=" + sgstRs + "]";
+			+ cgstRs + ", sgstRs=" + sgstRs + ", userGstNo=" + userGstNo + ", userPhone=" + userPhone + ", billType="
+			+ billType + "]";
 }
 
 

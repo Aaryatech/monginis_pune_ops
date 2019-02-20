@@ -723,7 +723,14 @@ public class SpCakeController {
 				
 
 				try {
-					orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
+					if(orderPhoto.get(0).getOriginalFilename()=="")
+					{
+						orderPhoto1 ="";
+					}else
+					{
+						orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
+					}
+					
 					upload.saveUploadedFiles(orderPhoto, Constant.SPCAKE_IMAGE_TYPE,
 							curTimeStamp+""+orderPhoto.get(0).getOriginalFilename());
 					System.out.println("upload method called " + orderPhoto.toString());
@@ -752,11 +759,26 @@ public class SpCakeController {
 				//String curTimeStamp = sdf.format(cal.getTime());
 
 				try {
-					orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
+					if(orderPhoto.get(0).getOriginalFilename()=="")
+					{
+						orderPhoto1 ="";
+					}else
+					{
+						orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
+					}
+					
 
 					upload.saveUploadedFiles(orderPhoto, Constant.SPCAKE_IMAGE_TYPE,
 							curTimeStamp+""+orderPhoto.get(0).getOriginalFilename());
-					custChCk = curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename();
+					if(custChoiceCk.get(0).getOriginalFilename()=="")
+					{
+						custChCk ="";
+					}else
+					{
+						custChCk = curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename();
+					}
+					
+					
 					upload.saveUploadedFiles(custChoiceCk, Constant.CUST_CHIOICE_IMAGE_TYPE,
 							curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename());
 

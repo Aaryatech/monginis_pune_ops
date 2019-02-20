@@ -66,8 +66,7 @@
 					style="padding: 3px; font-family: Arial; border-bottom: 1px solid #E7E7E7; font-size: 12px;"><p
 						class="style5">${billList[0].frAddress}
 						<br /> Phone:<strong>${billList[0].frMob}</strong><br /> <br />
-						<span style="font-size: 9px; font-family: Arial;">GSTN:<b> ${billList[0].gstn}</b><br /> State: 27-Maharashtra<br /> FSSAI :
-							11515031000866
+						<span style="font-size: 9px; font-family: Arial;">GSTN:<b> ${billList[0].gstn}</b><br /> State: 27-Maharashtra
 						</span></td>
 			</tr>
 			<tr>
@@ -78,13 +77,19 @@
 								<td align="left">Bill No:</td>
 								<td align="left">${billList[0].sellBillNo}</td>
 								<td>Date:</td>
-								<td>${billList[0].billDate }</td>
+								 <fmt:parseDate pattern="yyyy-MM-dd" value="${billList[0].billDate}" var="dateparsed" />
+      
+								<td><fmt:formatDate pattern="dd-MM-yyyy" value="${dateparsed}" /></td>
 							</tr>
 							<tr>
 								<td>Name</td>
 								<td colspan="3">${billList[0].custName}</td>
 
 							</tr>
+								<tr>
+        <td>GST No:</td>
+      <td colspan="3">${billList[0].userGstNo}</td>
+      </tr>
 							<tr>
 								<td colspan="4"><table width="100%" border="0"
 										cellspacing="0" cellpadding="5" class="tbl-inner">
@@ -101,30 +106,33 @@
 												varStatus="count">
 												<tr>
 													<td><p style="font-size: 12px">${billList.itemName}<br />
-															<span style="font-size: 8">hsn123456789</span>
+															<span style="font-size: 8">HSN- ${billList.hsnCode}</span>
 														</p></td>
 													<td align="center"><p style="font-size: 12px">${billList.cgstPer+billList.sgstPer}%</p></td>
 													<td align="center"><p style="font-size: 12px">${billList.qty}</p></td>
 													<td align="center"><p style="font-size: 12px">${billList.mrp}</p></td>
-													<td align="right"><p style="font-size: 12px">${billList.qty*billList.mrp}</p></td>
+													<td align="right"><p style="font-size: 12px"><fmt:formatNumber type="number"
+			maxFractionDigits="2" minFractionDigits="2" value=" ${billList.qty*billList.mrp}"/></p></td>
 												</tr>
 											</c:forEach>
-											<tr>
-												<td rowspan="3">&nbsp;</td>
-												<td colspan="3" align="right"><span class="style5"><strong>Total
+											 <tr>
+												
+												<td colspan="4" align="right"><span class="style5"><strong>Total
 															:</strong></span></td>
-												<td align="right"><span class="style5"><strong>${billList[0].discountAmt}</strong></span></td>
-											</tr>
+<%-- 												<td align="right"><span class="style5"><strong>${billList[0].discountAmt}</strong></span></td>
+ --%>												<td align="right"><span class="style5"><strong><c:choose><c:when test="${billList[0].billType eq 'R'}">${billList[0].discountAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose> </strong></span></td>
+											</tr> 
 											<tr>
-												<td colspan="3" align="right"><span class="style5"><strong>Discount
+												<td colspan="4" align="right"><span class="style5"><strong>Discount
 															${billList[0].discountPer}% :</strong></span></td>
-												<td colspan="2" align="right"><span class="style5"><strong>${billList[0].intDiscAmt}</strong></span></td>
+												<td  align="right"><fmt:formatNumber type="number"
+										maxFractionDigits="2" minFractionDigits="2" value="${billList[0].intDiscAmt}"/></td>
 
 											</tr>
 											<tr>
-												<td colspan="3" align="right"><span class="style7">Bill
+												<td colspan="4" align="right"><span class="style7">Bill
 														Total:</span></td>
-												<td align="right"><span class="style7">${billList[0].intBillAmt}</span></td>
+												<td align="right"><span class="style7"><c:choose><c:when test="${billList[0].billType eq 'R'}"><fmt:formatNumber type="number" maxFractionDigits="0" minFractionDigits="0" value="${billList[0].discountAmt-billList[0].intDiscAmt}"/></c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
 											</tr>
 										</tbody>
 									</table></td>
@@ -159,16 +167,20 @@
 						<c:forEach items="${custBilltax}" var="custBilltax"
 							varStatus="count">
 							<tr>
-								<td>${custBilltax.taxableAmt}</td>
+								<td><fmt:formatNumber type="number"
+										maxFractionDigits="2" value="${custBilltax.taxableAmt}"/></td>
 								<c:set var="taxAmount"
 									value="${taxAmount + custBilltax.taxableAmt}" />
 								<td>${custBilltax.cgstPer}</td>
-								<td>${custBilltax.cgstRs}</td>
+								<td><fmt:formatNumber type="number"
+										maxFractionDigits="2" value="${custBilltax.cgstRs}"/></td>
 								<c:set var="cgst" value="${cgst+custBilltax.cgstRs }" />
 								<td>${custBilltax.sgstPer}</td>
-								<td>${custBilltax.sgstRs}</td>
+								<td><fmt:formatNumber type="number"
+										maxFractionDigits="2" value="${custBilltax.sgstRs}"/></td>
 								<c:set var="sgst" value="${sgst+custBilltax.sgstRs }" />
-								<td>${custBilltax.cgstRs+custBilltax.sgstRs}</td>
+								<td><fmt:formatNumber type="number"
+										maxFractionDigits="2" value="${custBilltax.cgstRs+custBilltax.sgstRs}"/></td>
 								<c:set var="totaltax"
 									value="${totaltax+custBilltax.sgstRs+custBilltax.cgstRs }" />
 							</tr>

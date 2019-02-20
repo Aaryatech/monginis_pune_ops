@@ -91,7 +91,7 @@ select {
 }
 	</style>
 </head>
-<body onload="onload()">
+<body onload="onLoad()">
 <!--topLeft-nav-->
 <div class="sidebarOuter"></div>
 <!--topLeft-nav-->
@@ -1024,8 +1024,11 @@ function validateForm() {
 function validate() {
 	
 	 var phoneNo = /^\d{10}$/;  
+	 var temp=document.getElementById('temp').value;
+	 var ctype=document.getElementById('ctype').value;
+	 var alphaExp = /^[a-zA-Z]+$/;
 
-	
+
     var eventName,spId,spCustName,spPlace,spCustMob,spType,spFlavour,spCode,spWt;
     eventName = document.getElementById("event_name").value;
     spPlace = document.getElementById("sp_place").value;
@@ -1069,18 +1072,37 @@ function validate() {
         document.getElementById('sp_cust_name').focus();
 
         isValid= false;
-    }else  if(spCustMob.match(phoneNo))  
-	  {  
-	      return true;  
-	  }  
-	  else  
+    } 
+	  else   if(!spCustMob.match(phoneNo))  
 	  {  
 	     alert("Not a valid Mobile Number");  
 	     document.getElementById('sp_cust_mobile_no').value="";
 	     document.getElementById('sp_cust_mobile_no').focus();
-	     return false;  
-	  }  
-
+	     isValid= false;  
+	  } else  
+	if(temp==0)
+		{
+		  if(ctype.match(alphaExp))
+          {
+			  isValid= true;  
+          }
+          else{
+              alert("Please only enter characters  for Aplhabetical Type");
+              isValid= false;  
+          }
+		
+		}else 	if(temp==1)
+			{
+			var regex=/^[0-9]+$/;
+		    if (!ctype.match(regex)){
+				    alert("Please only  enter numeric characters for Numerical Type! (Allowed input:0-9)");
+				    isValid= false;  
+				  }
+			  else
+				  {
+				  	isValid= true;  
+				  }
+			}
     
     return isValid;
  
