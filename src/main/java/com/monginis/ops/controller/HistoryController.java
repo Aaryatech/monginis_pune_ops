@@ -1,5 +1,6 @@
 package com.monginis.ops.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import com.monginis.ops.HomeController;
 import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.AllMenuResponse;
 import com.monginis.ops.model.CategoryList;
+import com.monginis.ops.model.FrMenu;
 import com.monginis.ops.model.Franchisee;
 import com.monginis.ops.model.GetCustBillTax;
 import com.monginis.ops.model.GetItemHsnCode;
@@ -44,85 +46,181 @@ import com.monginis.ops.model.SpOrderHis;
 import com.monginis.ops.model.SpOrderHisList;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
+import org.bouncycastle.cert.ocsp.Req;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller
 @Scope("session")
 public class HistoryController {
-	public List<Menus> menusList;
-	List<MCategory> mCategoryList;
-
+	public List<Menus> menusList;ArrayList<FrMenu> menuList=null;
+	List<MCategory> mCategoryList=null;
+	List<FrMenu> menuListSelected=null;List<FrMenu> menuListNotSelected=null;
 	AllMenuResponse allMenuResponse;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	List<SpOrderHis> spOrderHistory;
 	List<GetRegSpCakeOrders> regSpHistory;
-	
+	ArrayList<FrMenu> regOrderMenuList=null;ArrayList<FrMenu> spOrderMenuList=null;
 	
 	@RequestMapping(value = "/orderHistory", method = RequestMethod.GET)
 	public ModelAndView ordersHistory(HttpServletRequest request, HttpServletResponse response)
 	{
 		ModelAndView model = new ModelAndView("history/orderhistory");
-		logger.info("/login request mapping.");
 		RestTemplate rest=new RestTemplate();
-	    allMenuResponse=rest.getForObject(
-				Constant.URL+"/getAllMenu",
-				AllMenuResponse.class);
+	    try {
+    		 HttpSession session = request.getSession();
+	    	  menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
+	    	  regOrderMenuList=new  ArrayList<FrMenu>();
+	    	  spOrderMenuList=new  ArrayList<FrMenu>();
+			   model.addObject("menuListSelected", menuListSelected);
+
+	    	 for(FrMenu frMenu:menuList) {
+	    		 if(frMenu.getCatId()==5)
+	    		 {
+	    			 spOrderMenuList.add(frMenu);
+	    			 menuListNotSelected=spOrderMenuList;
+	    		 }else
+	    		 {
+	    			 regOrderMenuList.add(frMenu);
+	    			 menuListNotSelected=regOrderMenuList;
+
+	    		 }
+	    	 }
+		    CategoryList catList=rest.getForObject(Constant.URL+"showAllCategory",CategoryList.class);
+		    mCategoryList=catList.getmCategoryList();
 		
-		menusList= new ArrayList<Menus>();
-		menusList=allMenuResponse.getMenuConfigurationPage();
-		
-		CategoryList catList=rest.getForObject(Constant.URL+"showAllCategory",CategoryList.class);
-		mCategoryList=catList.getmCategoryList();
-		System.out.println("MENU LIST= "+menusList.toString());
-		model.addObject("catList",mCategoryList);
-		
-		System.out.println("menu list is"+menusList.toString());
-		model.addObject("catId", 0);
-		return model;
+		    model.addObject("catList",mCategoryList);
+		    model.addObject("menuListNotSelected", menuListNotSelected);
+
+		    //model.addObject("regOrderMenuList", regOrderMenuList);
+		    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			String todaysDate = df.format(new Date());
+            model.addObject("spDeliveryDt", todaysDate);
+		   // model.addObject("catId", 0);
+            model.addObject("orderType", 0);
+	    }catch (Exception e) {
+			e.printStackTrace();
+		}
+		    return model;
 
 	}
 
+	@RequestMapping(value = "/getMenus", method = RequestMethod.GET)
+	public @ResponseBody List<FrMenu> getMenus(HttpServletRequest request, HttpServletResponse response){
+		List<FrMenu> list=new ArrayList<>();
+		try {
+		int type=Integer.parseInt(request.getParameter("type"));
+		if(type==1)
+		{
+			list=regOrderMenuList;
+		}else
+		{
+			list=spOrderMenuList;
+		}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return list;
+	}
 	@RequestMapping(value = "/itemHistory", method = RequestMethod.POST)
 	public ModelAndView OrderHistory(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		ModelAndView model = new ModelAndView("history/orderhistory");
-
+		 menuListSelected=new ArrayList<>();
+		 menuListNotSelected=new ArrayList<>();
+		ArrayList<FrMenu> menuListActualNotSelected=new ArrayList<>();
 		try {
+   		 	  HttpSession session = request.getSession();
+			  menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
+	    	  regOrderMenuList=new  ArrayList<FrMenu>();
+	    	  spOrderMenuList=new  ArrayList<FrMenu>();
+				int orderType = Integer.parseInt(request.getParameter("orderType"));//new
+
+	    	 for(FrMenu frMenu:menuList) {
+	    		 	if(frMenu.getCatId()==5)
+	    			 	{
+	    			 		spOrderMenuList.add(frMenu);
+	    			 	}else
+	    			 	{
+	    			 		regOrderMenuList.add(frMenu);
+
+	    			 	}
+	    			
+	    	       }
+	    	 if(orderType==1)
+ 			{
+	    		 menuListNotSelected=regOrderMenuList;
+ 			}else
+ 			{
+	    		 menuListNotSelected=spOrderMenuList;
+
+ 			}
 			String spDeliveryDt = request.getParameter("datepicker");
 			String menuTitle = "";
-			HttpSession session = request.getSession();
 			Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
 			int frId = frDetails.getFrId();
-			Menus selectedMenu = new Menus();
-			int catId = Integer.parseInt(request.getParameter("catId"));
+			Menus selectedMenu = new Menus(); 
+			String catId[]=request.getParameterValues("catId[]");
 			String parsedDate = Main.formatDate(spDeliveryDt);
 
+			StringBuilder sb = new StringBuilder();
+            List<Integer> catList=new ArrayList<>();
+			for (int i = 0; i < catId.length; i++) {System.err.println(catId[i]);
+				sb = sb.append(catId[i] + ",");
+				catList.add(Integer.parseInt(catId[i]));
+				
+			}
+			String catIdStr = sb.toString();
+			catIdStr = catIdStr.substring(0, catIdStr.length() - 1);
+			
 			List<ItemOrderHis> itemOrderHistory;
-			if (catId == 5) {
+			if (catList.contains(40) ||catList.contains(41)||catList.contains(83)||catList.contains(85)) {//if catId==5
 				System.out.println("sp cake order " + catId + "-" + parsedDate + "-" + frDetails.getFrCode());
 
 				spOrderHistory = spHistory(parsedDate, frDetails.getFrCode());
 				//System.out.println("sp cake order:" + spOrderHistory.toString());
 				model.addObject("orderHistory", spOrderHistory);
 
-			} else if (catId ==42|| catId ==80) {
-				regSpHistory = regHistory(catId,parsedDate, frId);
+			} else if (catList.contains(42)||catList.contains(80)) {
+				regSpHistory = regHistory(catIdStr,parsedDate, frId);
 				//System.out.println("regSpHistory:" + regSpHistory.toString());
 				model.addObject("orderHistory", regSpHistory);
-			} else if (catId != 5) {
-				itemOrderHistory = orderHistory(catId, parsedDate, frId);
+			} else{ // if (catId != 5)  prev
+				itemOrderHistory = orderHistory(catIdStr, parsedDate, frId);
 				//System.out.println("itemOrderHistory:" + itemOrderHistory.toString());
 				model.addObject("orderHistory", itemOrderHistory);
 
 			}
-
+			System.err.println(catList.toString()+"fghj");
+			for(int j=0;j<menuListNotSelected.size();j++)
+			{	int flag=0;
+					for(int m=0;m<catList.size();m++)
+					{
+						if(catList.get(m)==menuListNotSelected.get(j).getMenuId())
+						{
+							menuListSelected.add(menuListNotSelected.get(j));
+							flag=1;
+						}
+					}
+					if(flag==0)
+					{
+						menuListActualNotSelected.add(menuListNotSelected.get(j));
+					}
+					
+				
+			}
+			
 			menuTitle = selectedMenu.getMenuTitle();
 			System.out.println("MenuTitle:" + menuTitle);
 			model.addObject("menuTitle", menuTitle);
 
 			model.addObject("catList", mCategoryList);
-			model.addObject("catId", catId);
+			model.addObject("catId", catList.get(0));
 			model.addObject("spDeliveryDt", spDeliveryDt);
+			model.addObject("orderType", orderType);
+			model.addObject("menuListSelected", menuListSelected);
+			model.addObject("menuListNotSelected", menuListActualNotSelected);
 		} catch (Exception e) {
 			System.out.println("Exception in order history" + e.getMessage());
 		}
@@ -205,7 +303,7 @@ public class HistoryController {
 		return spHistoryExBill;
 
 	}
-	public List<ItemOrderHis> orderHistory(int catId,String parsedDate,int frId)
+	public List<ItemOrderHis> orderHistory(String catId,String parsedDate,int frId)
 	{
 	
 		
@@ -240,7 +338,7 @@ public class HistoryController {
 		return spCkHisList;
 		
 	}
-   public List<GetRegSpCakeOrders> regHistory(int catId,String parsedDate,int frId)
+   public List<GetRegSpCakeOrders> regHistory(String catId,String parsedDate,int frId)
    {
 	   
 	   System.out.println("spHistory");

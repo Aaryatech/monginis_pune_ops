@@ -100,9 +100,9 @@
 			<td colspan="2" align="center"
 					style="padding: 3px; font-family: Arial; border-bottom: 1px solid #E7E7E7; font-size: 12px;"><p
 						class="style5">
-						<br />To, <strong>DEVOUR FOODS LLP</strong><br /> 
-						<br /> Village-Fatehpur,Dist-Patna<br /> 
-						<br />GSTIN: <strong>10AACFF8396C1ZP</strong><br />
+						<br />To, <strong>LUTF FOODS PVT. LTD.</strong><br /> 
+						<br /> Sr No 37, Near Angraj Hotel, Kondhwa, Pune, Maharashtra 411048<br /> 
+						<br />GSTIN: <strong>27AAACL1073F1ZU</strong><br />
                
                 </p>
                 </td>

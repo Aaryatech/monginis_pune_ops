@@ -76,7 +76,37 @@ select {
       }
       google.setOnLoadCallback(onLoad);
     </script>
- <!--------------------------------END------------------------------------>   
+     <script type="text/javascript">
+      // Load the Google Transliterate API
+      google.load("elements", "1", {
+            packages: "transliteration"
+          });
+
+      function onLoad() {
+        var options = {
+            sourceLanguage:
+                google.elements.transliteration.LanguageCode.ENGLISH,
+            destinationLanguage:
+                [google.elements.transliteration.LanguageCode.HINDI],
+            shortcutKey: 'ctrl+g',
+            transliterationEnabled: true
+        };
+
+        // Create an instance on TransliterationControl with the required
+        // options.
+        var control =
+            new google.elements.transliteration.TransliterationControl(options);
+
+        // Enable transliteration in the textbox with id
+        // 'transliterateTextarea'.
+        control.makeTransliteratable(['event_name']);
+      
+        
+      }
+      google.setOnLoadCallback(onLoad);
+    </script>
+ <!--------------------------------END------------------------------------> 
+   
       <!--new css added by kalpesh -->
 	<link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
@@ -132,14 +162,14 @@ select {
 <!--leftForm-->
 						<div class="left">
 							<form action="${pageContext.request.contextPath}/searchSpCake"
-								method="post" class="form-horizontal" name="form"
+								method="post" class="form-horizontal" name="form" id="searchform"
 								onsubmit="return validateForm()">
 
 								<div class="fullform">
 									<div class="cackleft2">Item Code</div>
 									<div class="cackrighttexbox">
 										<input class="texboxitemcode" id="sp_code"
-											value="${specialCake.spCode}" name="sp_code" type="text"
+											value="${specialCake.spCode}" name="sp_code" type="text"  
 											autocomplete="off" list="categories">
 
 										<datalist id="categories">
@@ -340,7 +370,7 @@ select {
               <option value="${eventList.spMsgText}"><c:out value="${eventList.spMsgText}" /></option>
              </c:forEach>
             </select></div>
-		 <div class="col3"><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name">
+		 <div class="col3"><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name" autocomplete="off">
 		</div>
 	</div>
 
@@ -412,11 +442,11 @@ select {
 	    <div class="col1"><div class="col1title">Special Instructions</div></div>
 		
 		<div class="col1full" id="marathiDiv">
-		<textarea id="transliterateTextarea"  name="sp_inst1" cols="" rows="" style="width:250px;height:60px"maxlength="300" ></textarea>
+		<textarea id="transliterateTextarea"  name="sp_inst1" cols="" rows="" style="width:250px;height:60px"maxlength="300" autocomplete="off" ></textarea>
 		</div>
 		
 	    <div class="col1full" id="englishDiv" style="display: none;">
-	    <textarea id="textarea"  name="sp_inst2" cols="" rows="" style="width:200px;height:90px"maxlength="300"></textarea>
+	    <textarea id="textarea"  name="sp_inst2" cols="" rows="" style="width:200px;height:90px"maxlength="300" autocomplete="off"></textarea>
 	    </div>
 	</div>
 	
@@ -463,14 +493,14 @@ select {
 	<div class="colOuter">
 			<div class="col1"><div class="col1title">Mobile</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode" placeholder="Mobile No." name="sp_cust_mobile_no" type="text" id="sp_cust_mobile_no" required ></div>
+			<div class="col2full"><input class="texboxitemcode" placeholder="Mobile No." name="sp_cust_mobile_no" type="text" id="sp_cust_mobile_no" required autocomplete="off"></div>
 	
 	</div>
 	
 	<div class="colOuter" id="ctype1">
 			<div class="col1"><div class="col1title" id="cktype">Cake Type</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode"  name="ctype" type="text" id="ctype" required ></div>
+			<div class="col2full"><input class="texboxitemcode"  name="ctype" type="text" id="ctype" required autocomplete="off"></div>
 	
 	</div>
 	
@@ -1293,6 +1323,32 @@ var temp=document.getElementById('temp').value;
 	
 }
 
+</script>
+
+<script type="text/javascript">
+function onBlurSpCode(spCode)
+{ 
+	if(spCode==''||spCode==null)
+		{
+		alert("Please Select Sp Cake");
+		}else
+			{
+			document.getElementById('searchform').submit();
+
+			}
+			
+	
+}
+</script>
+<script type="text/javascript">
+$(document).bind("contextmenu",function(e) {
+ e.preventDefault();
+});
+$(document).keydown(function(e){
+    if(e.which === 123){
+       return false;
+    }
+});
 </script>
 </body>
 </html>

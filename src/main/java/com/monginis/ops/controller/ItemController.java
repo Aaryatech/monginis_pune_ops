@@ -831,7 +831,7 @@ public class ItemController {
 					order.setOrderSubType(Integer.parseInt(frItem.getItemGrp2()));
 					order.setOrderType(Integer.parseInt(frItem.getItemGrp1()));
 					order.setProductionDate(Common.stringToSqlDate(productionDate));
-					order.setRefId(frItem.getId());
+					order.setRefId(0);//frItem.getId()on 21 feb
 					order.setUserId(0);
 					order.setMenuId(currentMenuId);
 					

@@ -130,6 +130,13 @@ jQuery(document).ready(function(){
 
 
 
+<!-- -----------------------------------------CODE FOR MULTIPLE DROPDOWN (CSS)------------------------------------------------------------ -->
+
+    <!-- chosen CSS ============================================ -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dropdownmultiple/bootstrap-chosen.css">
+    
+<!-- ----------------------------------------------------END------------------------------------------------------------ -->
+
 <!-- </head>
 <body> -->
 
@@ -164,7 +171,7 @@ jQuery(document).ready(function(){
 	});
 </script>
 <!--datepicker-->
-
+<c:url var="getMenus" value="/getMenus"/>
 
 <!--topLeft-nav-->
 <div class="sidebarOuter"></div>
@@ -208,48 +215,87 @@ jQuery(document).ready(function(){
 					action="itemHistory">
 					<input type="hidden" name="mod_ser" id="mod_ser"
 						value="search_result">
-
 					<div class="colOuter">
-						<div class="col-md-1">
-							<div class="col1title">Category</div>
+					<div class="col-md-1">
+							<div class="col1title">Order</div>
 						</div>
-						<div class="col-md-4">
-							<select name="catId" id="catId" required>
-								<option value="">Select Type</option>
+						<div class="col-md-2">
+						<select name="orderType" id="orderType" class="form-control" required onchange="getMenus(this.value)">
+						<c:choose>
+						<c:when test="${orderType==1}">
+						        <option value="1" selected>Regular Order</option>
+								<option value="2">Sp Order</option>
+						</c:when>
+						<c:when test="${orderType==2}">
+						        <option value="1">Regular Order</option>
+								<option value="2" selected>Sp Order</option>
+						</c:when>
+						<c:otherwise>
+						 <option value="1">Regular Order</option>
+								<option value="2" >Sp Order</option>
+						</c:otherwise>
+						</c:choose>
+								
+						</select>
+						</div>
+					
+						<div class="col-md-1">
+							<div class="col1title">Menu</div>
+						</div>
+						<div class="col-md-3"><!-- class="chosen-select"  -->
+							<select name="catId[]" id="catId" data-placeholder="Choose Menus..." class="chosen-select" style="text-align:left;" tabindex="6" required>
+								<option value="-1" style="text-align:left;">ALL</option>
 
-								<c:forEach items="${catList}" var="catList">
+							<%-- 	<c:forEach items="${catList}" var="catList">
 									<c:choose>
 										<c:when test="${catId==catList.catId}">
 
-											<option value="${catList.catId}" selected>${catList.catName}</option>
+											<option value="${catList.catId}" style="text-align:left;" selected>${catList.catName}</option>
 										</c:when>
 										<c:when test="${catId!=catList.catId}">
 
-											<option value="${catList.catId}">${catList.catName}</option>
+											<option value="${catList.catId}" style="text-align:left;">${catList.catName}</option>
 										</c:when>
 									</c:choose>
+								</c:forEach> --%>
+						       <c:choose>
+						       <c:when test="${orderType!=0}">
+						       <c:forEach items="${menuListSelected}" var="menuListSelected">
+											<option value="${menuListSelected.menuId}" style="text-align:left;" selected>${menuListSelected.menuTitle}</option>
 								</c:forEach>
-								<c:choose>
+								<c:forEach items="${menuListNotSelected}" var="menuListNotSelected">
+											<option value="${menuListNotSelected.menuId}" style="text-align:left;">${menuListNotSelected.menuTitle}</option>
+								</c:forEach>
+						       </c:when>
+						     
+						       <c:otherwise>
+						    <c:forEach items="${menuListNotSelected}" var="menuListNotSelected">
+											<option value="${menuListNotSelected.menuId}" style="text-align:left;">${menuListNotSelected.menuTitle}</option>
+								</c:forEach>
+						       </c:otherwise>
+						       </c:choose>
+								
+								<%-- <c:choose>
 										<c:when test="${catId==42}">
-								<option value="42" selected>Regular Cake as Special Order</option>
-								<option value="80">Special Savories Order</option>
+								<option value="42" selected style="text-align:left;">Regular Cake as Special Order</option>
+								<option value="80" style="text-align:left;">Special Savories Order</option>
 								</c:when>
 								<c:when test="${catId==80}">
-								<option value="42">Regular Cake as Special Order</option>
-								<option value="80" selected>Special Savories Order</option>
+								<option value="42" style="text-align:left;">Regular Cake as Special Order</option>
+								<option value="80" selected style="text-align:left;">Special Savories Order</option>
 								</c:when>
 								<c:otherwise>
-								<option value="42">Regular Cake as Special Order</option>
-								<option value="80">Special Savories Order</option>
+								<option value="42" style="text-align:left;">Regular Cake as Special Order</option>
+								<option value="80" style="text-align:left;">Special Savories Order</option>
 								</c:otherwise>
-								</c:choose>
+								</c:choose> --%>
 							</select>
 						</div>
 						<!-- 	</div> -->
 
 						<!-- <div class="colOuter"> -->
-						<div class="col-md-3">
-							<div class="col1title">Delivery Date</div>
+						<div class="col-md-1">
+							<div class="col1title">Del Date</div>
 						</div>
 						<div class="col-md-2">
 							<input id="datepicker" class="texboxitemcode texboxcal"  autocomplete="off"
@@ -260,12 +306,11 @@ jQuery(document).ready(function(){
 
 						<!-- <div class="colOuter">
  -->
-						<div class="col-md-2">
+						<div class="col-md-1">
 							<input name="" class="buttonsaveorder" value="Search"
 								type="submit" onclick="Print()">
 						</div>
 					</div>
-
 				</form>
 
 				<!--tabNavigation-->
@@ -278,7 +323,7 @@ jQuery(document).ready(function(){
 					<c:set var="selectedMenu" scope="session" value="${selectedMenu}" />
 
 					<c:choose>
-						<c:when test="${catId!=5}">
+						<c:when test="${orderType==1}">
 
 							<div class="clearfix"></div>
 
@@ -523,15 +568,48 @@ jQuery(document).ready(function(){
 
 
 	</script>
-<script type="text/javascript">
-	function Print() {
-		//alert("Inside Print ");
-		//window.print();
-		
+	<script>
+	function getMenus(type)
+	{
+	
+		                $.getJSON('${getMenus}', {
+		                	type : type,
+		                    ajax : 'true'
+		                }, function(data) {
+		                
+		                    var len = data.length;
+
+							$('#catId')
+						    .find('option')
+						    .remove()
+						    .end()
+						 $("#catId").append($("<option></option>").attr( "value",-1).text("ALL"));
+		                    for ( var i = 0; i < len; i++) {
+		                            
+		                                
+		                        $("#catId").append(
+		                                $("<option></option>").attr(
+		                                    "value", data[i].menuId).text(data[i].menuTitle)
+		                            );
+		                    }
+
+		                    $('.chosen-select').trigger('chosen:updated');
+
+		                });
+		          
 	}
-
+	
 	</script>
+<%-- 
 
+    <!--Require for dropdown multiple jquery
+		============================================ -->
+    <script src="${pageContext.request.contextPath}/resources/dropdownmultiple/jquery-1.12.4.min.js"></script>
+   --%>
+    <!-- chosen JS
+		============================================ -->
+    <script src="${pageContext.request.contextPath}/resources/dropdownmultiple/chosen.jquery.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/dropdownmultiple/chosen-active.js"></script>
 
 </body>
 </html>

@@ -916,7 +916,7 @@ public class SpCakeController {
 			spCakeOrder.setIsSlotUsed(isSlotUsed);
 			spCakeOrder.setIsAllocated(0);
 			
-			spCakeOrder.setExtraCharges(extraCharges);;
+			spCakeOrder.setExtraCharges(exCharges);;
 			spCakeOrder.setDisc(disc);
 			spCakeOrder.setExVar1(ctype);
 			// Float floatBackEndRate = backendSpRate*spWeight;

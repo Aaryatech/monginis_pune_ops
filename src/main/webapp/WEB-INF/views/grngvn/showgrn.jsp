@@ -97,8 +97,9 @@ table, th, td {
 							<table id="table_grid" class="main-table">
 								<thead>
 									<tr class="bgpink">
-										<th class="col-md-1"  style="text-align: center;">Invoice No</th>
-										<th class="col-md-3"  style="text-align: center;">Name</th>
+									<th class="col-md-2"  style="text-align: center;">Invoice Date</th>
+										<th class="col-md-2"  style="text-align: center;">Invoice No</th>
+										<th class="col-md-2"  style="text-align: center;">Name</th>
 										<th class="col-md-2"  style="text-align: center;">Type</th>
 										<th class="col-md-1"  style="text-align: center;">QTY</th>
 										<th class="col-md-1"  style="text-align: center;">Rate</th>
@@ -126,6 +127,8 @@ table, th, td {
 										<tr>
 
 											<%-- 	<td>${count.index+1}</td> --%>
+											<td class="col-md-1"  style="text-align: center;"><fmt:formatDate pattern="dd-MM-yyyy" value="${grnConfList.billDate}" />
+</td>
 											<td class="col-md-1"  style="text-align: center;"><c:out
 													value="${grnConfList.invoiceNo}"></c:out></td>
 											<td class="col-md-3" style="text-align: center;"><c:out
@@ -166,7 +169,7 @@ table, th, td {
 											<td class="col-md-1" style="text-align: center;"><input type="text"
 												name="grnqtyauto${grnConfList.billDetailNo}"
 												value="${grnConfList.autoGrnQty}" 
-												id='grnqtyauto${grnConfList.billDetailNo}' size="3" readonly
+												id='grnqtyauto${grnConfList.billDetailNo}' size="3"
 												onkeyup="calcGrn(${grnConfList.grnType},${grnConfList.rate},${grnConfList.itemId},
 																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.autoGrnQty},${grnConfList.billDetailNo},${grnConfList.discPer})" />
 
@@ -182,10 +185,13 @@ table, th, td {
 
 											<c:set var="taxableAmt" value="${taxableAmt}" />
 
-											<td id='taxable_amt${grnConfList.billDetailNo}' style="text-align: center;" class="col-md-1"><c:out value="${taxableAmt}"></c:out></td>
+											<td id='taxable_amt${grnConfList.billDetailNo}' style="text-align: center;" class="col-md-1"><fmt:formatNumber type="number"
+												minFractionDigits="2" maxFractionDigits="2"
+												value="${taxableAmt}"/></td>
 
 
-											<td  style="text-align: center;" id='tax_amt${grnConfList.billDetailNo}' class="col-md-1"><c:out value="${grnConfList.taxAmt}"></c:out></td>
+											<td  style="text-align: center;" id='tax_amt${grnConfList.billDetailNo}' class="col-md-1">
+											<fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${grnConfList.taxAmt}"/></td>
 
 											<fmt:formatNumber var="grnAmt" type="number"
 												minFractionDigits="2" maxFractionDigits="2"

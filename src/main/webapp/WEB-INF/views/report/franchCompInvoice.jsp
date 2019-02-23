@@ -121,7 +121,7 @@
           <tr>
             <td colspan="2" align="right"><span class="style7">Bill Total:</span></td>
 <%--             <td align="right"><span class="style7">${billList[0].intBillAmt}</span></td>
- --%>            <td align="right"><span class="style7"><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt-billList[0].intDiscAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
+ --%>            <td align="right"><span class="style7"><c:choose><c:when test="${billList[0].billType eq 'R'}">${billList[0].discountAmt-billList[0].intDiscAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
          
    </tr>
         </tbody>

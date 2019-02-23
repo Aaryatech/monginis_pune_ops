@@ -1406,7 +1406,8 @@ public class GrnGvnController {
 		RestTemplate restTemplate = new RestTemplate();
 		GetBillsForFrList billsForFr = new GetBillsForFrList();
 		try {
-
+			java.util.Date cDate = new java.util.Date();
+			String curDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			// String view = request.getParameter("view_opt");
 
@@ -1417,11 +1418,7 @@ public class GrnGvnController {
 				System.out.println("view contains zero value");
 
 				map.add("frId", frId);
-				java.util.Date cDate = new java.util.Date();
-
-				String curDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
-
-				map.add("curDate", curDate);
+			    map.add("curDate", curDate);
 
 				billsForFr = new GetBillsForFrList();
 
@@ -1450,6 +1447,7 @@ public class GrnGvnController {
 			System.out.println("FR BILL LIST " + frBillList.toString());
 
 			modelAndView.addObject("frBillList", frBillList);
+			modelAndView.addObject("curDate", curDate);
 
 		} catch (Exception e) {
 

@@ -69,7 +69,6 @@ table, th, td {
 						<br> <select name="view_opt" id="view_opt" class="form-control"
 							style="width: 250px; background-color: white; height: 40px" onchange="showDate()">
 							<option value="0">Select From Bill</option>
-
 							<option value="1">Select From Date</option>
 
 						</select>
@@ -79,7 +78,7 @@ table, th, td {
 
 
 					<div class="col-md-2">
-						<input id="datepicker" class="texboxitemcode texboxcal" value="0" class="form-control"
+						<input id="datepicker" class="texboxitemcode texboxcal" value="${curDate}" class="form-control"
 							name="bill_date" type="text" style="display: none;">
 					</div>
 
@@ -103,7 +102,7 @@ table, th, td {
 							action="${pageContext.request.contextPath}/getGvnBillDetails"
 							name="grn" id="grn" method="get">
 
-							<div class="row">
+							<div class="row" id="byBillNo">
 							<div class="col-md-2">
 						<h2 class="pageTitle"> </h2>
 					</div>
@@ -152,7 +151,7 @@ table, th, td {
 						<div class="col-md-9" ></div> 
 					<label for="search" class="col-md-3" id="search">
     <i class="fa fa-search" style="font-size:20px"></i>
-									<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search items by name.." title="Type in a name">
+									<input type="text"  id="myInput" style="border-radius: 25px;" onkeyup="myFunction()" placeholder="Search items by name.." title="Type in a name">
 										</label>  
 						
 
@@ -446,13 +445,14 @@ function showDate(){
 	if(viewOpt==1){
 		document.getElementById("datepicker").style.display= "block";
 		document.getElementById("searchButton").style.display= "block";
+		document.getElementById("byBillNo").style="display:none";
 
 		$('#table_grid td').remove();
 		
 	}
 	else{
 		document.getElementById("datepicker").style="display:none";
-		
+		document.getElementById("byBillNo").style="block";
 		document.getElementById("searchButton").style="display:none";
 		$('#table_grid td').remove();
 	}
