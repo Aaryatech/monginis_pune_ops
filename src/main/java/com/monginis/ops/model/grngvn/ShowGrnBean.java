@@ -10,8 +10,8 @@ public class ShowGrnBean {
 	    private String itemName;
 	    private Integer grnType;
 	    private Integer billNo;
-	    private Integer rate;
-	    private Integer mrp;
+	    private float rate;
+	    private float mrp;
 	    private Integer billQty;
 	    Date billDate;
 	    float sgstPer;
@@ -118,18 +118,23 @@ public class ShowGrnBean {
 		public void setBillNo(Integer billNo) {
 			this.billNo = billNo;
 		}
-		public Integer getRate() {
+		
+		public float getRate() {
 			return rate;
 		}
-		public void setRate(Integer rate) {
+
+		public void setRate(float rate) {
 			this.rate = rate;
 		}
-		public Integer getMrp() {
+
+		public float getMrp() {
 			return mrp;
 		}
-		public void setMrp(Integer mrp) {
+
+		public void setMrp(float mrp) {
 			this.mrp = mrp;
 		}
+
 		public Integer getBillQty() {
 			return billQty;
 		}

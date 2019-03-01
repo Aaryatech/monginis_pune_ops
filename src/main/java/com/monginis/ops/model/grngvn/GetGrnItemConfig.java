@@ -11,8 +11,8 @@ public class GetGrnItemConfig {
     private String itemName;
     private Integer grnType;
     private Integer billNo;
-    private Integer rate;
-    private Integer mrp;
+    private float rate;
+    private float mrp;
     private Integer billQty;
     
     Date billDate;
@@ -118,23 +118,25 @@ public class GetGrnItemConfig {
         this.billNo = billNo;
     }
 
-    public Integer getRate() {
-        return rate;
-    }
+   
 
-    public void setRate(Integer rate) {
-        this.rate = rate;
-    }
+    public float getRate() {
+		return rate;
+	}
 
-    public Integer getMrp() {
-        return mrp;
-    }
+	public void setRate(float rate) {
+		this.rate = rate;
+	}
 
-    public void setMrp(Integer mrp) {
-        this.mrp = mrp;
-    }
+	public float getMrp() {
+		return mrp;
+	}
 
-    public Integer getBillQty() {
+	public void setMrp(float mrp) {
+		this.mrp = mrp;
+	}
+
+	public Integer getBillQty() {
         return billQty;
     }
 

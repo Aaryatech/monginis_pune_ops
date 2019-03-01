@@ -12,7 +12,7 @@ public class OtherBillHeader {
 	private String billDate; 
 	private int frId; 
 	private String frCode; 
-	private int taxApplicable; 
+	private float taxApplicable; 
 	private float taxableAmt; 
 	private float totalTax; 
 	private float grandTotal; 
@@ -57,10 +57,10 @@ public class OtherBillHeader {
 	public void setFrCode(String frCode) {
 		this.frCode = frCode;
 	}
-	public int getTaxApplicable() {
+	public float getTaxApplicable() {
 		return taxApplicable;
 	}
-	public void setTaxApplicable(int taxApplicable) {
+	public void setTaxApplicable(float taxApplicable) {
 		this.taxApplicable = taxApplicable;
 	}
 	public float getTaxableAmt() {
