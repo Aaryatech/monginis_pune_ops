@@ -194,12 +194,12 @@ table, th, td {
 														maxFractionDigits="2" />
 												</td>
 
-												<td class="col-md-1" style="text-align: center;"><select
+												<td class="col-md-1" style="text-align: center;"  id="gvn_remark_other${gvnConfList.billDetailNo}"><select
 													name="gvn_remark${gvnConfList.billDetailNo}" style="width: 200px"
-													id="gvn_remark${gvnConfList.billDetailNo}" class="form-control" required="required">
+													id="gvn_remark${gvnConfList.billDetailNo}" class="form-control" required="required" onchange="getDynamicTextRemark(this.value,${gvnConfList.billDetailNo})">
 														<option selected value="">Select Remark</option>
 														<c:forEach items="${remarkList}" var="remarkList">
-																${remarkList.remark}
+																 
 																<option value="${remarkList.remark}">${remarkList.remark}</option>
 														</c:forEach>
 												</select></td>
@@ -363,13 +363,22 @@ table, th, td {
 			/*  var form = document.getElementById("proceed_gvn");
 		    form.action ="addGvnProcess";
 		    form.submit();
-		 */
+		 
 		
-	} 
+	} */
 </script>
 
-
-
+<script>
+function getDynamicTextRemark(remark,billDetailId){
+	
+	  if(remark==='Other'){
+      		$("#gvn_remark_other"+billDetailId).append("<input type='text'  required id='gvn_remark_text"+billDetailId+"' name='gvn_remark_text"+billDetailId+"' style='width:100%; border-radius: 25px;   border-color: pink;padding-left:6px;' />");
+		  }
+	  else{
+		          $('#gvn_remark_text'+billDetailId).remove();
+		  }
+}
+</script>
 
 </body>
 </html>

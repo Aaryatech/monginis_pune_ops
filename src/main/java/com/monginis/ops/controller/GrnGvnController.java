@@ -1690,6 +1690,9 @@ public class GrnGvnController {
 				if (frGvnRemark == null || frGvnRemark.equals("")) {
 					frGvnRemark = "no remark from franchisee";
 
+				}else if(frGvnRemark.equalsIgnoreCase("Other")) {
+					frGvnRemark=request.getParameter("gvn_remark_text" + gvnList.get(i).getBillDetailNo());
+					System.err.println("It iS Other Remark " +frGvnRemark);
 				}
 
 				if (gvnQty > 0) {

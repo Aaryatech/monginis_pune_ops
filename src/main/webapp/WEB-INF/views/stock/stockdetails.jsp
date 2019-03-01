@@ -239,7 +239,20 @@ table, th, td {
 
 						</select>
 					</div>
+					<div class="col-md-1">
+						<div class="col1title">Type</div>
+					</div>
+					<div class="col-md-2">
+						<select name="st_type" class="form-control chosen"
+							tabindex="4" id="st_type" required>
 
+							<option value="">Select Type</option>
+								<option value="1">ALL</option>
+								<option value="2">In Stock</option>
+								<option value="3">0 Stock</option>							
+							
+						</select>
+					</div>
 
 				</div>
 
@@ -577,7 +590,7 @@ table, th, td {
 				//alert(isMonthClose);
 						
 				var selectedCat = $("#selectCategory").val();
-				
+				var stType = $("#st_type").val();
 				var selectedStockOption=$("#selectStock").val();
 
 				var selectedFromDate=$("#fromdatepicker").val();
@@ -601,8 +614,9 @@ table, th, td {
 
 				if(data.monthClosed && selectedStockOption == 1){
 					
-				
+				         if(stType==1){
 						document.getElementById('monthEnd').style.display = "block";
+				         }
 
 						$('#table_grid th').remove();
 							var tr = $('<tr class=bgpink></tr>');
@@ -639,7 +653,8 @@ table, th, td {
 						
 						var regCurrentStock = item.currentRegStock;
 						 var reOrderQty =item.reOrderQty;
-						 
+						 if(stType==1)
+							 {
 						 if(regCurrentStock > reOrderQty){
 								var tr = $('<tr ></tr>');
 
@@ -686,6 +701,99 @@ table, th, td {
 							
 						$('#table_grid tbody').append(tr);
 
+					
+					}
+					else if(stType==2)
+						{
+						 if(regCurrentStock > reOrderQty){
+								var tr = $('<tr ></tr>');
+
+						tr.append($('<td class="col-md-1"></td>').html(item.itemId));
+						tr.append($('<td class="col-md-1" ></td>').html(item.itemName));
+						tr.append($('<td class="col-md-1"></td>').html(item.regOpeningStock));
+						tr.append($('<td class="col-md-1"></td>').html(item.spOpeningStock));
+						tr.append($('<td class="col-md-1"></td>').html(item.regTotalPurchase));
+						tr.append($('<td class="col-md-1"></td>').html(item.spTotalPurchase));
+						tr.append($('<td class="col-md-1"></td>').html(item.regTotalGrnGvn));
+						if(item.regTotalSell<0)
+							{
+							tr.append($('<td class="col-md-1"></td>').html(0));
+							}
+						else
+							{
+							tr.append($('<td class="col-md-1"></td>').html(item.regTotalSell));
+							}
+						tr.append($('<td class="col-md-1"></td>').html(item.spTotalSell));
+			
+					
+						tr.append($('<td class="col-md-1"> </td>').html(reOrderQty));
+						
+					 
+						if(regCurrentStock<0){
+						tr.append($('<td class="col-md-1"> </td>').html(0));
+						}else{
+							tr.append($('<td class="col-md-1"> </td>').html(regCurrentStock));
+							}
+						tr.append($('<td class="col-md-1"> </td>').html(item.currentSpStock));
+				
+						if(data.monthClosed && selectedStockOption == 1){
+							
+						 	tr.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+									+ item.itemId +','+regCurrentStock+') onchange= updateStockDiff('+ item.itemId + ','+regCurrentStock+')  id= physicalStockQty'+ item.itemId+ ' name=physicalStockQty'+item.itemId+' value = '+ regCurrentStock+ '></td>'));
+							
+							tr.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));					
+						} 
+																		    
+							
+						$('#table_grid tbody').append(tr);
+						 }
+						
+						} else if(stType==3)
+							{
+							 if(regCurrentStock <= reOrderQty){
+								 var tr = $('<tr class="re-order" ></tr>');
+
+							tr.append($('<td class="col-md-1"></td>').html(item.itemId));
+							tr.append($('<td class="col-md-1" ></td>').html(item.itemName));
+							tr.append($('<td class="col-md-1"></td>').html(item.regOpeningStock));
+							tr.append($('<td class="col-md-1"></td>').html(item.spOpeningStock));
+							tr.append($('<td class="col-md-1"></td>').html(item.regTotalPurchase));
+							tr.append($('<td class="col-md-1"></td>').html(item.spTotalPurchase));
+							tr.append($('<td class="col-md-1"></td>').html(item.regTotalGrnGvn));
+							if(item.regTotalSell<0)
+								{
+								tr.append($('<td class="col-md-1"></td>').html(0));
+								}
+							else
+								{
+								tr.append($('<td class="col-md-1"></td>').html(item.regTotalSell));
+								}
+							tr.append($('<td class="col-md-1"></td>').html(item.spTotalSell));
+				
+						
+							tr.append($('<td class="col-md-1"> </td>').html(reOrderQty));
+							
+						 
+							if(regCurrentStock<0){
+							tr.append($('<td class="col-md-1"> </td>').html(0));
+							}else{
+								tr.append($('<td class="col-md-1"> </td>').html(regCurrentStock));
+								}
+							tr.append($('<td class="col-md-1"> </td>').html(item.currentSpStock));
+					
+							if(data.monthClosed && selectedStockOption == 1){
+								
+							 	tr.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+										+ item.itemId +','+regCurrentStock+') onchange= updateStockDiff('+ item.itemId + ','+regCurrentStock+')  id= physicalStockQty'+ item.itemId+ ' name=physicalStockQty'+item.itemId+' value = '+ regCurrentStock+ '></td>'));
+								
+								tr.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));					
+							} 
+																			    
+								
+							$('#table_grid tbody').append(tr);
+							 }
+							}
+						 
 					})
 				});
 			}

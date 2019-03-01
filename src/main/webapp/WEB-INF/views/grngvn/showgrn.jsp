@@ -202,10 +202,10 @@ table, th, td {
 											<td  style="text-align: center;" class="col-md-1" id="grn_amt${grnConfList.billDetailNo}"><c:out
 													value="${grnAmt}"></c:out></td>
 
-											<td  style="text-align: center;" class="col-md-1"><select
+											<td id="grn_remark_other${grnConfList.billDetailNo}"  style="text-align: center;" class="col-md-1" ><select
 												name="grn_remark${grnConfList.billDetailNo}" style="width: 200px" required="required"
-												id="grn_remark${grnConfList.billDetailNo}" class="form-control" onchange="changeQty(${grnConfList.billDetailNo},${grnConfList.autoGrnQty})">
-													<option selected value="0">Goods Expired</option>
+												id="grn_remark${grnConfList.billDetailNo}" class="form-control" onchange="changeQty(${grnConfList.billDetailNo},${grnConfList.autoGrnQty},this.value)">
+													<option  value="0">Goods Expired</option>
 													<c:forEach items="${remarkList}" var="remarkList">
 																${remarkList.remark}
 																<option value="${remarkList.remark}">${remarkList.remark}</option>
@@ -274,16 +274,22 @@ table, th, td {
 	
 	<script type="text/javascript">
 	
-	function changeQty(billDetailNo,autoQty){
-		//alert("HIII "+ itemId);
+	function changeQty(billDetailNo,autoQty,remark){
+	
 		
-		var remark = document.getElementById("grn_remark"+billDetailNo).value;
+	//	var remark = document.getElementById("grn_remark"+billDetailNo).value;
+    /* 	 if(remark=='Other'){
+   		$("#grn_remark_other"+billDetailNo).append("<input type='text'  required id='grn_remark_text"+billDetailNo+"' name='grn_remark_text"+billDetailNo+"' >");
+		  }
+	  else{
+		          $('#grn_remark_text'+billDetailNo).remove();
+		  } */
+		
 	 //	alert(remark);
 	 	if(remark==0){
-	 		//alert("In remark ==0");
 			    document.getElementById("grnqtyauto"+billDetailNo).value=autoQty;
 	 	}else{
-			 $("#grnqtyauto"+billDetailNo).removeAttr("readonly"); 
+			// $("#grnqtyauto"+billDetailNo).removeAttr("readonly"); //change
 	 	}
 		 
 	}
@@ -493,10 +499,10 @@ function getGrnData(id){
   clonedElement2.id = "";
   fauxTable.appendChild(clonedElement);
   fauxTable.appendChild(clonedElement2);
-})();}
+})();
+</script>
 
-
-	</script>
+	
 
 </body>
 </html>

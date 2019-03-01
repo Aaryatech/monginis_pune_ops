@@ -93,8 +93,18 @@ public class SpOrderHis {
     
     private float spGrand;
     
+    private int isBillGenerated;
+
     
     
+	public int getIsBillGenerated() {
+		return isBillGenerated;
+	}
+
+	public void setIsBillGenerated(int isBillGenerated) {
+		this.isBillGenerated = isBillGenerated;
+	}
+
 	public float getSpGrand() {
 		return spGrand;
 	}
@@ -459,19 +469,21 @@ public class SpOrderHis {
 	public String toString() {
 		return "SpOrderHis [spOrderNo=" + spOrderNo + ", frCode=" + frCode + ", spType=" + spType + ", spId=" + spId
 				+ ", frId=" + frId + ", itemId=" + itemId + ", menuId=" + menuId + ", spFlavourId=" + spFlavourId
-				+ ", spSelectedWeight=" + spSelectedWeight + ", spDeliveryPlace=" + spDeliveryPlace + ", spMinWeight="
-				+ spMinWeight + ", spMaxWeight=" + spMaxWeight + ", spProdTime=" + spProdTime + ", spEstDeliDate="
-				+ spEstDeliDate + ", spProdDate=" + spProdDate + ", spEvents=" + spEvents + ", spEventsName="
-				+ spEventsName + ", spInstructions=" + spInstructions + ", spDeliveryDate=" + spDeliveryDate
-				+ ", spCustName=" + spCustName + ", spCustDob=" + spCustDob + ", spCustMobNo=" + spCustMobNo
-				+ ", spBookedForName=" + spBookedForName + ", spBookForDob=" + spBookForDob + ", spBookForMobNo="
-				+ spBookForMobNo + ", spGrandTotal=" + spGrandTotal + ", spPrice=" + spPrice + ", spTotalAddRate="
-				+ spTotalAddRate + ", spBackendRate=" + spBackendRate + ", spSubTotal=" + spSubTotal + ", spAdvance="
-				+ spAdvance + ", rmAmount=" + rmAmount + ", tax1=" + tax1 + ", tax2=" + tax2 + ", tax1Amt=" + tax1Amt
-				+ ", tax2Amt=" + tax2Amt + ", orderPhoto=" + orderPhoto + ", orderDate=" + orderDate + ", orderPhoto2="
-				+ orderPhoto2 + ", isSlotUsed=" + isSlotUsed + ", spfName=" + spfName + ", spName=" + spName + "]";
+				+ ", spSelectedWeight=" + spSelectedWeight + ", spDeliveryPlace=" + spDeliveryPlace + ", spDeliveryDt="
+				+ spDeliveryDt + ", spMinWeight=" + spMinWeight + ", spMaxWeight=" + spMaxWeight + ", spProdTime="
+				+ spProdTime + ", spEstDeliDate=" + spEstDeliDate + ", spProdDate=" + spProdDate + ", spEvents="
+				+ spEvents + ", spEventsName=" + spEventsName + ", spInstructions=" + spInstructions
+				+ ", spDeliveryDate=" + spDeliveryDate + ", spCustName=" + spCustName + ", spCustDob=" + spCustDob
+				+ ", spCustMobNo=" + spCustMobNo + ", spBookedForName=" + spBookedForName + ", spBookForDob="
+				+ spBookForDob + ", spBookForMobNo=" + spBookForMobNo + ", spGrandTotal=" + spGrandTotal + ", spPrice="
+				+ spPrice + ", spTotalAddRate=" + spTotalAddRate + ", spBackendRate=" + spBackendRate + ", spSubTotal="
+				+ spSubTotal + ", spAdvance=" + spAdvance + ", rmAmount=" + rmAmount + ", tax1=" + tax1 + ", tax2="
+				+ tax2 + ", tax1Amt=" + tax1Amt + ", tax2Amt=" + tax2Amt + ", orderPhoto=" + orderPhoto + ", orderDate="
+				+ orderDate + ", orderPhoto2=" + orderPhoto2 + ", isSlotUsed=" + isSlotUsed + ", spfName=" + spfName
+				+ ", spName=" + spName + ", spAddRate=" + spAddRate + ", spGrand=" + spGrand + ", isBillGenerated="
+				+ isBillGenerated + "]";
 	}
-    
-    
+
+	
 
 }

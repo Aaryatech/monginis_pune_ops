@@ -3,8 +3,7 @@ package com.monginis.ops.model;
 
 
 public class SpecialCake {
-
- 
+	
     private int spId;
    
     private String spCode;
@@ -73,10 +72,16 @@ public class SpecialCake {
 
 	private int isSlotUsed;
 	
+	private int noOfChars;
 	
 	
 	
-	
+	public int getNoOfChars() {
+		return noOfChars;
+	}
+	public void setNoOfChars(int noOfChars) {
+		this.noOfChars = noOfChars;
+	}
 	public int getIsSlotUsed() {
 		return isSlotUsed;
 	}
@@ -95,8 +100,6 @@ public class SpecialCake {
 	public void setOrderQty(int orderQty) {
 		this.orderQty = orderQty;
 	}
-	
-	
 	
 	public int getIsCustChoiceCk() {
 		return isCustChoiceCk;
@@ -291,8 +294,7 @@ public class SpecialCake {
 				+ orderQty + ", orderDiscount=" + orderDiscount + ", isCustChoiceCk=" + isCustChoiceCk
 				+ ", isAddonRateAppli=" + isAddonRateAppli + ", mrpRate1=" + mrpRate1 + ", mrpRate2=" + mrpRate2
 				+ ", mrpRate3=" + mrpRate3 + ", spRate1=" + spRate1 + ", spRate2=" + spRate2 + ", spRate3=" + spRate3
-				+ ", isSlotUsed=" + isSlotUsed + "]";
+				+ ", isSlotUsed=" + isSlotUsed + ", noOfChars=" + noOfChars + "]";
 	}
-	
-
+	  
 	}

@@ -43,6 +43,8 @@ import com.monginis.ops.model.AllspMessageResponse;
 import com.monginis.ops.model.ErrorMessage;
 import com.monginis.ops.model.Flavour;
 import com.monginis.ops.model.FlavourList;
+import com.monginis.ops.model.FrItemStockConfigure;
+import com.monginis.ops.model.FrItemStockConfigureList;
 import com.monginis.ops.model.FrMenu;
 import com.monginis.ops.model.Franchisee;
 import com.monginis.ops.model.Info;
@@ -91,6 +93,7 @@ public class SpCakeController {
 	String isCustCh="";
 	String spPhoUpload="";
 	SpCakeOrderRes spCakeOrderRes=new SpCakeOrderRes();
+	ArrayList<FrMenu> frMenuList=null;
 	// ------------------------Show Special Cake Order
 	// Page-------------------------------------------
 	@RequestMapping(value = "/showSpCakeOrder/{index}", method = RequestMethod.GET)
@@ -98,7 +101,7 @@ public class SpCakeController {
 			HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("order/spcakeorder");
-
+		frMenuList=new ArrayList<FrMenu>();//new
 		HttpSession session = request.getSession();
 
 		logger.info("/Special Cake order request mapping. index:" + index);
@@ -108,6 +111,16 @@ public class SpCakeController {
 		try {
 			menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
 
+			if(menuList.size()>0)
+			{
+				for(FrMenu frMenu:menuList)
+				{
+					if(frMenu.getCatId()==5)
+					{
+						frMenuList.add(frMenu);
+					}
+				}
+			}
 			int isSameDayApplicable = menuList.get(globalIndex).getIsSameDayApplicable();
 
 			currentMenuId = menuList.get(index).getMenuId();
@@ -159,8 +172,28 @@ public class SpCakeController {
 				e.printStackTrace();
 			}
 			//System.out.println("Special Cake List:" + specialCakeList.toString());
-			    model.addObject("spNo", spNo);
-
+		      //----------------------------------------------------------------
+			 model.addObject("spNo", spNo);
+			 map = new LinkedMultiValueMap<String, Object>();
+			 map.add("settingKeyList", "next_delivery_menu");
+			 FrItemStockConfigureList settingList = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+			 List<FrItemStockConfigure>  settingListRes=settingList.getFrItemStockConfigure();
+			
+			model.addObject("nextDelMenu", settingListRes.get(0).getSettingValue());//check size of list change
+			if(settingListRes.get(0).getSettingValue()==currentMenuId)
+			{
+				model.addObject("delFlag", true);
+			}else
+			{
+				model.addObject("delFlag", false);
+			}
+			//for slip no
+			 map = new LinkedMultiValueMap<String, Object>();
+			 map.add("settingKeyList", "next_delivery_menu");
+			 FrItemStockConfigureList settingListForSlipNo = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+			 List<FrItemStockConfigure>  settingListResForSlipNo=settingListForSlipNo.getFrItemStockConfigure();
+			 model.addObject("slipNo", settingListResForSlipNo.get(0).getSettingValue());
+			//------------------------------------------------------------------
 			model.addObject("menuList", menuList);
 			model.addObject("specialCakeList", specialCakeList);
 			model.addObject("eventList", spMessageList);
@@ -171,6 +204,7 @@ public class SpCakeController {
 			model.addObject("menuTitle", menuTitle);
 			model.addObject("menuId", currentMenuId);
 			model.addObject("url", Constant.SPCAKE_IMAGE_URL);
+			model.addObject("frMenuList", frMenuList);
 
 		} catch (Exception e) {
 			System.out.println("Show Sp Cake List Excep: " + e.getMessage());
@@ -184,6 +218,8 @@ public class SpCakeController {
 			model.addObject("url", Constant.SPCAKE_IMAGE_URL);
 			model.addObject("menuTitle", menuTitle);
 			model.addObject("menuId", currentMenuId);
+			model.addObject("frMenuList", frMenuList);
+
 		}
 
 		return model;
@@ -250,7 +286,28 @@ public class SpCakeController {
 
 					}
 				}
-
+				//-------------------------new for next del menu------------------
+				 model.addObject("spNo", spNo);
+				 map = new LinkedMultiValueMap<String, Object>();
+				 map.add("settingKeyList", "next_delivery_menu");
+				 FrItemStockConfigureList settingList = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+				 List<FrItemStockConfigure>  settingListRes=settingList.getFrItemStockConfigure();
+				
+				model.addObject("nextDelMenu", settingListRes.get(0).getSettingValue());//check size of list change
+				if(settingListRes.get(0).getSettingValue()==currentMenuId)
+				{
+					model.addObject("delFlag", true);
+				}else
+				{
+					model.addObject("delFlag", false);
+				}
+				//for slip no
+				 map = new LinkedMultiValueMap<String, Object>();
+				 map.add("settingKeyList", "next_delivery_menu");
+				 FrItemStockConfigureList settingListForSlipNo = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+				 List<FrItemStockConfigure>  settingListResForSlipNo=settingListForSlipNo.getFrItemStockConfigure();
+				 model.addObject("slipNo", settingListResForSlipNo.get(0).getSettingValue());
+				//-----------------------------------------------------------------
 				if (isfound == 0) {
 
 					System.out.println("Sp Cake Not  Math ");
@@ -266,6 +323,8 @@ public class SpCakeController {
 					model.addObject("weightList", weightList);
 					model.addObject("menuId", currentMenuId);
 					model.addObject("menuTitle", menuTitle);
+					model.addObject("frMenuList", frMenuList);//new
+
 					return model;
 
 				}
@@ -328,6 +387,7 @@ public class SpCakeController {
 				model.addObject("weightList", weightList);
 				model.addObject("menuId", currentMenuId);
 				model.addObject("menuTitle", menuTitle);
+				model.addObject("frMenuList", frMenuList);
 			} else {
 
 				System.out.println(" inside else:");
@@ -343,6 +403,7 @@ public class SpCakeController {
 				model.addObject("weightList", weightList);
 				model.addObject("menuId", currentMenuId);
 				model.addObject("menuTitle", menuTitle);
+				model.addObject("frMenuList", frMenuList);
 				return model;
 
 			}
@@ -362,6 +423,7 @@ public class SpCakeController {
 			model.addObject("weightList", weightList);
 			model.addObject("menuId", currentMenuId);
 			model.addObject("menuTitle", menuTitle);
+			model.addObject("frMenuList", frMenuList);
 			return model;
 		}
 
@@ -375,7 +437,7 @@ public class SpCakeController {
 		model.addObject("menuId", currentMenuId);
 		model.addObject("menuTitle", menuTitle);
 		model.addObject("cutSec", cutSec);
-		
+		model.addObject("frMenuList", frMenuList);
 		return model;
 		
 	}
@@ -544,13 +606,14 @@ public class SpCakeController {
 			throws JsonProcessingException {
 
 		ModelAndView mav = new ModelAndView("order/orderRes");
+		RestTemplate restTemplate = new RestTemplate();
 
 		HttpSession session = request.getSession();
 
 		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
 		int frId = frDetails.getFrId();
 
-		globalFrId = frId;
+		 globalFrId = frId;
 		 menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
 
 		// menu timing verification
@@ -570,7 +633,7 @@ public class SpCakeController {
 		int isSameDayApplicable = menuList.get(globalIndex).getIsSameDayApplicable();
 
 		if (!isLate && !isEarly) {
-			
+			int spMenuId = Integer.parseInt(request.getParameter("spMenuId"));//new
 			int spId = Integer.parseInt(request.getParameter("sp_id"));
 			logger.info("1" + spId);
 			String spCode = request.getParameter("sp_code");
@@ -674,17 +737,25 @@ public class SpCakeController {
 			String spPlace = request.getParameter("sp_place");
 			logger.info("33" + spPlace);
  
-			 exCharges = Float.parseFloat(request.getParameter("sp_ex_charges"));
-				logger.info("34" + exCharges);
+			exCharges = Float.parseFloat(request.getParameter("sp_ex_charges"));
+			logger.info("34" + exCharges);
 				
+			disc = Float.parseFloat(request.getParameter("sp_disc"));
+			logger.info("35" + disc);
+			
+			String custGstin = request.getParameter("gstin");
+			logger.info("35.1" + custGstin);
+			
+			String custEmail = request.getParameter("email_id");
+			logger.info("35.2" + custEmail);
+			
+			String slipNo = request.getParameter("slipNo");
+			logger.info("35.2" + slipNo);
 				
-				 disc = Float.parseFloat(request.getParameter("sp_disc"));
-				logger.info("35" + disc);
-				
-				 ctype = request.getParameter("ctype");
-					logger.info("36" + ctype);
+		    ctype = request.getParameter("ctype");
+		    logger.info("36" + ctype);
 	 
-			 spPhoUpload = request.getParameter("spPhoUpload");
+		    spPhoUpload = request.getParameter("spPhoUpload");
 
 			String eventName = request.getParameter("event_name");
 
@@ -912,13 +983,22 @@ public class SpCakeController {
 			spCakeOrder.setTax2Amt(tax2Amt);
 			spCakeOrder.setTax2(tax2);
 
-			spCakeOrder.setMenuId(currentMenuId);
+			spCakeOrder.setMenuId(spMenuId);//change from CurrentMenuId to spMenuId
 			spCakeOrder.setIsSlotUsed(isSlotUsed);
 			spCakeOrder.setIsAllocated(0);
 			
 			spCakeOrder.setExtraCharges(exCharges);;
 			spCakeOrder.setDisc(disc);
 			spCakeOrder.setExVar1(ctype);
+			spCakeOrder.setCustGstin(custGstin);
+			spCakeOrder.setCustEmail(custEmail);
+			//-----------------for slip no-------------
+			 MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			 map.add("settingKeyList", "sp_slip_no");
+			 FrItemStockConfigureList settingListForSlipNo = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+			 List<FrItemStockConfigure>  settingListResForSlipNo=settingListForSlipNo.getFrItemStockConfigure();
+			 //---------------------------------------
+			spCakeOrder.setSlipNo(""+settingListResForSlipNo.get(0).getSettingValue());//slipNo
 			// Float floatBackEndRate = backendSpRate*spWeight;
 			// float intAddonRatePerKG = Float.parseFloat(spAddRate);
 
@@ -943,7 +1023,6 @@ public class SpCakeController {
 
 				HttpEntity<String> httpEntity = new HttpEntity<String>(jsonInString.toString(), httpHeaders);
 
-				RestTemplate restTemplate = new RestTemplate();
 				spCakeOrderRes = restTemplate.postForObject(Constant.URL + "/placeSpCakeOrder",
 						httpEntity, SpCakeOrderRes.class);
 				System.out.println("ORDER PLACED " + spCakeOrderRes.toString());
@@ -951,7 +1030,7 @@ public class SpCakeController {
 				spCake = spCakeOrderRes.getSpCakeOrder();
 				if (spCakeOrderRes.getErrorMessage().getError() != true) {
 					System.out.println("ORDER PLACED " + spCakeOrderRes.toString());
-					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+					 map = new LinkedMultiValueMap<String, Object>();
 					map = new LinkedMultiValueMap<String, Object>();
 
 					map.add("frId", frDetails.getFrId());
@@ -976,7 +1055,12 @@ public class SpCakeController {
 
 					Info updateFrSettingGrnGvnNo = restTemplate.postForObject(Constant.URL + "updateFrSettingSpNo", map, Info.class);
 
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("settingValue",settingListResForSlipNo.get(0).getSettingValue()+1);//+1 to slip no in setting table
+					map.add("settingKey", "sp_slip_no");
 
+					Info updateSetting = restTemplate.postForObject(Constant.URL + "updateSeetingForPB", map, Info.class);
+				
 				}
 				List<Flavour> flavoursList = new ArrayList<Flavour>();
 				Flavour filteredFlavour = new Flavour();
@@ -1012,7 +1096,7 @@ public class SpCakeController {
 				String frToken = "";
 				if (spCakeOrderRes.getErrorMessage().getError() != true) {
 				try {
-					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+					 map = new LinkedMultiValueMap<String, Object>();
 					map.add("frId", frDetails.getFrId());
 
 					frToken = restTemplate.postForObject(Constant.URL + "getFrToken", map, String.class);
@@ -1212,5 +1296,133 @@ public class SpCakeController {
 		return availableSlots;
 	}
 	// --------------------------------------END------------------------------------
+	@RequestMapping(value = "/editSpOrder/{spOrderNo}", method = RequestMethod.GET)
+	public ModelAndView editSpCake(@PathVariable("spOrderNo")int spOrderNo, HttpServletRequest request, HttpServletResponse response) {
 
+		ModelAndView model = new ModelAndView("order/editSpCakeOrder");
+		frMenuList=new ArrayList<FrMenu>();//new
+		HttpSession session = request.getSession();
+
+		menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
+		if(menuList.size()>0)
+		{
+			for(FrMenu frMenu:menuList)
+			{
+				if(frMenu.getCatId()==5)
+				{
+					frMenuList.add(frMenu);
+				}
+			}
+		}
+		RestTemplate restTemplate = new RestTemplate();
+		flavourList = restTemplate.getForObject(Constant.URL + "/showFlavourList", FlavourList.class);
+		AllspMessageResponse allspMessageList = restTemplate.getForObject(Constant.URL + "getAllSpMessage",
+				AllspMessageResponse.class);
+		spMessageList = allspMessageList.getSpMessage();
+		
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		map.add("spOrderNo", spOrderNo);
+		SpCakeOrder spCakeOrder=restTemplate.postForObject(Constant.URL + "/getSpOrderBySpOrderNo",	map, SpCakeOrder.class);
+		
+		String menuTitle = "";
+		List<Float> weightList = new ArrayList<>();
+        map = new LinkedMultiValueMap<String, Object>();
+			map.add("spId",spCakeOrder.getSpId());
+		try {
+			SearchSpCakeResponse searchSpCakeResponse = restTemplate.postForObject(Constant.URL + "/searchSpecialCakeBySpId",
+					map, SearchSpCakeResponse.class);
+			ErrorMessage errorMessage = searchSpCakeResponse.getErrorMessage();
+			specialCake = searchSpCakeResponse.getSpecialCake();
+
+			SpCakeResponse spCakeResponse = restTemplate.getForObject(Constant.URL + "/showSpecialCakeList",
+					SpCakeResponse.class);
+
+			cutSec =searchSpCakeResponse.getSpCakeSup().getCutSection();
+		    model.addObject("spNo", spCakeOrder.getSpOrderNo());
+       	    
+				menuTitle = "Edit Sp Order";
+				Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+				//-------------------------new for next del menu------------------
+				 map = new LinkedMultiValueMap<String, Object>();
+				 map.add("settingKeyList", "next_delivery_menu");
+				 FrItemStockConfigureList settingList = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
+				 List<FrItemStockConfigure>  settingListRes=settingList.getFrItemStockConfigure();
+				
+				model.addObject("nextDelMenu", settingListRes.get(0).getSettingValue());//check size of list change
+				if(settingListRes.get(0).getSettingValue()==currentMenuId)
+				{
+					model.addObject("delFlag", true);
+				}else
+				{
+					model.addObject("delFlag", false);
+				}
+			     model.addObject("slipNo", spCakeOrder.getSlipNo());
+		     	String spImage = specialCake.getSpImage();
+
+				float sprRate;
+				float spBackendRate;
+
+				float minWt = Float.valueOf(specialCake.getSpMinwt());
+
+				float maxWt = Float.valueOf(specialCake.getSpMaxwt());
+
+				weightList.add(minWt);
+				float currentWt = minWt;
+				while (currentWt < maxWt) {
+					currentWt = currentWt + specialCake.getSpRate2();//spr rate 2 means weight increment by 
+					weightList.add(currentWt);
+				} 
+
+				System.out.println("Weight List for SP Cake: " + weightList.toString());
+
+				if (frDetails.getFrRateCat() == 1) {
+					sprRate = specialCake.getMrpRate1();
+					spBackendRate = specialCake.getSpRate1();
+
+				} /*else if (frDetails.getFrRateCat() == 2) {
+					sprRate = specialCake.getMrpRate2();
+					spBackendRate = specialCake.getSpRate2(); //No frRateCate 2 is present in franchisee
+				}*/ else {
+					sprRate = specialCake.getMrpRate3();
+					spBackendRate = specialCake.getSpRate3();
+
+				}
+
+				model.addObject("sprRate", sprRate);
+				model.addObject("spBackendRate", spBackendRate);
+
+				if (specialCake.getIsAddonRateAppli() == 0) {
+					model.addObject("addonRatePerKG", 0);
+				} else {
+					model.addObject("addonRatePerKG", specialCake.getSprAddOnRate());
+				}
+
+				model.addObject("specialCake", specialCake);
+				model.addObject("eventList", spMessageList);
+
+				int spBookb4 = Integer.parseInt(specialCake.getSpBookb4());
+
+				model.addObject("spBookb4", spBookb4);
+				model.addObject("isFound", "");
+				model.addObject("specialCakeList", spCakeResponse.getSpecialCake());
+				model.addObject("configuredSpCodeList", configuredSpCodeList);
+				model.addObject("weightList", weightList);
+				model.addObject("menuId", spCakeOrder.getMenuId());
+				model.addObject("menuTitle", menuTitle);
+				model.addObject("spCakeOrder", spCakeOrder);
+				model.addObject("frMenuList", frMenuList);
+				model.addObject("menuList", menuList);
+				model.addObject("eventList", spMessageList);
+				model.addObject("flavourList", flavourList);
+				model.addObject("url", Constant.SPCAKE_IMAGE_URL);
+				model.addObject("isFound", "");
+				model.addObject("cutSec", cutSec);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+		
+	}
 }

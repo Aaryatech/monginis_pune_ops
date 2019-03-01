@@ -243,7 +243,7 @@ jQuery(document).ready(function(){
 							<div class="col1title">Menu</div>
 						</div>
 						<div class="col-md-3"><!-- class="chosen-select"  -->
-							<select name="catId[]" id="catId" data-placeholder="Choose Menus..." class="chosen-select" style="text-align:left;" tabindex="6" required>
+							<select name="catId" id="catId" data-placeholder="Choose Menus..."  class="chosen-select"  style="text-align:left;" tabindex="6" required>
 								<option value="-1" style="text-align:left;">ALL</option>
 
 							<%-- 	<c:forEach items="${catList}" var="catList">
@@ -458,7 +458,19 @@ jQuery(document).ready(function(){
 									<tbody>
 										<c:forEach items="${orderHistory}" var="orderList">
 											<tr>
-												<td class="col-md-2"><c:out value="${orderList.spName}" /></td>
+												<td class="col-md-2">
+												&nbsp;&nbsp;&nbsp;&nbsp;
+												<c:out value="${orderList.spName}" />
+												<c:choose>
+												<c:when test="${orderList.isBillGenerated==1}">
+												&nbsp;&nbsp;<a href="editSpOrder/${orderList.spOrderNo}" ><span
+														class="fa fa-pencil"></span></a>&nbsp;&nbsp;
+												</c:when>
+												<c:otherwise>
+												
+												</c:otherwise>
+												</c:choose>
+												</td>
 												<td class="col-md-1"><c:out
 														value="${orderList.spfName}" /></td>
 											<c:set var="price" value="${orderList.spGrandTotal-orderList.spTotalAddRate}"></c:set>
@@ -531,6 +543,8 @@ jQuery(document).ready(function(){
 <!--easyTabs-->
 <!--easyTabs-->
 <script>
+
+
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "100%";
 	}
@@ -583,12 +597,12 @@ jQuery(document).ready(function(){
 						    .find('option')
 						    .remove()
 						    .end()
-						 $("#catId").append($("<option></option>").attr( "value",-1).text("ALL"));
+						 $("#catId").append($("<option align=left;></option>").attr( "value",-1).text("ALL"));
 		                    for ( var i = 0; i < len; i++) {
 		                            
 		                                
 		                        $("#catId").append(
-		                                $("<option></option>").attr(
+		                                $("<option align=left;></option>").attr(
 		                                    "value", data[i].menuId).text(data[i].menuTitle)
 		                            );
 		                    }

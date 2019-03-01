@@ -278,6 +278,7 @@ select {
 <!----------------------------------------Form Start-------------------------------------------------->
 <form action="${pageContext.request.contextPath}/orderSpCake"  method="post" class="form-horizontal" name="from_ord" id="validation-form" enctype="multipart/form-data"onsubmit="return validate()">
 <input type="hidden" name="menu_title" value="${menuTitle}"> 
+<input type="hidden" name="sp_order_no" value="${spCakeOrder.spOrderNo}"> 
 <input type="hidden" name="mode_add" id="mode_add" value="add_book">
 <input type="hidden" name="sp_id" id="sp_id" value="${specialCake.spId}">
 <input type="hidden" name="sp_min_weight" id="sp_min_weight" value="${specialCake.spMinwt}">
@@ -477,7 +478,7 @@ select {
 	    <div class="col1"><div class="col1title">Special Instructions</div></div>
 		
 		<div class="col1full" id="marathiDiv">
-		<textarea id="transliterateTextarea"  name="sp_inst1" cols="" rows="" style="width:250px;height:60px"maxlength="300" autocomplete="off" ></textarea>
+		<textarea id="transliterateTextarea"  name="sp_inst1" cols="" rows="" style="width:250px;height:60px"maxlength="300" autocomplete="off" >${spCakeOrder.spInstructions}</textarea>
 		</div>
 		
 	    <div class="col1full" id="englishDiv" style="display: none;">
@@ -503,7 +504,7 @@ select {
 	
 	<div class="colOuter"> 
 		<div class="col1"><div class="col1title">Order No:</div></div>-->
-		<div class="col2"><input class="texboxitemcode" placeholder="Order No" name="sp_place" id="sp_place" type="text" value="${spNo}" readonly></div>
+		<div class="col2"><input class="texboxitemcode" placeholder="Order No" name="sp_place" id="sp_place" type="text" value="${spCakeOrder.spDeliveryPlace}" readonly></div>
 	</div>    
 	
 	
@@ -515,7 +516,7 @@ select {
 	
 	<div class="colOuter">
 	    <div class="col1"><div class="col1title">Customer Name</div></div>
-		<div class="col2full"><input class="texboxitemcode texboxcal2" placeholder="Customer Name" name="sp_cust_name" type="text" id="sp_cust_name"required></div>
+		<div class="col2full"><input class="texboxitemcode texboxcal2" placeholder="Customer Name" name="sp_cust_name" type="text" id="sp_cust_name" value="${spCakeOrder.spCustName}" required></div>
 		
 		
 <%-- 		<div class="col3"><input id="datepicker4" class="texboxitemcode texboxcal" placeholder="<%=fDate %>" name="datepicker4" type="text"required></div>
@@ -528,20 +529,20 @@ select {
 	<div class="colOuter">
 			<div class="col1"><div class="col1title">Mobile</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode" placeholder="Mobile No."  name="sp_cust_mobile_no" type="text" id="sp_cust_mobile_no" required autocomplete="off"></div>
+			<div class="col2full"><input class="texboxitemcode" placeholder="Mobile No."  name="sp_cust_mobile_no" type="text" id="sp_cust_mobile_no" value="${spCakeOrder.spCustMobNo}"  required autocomplete="off"></div>
 	
 	</div>
 	
 	<div class="colOuter" id="ctype1">
 			<div class="col1"><div class="col1title" id="cktype">Cake Type</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode" placeholder="Cake Type"   name="ctype" type="text" id="ctype" required autocomplete="off"></div>
+			<div class="col2full"><input class="texboxitemcode" placeholder="Cake Type"  value="${spCakeOrder.exVar1}" name="ctype" type="text" id="ctype" required autocomplete="off"></div>
 	
 	</div>
 	<div class="colOuter" >
 			<div class="col1"><div class="col1title" id="cktype">Email</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode" placeholder="Email" name="email_id" type="text" id="email_id" required autocomplete="off"></div>
+			<div class="col2full"><input class="texboxitemcode" placeholder="Email" name="email_id" type="text" value="${spCakeOrder.exVar1}" id="email_id" required autocomplete="off"></div>
 	
 	</div>
 	<div class="colOuter" >
@@ -1134,12 +1135,12 @@ function validate() {
         alert("Please Select Flavour");
   
         isValid=false;
-    }/* else  if (eventName == "") {
+    }else  if (eventName == "") {
         alert("Please Enter Message");
         document.getElementById('event_name').focus();
         
         isValid=false;
-    } */else if (spPlace == "") {
+    }else if (spPlace == "") {
         alert("Please Enter Place of delivery");
         document.getElementById('sp_place').focus();
 
