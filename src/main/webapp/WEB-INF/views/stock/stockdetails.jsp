@@ -267,7 +267,7 @@ table, th, td {
 
 					<div class="col-md-2">
 						<select name="select_rate" class="form-control chosen"
-							tabindex="4" id="select_rate" required>
+							tabindex="4" id="select_rate" onchange="searchStock()" required>
 							<option value="">Select Rate Type</option>
 
 
@@ -430,6 +430,48 @@ table, th, td {
 										<tbody>
 
 										</tbody>
+
+										<tr>
+											<td></td>
+											<td></td>
+											<td class="col-md-1">Total</td>
+											<td><input type="text" id="opTotal" style="width: 80px;"
+												name="opTotal" value="0" readonly></td>
+											<td><input type="text" id="opTotalVal"
+												style="width: 80px;" name="opTotalVal" value="0" readonly></td>
+
+
+											<td><input type="text" id="purQty" style="width: 80px;"
+												name="purQty" value="0" readonly></td>
+											<td><input type="text" id="purQtyVal"
+												style="width: 80px;" name="purQtyVal" value="0" readonly></td>
+
+
+
+											<td><input type="text" id="grnGvnQty"
+												style="width: 80px;" name="grnGvnQty" value="0" readonly></td>
+											<td><input type="text" id="grnGvnQtyVal"
+												style="width: 80px;" name="grnGvnQtyVal" value="0" readonly></td>
+
+
+
+											<td><input type="text" id="regSale" style="width: 80px;"
+												name="regSale" value="0" readonly></td>
+											<td><input type="text" id="regSaleVal"
+												style="width: 80px;" name="regSaleVal" value="0" readonly></td>
+
+
+											<td><input type="text" id="reOrderQty"
+												style="width: 80px;" name="reOrderQty" value="0" readonly></td>
+
+
+
+											<td><input type="text" id="curStock"
+												style="width: 80px;" name="curStock" value="0" readonly></td>
+											<td><input type="text" id="curStockVal"
+												style="width: 80px;" name="curStockVal" value="0" readonly></td>
+
+										</tr>
 									</table>
 								</div>
 
@@ -595,11 +637,7 @@ table, th, td {
 
 		$('#loader').show();
 
-		var isMonthClose = $
-		{
-			isMonthCloseApplicable
-		}
-		;
+		var isMonthClose = ${isMonthCloseApplicable};
 
 		//alert(isMonthClose);
 
@@ -717,12 +755,9 @@ table, th, td {
 																	'<td class="col-md-1"></td>')
 																	.html(
 																			item.regOpeningStock));
-
-													var regOpStockValue = item.spOpeningStock
-															* item.regOpeningStock;
-
+													var regOpStockValue;
 													if (selectRate == 1) {
-														var regOpStockValue = item.spOpeningStock
+														regOpStockValue = item.spOpeningStock
 																* item.regOpeningStock;
 
 														tr
@@ -733,7 +768,7 @@ table, th, td {
 													} else
 
 													{
-														var regOpStockValue = item.spTotalPurchase
+														regOpStockValue = item.spTotalPurchase
 																* item.regOpeningStock;
 														tr
 																.append($(
@@ -934,9 +969,6 @@ table, th, td {
 																	'<td class="col-md-1"></td>')
 																	.html(
 																			item.regOpeningStock));
-
-													var regOpStockValue = item.spOpeningStock
-															* item.regOpeningStock;
 
 													if (selectRate == 1) {
 														var regOpStockValue = item.spOpeningStock
@@ -1151,9 +1183,6 @@ table, th, td {
 																	'<td class="col-md-1"></td>')
 																	.html(
 																			item.regOpeningStock));
-
-													var regOpStockValue = item.spOpeningStock
-															* item.regOpeningStock;
 
 													if (selectRate == 1) {
 														var regOpStockValue = item.spOpeningStock
