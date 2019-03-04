@@ -1,53 +1,36 @@
 package com.monginis.ops.model;
 
 public class GetCurrentStockDetails {
-	
+
 	private int stockDetailId;
 
 	private String itemId;
 
 	private int id;
-	
+
 	private String itemName;
 
 	private int regOpeningStock;
 
-	private int spOpeningStock;
-	
+	private double spOpeningStock;
+
 	private int regTotalPurchase;
-	
-	private int spTotalPurchase;
-	
+
+	private double spTotalPurchase;
+
 	private int regTotalGrnGvn;
-	
+
 	private int regTotalSell;
 
 	private int spTotalSell;
-	
+
 	private int stockHeaderId;
-	
+
 	private int currentRegStock;
-	
+
 	private int currentSpStock;
-	
+
 	private int reOrderQty;
-
-	
-	public int getReOrderQty() {
-		return reOrderQty;
-	}
-
-	public void setReOrderQty(int reOrderQty) {
-		this.reOrderQty = reOrderQty;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public int getStockDetailId() {
 		return stockDetailId;
@@ -57,13 +40,20 @@ public class GetCurrentStockDetails {
 		this.stockDetailId = stockDetailId;
 	}
 
-
 	public String getItemId() {
 		return itemId;
 	}
 
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getItemName() {
@@ -82,11 +72,11 @@ public class GetCurrentStockDetails {
 		this.regOpeningStock = regOpeningStock;
 	}
 
-	public int getSpOpeningStock() {
+	public double getSpOpeningStock() {
 		return spOpeningStock;
 	}
 
-	public void setSpOpeningStock(int spOpeningStock) {
+	public void setSpOpeningStock(double spOpeningStock) {
 		this.spOpeningStock = spOpeningStock;
 	}
 
@@ -98,11 +88,11 @@ public class GetCurrentStockDetails {
 		this.regTotalPurchase = regTotalPurchase;
 	}
 
-	public int getSpTotalPurchase() {
+	public double getSpTotalPurchase() {
 		return spTotalPurchase;
 	}
 
-	public void setSpTotalPurchase(int spTotalPurchase) {
+	public void setSpTotalPurchase(double spTotalPurchase) {
 		this.spTotalPurchase = spTotalPurchase;
 	}
 
@@ -152,6 +142,14 @@ public class GetCurrentStockDetails {
 
 	public void setCurrentSpStock(int currentSpStock) {
 		this.currentSpStock = currentSpStock;
+	}
+
+	public int getReOrderQty() {
+		return reOrderQty;
+	}
+
+	public void setReOrderQty(int reOrderQty) {
+		this.reOrderQty = reOrderQty;
 	}
 
 	@Override
