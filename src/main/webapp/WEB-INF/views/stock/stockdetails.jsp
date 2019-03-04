@@ -431,7 +431,7 @@ table, th, td {
 
 										</tbody>
 
-										<tr>
+										<!-- 	<tr>
 											<td></td>
 											<td></td>
 											<td class="col-md-1">Total</td>
@@ -471,11 +471,40 @@ table, th, td {
 											<td><input type="text" id="curStockVal"
 												style="width: 80px;" name="curStockVal" value="0" readonly></td>
 
-										</tr>
+										</tr> -->
+
+
+
 									</table>
+
+
+
+
+
+
+									<div class="col-md-2"></div>
+
+									<div class="col-md-3">
+
+										<button type="button" class="btn btn-primary"
+											onclick="exportToExcel();" id="expExcel"
+											style="align-content: center; width: 200px; margin-left: 80px;">
+											Export To Excel</button>
+									</div>
+
+
+									<div class="col-md-3">
+
+										<button type="button" class="btn btn-primary"
+											onclick="genPdf()" id="PDFButton"
+											style="align-content: center; width: 100px; margin-left: 80px;">
+											PDF</button>
+									</div>
+									&nbsp;
 								</div>
 
 							</div>
+
 
 
 
@@ -488,14 +517,15 @@ table, th, td {
 						</form>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
-
-		<!--rightSidebar-->
-
 	</div>
-	<!--fullGrid-->
+
+	<!--rightSidebar-->
+
+</div>
+<!--fullGrid-->
 </div>
 <!--rightContainer-->
 
@@ -656,10 +686,21 @@ table, th, td {
 							show_option : selectedStockOption,
 							fromDate : selectedFromDate,
 							toDate : selectedToDate,
+							selectRate : selectRate,
 							ajax : 'true'
 						},
 						function(data) {
 							$('#loader').hide();
+
+							/* document.getElementById("expExcel").disabled = false; 
+							 document.getElementById("PDFButton").disabled = false; 
+
+							if (data == "") {
+								alert("No records found !!");
+								document.getElementById("expExcel").disabled = true;
+								 document.getElementById("PDFButton").disabled = true; 
+
+							} */
 
 							var len = data.length;
 							$('#table_grid td').remove();
@@ -884,7 +925,7 @@ table, th, td {
 
 													if (selectRate == 1) {
 														var regCurrentStockVal = item.spOpeningStock
-																* item.regCurrentStock;
+																* regCurrentStock;
 
 														tr
 																.append($(
@@ -895,7 +936,7 @@ table, th, td {
 
 													{
 														var regCurrentStockVal = item.spTotalPurchase
-																* item.regCurrentStock;
+																* regCurrentStock;
 														tr
 																.append($(
 																		'<td class="col-md-1"></td>')
@@ -1077,17 +1118,11 @@ table, th, td {
 																				regTotalSellVal));
 													}
 
-													/* tr
+													tr
 															.append($(
 																	'<td class="col-md-1"> </td>')
 																	.html(
-																			reOrderQty)); */
-																			
-																			tr
-																			.append($(
-																					'<td> </td>')
-																					.html(
-																							reOrderQty));
+																			reOrderQty));
 
 													if (regCurrentStock < 0) {
 														tr
@@ -1104,7 +1139,7 @@ table, th, td {
 
 													if (selectRate == 1) {
 														var regCurrentStockVal = item.spOpeningStock
-																* item.regCurrentStock;
+																* regCurrentStock;
 
 														tr
 																.append($(
@@ -1115,7 +1150,7 @@ table, th, td {
 
 													{
 														var regCurrentStockVal = item.spTotalPurchase
-																* item.regCurrentStock;
+																* regCurrentStock;
 														tr
 																.append($(
 																		'<td class="col-md-1"></td>')
@@ -1318,7 +1353,7 @@ table, th, td {
 
 													if (selectRate == 1) {
 														var regCurrentStockVal = item.spOpeningStock
-																* item.regCurrentStock;
+																* regCurrentStock;
 
 														tr
 																.append($(
@@ -1329,7 +1364,7 @@ table, th, td {
 
 													{
 														var regCurrentStockVal = item.spTotalPurchase
-																* item.regCurrentStock;
+																* regCurrentStock;
 														tr
 																.append($(
 																		'<td class="col-md-1"></td>')
@@ -1430,6 +1465,25 @@ table, th, td {
 		}
 	}
 </script>
+
+<script type="text/javascript">
+	function genPdf() {
+		/* alert("hiii"); */
+		/* var fromDate = document.getElementById("fromdatepicker").value;
+		var toDate = document.getElementById("todatepicker").value;
+		alert(fromDate);
+		alert(toDate); */
+		
+		var selectRate = document.getElementById('select_rate').value;
+
+		window.open('${pageContext.request.contextPath}/showStockDetailsPdf/'
+				+ selectRate);
+		/* document.getElementById("expExcel").disabled = true; */
+
+	}
+</script>
+
+
 
 </body>
 
