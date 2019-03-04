@@ -462,7 +462,7 @@ jQuery(document).ready(function(){
 												&nbsp;&nbsp;&nbsp;&nbsp;
 												<c:out value="${orderList.spName}" />
 												<c:choose>
-												<c:when test="${orderList.isBillGenerated==1}">
+												<c:when test="${orderList.isBillGenerated==0}">
 												&nbsp;&nbsp;<a href="editSpOrder/${orderList.spOrderNo}" ><span
 														class="fa fa-pencil"></span></a>&nbsp;&nbsp;
 												</c:when>

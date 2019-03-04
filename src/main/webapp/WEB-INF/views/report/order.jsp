@@ -79,7 +79,10 @@ document.body.onload = function()
       </tr>
       <tr>
       <td><strong>Date:</strong></td>
-      <td>${currDate} </td>
+      <td>
+      <fmt:parseDate value="${currDate}" pattern="yyyy-MM-dd" var="currDateFrmt"/>
+<fmt:formatDate value="${currDateFrmt}" var="currDateFormat" pattern="dd-MM-yyyy"/> ${currDateFormat}
+       </td>
       <td><strong></td>
     </tr>
     <tr>
@@ -99,7 +102,9 @@ document.body.onload = function()
           <tr>
             <td><p style="font-size:12px">${spCakeOrder.itemId}</p></td>
             <td align="center"><p style="font-size:12px">${spCakeOrder.spSelectedWeight}</p></td>
-            <td align="center"><p style="font-size:12px">${(spCakeOrder.spSubTotal)/spCakeOrder.spSelectedWeight}</p></td>
+            <td align="center"><p style="font-size:12px">
+            <fmt:formatNumber type = "number"  maxFractionDigits = "2"   minFractionDigits = "2" value = " ${(spCakeOrder.spSubTotal)/spCakeOrder.spSelectedWeight}"/>
+         </p></td>
             <td align="right"><p style="font-size:12px">${spCakeOrder.spSubTotal}</p></td>
           </tr>
            <tr>
@@ -171,7 +176,10 @@ document.body.onload = function()
         <table width="100%" border="0" cellspacing="0" cellpadding="7" >
   
     <tr>
-      <td width="200" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong>Delivery Date : </strong> ${spCakeOrder.spDeliveryDate}</td>
+      <td width="200" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong>Delivery Date : </strong>
+      <fmt:parseDate value="${spCakeOrder.spDeliveryDate}" pattern="yyyy-MM-dd" var="spDeliveryDateFrmt"/>
+<fmt:formatDate value="${spDeliveryDateFrmt}" var="spDeliveryDateFormat" pattern="dd-MM-yyyy"/> 
+    ${spDeliveryDateFormat}   </td>
       
     </tr>
     <tr>

@@ -81,7 +81,7 @@ public class SpCakeController {
 	float exCharges;
 	float disc;
 	String ctype;
-	
+	int globalFrId;
 	
 	//--------------------------------------------------------
 	String menuTitle="";
@@ -329,9 +329,6 @@ public class SpCakeController {
 
 				}
 
-				String spImage = specialCake.getSpImage();
-
-				System.out.println("Sp RESPONSE" + specialCake.toString());
 				float sprRate;
 				float spBackendRate;
 
@@ -363,13 +360,13 @@ public class SpCakeController {
 
 				model.addObject("sprRate", sprRate);
 				model.addObject("spBackendRate", spBackendRate);
-
+/*
 				if (specialCake.getIsAddonRateAppli() == 0) {
 					model.addObject("addonRatePerKG", 0);
 				} else {
 					model.addObject("addonRatePerKG", specialCake.getSprAddOnRate());
 				}
-
+*/
 				System.out.println("Sp cake search: \n Back End Rate " + spBackendRate);
 				System.out.println("Sp cake search: \n Add On Rate " + sprRate);
 
@@ -377,8 +374,6 @@ public class SpCakeController {
 				model.addObject("eventList", spMessageList);
 
 				int spBookb4 = Integer.parseInt(specialCake.getSpBookb4());
-
-				System.out.println("spBookb4" + spBookb4);
 
 				model.addObject("spBookb4", spBookb4);
 				model.addObject("isFound", "");
@@ -441,20 +436,22 @@ public class SpCakeController {
 		return model;
 		
 	}
-   
+	List<Flavour> flavoursListWithAddonRate = null;
+
 	// --------------------------END----------------------------------------------------------------------------
 	@RequestMapping(value = "/getFlavourBySpfId", method = RequestMethod.GET)
 	public @ResponseBody List<Flavour> flavourById(@RequestParam(value = "spType", required = true) int spType) {
 
-		List<Flavour> flavoursListWithAddonRate = new ArrayList<Flavour>();
 
 		System.out.println("SpType:: " + spType);
-
+		 flavoursListWithAddonRate = new ArrayList<Flavour>();
 		List<Flavour> flavoursList = new ArrayList<Flavour>();
 		List<Flavour> filterFlavoursList = new ArrayList<Flavour>();
 
 		try {
+			RestTemplate restTemplate = new RestTemplate();
 
+			flavourList = restTemplate.getForObject(Constant.URL + "/showFlavourList", FlavourList.class);
 			flavoursList = flavourList.getFlavour();
 
 			System.out.println("FLAVOURS:" + flavoursList.toString());
@@ -491,27 +488,26 @@ public class SpCakeController {
 		return flavoursListWithAddonRate;
 
 	}
-
+	// --------------------------END----------------------------------------------------------------------------
+	
 	// ------------------------Get Addon Rate AJAX method(spcakeorder)-----------------------------------
 	@RequestMapping(value = "/getAddOnRate", method = RequestMethod.GET)
-	public @ResponseBody Flavour getAddOnRate(@RequestParam(value = "spfId", required = true) double spfId) {
-		List<Flavour> flavoursList = new ArrayList<Flavour>();
+	public @ResponseBody Flavour getAddOnRate(@RequestParam(value = "spfId", required = true) int spfId) {
 		Flavour filteredFlavour = new Flavour();
-		flavoursList = flavourList.getFlavour();
-
-		for (Flavour flavour : flavoursList) {
+		//List<Flavour>	flavoursList = flavourList.getFlavour();//commented
+		System.err.println(flavoursListWithAddonRate.toString()+"spfId");
+		for (Flavour flavour : flavoursListWithAddonRate) {
 
 			if (flavour.getSpfId() == spfId) {
 
 				filteredFlavour = flavour;
 			}
 		}
+		System.err.println(filteredFlavour.toString());
+
 		return filteredFlavour;
 	}
 
-	int globalFrId;
-
-	private float extraCharges;
 
 	// --------------------------------------END--------------------------------------------------------------
 	public String getInvoiceNo(HttpServletRequest request, HttpServletResponse response) {
@@ -1295,15 +1291,21 @@ public class SpCakeController {
 
 		return availableSlots;
 	}
-	// --------------------------------------END------------------------------------
+	// ----------------------------------------------------------END----------------------------------------------------------------
+	//---------------------------------------------------------Edit Sp Order--------------------------------------------------------
+	
 	@RequestMapping(value = "/editSpOrder/{spOrderNo}", method = RequestMethod.GET)
-	public ModelAndView editSpCake(@PathVariable("spOrderNo")int spOrderNo, HttpServletRequest request, HttpServletResponse response) {
-
+	public ModelAndView editSpOrder(@PathVariable("spOrderNo")int spOrderNo, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("order/editSpCakeOrder");
+		RestTemplate restTemplate = new RestTemplate();
 		frMenuList=new ArrayList<FrMenu>();//new
-		HttpSession session = request.getSession();
+		List<Float> weightList = new ArrayList<>();
 
+		String 	menuTitle = "Edit Sp Order";
+   try {
+        HttpSession session = request.getSession();
 		menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
+		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
 		if(menuList.size()>0)
 		{
 			for(FrMenu frMenu:menuList)
@@ -1314,41 +1316,75 @@ public class SpCakeController {
 				}
 			}
 		}
-		RestTemplate restTemplate = new RestTemplate();
-		flavourList = restTemplate.getForObject(Constant.URL + "/showFlavourList", FlavourList.class);
-		AllspMessageResponse allspMessageList = restTemplate.getForObject(Constant.URL + "getAllSpMessage",
-				AllspMessageResponse.class);
+		//--------------------------------------------------Sp Message List----------------------------------------------------------
+		AllspMessageResponse allspMessageList = restTemplate.getForObject(Constant.URL + "getAllSpMessage",AllspMessageResponse.class);
 		spMessageList = allspMessageList.getSpMessage();
-		
+		model.addObject("eventList", spMessageList);
+       //-------------------------------------------------------END-----------------------------------------------------------------
+		//-------------------------------------------------Sp Cake Get for Update by order no----------------------------------------
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		map.add("spOrderNo", spOrderNo);
 		SpCakeOrder spCakeOrder=restTemplate.postForObject(Constant.URL + "/getSpOrderBySpOrderNo",	map, SpCakeOrder.class);
-		
-		String menuTitle = "";
-		List<Float> weightList = new ArrayList<>();
-        map = new LinkedMultiValueMap<String, Object>();
-			map.add("spId",spCakeOrder.getSpId());
-		try {
-			SearchSpCakeResponse searchSpCakeResponse = restTemplate.postForObject(Constant.URL + "/searchSpecialCakeBySpId",
-					map, SearchSpCakeResponse.class);
-			ErrorMessage errorMessage = searchSpCakeResponse.getErrorMessage();
-			specialCake = searchSpCakeResponse.getSpecialCake();
+		 model.addObject("spNo", spCakeOrder.getSpOrderNo());
+	     model.addObject("slipNo", spCakeOrder.getSlipNo());
 
-			SpCakeResponse spCakeResponse = restTemplate.getForObject(Constant.URL + "/showSpecialCakeList",
-					SpCakeResponse.class);
+		//-----------------------------------------------------END------------------------------------------------------------------
+		//-------------------------------------------------Search Special Cake By SpId----------------------------------------------
+      
+		map = new LinkedMultiValueMap<String, Object>();
+		map.add("spId",spCakeOrder.getSpId());
+		SearchSpCakeResponse searchSpCakeResponse = restTemplate.postForObject(Constant.URL + "/searchSpecialCakeBySpId",map, SearchSpCakeResponse.class);
+		ErrorMessage errorMessage = searchSpCakeResponse.getErrorMessage();
+			
+		specialCake = searchSpCakeResponse.getSpecialCake();
+		cutSec =searchSpCakeResponse.getSpCakeSup().getCutSection();
+		//------------------------------------------------------END----------------------------------------------------------------
+		//System.err.println(" specialCake.getSpType()"+ specialCake.toString());
+		//-------------------------------------------------FLAVOR LIST-------------------------------------------------------------
+		 flavoursListWithAddonRate = new ArrayList<Flavour>();
+		FlavourList flavourList = restTemplate.getForObject(Constant.URL + "/showFlavourList", FlavourList.class);
+		List<Flavour> filterFlavoursList=new ArrayList<>();
+			for (int i = 0; i < flavourList.getFlavour().size(); i++) {
 
-			cutSec =searchSpCakeResponse.getSpCakeSup().getCutSection();
-		    model.addObject("spNo", spCakeOrder.getSpOrderNo());
-       	    
-				menuTitle = "Edit Sp Order";
-				Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
-				//-------------------------new for next del menu------------------
+				if (flavourList.getFlavour().get(i).getSpType() == spCakeOrder.getSpType()) {
+					filterFlavoursList.add(flavourList.getFlavour().get(i));
+
+				}
+			}
+			for (Flavour flavour : filterFlavoursList) {
+				if (specialCake.getIsAddonRateAppli() == 1) {
+					List<String> list = Arrays.asList(specialCake.getErpLinkcode().split(","));
+					if (list.contains(""+flavour.getSpfId())) {
+						flavour.setSpfAdonRate(0.0);
+					}
+					flavoursListWithAddonRate.add(flavour);
+					//System.err.println(flavour.getSpfId());
+					//System.err.println(flavoursListWithAddonRate.toString());
+				} else {
+					flavour.setSpfAdonRate(0.0);
+					flavoursListWithAddonRate.add(flavour);
+				}
+			}
+			Flavour orderdFlavour=new Flavour();
+			for (Flavour flavour : flavoursListWithAddonRate) {
+				if (spCakeOrder.getSpFlavourId()==flavour.getSpfId()) {
+					orderdFlavour=flavour;
+				}
+				
+			}
+			model.addObject("orderdFlavour", orderdFlavour);
+			//------------------------------------------------------END----------------------------------------------------------------
+			//--------------------------------------------------------------------------------------------------------------
+
+			SpCakeResponse spCakeResponse = restTemplate.getForObject(Constant.URL + "/showSpecialCakeList",SpCakeResponse.class);
+				
+			//----------------------------------------------new for next del menu------------------------------------------------------
 				 map = new LinkedMultiValueMap<String, Object>();
 				 map.add("settingKeyList", "next_delivery_menu");
 				 FrItemStockConfigureList settingList = restTemplate.postForObject(Constant.URL + "getDeptSettingValue", map, FrItemStockConfigureList.class);
 				 List<FrItemStockConfigure>  settingListRes=settingList.getFrItemStockConfigure();
 				
-				model.addObject("nextDelMenu", settingListRes.get(0).getSettingValue());//check size of list change
+				model.addObject("nextDelMenu", settingListRes.get(0).getSettingValue());
 				if(settingListRes.get(0).getSettingValue()==currentMenuId)
 				{
 					model.addObject("delFlag", true);
@@ -1356,8 +1392,6 @@ public class SpCakeController {
 				{
 					model.addObject("delFlag", false);
 				}
-			     model.addObject("slipNo", spCakeOrder.getSlipNo());
-		     	String spImage = specialCake.getSpImage();
 
 				float sprRate;
 				float spBackendRate;
@@ -1398,13 +1432,7 @@ public class SpCakeController {
 				}
 
 				model.addObject("specialCake", specialCake);
-				model.addObject("eventList", spMessageList);
-
-				int spBookb4 = Integer.parseInt(specialCake.getSpBookb4());
-
-				model.addObject("spBookb4", spBookb4);
-				model.addObject("isFound", "");
-				model.addObject("specialCakeList", spCakeResponse.getSpecialCake());
+				model.addObject("spBookb4",specialCake.getSpBookb4());
 				model.addObject("configuredSpCodeList", configuredSpCodeList);
 				model.addObject("weightList", weightList);
 				model.addObject("menuId", spCakeOrder.getMenuId());
@@ -1413,16 +1441,511 @@ public class SpCakeController {
 				model.addObject("frMenuList", frMenuList);
 				model.addObject("menuList", menuList);
 				model.addObject("eventList", spMessageList);
-				model.addObject("flavourList", flavourList);
+				model.addObject("flavourList", flavoursListWithAddonRate);
 				model.addObject("url", Constant.SPCAKE_IMAGE_URL);
 				model.addObject("isFound", "");
 				model.addObject("cutSec", cutSec);
+                model.addObject("URLSP", Constant.SP_CAKE_FOLDER);
+                model.addObject("URLCUST", Constant.PHOTO_CAKE_URL);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+       return model;
 
-		return model;
-		
+   }
+	
+	@RequestMapping(value = "/editSpCakeOrder", method = RequestMethod.POST)
+	public String editSpCakeOrder(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "order_photo", required = false) List<MultipartFile> orderPhoto,
+			@RequestParam(value = "cust_choice_ck", required = false) List<MultipartFile> custChoiceCk)
+			throws JsonProcessingException {
+
+		ModelAndView mav = new ModelAndView("order/orderRes");
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpSession session = request.getSession();
+
+		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+		int frId = frDetails.getFrId();
+
+		 globalFrId = frId;
+		 menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
+
+		// menu timing verification
+		/*String fromTime = menuList.get(globalIndex).getFromTime();
+		String toTime = menuList.get(globalIndex).getToTime();
+
+		System.out.println("before order placing: from time " + fromTime + " to time " + toTime);
+
+		ZoneId z = ZoneId.of("Asia/Calcutta");
+		LocalTime now = LocalTime.now(z); // Explicitly specify the desired/expected time zone.
+
+		LocalTime fromTimeLocalTime = LocalTime.parse(fromTime);
+		LocalTime toTimeLocalTIme = LocalTime.parse(toTime);
+
+		Boolean isLate = now.isAfter(toTimeLocalTIme);
+		Boolean isEarly = now.isBefore(fromTimeLocalTime);
+		int isSameDayApplicable = menuList.get(globalIndex).getIsSameDayApplicable();
+
+		if (!isLate && !isEarly) {*/
+		 
+			int isSameDayApplicable = menuList.get(globalIndex).getIsSameDayApplicable();
+
+			int spOrderNo= Integer.parseInt(request.getParameter("sp_order_no"));
+			int spMenuId = Integer.parseInt(request.getParameter("spMenuId"));//new
+			int spId = Integer.parseInt(request.getParameter("sp_id"));
+			logger.info("1" + spId);
+			String spCode = request.getParameter("sp_code");
+			logger.info("2" + spCode);
+			 menuTitle = request.getParameter("menu_title");// For Notification
+			logger.info("menuTitle" + menuTitle);
+			spName = request.getParameter("sp_name");
+			logger.info("3" + spName);
+
+			String spMinWeight = request.getParameter("sp_min_weight");
+			logger.info("5" + spMinWeight);
+
+			String spMaxWeight = request.getParameter("sp_max_weight");
+			logger.info("6" + spMaxWeight);
+
+			String spProTime = request.getParameter("sp_pro_time");
+			logger.info("7" + spProTime);
+
+			int prodTime = Integer.parseInt(spProTime);
+			logger.info("prodTime" + prodTime);
+
+			String spEdt = request.getParameter("sp_est_del_date");
+			logger.info("8" + spEdt);
+
+			spType = Integer.parseInt(request.getParameter("sptype"));
+			logger.info("9" + spType);
+
+			String spFlavour = request.getParameter("spFlavour");
+			logger.info("10" + spFlavour);
+
+			float spWeight = Float.parseFloat(request.getParameter("spwt"));
+			logger.info("11" + spWeight);
+
+			String spEvents = request.getParameter("sp_event");
+			logger.info("12" + spEvents);
+
+			String spInstructions = request.getParameter("sp_inst1");
+			logger.info("Marathi Inst :" + spInstructions);
+
+			if (spInstructions.isEmpty() || spInstructions == null) {
+				spInstructions = request.getParameter("sp_inst2");
+				logger.info("English Inst :" + spInstructions);
+
+			}
+
+			String spDeliveryDt = request.getParameter("datepicker");
+			logger.info("14" + spDeliveryDt);
+
+			String spBookForDate = request.getParameter("datepicker3");
+			logger.info("16" + spBookForDate);
+
+			String spCustDOB = request.getParameter("datepicker4");
+			logger.info("17" + spCustDOB);
+
+			String spBookForDOB = request.getParameter("datepicker5");
+			logger.info("18" + spBookForDOB);
+
+			String spCustMobileNo = request.getParameter("sp_cust_mobile_no");
+			logger.info("19" + spCustMobileNo);
+
+			String spBookForNum = request.getParameter("sp_book_for_number");
+			logger.info("20" + spBookForNum);
+
+			String spCustName = request.getParameter("sp_cust_name");
+			logger.info("21" + spCustName);
+			
+			String spBookedForName = request.getParameter("sp_booked_for_name");
+			logger.info("22" + spBookedForName);
+
+			String spGrand = request.getParameter("sp_grand");
+			logger.info("23" + spGrand);
+
+			String spPrice = request.getParameter("sp_calc_price");
+			logger.info("24" + spPrice);
+
+			String spAddRate = request.getParameter("sp_add_rate");
+			logger.info("25" + spAddRate);
+			float dbAdonRate = Float.parseFloat(request.getParameter("dbAdonRate"));
+
+			float spSubTotal = Float.parseFloat(request.getParameter("sp_sub_total"));
+			logger.info("26" + spSubTotal);
+
+			float tax1 = Float.parseFloat(request.getParameter("tax1"));
+			logger.info("27" + tax1);
+
+			float tax2 = Float.parseFloat(request.getParameter("tax2"));
+			logger.info("28" + tax2);
+
+			float tax1Amt = Float.parseFloat(request.getParameter("t1amt"));
+			logger.info("29" + tax1Amt);
+
+			float tax2Amt = Float.parseFloat(request.getParameter("t2amt"));
+			logger.info("30" + tax2Amt);
+
+			String rmAmount = request.getParameter("rm_amount");
+			logger.info("31" + rmAmount);
+
+			float spAdvance =Float.parseFloat(request.getParameter("adv"));
+			logger.info("32" + spAdvance);
+
+			String spPlace = request.getParameter("sp_place");
+			logger.info("33" + spPlace);
+ 
+			exCharges = Float.parseFloat(request.getParameter("sp_ex_charges"));
+			logger.info("34" + exCharges);
+				
+			disc = Float.parseFloat(request.getParameter("sp_disc"));
+			logger.info("35" + disc);
+			
+			String custGstin = request.getParameter("gstin");
+			logger.info("35.1" + custGstin);
+			
+			String custEmail = request.getParameter("email_id");
+			logger.info("35.2" + custEmail);
+			
+			String slipNo = request.getParameter("slipNo");
+			logger.info("35.2" + slipNo);
+				
+		    ctype = request.getParameter("ctype");
+		    logger.info("36" + ctype);
+		    
+			String spBookForMobNo = request.getParameter("spBookForMobNo");
+
+		    spPhoUpload = request.getParameter("spPhoUpload");
+
+			String eventName = request.getParameter("event_name");
+
+			isCustCh = request.getParameter("isCustCh");
+
+			productionTime = request.getParameter("production_time");
+			int isSlotUsed = 0;
+			isSlotUsed = Integer.parseInt(request.getParameter("isSlotUsed")); // isSlotUsed
+
+			spImage = request.getParameter("prevImage");
+
+			// ---------isCustSpCk And isSpPhoUpload Special Cake Value(1/0)-------
+			int isCustSpCk = Integer.parseInt(request.getParameter("isCustChoiceCk"));
+		    int	isSpPhoUpload = Integer.parseInt(request.getParameter("spPhoUpload"));
+
+			String addonRatePerKG = request.getParameter("addonRatePerKG");
+
+			float backendSpRate = Float.parseFloat(request.getParameter("spBackendRate"));
+			/*Calendar cal1 = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			System.out.println(sdf.format(cal1.getTime()));
+
+			String curTimeStamp = sdf.format(cal1.getTime());*/
+			String curTimeStamp = new SimpleDateFormat("yyyy_MM_dd.HH_mm_ss").format(new Date());
+
+			String custChCk = "";
+			String orderPhoto1 = "";
+
+			if (isSpPhoUpload == 1) {
+
+				System.out.println("Empty image");
+				// orderPhoto1 = ImageS3Util.uploadPhotoCakeImage(orderPhoto);
+
+				VpsImageUpload upload = new VpsImageUpload();
+
+				
+
+				try {
+					if(orderPhoto.get(0).getOriginalFilename()=="")
+					{
+						orderPhoto1 ="";
+					}else
+					{
+						orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
+					}
+					
+					upload.saveUploadedFiles(orderPhoto, Constant.SPCAKE_IMAGE_TYPE,
+							curTimeStamp+""+orderPhoto.get(0).getOriginalFilename());
+					System.out.println("upload method called " + orderPhoto.toString());
+
+				} catch (IOException e) {
+
+					System.out.println("Exce in File Upload In Sp Cake Photo Insert " + e.getMessage());
+					e.printStackTrace();
+				}
+
+			}
+
+			if (isCustSpCk == 1) {
+
+				System.out.println("Empty image");
+				// custChCk = ImageS3Util.uploadPhotoCakeImage(custChoiceCk);
+
+				// orderPhoto1 = ImageS3Util.uploadPhotoCakeImage(orderPhoto);
+
+				VpsImageUpload upload = new VpsImageUpload();
+
+				//Calendar cal = Calendar.getInstance();
+				//SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				//System.out.println(sdf.format(cal.getTime()));
+
+				//String curTimeStamp = sdf.format(cal.getTime());
+
+				try {
+					if(orderPhoto.get(0).getOriginalFilename()=="")
+					{
+						orderPhoto1 ="";
+					}else
+					{
+						orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
+					}
+					
+
+					upload.saveUploadedFiles(orderPhoto, Constant.SPCAKE_IMAGE_TYPE,
+							curTimeStamp+""+orderPhoto.get(0).getOriginalFilename());
+					if(custChoiceCk.get(0).getOriginalFilename()=="")
+					{
+						custChCk ="";
+					}else
+					{
+						custChCk = curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename();
+					}
+					
+					
+					upload.saveUploadedFiles(custChoiceCk, Constant.CUST_CHIOICE_IMAGE_TYPE,
+							curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename());
+
+					System.out.println("upload method called for two photo   " + orderPhoto.get(0).getName());
+
+				} catch (IOException e) {
+
+					System.out.println("Exce in File Upload In Sp Cake Photo Insert " + e.getMessage());
+					e.printStackTrace();
+				}
+
+			}
+			spCakeOrder = new SpCakeOrder();
+			spCakeOrder.setFrCode(frDetails.getFrCode());
+
+			spCakeOrder.setFrId(frId);
+
+			// -----Order Date And Production Date------
+
+			Date delDate = Main.stringToDate(spDeliveryDt);
+			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date currentDate = new Date();
+
+			// convert date to calendar
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+
+			// Current Date
+			Date orderDate = c.getTime();
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(delDate);
+            if(isSameDayApplicable==1)
+            {
+            	cal.add(Calendar.DATE, 0);
+            }
+            else {
+			cal.add(Calendar.DATE, -prodTime);
+            }
+			// manipulate date
+			// c.add(Calendar.DATE, prodTime);
+			Date deliDateMinusProdTime = cal.getTime();
+
+			java.sql.Date sqlProdDate = new java.sql.Date(deliDateMinusProdTime.getTime());
+
+			System.out.println("Todays date is: " + currentDate);
+			System.out.println("Prod date is: " + deliDateMinusProdTime);
+
+			// ---------------------------------------------------------------
+
+			final SimpleDateFormat dmyFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+		    Date date = new Date();
+			try {
+
+				date = dmyFormat.parse(spCustDOB);
+				System.out.println(date);
+				System.out.println(dmyFormat.format(date));
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			java.util.Date utilSpEdt = new java.util.Date();
+			try {
+				utilSpEdt = dmyFormat.parse(spEdt);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			java.util.Date utilSpDeliveryDt = new java.util.Date();
+			try {
+				utilSpDeliveryDt = dmyFormat.parse(spDeliveryDt);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			java.sql.Date sqlBookForDob = new java.sql.Date(deliDateMinusProdTime.getTime());
+			java.sql.Date sqlSpCustDOB = new java.sql.Date(date.getTime());
+			java.sql.Date sqlSpEdt = new java.sql.Date(utilSpEdt.getTime());
+
+			java.sql.Date sqlSpDeliveryDt = new java.sql.Date(utilSpDeliveryDt.getTime());
+
+			spCakeOrder.setItemId(spCode);
+			spCakeOrder.setOrderDate(dateFormat.format(orderDate));
+			float rmAmt=spSubTotal-spAdvance;
+			spCakeOrder.setRmAmount(rmAmt);
+			spCakeOrder.setSpTotalAddRate(Float.valueOf(spAddRate));
+			spCakeOrder.setSpAdvance(spAdvance);
+
+			spCakeOrder.setSpBookedForName(spBookedForName);
+			spCakeOrder.setSpBookForDob(sqlBookForDob);
+			spCakeOrder.setSpBookForMobNo(spBookForMobNo);
+			spCakeOrder.setSpCustDob(sqlSpCustDOB);
+			spCakeOrder.setSpInstructions(spInstructions);
+			spCakeOrder.setOrderPhoto(orderPhoto1);
+			spCakeOrder.setOrderPhoto2(custChCk);
+
+			spCakeOrder.setSpCustMobNo(spCustMobileNo);
+			spCakeOrder.setSpCustName(spCustName);
+			spCakeOrder.setSpDeliveryDate(sqlSpDeliveryDt);
+			spCakeOrder.setSpEstDeliDate(sqlSpEdt);
+			spCakeOrder.setSpEvents(spEvents);
+			spCakeOrder.setSpEventsName(eventName);
+			spCakeOrder.setSpFlavourId(Integer.parseInt(spFlavour));
+			spCakeOrder.setSpGrandTotal(Float.parseFloat(spGrand));
+			spCakeOrder.setSpId(spId);
+			spCakeOrder.setSpMaxWeight(Float.valueOf(spMaxWeight));
+			spCakeOrder.setSpMinWeight(Float.valueOf(spMinWeight));
+			spCakeOrder.setSpSelectedWeight(spWeight);
+        
+			spCakeOrder.setSpDeliveryPlace(spPlace);
+			spCakeOrder.setSpPrice(Float.valueOf(spPrice));
+			spCakeOrder.setSpProdDate(sqlProdDate);
+			spCakeOrder.setSpProdTime(Integer.parseInt(spProTime));
+			spCakeOrder.setSpSubTotal(spSubTotal);
+			spCakeOrder.setSpType(spType);
+
+			spCakeOrder.setTax1(tax1);
+			spCakeOrder.setTax1Amt(tax1Amt);
+			spCakeOrder.setTax2Amt(tax2Amt);
+			spCakeOrder.setTax2(tax2);
+
+			spCakeOrder.setMenuId(spMenuId);//change from CurrentMenuId to spMenuId
+			spCakeOrder.setIsSlotUsed(isSlotUsed);
+			spCakeOrder.setIsAllocated(0);
+			
+			spCakeOrder.setExtraCharges(exCharges);;
+			spCakeOrder.setDisc(disc);
+			spCakeOrder.setExVar1(ctype);
+			spCakeOrder.setCustGstin(custGstin);
+			spCakeOrder.setCustEmail(custEmail);
+			spCakeOrder.setSpOrderNo(spOrderNo);
+			spCakeOrder.setSlipNo(slipNo);//slipNo
+			System.out.println("Placing Order:  " +backendSpRate);
+
+			float intAddonRatePerKG = (dbAdonRate * 0.8f);	System.out.println("Placing Order:  " +intAddonRatePerKG);
+			float extraCharges = (exCharges * 0.8f);	System.out.println("Placing Order:  " +extraCharges);
+			float floatBackEndRate = ((backendSpRate + intAddonRatePerKG) * spWeight)+extraCharges;
+			System.out.println("Placing Order: \n Back End Rate " + floatBackEndRate);
+			System.out.println("Placing Order: \n Add On Rate " + intAddonRatePerKG);
+
+			spCakeOrder.setSpBackendRate(floatBackEndRate);
+			try {
+				HttpHeaders httpHeaders = new HttpHeaders();
+				httpHeaders.set("Content-Type", "application/json");
+
+				ObjectMapper mapper = new ObjectMapper();
+				String jsonInString = mapper.writeValueAsString(spCakeOrder);
+				System.out.println("All Sp Order Data" + jsonInString.toString());
+
+				HttpEntity<String> httpEntity = new HttpEntity<String>(jsonInString.toString(), httpHeaders);
+
+				spCakeOrderRes = restTemplate.postForObject(Constant.URL + "/placeSpCakeOrder",
+						httpEntity, SpCakeOrderRes.class);
+				System.out.println("ORDER PLACED " + spCakeOrderRes.toString());
+				spCakeOrder.setSpInstructions(spCakeOrderRes.getSpCakeOrder().getSpInstructions());
+				spCake = spCakeOrderRes.getSpCakeOrder();
+				if (spCakeOrderRes.getErrorMessage().getError() != true) {
+					System.out.println("ORDER PLACED " + spCakeOrderRes.toString());
+					
+				}
+				List<Flavour> flavoursList = new ArrayList<Flavour>();
+				Flavour filteredFlavour = new Flavour();
+/*
+				flavoursList = flavourList.getFlavour();
+*/
+				for (Flavour flavour : flavoursListWithAddonRate) {
+
+					if (flavour.getSpfId() == Integer.parseInt(spFlavour)) {
+
+						filteredFlavour = flavour;
+					}
+				}
+
+				flavourName = filteredFlavour.getSpfName();
+				flavour = flavourName;
+				mav.addObject("menuTitle", menuTitle);
+				mav.addObject("spType", spType);
+				mav.addObject("specialCake", spCake);
+				mav.addObject("spImage", spImage);
+				mav.addObject("url", Constant.SPCAKE_IMAGE_URL);
+				mav.addObject("SPCAKE_URL", Constant.SP_CAKE_FOLDER);
+				mav.addObject("spName", spName);
+				mav.addObject("productionTime", productionTime);
+				mav.addObject("flavourName", flavourName);
+				mav.addObject("isCustCh", isCustCh);
+				mav.addObject("spPhoUpload", spPhoUpload);
+				mav.addObject("PHOTO_URL", Constant.PHOTO_CAKE_URL);
+				mav.addObject("globalIndex", globalIndex);
+				System.out.println("SpCakeRes:" + spCake.toString());
+
+				// -----------------------For Notification-----------------
+				String frToken = "";
+				if (spCakeOrderRes.getErrorMessage().getError() != true) {
+				try {
+					MultiValueMap<String, Object>  map = new LinkedMultiValueMap<String, Object>();
+					map.add("frId", frDetails.getFrId());
+
+					frToken = restTemplate.postForObject(Constant.URL + "getFrToken", map, String.class);
+					Firebase.sendPushNotifForCommunication(frToken, menuTitle + " Order Placed Sucessfully",
+							"Your SP Order has been saved. Order Saved is--SP Code--" + spCode + "-Sp name--" + spName
+									+ "--Weight--" + spWeight + "--Flavour--" + flavourName + "--Message--"
+									+ spCakeOrderRes.getSpCakeOrder().getSpInstructions() + "--Total Amount-" + spGrand
+									+ ". Thank You.Team Monginis",
+							"inbox");
+
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				}
+
+				// -----------------------------------------------------
+			} catch (Exception e) {
+				System.out.println("Exc" + e.getMessage());
+				mav.addObject("eventList", spMessageList);
+				mav.addObject("flavourList", flavourList);
+
+			}
+		/*} else // End of if -Timeout
+		{
+			mav = new ModelAndView("order/spcakeorder");
+			mav.addObject("errorMessage", "Special Cake Order TimeOut");
+			mav.addObject("menuList", menuList);
+			mav.addObject("eventList", spMessageList);
+			mav.addObject("flavourList", flavourList);
+			mav.addObject("url", Constant.SPCAKE_IMAGE_URL);
+			mav.addObject("spBookb4", 0);
+			mav.addObject("sprRate", 0);
+			mav.addObject("isFound", false);
+		}*/
+		return "redirect:/orderRes";
+
 	}
 }

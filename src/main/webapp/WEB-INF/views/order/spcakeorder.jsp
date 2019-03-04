@@ -836,7 +836,9 @@ $(document).ready(function() {
 			$('#mgstamt').html('AMT-'+mGstAmt.toFixed(2));  document.getElementById("m_gst_amt").setAttribute('value',mGstAmt.toFixed(2));
 			
 			$('#price').html(wt*dbRate);
-			$('sp_calc_price').html(wt*dbRate);
+			
+			document.getElementById("sp_calc_price").setAttribute('value',wt*dbRate);
+		
 			$('#rate').html(wt*flavourAdonRate);	
 			document.getElementById("sp_add_rate").setAttribute('value',wt*flavourAdonRate);
 			$('#subtotal').html(spSubtotal);	
@@ -846,7 +848,7 @@ $(document).ready(function() {
 			document.getElementById("sp_grand").setAttribute('value',spSubtotal);
 			$('#tot').html('TOTAL-'+spSubtotal);
 			document.getElementById("total_amt").setAttribute('value',spSubtotal);
-			$('#rmAmt').html(grandTotal);
+			$('#rmAmt').html(spSubtotal);
 			document.getElementById("rm_amount").setAttribute('value',spSubtotal);
 			
 			document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
@@ -939,7 +941,9 @@ $(document).ready(function() {
 						
 					  var grandTotal=parseFloat(totalCakeRate+totalFlavourAddonRate);
 					  
-					    $('#price').html(totalCakeRate);$('#sp_calc_price').html(totalCakeRate);
+					    $('#price').html(totalCakeRate);
+					    document.getElementById("sp_calc_price").setAttribute('value',totalCakeRate);
+					    
 						$('#rate').html(totalFlavourAddonRate);$('#sp_add_rate').html(totalFlavourAddonRate);
 						document.getElementById("sp_add_rate").setAttribute('value',totalFlavourAddonRate);
 						$('#subtotal').html( totalAmount);
@@ -949,7 +953,7 @@ $(document).ready(function() {
 						document.getElementById("sp_grand").setAttribute('value', totalAmount);
 						$('#tot').html('TOTAL-'+ totalAmount);
 						document.getElementById("total_amt").setAttribute('value', totalAmount);
-						$('#rmAmt').html(grandTotal);
+						$('#rmAmt').html(totalAmount);
 						document.getElementById("rm_amount").setAttribute('value', totalAmount);
 						
 						document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
@@ -1446,7 +1450,7 @@ function onBlurSpCode(spCode)
 	
 }
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).bind("contextmenu",function(e) {
  e.preventDefault();
 });
@@ -1455,7 +1459,7 @@ $(document).keydown(function(e){
        return false;
     }
 });
-</script>
+</script> -->
 <script type="text/javascript">
 $("#sp_code").on('input', function () {
     var val = this.value;

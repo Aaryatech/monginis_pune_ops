@@ -80,6 +80,13 @@
 						View Purchase <span>Bills</span>
 					</div></a></li>
 					
+						<li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
+						class="img">
+						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
+					</div>
+					<div class="title">
+						Other Item Stock
+					</div></a></li>
 						<li><a href="${pageContext.request.contextPath}/showOtherBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>

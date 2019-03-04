@@ -244,7 +244,8 @@ body {
 					</div>
 					<br>
 					<div class="order-right" align="right">
-					 
+					 <a href="${pageContext.request.contextPath}/toOtherStock"><input type="button" value="Other Stock" class="btn btn-info">
+										</a>
 						<a href="${pageContext.request.contextPath}/addSupplier"><input type="button" value="Add Supplier" class="btn btn-info">
 										</a>
 						<a href="${pageContext.request.contextPath}/viewOtherBill"><input type="button" value="List Of Other Purchase Bill" class="btn btn-info">

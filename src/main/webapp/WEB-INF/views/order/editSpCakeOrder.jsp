@@ -45,6 +45,7 @@ select {
  
  <!---------------Script For Translate Special Instructions------->   
     <script type="text/javascript">
+    
       // Load the Google Transliterate API
       google.load("elements", "1", {
             packages: "transliteration"
@@ -68,10 +69,7 @@ select {
         // Enable transliteration in the textbox with id
         // 'transliterateTextarea'.
         control.makeTransliteratable(['transliterateTextarea']);
-        
-        showCtype();
-        
-        
+       
         
       }
       google.setOnLoadCallback(onLoad);
@@ -160,7 +158,7 @@ select {
  <!--formBox-->
 <div class="ordercake">
 <!--leftForm-->
-						<div class="left">
+					 	<div class="left">
 							<form action="${pageContext.request.contextPath}/searchSpCake"
 								method="post" class="form-horizontal" name="form" id="searchform"
 								onsubmit="return validateForm()">
@@ -170,7 +168,7 @@ select {
 									<div class="cackrighttexbox">
 										<input class="texboxitemcode" id="sp_code"
 											value="${specialCake.spCode}" name="sp_code" type="text"  
-											autocomplete="off" list="categories">
+											autocomplete="off" list="categories" readonly>
 
 										<datalist id="categories">
 											<c:forEach items="${configuredSpCodeList}"
@@ -180,7 +178,7 @@ select {
 										</datalist>
 
 										<div class="searchrecord">
-											<input name="" class="btnsearch" value="" type="submit">
+											<input name="" class="btnsearch" value="" type="submit" disabled="disabled">
 										</div>
 									</div>
 								</div>
@@ -232,11 +230,12 @@ select {
 							<div class="fullform">
 								<div class="cackleft">Earliest Delivery Date</div>
 								<div class="cackright">
-
-
+									<fmt:parseDate value="${spCakeOrder.spEstDeliDate}" pattern="yyyy-MM-dd" var="estDeliveryDateFmt"/>
+									<fmt:formatDate value="${estDeliveryDateFmt}" var="estDeliveryDateFormat" pattern="dd-MM-yyyy"/>
+                                          ${estDeliveryDateFormat}
 									<c:set var="increment" value="${spBookb4}"></c:set>
                                     <c:set var="menuId" value="${menuId}"></c:set>
-									<%
+									<%-- <%
 										int incr = (int) pageContext.getAttribute("increment");
 									    int menuId = (int) pageContext.getAttribute("menuId");
 										// Create a Calendar object
@@ -268,23 +267,24 @@ select {
 
 										String fDate1 = formatter1.format(date);
 									%>
-									<%=fDate1 %>
+									<%=fDate1 %> --%>
 								</div>
 							</div>
 </div>  
 					
-
+ 
 
 <!----------------------------------------Form Start-------------------------------------------------->
-<form action="${pageContext.request.contextPath}/orderSpCake"  method="post" class="form-horizontal" name="from_ord" id="validation-form" enctype="multipart/form-data"onsubmit="return validate()">
+<form action="${pageContext.request.contextPath}/editSpCakeOrder"  method="post" class="form-horizontal" name="from_ord" id="validation-form" enctype="multipart/form-data"onsubmit="return validate()">
 <input type="hidden" name="menu_title" value="${menuTitle}"> 
 <input type="hidden" name="sp_order_no" value="${spCakeOrder.spOrderNo}"> 
+<input type="hidden" name="spBookForMobNo" value="${spCakeOrder.spBookForMobNo}"> 
 <input type="hidden" name="mode_add" id="mode_add" value="add_book">
 <input type="hidden" name="sp_id" id="sp_id" value="${specialCake.spId}">
 <input type="hidden" name="sp_min_weight" id="sp_min_weight" value="${specialCake.spMinwt}">
 <input type="hidden" name="sp_max_weight" id="sp_max_weight" value="${specialCake.spMaxwt}">
 <input type="hidden" name="sp_pro_time" id="sp_pro_time" value="${specialCake.spBookb4}">
-<input type="hidden" name="sp_est_del_date" id="sp_est_del_date" value="<%= fDate1%>">
+<input type="hidden" name="sp_est_del_date" id="sp_est_del_date" value="${spCakeOrder.spEstDeliDate}">
 <input type="hidden" name="production_time" id="production_time" value="${specialCake.spBookb4} ">
 <input type="hidden" name="sp_code" id="sp_code" value="${specialCake.spCode}">
 <input type="hidden" name="sp_name" id="sp_name" value="${specialCake.spName}">
@@ -312,23 +312,72 @@ select {
                  <c:set var= "spCakeType" value="${specialCake.spType}"></c:set>
                <c:choose>
                 
-                   <c:when test="${spCakeType=='1'}"> <option value="1">Chocolate</option>   </c:when> 
-                    <c:when test="${spCakeType=='2'}"> <option value="2">FC</option>          </c:when>
-                    <c:when test="${spCakeType=='3'}"> <option value="3">BC</option>          </c:when>
-                       <c:when test="${spCakeType=='4'}"> 
-						<option value="1">Chocolate</option> <option value="2">FC</option> 
+                   <c:when test="${specialCake.spType==1}"> <option value="1" selected>Chocolate</option></c:when> 
+                    <c:when test="${specialCake.spType==2}"> <option value="2" selected>FC</option></c:when>
+                    <c:when test="${specialCake.spType==3}"> <option value="3" selected>BC</option></c:when>
+                       <c:when test="${specialCake.spType==4}"> 
+                       <c:choose>
+                       <c:when test="${spCakeOrder.spType==1}">
+                       <option value="1" selected>Chocolate</option><option value="2" >FC</option> 
                        </c:when>
-                        <c:when test="${spCakeType=='5'}"> 
-						<option value="1">Chocolate</option> <option value="3">BC</option> 
+                        <c:when test="${spCakeOrder.spType==2}">
+                       <option value="1">Chocolate</option> <option value="2" selected>FC</option> 
                        </c:when>
-                        <c:when test="${spCakeType=='6'}"> 
-						<option value="2">FC</option> <option value="3">BC</option> 
+                       <c:otherwise>
+                       <option value="1">Chocolate</option> <option value="2"  >FC</option> 
+                       </c:otherwise>
+                       </c:choose>
+						
+                       </c:when>
+                        <c:when test="${specialCake.spType==5}"> 
+                         <c:choose>
+                       <c:when test="${spCakeOrder.spType==1}">
+						<option value="1" selected>Chocolate</option> <option value="3" >BC</option> 
+						</c:when>
+						 <c:when test="${spCakeOrder.spType==3}">
+						<option value="1">Chocolate</option> <option value="3" selected >BC</option> 
+						</c:when>
+						<c:otherwise>	<option value="1">Chocolate</option> <option value="3">BC</option> </c:otherwise>
+						</c:choose>
+                       </c:when>
+                        <c:when test="${specialCake.spType==6}"> 
+						
+						
+						  <c:choose>
+                       <c:when test="${spCakeOrder.spType==2}">
+						<option value="2" selected>FC</option> <option value="3" >BC</option> 
+						</c:when>
+						 <c:when test="${spCakeOrder.spType==3}">
+						<option value="2">FC</option> <option value="3" selected>BC</option> 
+						</c:when>
+						<c:otherwise>	<option value="2">FC</option> <option value="3" >BC</option>  </c:otherwise>
+						</c:choose>
+						
                        </c:when>
                         <c:otherwise>
-                     
+                       <c:choose>
+                       <c:when test="${spCakeOrder.spType==1}">
+                        <option value="1" selected>Chocolate</option>
+                        <option value="2">FC</option>
+                        <option value="3">BC</option>
+                        </c:when>
+                         <c:when test="${spCakeOrder.spType==2}">
+                        <option value="1">Chocolate</option>
+                        <option value="2"selected>FC</option>
+                        <option value="3">BC</option>
+                        </c:when>
+                         <c:when test="${spCakeOrder.spType==3}">
+                        <option value="1">Chocolate</option>
+                        <option value="2">FC</option>
+                        <option value="3"selected>BC</option>
+                        </c:when>
+                        <c:otherwise>
                         <option value="1">Chocolate</option>
                         <option value="2">FC</option>
                         <option value="3">BC</option>
+                        </c:otherwise>
+                        
+                        </c:choose>
                      
                 </c:otherwise>    
               </c:choose>
@@ -366,6 +415,17 @@ select {
 		<div class="col2full" >
                 <select name="spFlavour"  tabindex="-1"  onchange="onChangeFlavour()"id="spFlavour" required>
                   <option value="">Select Flavour</option>
+                  
+                    <c:forEach items="${flavourList}" var="flavourList">
+            <c:choose>
+              <c:when test="${spCakeOrder.spFlavourId==flavourList.spfId}">
+                         <option value="${flavourList.spfId}" selected>${flavourList.spfName}</option>
+              </c:when>
+              <c:otherwise>
+                         <option value="${flavourList.spfId}">${flavourList.spfName}</option>
+              </c:otherwise>
+              </c:choose>
+              </c:forEach>
                  </select>
         </div>
 	</div>  
@@ -379,7 +439,17 @@ select {
 		 
           <select name="spwt" id="spwt" onchange="onChange('${dbRate}')"required>
             <c:forEach items="${weightList}" var="weightList">
-                  <option value="${weightList}">${weightList}</option>
+            <c:choose>
+              <c:when test="${spCakeOrder.spSelectedWeight eq weightList}">
+                            <option value="${weightList}" selected>${weightList}</option>
+              
+              </c:when>
+              <c:otherwise>
+                         <option value="${weightList}">${weightList}</option>
+              
+              </c:otherwise>
+              </c:choose>
+                  
             </c:forEach> 
            
           </select>
@@ -393,7 +463,16 @@ select {
 		<div class="col2"><select name="sp_event" id="sp_event"required>
   
               <c:forEach items="${eventList}" var="eventList">
-              <option value="${eventList.spMsgText}"><c:out value="${eventList.spMsgText}" /></option>
+              <c:choose>
+              <c:when test="${spCakeOrder.spEvents eq eventList.spMsgText}">
+                            <option value="${eventList.spMsgText}" selected><c:out value="${eventList.spMsgText}" /></option>
+              
+              </c:when>
+              <c:otherwise>
+                            <option value="${eventList.spMsgText}"><c:out value="${eventList.spMsgText}" /></option>
+              
+              </c:otherwise>
+              </c:choose>
              </c:forEach>
             </select></div>
 		
@@ -404,7 +483,7 @@ select {
                               <option value="2" id="hindi" >Hindi</option>
                               <option value="3" id="english" >English</option>
                        </select></div>
- <div class="col3" id="msgMarathi" ><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name" autocomplete="off">
+ <div class="col3" id="msgMarathi" ><input class="texboxitemcode" placeholder="Name" name="event_name"  value="${spCakeOrder.spEventsName}" type="text" id="event_name" autocomplete="off">
 		</div> 
 		<div class="col3" id="msgEnglish" style="display: none"><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name_e" autocomplete="off">
 		</div>
@@ -422,7 +501,7 @@ select {
                                 
                             </div>
                             </div>
-                             <img id="image" />
+                             <img id="image"  src="${URLSP}${spCakeOrder.orderPhoto}" />
                             </div>
                             </div>
                             </div>
@@ -435,7 +514,7 @@ select {
                                 <input class="upload" type="file" id="cust_choice_ck" name="cust_choice_ck"/>   
                             </div>
                             </div>
-                             <img id="img" />
+                             <img id="img"  src="${URLCUST}${spCakeOrder.orderPhoto1}"/>
                             </div>
                             </div>
                             </div>
@@ -488,13 +567,15 @@ select {
 	
 	<div class="colOuter">
 		<div class="col1"><div class="col1title">Delivery Date</div></div>
+		<fmt:parseDate value="${spCakeOrder.spDeliveryDate}" pattern="yyyy-MM-dd" var="deliveryDateFmt"/>
+<fmt:formatDate value="${deliveryDateFmt}" var="deliveryDateFormat" pattern="dd-MM-yyyy"/>
 		<div class="col2"><c:choose><c:when test="${menuId==46}">
-			<input id="date" class="texboxitemcode texboxcal" value="<%=fDate %>"  name="datepicker" type="text" readonly>
-			<input id="datepicker" class="texboxitemcode texboxcal" value="<%=fDate %>"  name="datepicker" type="hidden" />
+			<input id="date" class="texboxitemcode texboxcal" value="${deliveryDateFormat}"  name="datepicker" type="text" readonly>
+			<input id="datepicker" class="texboxitemcode texboxcal" value="${deliveryDateFormat}"  name="datepicker" type="hidden" />
 
 		</c:when>
 		<c:otherwise>
-		<input id="datepicker" class="texboxitemcode texboxcal" value="<%=fDate %>"  name="datepicker" type="text" required>
+		<input id="datepicker" class="texboxitemcode texboxcal" value="${deliveryDateFormat}"  name="datepicker" type="text" required>
 		</c:otherwise>
 		</c:choose>
 		</div><div class="col2"> 
@@ -509,7 +590,7 @@ select {
 	
 	
 	<div class="colOuter">
-		<div class="col2"><input id="datepicker3" class="texboxitemcode texboxcal" placeholder="<%=fDate %>" name="datepicker3" type="hidden"required>
+		<div class="col2"><input id="datepicker3" class="texboxitemcode texboxcal" placeholder="" name="datepicker3" type="hidden"required>
 		</div>
 	</div>
 	
@@ -523,8 +604,9 @@ select {
  --%>	</div>
 	<div class="colOuter">
 	<div class="col1"><div class="col1title">DOB</div></div>
-		
-		<div class="col2full"><input id="datepicker4" class="texboxitemcode texboxcal" placeholder="<%=fDate %>" name="datepicker4" type="text"required></div>
+		<fmt:parseDate value="${spCakeOrder.spCustDob}" pattern="yyyy-MM-dd" var="myDate"/>
+<fmt:formatDate value="${myDate}" var="startFormat" pattern="dd-MM-yyyy"/>
+		<div class="col2full"><input id="datepicker4" class="texboxitemcode texboxcal" value="${startFormat}" placeholder="" name="datepicker4" type="text"required></div>
       </div>
 	<div class="colOuter">
 			<div class="col1"><div class="col1title">Mobile</div></div>
@@ -542,13 +624,13 @@ select {
 	<div class="colOuter" >
 			<div class="col1"><div class="col1title" id="cktype">Email</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode" placeholder="Email" name="email_id" type="text" value="${spCakeOrder.exVar1}" id="email_id" required autocomplete="off"></div>
+			<div class="col2full"><input class="texboxitemcode" placeholder="Email" name="email_id" type="text" value="${spCakeOrder.custEmail}" id="email_id" required autocomplete="off"></div>
 	
 	</div>
 	<div class="colOuter" >
 			<div class="col1"><div class="col1title" id="cktype">GST NO.</div></div>
 	
-			<div class="col2full"><input class="texboxitemcode"  placeholder="GST NO." name="gstin" type="text" id="gstin" required autocomplete="off"></div>
+			<div class="col2full"><input class="texboxitemcode"  placeholder="GST NO." name="gstin" value="${spCakeOrder.custGstin}" type="text" id="gstin" required autocomplete="off"></div>
 	
 	</div>
 <!-- 	<div class="colOuter">
@@ -569,7 +651,7 @@ select {
 	
 	<div class="colOuter">
 		<div class="col1"><input class="texboxitemcode texboxcal2" placeholder="Booked For" name="sp_booked_for_name" value="1" type="hidden"id="sp_booked_for_name"></div>
-		<div class="col2"><input id="datepicker5" class="texboxitemcode texboxcal" placeholder="<%=fDate %>" name="datepicker5" type="hidden"></div>
+		<div class="col2"><input id="datepicker5" class="texboxitemcode texboxcal" placeholder="" name="datepicker5" type="hidden"></div>
 		<div class="col3"><input class="texboxitemcode" placeholder="Mobile No." name="sp_book_for_number" type="hidden"id="sp_book_for_number"></div>
 	</div>
 	
@@ -586,8 +668,8 @@ select {
 <!--rightForm-->	
 <div class="right">
 	<div class="priceBox">
-		<h2 class="inrbox" id="INR">INR - ${(sprRate*specialCake.spMinwt)}</h2>
-		 <input type="hidden" name="sp_grand" id="sp_grand" value="${(sprRate*specialCake.spMinwt)}">   
+		<h2 class="inrbox" id="INR">INR - ${spCakeOrder.spGrandTotal}</h2>
+		 <input type="hidden" name="sp_grand" id="sp_grand" value="${spCakeOrder.spGrandTotal}">   
 		<div class="inrboxmiddle">
 			<ul>
 				<li>
@@ -596,52 +678,52 @@ select {
 				</li>
 				<li>
 					<div class="priceLeft">Price </div>
-					<div class="priceRight" id="price">${sprRate*specialCake.spMinwt}</div>
-					<input name="sp_calc_price" id="sp_calc_price" value="${sprRate*specialCake.spMinwt}" type="hidden">
+					<div class="priceRight" id="price">${spCakeOrder.spPrice}</div>
+					<input name="sp_calc_price" id="sp_calc_price" value="${spCakeOrder.spPrice}" type="hidden">
 				</li>
 				<li>
 					<div class="priceLeft">Add Rate </div>
-					<div class="priceRight"  id="rate" >00</div>
-					 <input name="sp_add_rate" id="sp_add_rate"  type="hidden" value="0">
+					<div class="priceRight"  id="rate" >${spCakeOrder.spTotalAddRate}</div>
+					 <input name="sp_add_rate" id="sp_add_rate"  type="hidden" value="${spCakeOrder.spTotalAddRate}">
 				</li>
 				
 				<li>
 					<div class="priceLeft">Extra Charges </div>
-					<div class="priceRight"><input name="sp_ex_charges" id="sp_ex_charges"  type="text"  value="0" oninput="chChange()"  style="width:75px;border-radius:20px;text-align:center;height: 27px;"></div>
+					<div class="priceRight"><input name="sp_ex_charges" id="sp_ex_charges"  type="text"  value="${spCakeOrder.extraCharges}" oninput="chChange()"  style="width:75px;border-radius:20px;text-align:center;height: 27px;"></div>
 				</li>
 				<li>
 					<div class="priceLeft">Discount(%) </div>
-					<div class="priceRight"><input name="sp_disc" id="sp_disc"  type="text"  value="0"  oninput="chChange()" style="width:75px;border-radius:20px;text-align:center;height: 27px;"></div>
+					<div class="priceRight"><input name="sp_disc" id="sp_disc"  type="text"  value="${spCakeOrder.disc}"  oninput="chChange()" style="width:75px;border-radius:20px;text-align:center;height: 27px;"></div>
 				</li>
 				<li>
 					<div class="priceLeft">Sub Total </div>
-					<div class="priceRight"id="subtotal">${sprRate*specialCake.spMinwt}</div>
-					<input name="sp_sub_total" id="sp_sub_total"  type="hidden"value="${sprRate*specialCake.spMinwt}">
+					<div class="priceRight"id="subtotal">${spCakeOrder.spSubTotal}</div>
+					<input name="sp_sub_total" id="sp_sub_total"  type="hidden" value="${spCakeOrder.spSubTotal}">
 				</li>
 				<li>
 					<div class="priceLeft">GST (%)</div>
-					<div class="priceRight" id="taxPer3"> ${specialCake.spTax1+specialCake.spTax2} </div>
-					<input type="hidden" id="tax3" name="tax3" value="${specialCake.spTax1+specialCake.spTax2}">
+					<div class="priceRight" id="taxPer3"> ${spCakeOrder.tax1+spCakeOrder.tax2} </div>
+					<input type="hidden" id="tax3" name="tax3" value="${spCakeOrder.tax1+spCakeOrder.tax2}">
 				</li>
 				<li>
 					<div class="priceLeft">GST IN RS.</div>
-					<c:set var="varGstRs" value="${(((sprRate*specialCake.spMinwt)*100)/((specialCake.spTax1+specialCake.spTax2)+100))*(specialCake.spTax1+specialCake.spTax2)/100}" />  
+					<c:set var="varGstRs" value="${spCakeOrder.tax1Amt+spCakeOrder.tax2Amt}" />  
 					<fmt:formatNumber var="fGstRs" minFractionDigits="2" maxFractionDigits="2" type="number" value="${varGstRs}" />  
 					
 					<div class="priceRight" id="gstrs"><c:out value="${fGstRs}" /></div>
 					<input type="hidden" id="gst_rs" name="gst_rs" value="${fGstRs}">
 				</li>
 				<li class="total">
-				<c:set var="varMgstamt" value="${(((sprRate*specialCake.spMinwt)*100)/((specialCake.spTax1+specialCake.spTax2)+100))}"/>
+				<c:set var="varMgstamt" value="${spCakeOrder.spSubTotal-(spCakeOrder.tax1Amt+spCakeOrder.tax2Amt)}"/>
 					<fmt:formatNumber var="fMgstamt" minFractionDigits="2" maxFractionDigits="2" type="number" value="${varMgstamt}" />  
 					
 					<div class="priceLeft" id="mgstamt">AMT-<c:out value="${fMgstamt}"></c:out></div>
 					
-				   <input type="hidden" name="m_gst_amt" id="m_gst_amt" type="hidden" value="${fMgstamt}">
+				   <input  name="m_gst_amt" id="m_gst_amt" type="hidden" value="${fMgstamt}">
 				
-					<div class="priceRight"id="tot">TOTAL-${(sprRate*specialCake.spMinwt)}</div>
+					<div class="priceRight"id="tot">TOTAL-${spCakeOrder.spSubTotal}</div>
 					
-					 <input type="hidden" name="total_amt" id="total_amt" value="${(sprRate*specialCake.spMinwt)}">
+					 <input type="hidden" name="total_amt" id="total_amt" value="${spCakeOrder.spSubTotal}">
 				</li>
 				
 				<li class="advance">
@@ -653,8 +735,8 @@ select {
 		</div>
 		<div class="remainamount">
 			<div class="priceLeft">Remaining Amount</div>
-					<div class="priceRight" id="rmAmt">${(sprRate*specialCake.spMinwt)}</div>
-				    <input type="hidden" name="rm_amount" id="rm_amount" value="${(sprRate*specialCake.spMinwt)}">
+					<div class="priceRight" id="rmAmt">${spCakeOrder.rmAmount}</div>
+				    <input type="hidden" name="rm_amount" id="rm_amount" value="${spCakeOrder.rmAmount}">
 		</div>
 	</div>
 	
@@ -664,28 +746,28 @@ select {
 	</div>
 	
 </div>
-<input type="hidden" id="tax1" name="tax1" value="${specialCake.spTax1}">
-<input type="hidden" id="tax2" name="tax2" value="${specialCake.spTax2}">
+<input type="hidden" id="tax1" name="tax1" value="${spCakeOrder.tax1}">
+<input type="hidden" id="tax2" name="tax2" value="${spCakeOrder.tax2}">
 
 
-<c:if test="${specialCake.spTax1==0 or specialCake.spTax1==0.00}">
+<c:if test="${spCakeOrder.tax1==0 or spCakeOrder.tax1==0.00}">
 <input type="hidden" id="t1amt" name="t1amt" value="0.0">
 </c:if>
-<c:if test="${specialCake.spTax1!=0 or specialCake.spTax1!=0.00}">
-<input type="hidden" id="t1amt" name="t1amt" value="${(sprRate*specialCake.spMinwt)*(specialCake.spTax1)/100}">
+<c:if test="${spCakeOrder.tax1!=0 or spCakeOrder.tax1!=0.00}">
+<input type="hidden" id="t1amt" name="t1amt" value="${spCakeOrder.tax1Amt}">
 
 </c:if>
-<c:if test="${specialCake.spTax2==0 or specialCake.spTax2!=0.00}">
+<c:if test="${spCakeOrder.tax2==0 or spCakeOrder.tax2==0.00}">
 <input type="hidden" id="t2amt" name="t2amt" value="0.0">
 </c:if>
-<c:if test="${specialCake.spTax2!=0 or specialCake.spTax2!=0.00}">
-<input type="hidden" id="t2amt" name="t2amt" value="${(sprRate*specialCake.spMinwt)*(specialCake.spTax2)/100}">
+<c:if test="${spCakeOrder.tax2!=0 or spCakeOrder.tax2!=0.00}">
+<input type="hidden" id="t2amt" name="t2amt" value="${spCakeOrder.tax2Amt}">
 
 </c:if>
 
-<input type="hidden" id="dbAdonRate" name="dbAdonRate">
+<input type="hidden" id="dbAdonRate" name="dbAdonRate" value="${orderdFlavour.spfAdonRate}">
  <input type="hidden" id="dbPrice" name="dbPrice"  value="${sprRate}">
-<input type="hidden" id="sp_id" name="sp_id"  value="${specialCake.spId}">
+<input type="hidden" id="sp_id" name="sp_id"  value="${spCakeOrder.spId}">
 </form>
 <!--rightForm-->
 
@@ -742,7 +824,7 @@ function closeNav3() {
 <script type="text/javascript">
 $(document).ready(function() { 
 	$('#sptype').change(
-			function() {
+			function() {alert($(this).val());
 				$.getJSON('${getFlavourBySpfId}', {
 					spType : $(this).val(),
 					ajax : 'true'
@@ -837,7 +919,7 @@ $(document).ready(function() {
 			$('#mgstamt').html('AMT-'+mGstAmt.toFixed(2));  document.getElementById("m_gst_amt").setAttribute('value',mGstAmt.toFixed(2));
 			
 			$('#price').html(wt*dbRate);
-			$('sp_calc_price').html(wt*dbRate);
+			document.getElementById("sp_calc_price").setAttribute('value',wt*dbRate);
 			$('#rate').html(wt*flavourAdonRate);	
 			document.getElementById("sp_add_rate").setAttribute('value',wt*flavourAdonRate);
 			$('#subtotal').html(spSubtotal);	
@@ -847,7 +929,7 @@ $(document).ready(function() {
 			document.getElementById("sp_grand").setAttribute('value',spSubtotal);
 			$('#tot').html('TOTAL-'+spSubtotal);
 			document.getElementById("total_amt").setAttribute('value',spSubtotal);
-			$('#rmAmt').html(grandTotal);
+			$('#rmAmt').html(spSubtotal);
 			document.getElementById("rm_amount").setAttribute('value',spSubtotal);
 			
 			document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
@@ -940,8 +1022,11 @@ $(document).ready(function() {
 						
 					  var grandTotal=parseFloat(totalCakeRate+totalFlavourAddonRate);
 					  
-					    $('#price').html(totalCakeRate);$('#sp_calc_price').html(totalCakeRate);
-						$('#rate').html(totalFlavourAddonRate);$('#sp_add_rate').html(totalFlavourAddonRate);
+					    $('#price').html(totalCakeRate);
+
+						document.getElementById("sp_calc_price").setAttribute('value',totalCakeRate);
+
+						$('#rate').html(totalFlavourAddonRate);
 						document.getElementById("sp_add_rate").setAttribute('value',totalFlavourAddonRate);
 						$('#subtotal').html( totalAmount);
 						
@@ -950,7 +1035,7 @@ $(document).ready(function() {
 						document.getElementById("sp_grand").setAttribute('value', totalAmount);
 						$('#tot').html('TOTAL-'+ totalAmount);
 						document.getElementById("total_amt").setAttribute('value', totalAmount);
-						$('#rmAmt').html(grandTotal);
+						$('#rmAmt').html(totalAmount);
 						document.getElementById("rm_amount").setAttribute('value', totalAmount);
 						
 						document.getElementById("t1amt").setAttribute('value',tax1Amt.toFixed(2));
@@ -1135,12 +1220,12 @@ function validate() {
         alert("Please Select Flavour");
   
         isValid=false;
-    }else  if (eventName == "") {
+    }/* else  if (eventName == "") {
         alert("Please Enter Message");
         document.getElementById('event_name').focus();
         
         isValid=false;
-    }else if (spPlace == "") {
+    } */else if (spPlace == "") {
         alert("Please Enter Place of delivery");
         document.getElementById('sp_place').focus();
 
@@ -1414,7 +1499,7 @@ function showDiv1(elem){
 
 
 <script type="text/javascript">
-function showCtype(){
+$(document).ready(function () {
 var temp=document.getElementById('temp').value;
 	if(temp==0)
 		{
@@ -1425,10 +1510,11 @@ var temp=document.getElementById('temp').value;
 			document.getElementById('cktype').innerHTML = 'Numerical';
 		}else
 	if (temp == 2 ) {  ///regular
+	
 		document.getElementById("ctype1").style = "display:none" //hide numeric
 	}
 	
-}
+})
 
 </script>
 
@@ -1447,7 +1533,7 @@ function onBlurSpCode(spCode)
 	
 }
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).bind("contextmenu",function(e) {
  e.preventDefault();
 });
@@ -1456,7 +1542,7 @@ $(document).keydown(function(e){
        return false;
     }
 });
-</script>
+</script> -->
 <script type="text/javascript">
 $("#sp_code").on('input', function () {
     var val = this.value;

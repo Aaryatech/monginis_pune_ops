@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-    		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
 <%-- <!DOCTYPE html>
@@ -197,7 +197,10 @@ $("#tech").change(function() {
 	
 	<div class="fullform">
 		<div class="cackleft">Earliest Delivery Date</div>
-		<div class="cackright">${specialCake.spEstDeliDate}</div>
+		<div class="cackright">
+		<fmt:parseDate value="${specialCake.spEstDeliDate}" pattern="yyyy-MM-dd" var="spEstDeliDateFmt"/>
+		<fmt:formatDate value="${spEstDeliDateFmt}" var="formatedEarDelDate" pattern="dd-MM-yyyy"/>
+		${formatedEarDelDate}</div>
 	</div>
 	
 </div>
@@ -284,7 +287,12 @@ $("#tech").change(function() {
 	
 	<div class="fullform">
 		<div class="cackleft">Delivery Date</div>
-		<div class="cackright">${specialCake.spDeliveryDate}</div>
+		<div class="cackright">
+		<fmt:parseDate value="${specialCake.spDeliveryDate}" pattern="yyyy-MM-dd" var="spDeliveryDateFmt"/>
+		<fmt:formatDate value="${spDeliveryDateFmt}" var="formatedDelDate" pattern="dd-MM-yyyy"/>
+		${formatedDelDate}
+		
+		</div>
 	</div>
 	
 	<div class="fullform">
@@ -299,7 +307,9 @@ $("#tech").change(function() {
             <c:when test="${specialCake.spCustDob==''}">NA</c:when> 
             
             <c:otherwise>
-                    ${specialCake.spCustDob}
+            <fmt:parseDate value="${specialCake.spCustDob}" pattern="yyyy-MM-dd" var="spCustDobFmt"/>
+		    <fmt:formatDate value="${spCustDobFmt}" var="spCustDobFormat" pattern="dd-MM-yyyy"/>
+	              ${spCustDobFormat}
             </c:otherwise>
         </c:choose></div>
         </div>
