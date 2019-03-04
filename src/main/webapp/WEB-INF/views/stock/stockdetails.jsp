@@ -1077,11 +1077,17 @@ table, th, td {
 																				regTotalSellVal));
 													}
 
-													tr
+													/* tr
 															.append($(
 																	'<td class="col-md-1"> </td>')
 																	.html(
-																			reOrderQty));
+																			reOrderQty)); */
+																			
+																			tr
+																			.append($(
+																					'<td> </td>')
+																					.html(
+																							reOrderQty));
 
 													if (regCurrentStock < 0) {
 														tr
