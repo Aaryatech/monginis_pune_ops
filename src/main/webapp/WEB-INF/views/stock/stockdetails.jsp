@@ -1085,34 +1085,32 @@ table, th, td {
 																				regCurrentStockVal));
 													}
 
+													if (data.monthClosed
+															&& selectedStockOption == 1) {
 
-														if (data.monthClosed
-																&& selectedStockOption == 1) {
+														tr
+																.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+																		+ item.itemId
+																		+ ','
+																		+ regCurrentStock
+																		+ ') onchange= updateStockDiff('
+																		+ item.itemId
+																		+ ','
+																		+ regCurrentStock
+																		+ ')  id= physicalStockQty'
+																		+ item.itemId
+																		+ ' name=physicalStockQty'
+																		+ item.itemId
+																		+ ' value = '
+																		+ regCurrentStock
+																		+ '></td>'));
 
-															tr
-																	.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
-																			+ item.itemId
-																			+ ','
-																			+ regCurrentStock
-																			+ ') onchange= updateStockDiff('
-																			+ item.itemId
-																			+ ','
-																			+ regCurrentStock
-																			+ ')  id= physicalStockQty'
-																			+ item.itemId
-																			+ ' name=physicalStockQty'
-																			+ item.itemId
-																			+ ' value = '
-																			+ regCurrentStock
-																			+ '></td>'));
-
-															tr
-																	.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
-														}
-
-														$('#table_grid tbody')
-																.append(tr);
+														tr
+																.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
 													}
+
+													$('#table_grid tbody')
+															.append(tr);
 
 												} else if (stType == 3) {
 													if (regCurrentStock > reOrderQty) {
@@ -1304,34 +1302,32 @@ table, th, td {
 																				regCurrentStockVal));
 													}
 
+													if (data.monthClosed
+															&& selectedStockOption == 1) {
 
-														if (data.monthClosed
-																&& selectedStockOption == 1) {
+														tr
+																.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+																		+ item.itemId
+																		+ ','
+																		+ regCurrentStock
+																		+ ') onchange= updateStockDiff('
+																		+ item.itemId
+																		+ ','
+																		+ regCurrentStock
+																		+ ')  id= physicalStockQty'
+																		+ item.itemId
+																		+ ' name=physicalStockQty'
+																		+ item.itemId
+																		+ ' value = '
+																		+ regCurrentStock
+																		+ '></td>'));
 
-															tr
-																	.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
-																			+ item.itemId
-																			+ ','
-																			+ regCurrentStock
-																			+ ') onchange= updateStockDiff('
-																			+ item.itemId
-																			+ ','
-																			+ regCurrentStock
-																			+ ')  id= physicalStockQty'
-																			+ item.itemId
-																			+ ' name=physicalStockQty'
-																			+ item.itemId
-																			+ ' value = '
-																			+ regCurrentStock
-																			+ '></td>'));
-
-															tr
-																	.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
-														}
-
-														$('#table_grid tbody')
-																.append(tr);
+														tr
+																.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
 													}
+
+													$('#table_grid tbody')
+															.append(tr);
 												}
 
 											})
