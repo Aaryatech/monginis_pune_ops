@@ -507,7 +507,12 @@ jQuery(document).ready(function(){
   
 
 				</div>
+				
 			</div>
+			<div class="col-md-5">
+							 <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();" >
+						     <button class="btn btn-primary" value="PDF" id="PDFButton" onclick="genPdf()">PDF</button>
+				</div> 
 			<!--tab1-->
 
 			<!--tab2-->
@@ -566,6 +571,28 @@ jQuery(document).ready(function(){
 	function closeNav3() {
 		document.getElementById("mySidenav3").style.width = "0";
 	}
+</script>
+
+<script type="text/javascript">
+function genPdf()
+{		
+	window.open('${pageContext.request.contextPath}/pdf/showOrderHistoryPdf');
+}
+
+</script>		
+
+<script>
+function Print(){
+ document.getElementById("expExcel").disabled=false;
+}
+</script>
+<script>
+function exportToExcel()
+{
+	 
+	window.open("${pageContext.request.contextPath}/exportToExcel");
+			document.getElementById("expExcel").disabled=true;
+}
 </script>
 <script>
 

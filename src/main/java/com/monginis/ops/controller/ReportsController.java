@@ -2862,7 +2862,7 @@ public class ReportsController {
 
 		String url = request.getParameter("reportURL");
 		//File f = new File("/home/supertom/apache-tomcat-8.5.35/webapps/admin/Report.pdf");
-		File f = new File("/opt/apache-tomcat-8.5.6/webapps/uploads/reportpune.pdf");
+		File f = new File("/opt/apache-tomcat-8.5.37/webapps/uploadspune/reportpune.pdf");
 		 //	File f = new File("/home/ats-12/ordermemo221.pdf");
 		try {
 			runConverter(Constant.ReportURL + url, f, request, response);
@@ -2876,7 +2876,7 @@ public class ReportsController {
 		ServletContext context = request.getSession().getServletContext();
 		String appPath = context.getRealPath("");
 		String filename = "ordermemo221.pdf";
-		String filePath = "/opt/apache-tomcat-8.5.6/webapps/uploads/reportpune.pdf";
+		String filePath = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/reportpune.pdf";
 		//String filePath = "/home/supertom/apache-tomcat-8.5.35/webapps/admin/Report.pdf";
 		//String filePath = "/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf";
 		// String filePath="/home/ats-12/ordermemo221.pdf";

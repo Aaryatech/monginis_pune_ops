@@ -416,7 +416,7 @@ table, th, td {
 												<th class="col-md-1">Grn-Gvn Value</th>
 												<th class="col-md-1">Regular Sale</th>
 												<th class="col-md-1">Reg Value Sale</th>
-												<th>Reorder Qty</th>
+											<!-- 	<th>Reorder Qty</th> -->
 												<th class="col-md-1">Cur Stock</th>
 												<th class="col-md-1">Cur Stock Value</th>
 
@@ -482,7 +482,13 @@ table, th, td {
 
 
 
-									<div class="col-md-2"></div>
+								
+									&nbsp;
+								</div>
+
+							</div>
+
+	<div class="col-md-2"></div>
 
 									<div class="col-md-3">
 
@@ -500,12 +506,6 @@ table, th, td {
 											style="align-content: center; width: 100px; margin-left: 80px;">
 											PDF</button>
 									</div>
-									&nbsp;
-								</div>
-
-							</div>
-
-
 
 
 							<div class="colOuter" id="monthEnd" style="display: none">
@@ -514,6 +514,7 @@ table, th, td {
 										type="submit">
 								</div>
 							</div>
+							
 						</form>
 					</div>
 				</div>
@@ -692,15 +693,15 @@ table, th, td {
 						function(data) {
 							$('#loader').hide();
 
-							/* document.getElementById("expExcel").disabled = false; 
-							 document.getElementById("PDFButton").disabled = false; 
+							 document.getElementById("expExcel").disabled = false; 
+							  document.getElementById("PDFButton").disabled = false; 
 
 							if (data == "") {
 								alert("No records found !!");
 								document.getElementById("expExcel").disabled = true;
 								 document.getElementById("PDFButton").disabled = true; 
 
-							} */
+							} 
 
 							var len = data.length;
 							$('#table_grid td').remove();
@@ -735,7 +736,7 @@ table, th, td {
 								tr.append($('<th align=left>Reg Sale</th>'));
 								tr.append($('<th align=left>Sp Sale</th>'));
 
-								tr.append($('<th align=left>Reorder Qty</th>'));
+								/* tr.append($('<th align=left>Reorder Qty</th>')); */
 								tr
 										.append($('<th align=left>Regular Current Stock</th>'));
 								tr
@@ -904,12 +905,12 @@ table, th, td {
 																				regTotalSellVal));
 													}
 
-													tr
+													/* tr
 															.append($(
 																	'<td class="col-md-1"> </td>')
 																	.html(
 																			reOrderQty));
-
+ */
 													if (regCurrentStock < 0) {
 														tr
 																.append($(
@@ -923,26 +924,27 @@ table, th, td {
 																				regCurrentStock));
 													}
 
-													if (selectRate == 1) {
-														var regCurrentStockVal = item.spOpeningStock
-																* regCurrentStock;
-
-														tr
-																.append($(
-																		'<td class="col-md-1"></td>')
-																		.html(
-																				regCurrentStockVal));
-													} else
-
-													{
-														var regCurrentStockVal = item.spTotalPurchase
-																* regCurrentStock;
-														tr
-																.append($(
-																		'<td class="col-md-1"></td>')
-																		.html(
-																				regCurrentStockVal));
-													}
+ if (selectRate == 1) {
+	   if (regCurrentStock < 0) {
+            
+			tr.append($('<td class="col-md-1"></td>').html(0));
+	     }else
+	    	 {
+	    		var regCurrentStockVal = item.spOpeningStock*regCurrentStock;
+                
+				tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+	    	 }
+} else
+{
+	if (regCurrentStock < 0) {
+	  tr.append($('<td class="col-md-1"></td>').html(0));
+  }
+  else
+  {
+	 var regCurrentStockVal = item.spTotalPurchase* regCurrentStock;
+	 tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+  }
+}
 
 													if (data.monthClosed
 															&& selectedStockOption == 1) {
@@ -1118,11 +1120,11 @@ table, th, td {
 																				regTotalSellVal));
 													}
 
-													tr
+												/* 	tr
 															.append($(
 																	'<td class="col-md-1"> </td>')
 																	.html(
-																			reOrderQty));
+																			reOrderQty)); */
 
 													if (regCurrentStock < 0) {
 														tr
@@ -1138,24 +1140,25 @@ table, th, td {
 													}
 
 													if (selectRate == 1) {
-														var regCurrentStockVal = item.spOpeningStock
-																* regCurrentStock;
-
-														tr
-																.append($(
-																		'<td class="col-md-1"></td>')
-																		.html(
-																				regCurrentStockVal));
-													} else
-
+														   if (regCurrentStock < 0) {
+				                                                  
+																tr.append($('<td class="col-md-1"></td>').html(0));
+														     }else
+														    	 {
+														    		var regCurrentStockVal = item.spOpeningStock*regCurrentStock;
+				                                                      
+																	tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+														    	 }
+												    } else
 													{
-														var regCurrentStockVal = item.spTotalPurchase
-																* regCurrentStock;
-														tr
-																.append($(
-																		'<td class="col-md-1"></td>')
-																		.html(
-																				regCurrentStockVal));
+												    	if (regCurrentStock < 0) {
+												    	  tr.append($('<td class="col-md-1"></td>').html(0));
+													    }
+													    else
+													    {
+														 var regCurrentStockVal = item.spTotalPurchase* regCurrentStock;
+														 tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+													    }
 													}
 
 													if (data.monthClosed
@@ -1332,12 +1335,12 @@ table, th, td {
 																				regTotalSellVal));
 													}
 
-													tr
+												/* 	tr
 															.append($(
 																	'<td class="col-md-1"> </td>')
 																	.html(
 																			reOrderQty));
-
+ */
 													if (regCurrentStock < 0) {
 														tr
 																.append($(
@@ -1351,26 +1354,27 @@ table, th, td {
 																				regCurrentStock));
 													}
 
-													if (selectRate == 1) {
-														var regCurrentStockVal = item.spOpeningStock
-																* regCurrentStock;
-
-														tr
-																.append($(
-																		'<td class="col-md-1"></td>')
-																		.html(
-																				regCurrentStockVal));
-													} else
-
-													{
-														var regCurrentStockVal = item.spTotalPurchase
-																* regCurrentStock;
-														tr
-																.append($(
-																		'<td class="col-md-1"></td>')
-																		.html(
-																				regCurrentStockVal));
-													}
+ if (selectRate == 1) {
+	   if (regCurrentStock < 0) {
+            
+			tr.append($('<td class="col-md-1"></td>').html(0));
+	     }else
+	    	 {
+	    		var regCurrentStockVal = item.spOpeningStock*regCurrentStock;
+                
+				tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+	    	 }
+} else
+{
+	if (regCurrentStock < 0) {
+	  tr.append($('<td class="col-md-1"></td>').html(0));
+  }
+  else
+  {
+	 var regCurrentStockVal = item.spTotalPurchase* regCurrentStock;
+	 tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+  }
+}
 
 													if (data.monthClosed
 															&& selectedStockOption == 1) {
@@ -1480,6 +1484,13 @@ table, th, td {
 				+ selectRate);
 		/* document.getElementById("expExcel").disabled = true; */
 
+	}
+	
+	function exportToExcel()
+	{
+		 
+		window.open("${pageContext.request.contextPath}/exportToExcel");
+				document.getElementById("expExcel").disabled=true;
 	}
 </script>
 

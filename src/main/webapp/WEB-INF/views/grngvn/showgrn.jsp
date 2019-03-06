@@ -171,7 +171,7 @@ table, th, td {
 												value="${grnConfList.autoGrnQty}" 
 												id='grnqtyauto${grnConfList.billDetailNo}' size="3"
 												onkeyup="calcGrn(${grnConfList.grnType},${grnConfList.rate},${grnConfList.itemId},
-																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.autoGrnQty},${grnConfList.billDetailNo},${grnConfList.discPer})" />
+																	${grnConfList.sgstPer},${grnConfList.cgstPer},${grnConfList.autoGrnQty},${grnConfList.billDetailNo},${grnConfList.discPer},this.value)" />
 
 
 											</td>
@@ -298,16 +298,16 @@ table, th, td {
 
 <script type="text/javascript">
 	
-	function calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty,billDetailNo,discPer){
+	function calcGrn(grnType,rate,itemId,sgstPer,cgstPer,autoQty,billDetailNo,discPer,grnQty){
 		
-		
+	
 		var baseRate=rate*100/(sgstPer+cgstPer+100);
 	
 		var grnBaseRate;
 		
 		var grnRate;
-		var grnQty=$("#grnqtyauto"+billDetailNo).val();
-		
+		//var grnQty=$("#grnqtyauto"+billDetailNo).val();
+		//alert(grnQty);
 		if(parseInt(grnQty)>autoQty){
 			alert("Edit Quantity can not be greater than Auto Quantity");
 			document.getElementById("grnqtyauto"+billDetailNo).value=autoQty;
@@ -323,9 +323,9 @@ table, th, td {
 			alert(hidden); */
 			
 			var grnRate=$("#grn_rate"+billDetailNo).text();
-			
+		
 			grnBaseRate = baseRate * 80 / 100;
-			 
+			
 			 grnRate=(rate * 80) / 100;
 			
 			//var grnAmt=parseFloat(grnQty)*parseFloat(grnRate);
@@ -384,7 +384,7 @@ table, th, td {
 				
 				}
 			
-		var totTaxPer=parseFloat(sgstPer)+parseFloat(cgstPer);
+		    var totTaxPer=parseFloat(sgstPer)+parseFloat(cgstPer);
 			var taxableAmt=grnBaseRate*grnQty;
 			var discAmt=(taxableAmt*discPer)/100;
 			//alert("taxable " +taxableAmt + "discAmt " +discAmt);
@@ -399,8 +399,8 @@ table, th, td {
 			alert(grandTotal);
 			 */
 		//$("#grn_rate"+itemId).html(baseRate.toFixed(2));
-
 		$("#grn_amt"+billDetailNo).html(grandTotal.toFixed(2));
+
 		$("#tax_per"+billDetailNo).html(totTaxPer.toFixed(2));
 		
 		$("#taxable_amt"+billDetailNo).html(taxableAmt.toFixed(2));
@@ -484,23 +484,12 @@ function getGrnData(id){
 				 
 				ajax : 'true',
 
-}
+           }
 );
 }
 	
 </script>
-<script>
-(function() {
-  var fauxTable = document.getElementById("faux-table");
-  var mainTable = document.getElementById("table_grid");
-  var clonedElement = table_grid.cloneNode(true);
-  var clonedElement2 = table_grid.cloneNode(true);
-  clonedElement.id = "";
-  clonedElement2.id = "";
-  fauxTable.appendChild(clonedElement);
-  fauxTable.appendChild(clonedElement2);
-})();
-</script>
+
 
 	
 

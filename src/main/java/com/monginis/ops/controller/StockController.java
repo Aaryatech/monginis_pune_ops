@@ -463,7 +463,6 @@ public class StockController {
 		rowData.add("Grn/Gvn Value");
 		rowData.add("Regular Sale");
 		rowData.add("Regular Sale Value");
-		rowData.add("Reorder Qty");
 		rowData.add("Cur Stock");
 		rowData.add("Cur Stock Value");
 		expoExcel.setRowData(rowData);
@@ -496,12 +495,12 @@ public class StockController {
 				rowData.add("" + (currentStockDetailList.get(i).getSpOpeningStock()
 						* currentStockDetailList.get(i).getRegTotalSell()));
 
-				rowData.add("" + currentStockDetailList.get(i).getReOrderQty());
+/*				rowData.add("" + currentStockDetailList.get(i).getReOrderQty());
 
 				rowData.add("" + currentStockDetailList.get(i).getRegTotalSell());
 				rowData.add("" + (currentStockDetailList.get(i).getSpOpeningStock()
 						* currentStockDetailList.get(i).getRegTotalSell()));
-
+*/
 				rowData.add("" + currentStockDetailList.get(i).getCurrentRegStock());
 				rowData.add("" + (currentStockDetailList.get(i).getSpOpeningStock()
 						* currentStockDetailList.get(i).getCurrentRegStock()));
@@ -524,12 +523,12 @@ public class StockController {
 				rowData.add("" + currentStockDetailList.get(i).getRegTotalSell());
 				rowData.add("" + (currentStockDetailList.get(i).getSpTotalPurchase()
 						* currentStockDetailList.get(i).getRegTotalSell()));
-
+/*
 				rowData.add("" + currentStockDetailList.get(i).getReOrderQty());
 
 				rowData.add("" + currentStockDetailList.get(i).getRegTotalSell());
 				rowData.add("" + (currentStockDetailList.get(i).getSpTotalPurchase()
-						* currentStockDetailList.get(i).getRegTotalSell()));
+						* currentStockDetailList.get(i).getRegTotalSell()));*/
 
 				rowData.add("" + currentStockDetailList.get(i).getCurrentRegStock());
 				rowData.add("" + (currentStockDetailList.get(i).getSpTotalPurchase()
