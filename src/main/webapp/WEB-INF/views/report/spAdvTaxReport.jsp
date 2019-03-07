@@ -53,13 +53,13 @@
 						<div class="calender-title">From</div>
 						<div class="col-md-2">
 							<input id="datepicker" class="texboxitemcode texboxcal"
-								value="${cDate}" name="from_Date" type="text">
+								value="${cDate}" autocomplete="off" name="from_Date" type="text">
 						</div>
 
 						<div class="calender-title">TO</div>
 						<div class="col-md-2">
 							<input id="datepicker2" class="texboxitemcode texboxcal"
-								value="${cDate}" name="to_Date" type="text">
+								value="${cDate}" autocomplete="off" name="to_Date" type="text">
 						</div>
 
 						<div class="col-md-1"></div>
@@ -82,10 +82,10 @@
 
 						<div id="table-scroll" class="table-scroll">
 							<div id="faux-table" class="faux-table" aria="hidden">
-								<table id="table_grid" class="main-table">
+								<table id="table_grid" class="main-table" border="1">
 									<thead>
 										<tr class="bgpink">
-											<th class="col-md-1">Sr No</th>
+											<!-- 	<th class="col-md-1">Sr No</th>
 											<th class="col-md-2">Invoice No</th>
 											<th class="col-md-3">Item Name</th>
 											<th class="col-md-2">HsnCode</th>
@@ -98,13 +98,13 @@
 											<th class="col-md-1">Total</th>
 
 											<th class="col-md-1">Advance</th>
-											<th class="col-md-1">Remaining</th>
+											<th class="col-md-1">Remaining</th> -->
 										</tr>
 									</thead>
 								</table>
 							</div>
 							<div class="table-wrap">
-								<table id="table_grid" class="main-table">
+								<table id="table_grid" class="main-table" border="1">
 									<thead>
 										<tr class="bgpink">
 											<th class="col-md-1">Sr No</th>
@@ -140,119 +140,169 @@
 <!--wrapper-end-->
 
 <script type="text/javascript">
-		function searchSpTaxAdvRepo() {
-			$('#table_grid td').remove();
-				var fromDate = document.getElementById("datepicker").value;
-				var toDate = document.getElementById("datepicker2").value;
-				
-				$.getJSON('${getSpAdvTaxReport}', {
+	function searchSpTaxAdvRepo() {
+		$('#table_grid td').remove();
+		var fromDate = document.getElementById("datepicker").value;
+		var toDate = document.getElementById("datepicker2").value;
 
-					fromDate : fromDate,
-					toDate : toDate,
-					ajax : 'true'
+		$.getJSON('${getSpAdvTaxReport}', {
 
-				}, function(data) {
+			fromDate : fromDate,
+			toDate : toDate,
+			ajax : 'true'
 
-					$.each(data, function(key, spTax) {
-						
-						
-						if(data!=null){
-							 document.getElementById("pdf").disabled = false; 
+		}, function(data) {
 
-						}
-						var tr = $('<tr></tr>');
-						
-						tr.append($('<td class="col-md-1"></td>').html(key+1));
-						tr.append($('<td class="col-md-2"></td>').html(spTax.invoiceNo));
-						tr.append($('<td class="col-md-3"></td>').html(spTax.spName));
-						tr.append($('<td class="col-md-2"></td>').html(spTax.spHsncd));
- 						tr.append($('<td class="col-md-1"></td>').html(spTax.delDate));
- 						tr.append($('<td class="col-md-1"></td>').html(spTax.baseMrp.toFixed(2)));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.tax1));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.tax2));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.tax1Amt));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.tax2Amt));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.total));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.spAdvance));
-						tr.append($('<td class="col-md-1"></td>').html(spTax.rmAmount));
-					
-$('#table_grid tbody')
-	.append(
-			tr);
-			
-})
+			var baseMrpTotal = 0;
 
-});
-				
+			var cgstTotal = 0;
+			var sgstTotal = 0;
 
-			
-//}//if block
-}
-		
-document.getElementById("pdf").disabled = true;
+			var totalAmt = 0;
+			var advanceAmt = 0;
+			var totalRemaining = 0;
 
-	</script>
+			$.each(data, function(key, spTax) {
+
+				if (data != null) {
+					document.getElementById("pdf").disabled = false;
+
+				}
+				var tr = $('<tr></tr>');
+
+				tr.append($('<td class="col-md-1"></td>').html(key + 1));
+				tr
+						.append($('<td class="col-md-2"></td>').html(
+								spTax.invoiceNo));
+				tr.append($('<td class="col-md-3"></td>').html(spTax.spName));
+				tr.append($('<td class="col-md-2"></td>').html(spTax.spHsncd));
+				tr.append($('<td class="col-md-1"></td>').html(spTax.delDate));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.baseMrp.toFixed(2)));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.tax1));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.tax2));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.tax1Amt));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.tax2Amt));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.total));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.spAdvance));
+				tr.append($(
+						'<td class="col-md-1" style="text-align:right"></td>')
+						.html(spTax.rmAmount));
+
+				baseMrpTotal = baseMrpTotal + spTax.baseMrp;
+				cgstTotal = cgstTotal + spTax.tax1Amt;
+				sgstTotal = sgstTotal + spTax.tax2Amt;
+				totalAmt = totalAmt + spTax.total;
+				advanceAmt = advanceAmt + spTax.spAdvance;
+				totalRemaining = totalRemaining + spTax.rmAmount;
+
+				$('#table_grid tbody').append(tr);
+
+			})
+
+			var tr = $('<tr></tr>');
+
+			tr.append($('<td class="col-md-1"></td>').html(""));
+			tr.append($('<td class="col-md-2"></td>').html(""));
+			tr.append($('<td class="col-md-3"></td>').html(""));
+			tr.append($('<td class="col-md-2"></td>').html(""));
+			tr.append($('<td class="col-md-1"></td>').html("Total"));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(baseMrpTotal.toFixed(2)));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(""));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(""));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(cgstTotal.toFixed(2)));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(sgstTotal.toFixed(2)));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(totalAmt.toFixed(2)));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(advanceAmt.toFixed(2)));
+			tr.append($('<td class="col-md-1" style="text-align:right"></td>')
+					.html(totalRemaining.toFixed(2)));
+
+			$('#table_grid tbody').append(tr);
+
+		});
+
+		//}//if block
+	}
+
+	document.getElementById("pdf").disabled = true;
+</script>
 
 
 
 
 <script type="text/javascript">
-		function validate() {
-		
-			var fromDate =$("#datepicker").val();
-			var toDate =$("#datepicker2").val();
-			
-			var headeIdText=$("#headeIdText").val();
-			alert(headeIdText);
-			
-			var isValid = true;
-			if(headeIdText =="" || headeIdText == null){
-				 isValid = false;
-			}
-			else if (fromDate == "" || fromDate == null) {
+	function validate() {
 
-				isValid = false;
-				alert("Please select From Date");
-			}
-		 else if (toDate == "" || toDate == null) {
+		var fromDate = $("#datepicker").val();
+		var toDate = $("#datepicker2").val();
 
-				isValid = false;
-				alert("Please select To Date");
-			}
-		
-			return isValid;
+		var headeIdText = $("#headeIdText").val();
+		alert(headeIdText);
 
+		var isValid = true;
+		if (headeIdText == "" || headeIdText == null) {
+			isValid = false;
+		} else if (fromDate == "" || fromDate == null) {
+
+			isValid = false;
+			alert("Please select From Date");
+		} else if (toDate == "" || toDate == null) {
+
+			isValid = false;
+			alert("Please select To Date");
 		}
-	</script>
+
+		return isValid;
+
+	}
+</script>
 
 
 <script>
 	/*
-//  jquery equivalent
-jQuery(document).ready(function() {
-   jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
-   jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
- });
-*/
-(function() {
-  var fauxTable = document.getElementById("faux-table");
-  var mainTable = document.getElementById("table_grid");
-  var clonedElement = table_grid.cloneNode(true);
-  var clonedElement2 = table_grid.cloneNode(true);
-  clonedElement.id = "";
-  clonedElement2.id = "";
-  fauxTable.appendChild(clonedElement);
-  fauxTable.appendChild(clonedElement2);
-})();
-
-	</script>
+	//  jquery equivalent
+	jQuery(document).ready(function() {
+	jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
+	jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
+	});
+	 */
+	(function() {
+		var fauxTable = document.getElementById("faux-table");
+		var mainTable = document.getElementById("table_grid");
+		var clonedElement = table_grid.cloneNode(true);
+		var clonedElement2 = table_grid.cloneNode(true);
+		clonedElement.id = "";
+		clonedElement2.id = "";
+		fauxTable.appendChild(clonedElement);
+		fauxTable.appendChild(clonedElement2);
+	})();
+</script>
 
 <script>
-
-function genPdf() {
-		    window.open('${pageContext.request.contextPath}/getSpAdvTaxPdf');
+	function genPdf() {
+		window.open('${pageContext.request.contextPath}/getSpAdvTaxPdf');
 	}
-	</script>
+</script>
 
 </body>
 </html>

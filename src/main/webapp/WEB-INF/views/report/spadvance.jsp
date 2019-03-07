@@ -39,7 +39,7 @@
 
 				</div>
 				<form id="validation-form">
- <input type="hidden" value="${gstType}" name="type" id="type"/>
+					<input type="hidden" value="${gstType}" name="type" id="type" />
 
 					<div class="colOuter">
 						<!-- copy div kalpesh -->
@@ -47,13 +47,13 @@
 						<div class="calender-title">From</div>
 						<div class="col-md-2">
 							<input id="datepicker" class="texboxitemcode texboxcal"
-								value="${cDate}" name="from_Date" type="text">
+								value="${cDate}" autocomplete="off" name="from_Date" type="text">
 						</div>
 
 						<div class="calender-title">TO</div>
 						<div class="col-md-2">
 							<input id="datepicker2" class="texboxitemcode texboxcal"
-								value="${cDate}" name="to_Date" type="text">
+								value="${cDate}" autocomplete="off" name="to_Date" type="text">
 						</div>
 
 						<div class="col-md-1"></div>
@@ -61,7 +61,7 @@
 							<button type="button" class="btn  buttonsaveorder"
 								onclick="searchSpAdv()">Search</button>
 						</div>
-						
+
 						<div class="col-md-1">
 							<button type="button" class="btn  buttonsaveorder" id='pdf'
 								onclick="genPdf()" disabled>Generate Pdf</button>
@@ -76,27 +76,33 @@
 
 						<div id="table-scroll" class="table-scroll">
 							<div id="faux-table" class="faux-table" aria="hidden">
-								<table id="table_grid" class="main-table">
+								<table id="table_grid" class="main-table" border="1">
 									<thead>
 										<tr class="bgpink">
-											<th class="col-md-1">Sr No</th>
+											<!-- 	<th class="col-md-1">Sr No</th>
 											<th  class="col-md-3" align="left">Customer Name</th>
 											<th class="col-md-3">Item Name</th>
 											<th class="col-md-1">Order Date</th>
 											<th class="col-md-1">MRP</th>
-											<th class="col-md-2">Advance Amt</th>
+											<th class="col-md-2">Advance Amt</th> -->
 										</tr>
-									</thead></table></div>
+									</thead>
+								</table>
+							</div>
 							<div class="table-wrap">
-								<table id="table_grid" class="main-table">
+								<table id="table_grid" class="main-table" border="1">
 									<thead>
 										<tr class="bgpink">
-											<th class="col-md-1">Sr No</th>
-											<th class="col-md-3">Customer Name</th>
-											<th class="col-md-3">Item Name</th>
-											<th class="col-md-1">Order Date</th>
-											<th class="col-md-1">MRP</th>
-											<th class="col-md-2">Advance Amt</th>
+											<th class="col-md-1" style="text-align: center;">Sr No</th>
+											<th class="col-md-3" style="text-align: center;">Customer
+												Name</th>
+											<th class="col-md-3" style="text-align: center;">Item
+												Name</th>
+											<th class="col-md-1" style="text-align: center;">Order
+												Date</th>
+											<th class="col-md-1" style="text-align: center;">MRP</th>
+											<th class="col-md-2" style="text-align: center;">Advance
+												Amt</th>
 
 										</tr>
 									</thead>
@@ -110,13 +116,15 @@
 													value="${grnList.grnGvnHeaderId}"></td>
 												<td class="col-md-2" align="left"><c:out
 														value="${grnList.grngvnDate}" /></td>
-												<td class="col-md-2"><c:out
+												<td class="col-md-2" style="text-align: right"><c:out
 														value="${grnList.taxableAmt}" /></td>
-												<td class="col-md-2"><c:out value="${grnList.taxAmt}" /></td>
-												<td class="col-md-2"><c:out value="${grnList.totalAmt}" /></td>
+												<td class="col-md-2" style="text-align: right"><c:out
+														value="${grnList.taxAmt}" /></td>
+												<td class="col-md-2" style="text-align: right"><c:out
+														value="${grnList.totalAmt}" /></td>
 
-												<td class="col-md-2"><fmt:formatNumber type="number"
-														minFractionDigits="2" maxFractionDigits="2"
+												<td class="col-md-2" style="text-align: right"><fmt:formatNumber
+														type="number" minFractionDigits="2" maxFractionDigits="2"
 														value="${grnList.apporvedGrandTotal}" /> <%-- <c:out value="${grnList.taxableAmt}" /> --%></td>
 												<c:set var="status" value="a"></c:set>
 												<c:choose>
@@ -154,7 +162,7 @@
 
 												</c:choose>
 												<td class="col-md-3"><c:out value="${status}"></c:out></td>
-														<c:set var="isCredit" value="a"></c:set>
+												<c:set var="isCredit" value="a"></c:set>
 
 												<c:choose>
 													<c:when test="${grnList.isCreditNote==1}">
@@ -165,15 +173,15 @@
 													</c:otherwise>
 												</c:choose>
 
-												<td class="col-md-1"><c:out
-														value="${isCredit}"></c:out></td>
+												<td class="col-md-1"><c:out value="${isCredit}"></c:out></td>
 
 												<td class="col-md-1"><c:out
 														value="${grnList.creditNoteId}"></c:out></td>
-														
+
 												<td class="col-md-2"><a href='#' class='action_btn'
 													onclick="getGrnDetail(${grnList.grnGvnHeaderId})"><abbr
-														title='Detail'><i class='fa fa-list'></i></abbr></a><a href='#' class='action_btn'
+														title='Detail'><i class='fa fa-list'></i></abbr></a><a
+													href='#' class='action_btn'
 													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
 														title='Pdf'><i class='far fa-file-pdf'></i></abbr></a></td>
 
@@ -235,6 +243,9 @@
 					ajax : 'true'
 
 				}, function(data) {
+					
+					var totalAmt=0;
+					var totalMrp=0;
 
 					$.each(data, function(key, spAdv) {
 						//alert(data);
@@ -245,50 +256,38 @@
 						}
 						var tr = $('<tr></tr>');
 						
-					/* 	var grnStatus;
+				
 								
-								if(grndata.grngvnStatus==1)
-									grnStatus="Pending";
-								else if(grndata.grngvnStatus==2)
-									grnStatus="Approved  From Dispatch";
-								else if(grndata.grngvnStatus==3)
-									grnStatus="Reject From Dispatch";
-								else if(grndata.grngvnStatus==4)
-									grnStatus="Approved From Sales";
-								else if(grndata.grngvnStatus==5)
-									grnStatus="Reject From Sales";
-								else if(grndata.grngvnStatus==6)
-									grnStatus="Approved From Account";
-								else if(grndata.grngvnStatus==7)
-									grnStatus="Reject From Account";
-								
-								else if(grndata.grngvnStatus==8)
-									grnStatus="Partially Approved";
-								
-								var isCredit;
-								if(grndata.isCreditNote==1)
-									isCredit="Yes";
-								if(grndata.isCreditNote==0)
-									isCredit="No"; */
-								
-						tr.append($('<td class="col-md-1"></td>').html(key+1));
+						tr.append($('<td class="col-md-1" ></td>').html(key+1));
 						tr.append($('<td class="col-md-3"></td>').html(spAdv.custName));
 						tr.append($('<td class="col-md-3"></td>').html(spAdv.itemName));
 						tr.append($('<td class="col-md-1"></td>').html(spAdv.orderDate));
-						tr.append($('<td class="col-md-1"></td>').html(spAdv.totalMrp));
-						tr.append($('<td class="col-md-2"></td>').html(spAdv.advAmt));
-					
-						//tr.append($('<td class="col-md-2"></td>').html("<input type='button' onclick='getGrnDetail("+grndata.grnGvnHeaderId+")' id='grnDetailButton' value='Detail'>"));
+						tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(spAdv.totalMrp));
+						tr.append($('<td class="col-md-2" style="text-align:right;"></td>').html(spAdv.advAmt));
+						totalAmt=totalAmt+spAdv.advAmt;
+						totalMrp=totalMrp+spAdv.totalMrp;
 						
-							
-							//tr.append($('<td ><a href="#" class="action_btn" onclick="genPdf('+grndata.grnGvnHeaderId+')"><abbr title="Pdf"><i class="far fa-file-pdf"></i></abbr></a></td>'));
-
-						//tr.append($('<td class="col-md-2"><a href=''#' class='action_btn' onclick='getGrnDetail("+grndata.grnGvnHeaderId+")'> <abbr title='Detail'><i class="fa fa-trash"></i></abbr></a></td>'));
+						
+					
 $('#table_grid tbody')
 	.append(
 			tr);
 			
 })
+
+var tr = $('<tr></tr>');
+					
+				
+						tr.append($('<td class="col-md-1" ></td>').html(""));
+						tr.append($('<td class="col-md-3"></td>').html(""));
+						tr.append($('<td class="col-md-3"></td>').html(""));
+						tr.append($('<td class="col-md-1"></td>').html("Total"));
+						tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(totalMrp.toFixed(2)));
+						tr.append($('<td class="col-md-2" style="text-align:right;"></td>').html(totalAmt.toFixed(2)));
+				
+$('#table_grid tbody')
+	.append(
+			tr);
 
 });
 				

@@ -2,11 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-		
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <style>
 table, th, td {
-    border: 1px solid #9da88d;
+	border: 1px solid #9da88d;
 }
 </style>
 
@@ -52,261 +52,389 @@ jQuery(document).ready(function(){
 </head>
 <body> --%>
 <!--datepicker-->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
 <script>
-  $( function() {
-    $( "#todatepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
-  } );
-  $( function() {
-    $( "#fromdatepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
-  } );
- 
-  </script>
-<!--datepicker--> 
+	$(function() {
+		$("#todatepicker").datepicker({
+			dateFormat : 'dd-mm-yy'
+		});
+	});
+	$(function() {
+		$("#fromdatepicker").datepicker({
+			dateFormat : 'dd-mm-yy'
+		});
+	});
+</script>
+<!--datepicker-->
 
 <c:url var="getBillWisePurchase" value="/findBillWisePurchase" />
-	
-	<div class="sidebarOuter"></div>
-	
-	<div class="wrapper">
 
-		<!--topHeader-->
+<div class="sidebarOuter"></div>
 
-		<jsp:include page="/WEB-INF/views/include/logo.jsp">
-			<jsp:param name="frDetails" value="${frDetails}" />
+<div class="wrapper">
 
-		</jsp:include>
+	<!--topHeader-->
 
-		<!--topHeader-->
+	<jsp:include page="/WEB-INF/views/include/logo.jsp">
+		<jsp:param name="frDetails" value="${frDetails}" />
 
-		<!--rightContainer-->
-		<div class="fullGrid center">
-			<!--fullGrid-->
-			<div class="wrapperIn2">
+	</jsp:include>
 
-				<!--leftNav-->
+	<!--topHeader-->
 
-				<jsp:include page="/WEB-INF/views/include/left.jsp">
-					<jsp:param name="myMenu" value="${menuList}" />
+	<!--rightContainer-->
+	<div class="fullGrid center">
+		<!--fullGrid-->
+		<div class="wrapperIn2">
 
-				</jsp:include>
+			<!--leftNav-->
 
+			<jsp:include page="/WEB-INF/views/include/left.jsp">
+				<jsp:param name="myMenu" value="${menuList}" />
 
-				<!--leftNav-->
-				<!--rightSidebar-->
-				
-				<!-- Place Actual content of page inside this div -->
-				<div class="sidebarright">
-				
-
-<div class="row">
-	    <div class="col-md-12"><h2 class="pageTitle">Billwise Purchase Report</h2></div>
-	</div>
-	
-	<div class="row">
-			<input type="hidden" name="frId" id="frId" value="${frId}">
-	
-		<div class="col-md-2 from_date">
-		    <h4 class="pull-left">From Date:-</h4>
-		</div>
-		<div class="col-md-2 ">
-			<input id="fromdatepicker" class="texboxitemcode texboxcal" placeholder="DD-MM-YYYY" name="fromDate" type="text">
-		</div>
-		<div class="col-md-1">
-		    <h4 class="pull-left">To Date:-</h4>
-		</div>
-		<div class="col-md-2 ">
-			<input id="todatepicker" class="texboxitemcode texboxcal" placeholder="DD-MM-YYYY" name="toDate" type="text">
-		</div>
-		<div class="col-md-2">
-		    <button class="btn search_btn pull-left" onclick="billWisePurchaseReport()">Search </button>
-<%-- 		  &nbsp;&nbsp;&nbsp;   <a href='${pageContext.request.contextPath}/pdf?reportURL=showPurchaseBillwiseReportPdf' id="btn_pdf" class="btn search_btn" style="display: none">PDF</a>
- --%>		 		 												<button class="btn btn-primary" value="PDF" id="PDFButton" onclick="genPdf()">PDF</button>
-		 
-		</div>
-		
-    </div>
-	
-	<div class="row">
-		<div class="clearfix"></div>
+			</jsp:include>
 
 
-				<div id="table-scroll" class="table-scroll">
-					<div id="faux-table" class="faux-table" aria="hidden">
-								<table id="table_grid" class="main-table"  border="1"  >
-							<thead>
-								<tr class="bgpink">
-									
-									<th class="col-sm-1">Sr.No.</th>
-									<!-- <th class="col-md-1">Party Name</th> -->
-<!-- 									<th class="col-md-1">GSTIN</th>
- -->									<th class="col-sm-1">Invoice No</th>
-									<th class="col-sm-2">Bill Date</th>
-									<th class="col-md-2">Taxable Amt</th>
-									<th class="col-md-1">IGST Amt</th>
-									<th class="col-md-1">CGST Amt</th>
-									<th class="col-md-1">SGST Amt</th>
-									<th class="col-md-1">R.off</th>
-									<th class="col-md-2">Bill Amount</th>
-								  </tr>
-								
-								 </thead>
-							<tbody>
-								 
-								  
-								</table>
+			<!--leftNav-->
+			<!--rightSidebar-->
+
+			<!-- Place Actual content of page inside this div -->
+			<div class="sidebarright">
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="pageTitle">Billwise Purchase Report</h2>
 					</div>
-					<div class="table-wrap">
-						<table id="table_grid" class="main-table"  border="1"  >
-							<thead>
-								<tr class="bgpink">
-									
-									<th class="col-sm-1">Sr.No.</th>
-									<!-- <th class="col-md-1">Party Name</th> -->
-<!-- 									<th class="col-md-1">GSTIN</th>
- -->									<th class="col-sm-1">Invoice No</th>
-									<th class="col-sm-2">Bill Date</th>
-									<th class="col-md-2">Taxable Amt</th>
-									<th class="col-md-1">IGST Amt</th>
-									<th class="col-md-1">CGST Amt</th>
-									<th class="col-md-1">SGST Amt</th>
-									<th class="col-md-1">R.off</th>
-									<th class="col-md-2">Bill Amount</th>
-								  </tr>
-								
-								 </thead>
-							<tbody>
-								 
-								  
-								</table>
-						
 				</div>
-					
-			</div>
-		<!--table end--><br>
-		 <div class="form-group" style="display: none;" id="range">
-								 
-											 
-											 
-											<div class="col-sm-3  controls">
-											 <input type="button" id="expExcel" class="btn btn-primary" value="EXPORT TO Excel" onclick="exportToExcel();" disabled="disabled">
-											</div>
-											</div>
-		</div>	
-    </div>
 
+				<div class="row">
+					<input type="hidden" name="frId" id="frId" value="${frId}">
 
-				
-				
+					<div class="col-md-2 from_date">
+						<h4 class="pull-left">From Date:-</h4>
+					</div>
+					<div class="col-md-2 ">
+						<input id="fromdatepicker" autocomplete="off"
+							class="texboxitemcode texboxcal" placeholder="DD-MM-YYYY"
+							name="fromDate" type="text">
+					</div>
+					<div class="col-md-1">
+						<h4 class="pull-left">To Date:-</h4>
+					</div>
+					<div class="col-md-2 ">
+						<input id="todatepicker" autocomplete="off"
+							class="texboxitemcode texboxcal" placeholder="DD-MM-YYYY"
+							name="toDate" type="text">
+					</div>
+					<div class="col-md-2">
+						<button class="btn search_btn pull-left"
+							onclick="billWisePurchaseReport()">Search</button>
+						<%-- 		  &nbsp;&nbsp;&nbsp;   <a href='${pageContext.request.contextPath}/pdf?reportURL=showPurchaseBillwiseReportPdf' id="btn_pdf" class="btn search_btn" style="display: none">PDF</a>
+ --%>
+						<button class="btn btn-primary" value="PDF" id="PDFButton"
+							onclick="genPdf()">PDF</button>
+
+					</div>
+
 				</div>
-				<!--rightSidebar-->
 
+				<div class="row">
+					<div class="clearfix"></div>
+
+
+					<div id="table-scroll" class="table-scroll">
+						<div id="faux-table" class="faux-table" aria="hidden">
+							<table id="table_grid1" class="main-table" border="1">
+								<thead>
+									<tr class="bgpink">
+
+										<th class="col-sm-1">Sr.No.</th>
+										<!-- <th class="col-md-1">Party Name</th> -->
+										<!-- 									<th class="col-md-1">GSTIN</th>
+ -->
+										<th class="col-sm-1" style="text-align: center;">Invoice
+											No</th>
+										<th class="col-sm-2" style="text-align: center;">Bill
+											Date</th>
+										<th class="col-md-2" style="text-align: center;">Taxable
+											Amt</th>
+										<th class="col-md-1" style="text-align: center;">IGST Amt</th>
+										<th class="col-md-1" style="text-align: center;">CGST Amt</th>
+										<th class="col-md-1" style="text-align: center;">SGST Amt</th>
+										<th class="col-md-1" style="text-align: center;">R.off</th>
+										<th class="col-md-2" style="text-align: center;">Bill
+											Amount</th>
+									</tr>
+
+								</thead>
+								<tbody>
+							</table>
+						</div>
+						<div class="table-wrap">
+							<table id="table_grid" class="main-table" border="1">
+								<thead>
+									<tr class="bgpink">
+
+										<th class="col-sm-1" style="text-align: center;">Sr.No.</th>
+										<!-- <th class="col-md-1">Party Name</th> -->
+										<!-- 									<th class="col-md-1">GSTIN</th>
+ -->
+										<th class="col-sm-1" style="text-align: center;">Invoice
+											No</th>
+										<th class="col-sm-2" style="text-align: center;">Bill
+											Date</th>
+										<th class="col-md-2" style="text-align: center;">Taxable
+											Amt</th>
+										<th class="col-md-1" style="text-align: center;">IGST Amt</th>
+										<th class="col-md-1" style="text-align: center;">CGST Amt</th>
+										<th class="col-md-1" style="text-align: center;">SGST Amt</th>
+										<th class="col-md-1" style="text-align: center;">R.off</th>
+										<th class="col-md-2" style="text-align: center;">Bill
+											Amount</th>
+									</tr>
+
+								</thead>
+								<tbody>
+							</table>
+
+						</div>
+
+					</div>
+					<!--table end-->
+					<br>
+					<div class="form-group" style="display: none;" id="range">
+						<div class="col-sm-3  controls">
+							<input type="button" id="expExcel" class="btn btn-primary"
+								value="EXPORT TO Excel" onclick="exportToExcel();"
+								disabled="disabled">
+						</div>
+					</div>
+				</div>
 			</div>
-			<!--fullGrid-->
+
+
+
+
 		</div>
-		<!--rightContainer-->
+		<!--rightSidebar-->
 
 	</div>
-	<!--wrapper-end-->
+	<!--fullGrid-->
+</div>
+<!--rightContainer-->
 
-	<!--easyTabs-->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<!--easyTabs-->
+</div>
+<!--wrapper-end-->
 
-	
-	<script type="text/javascript">
-	function billWisePurchaseReport()
-	{ 
+<!--easyTabs-->
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<!--easyTabs-->
+
+
+<script type="text/javascript">
+	function billWisePurchaseReport() {
 		$('#table_grid td').remove();
-		
-		
+
 		var isValid = validate();
-		
+
 		if (isValid) {
 
 			//document.getElementById('btn_pdf').style.display = "block";
 			var fromDate = document.getElementById("fromdatepicker").value;
 			var toDate = document.getElementById("todatepicker").value;
-			   
-			
-			$.getJSON('${getBillWisePurchase}',{
-				
+
+			$
+					.getJSON(
+							'${getBillWisePurchase}',
+							{
+
 								fromDate : fromDate,
 								toDate : toDate,
 								ajax : 'true',
 
-							}, function(data) {
+							},
+							function(data) {
+
+								var taxTotal = 0;
+								var igstTotal = 0;
+								var cgstTotal = 0;
+								var sgstTotal = 0;
+								var roundOffTotal = 0;
+								var billTotal = 0;
 
 								$('#loader').hide();
 								var len = data.length;
 
-								if(data=="")
-									{
-									 document.getElementById("expExcel").disabled=true;
-									}
+								if (data == "") {
+									document.getElementById("expExcel").disabled = true;
+								}
 
 								$('#table_grid td').remove();
 
-								$.each(data,function(key, billWisePurchaseData) {
-									
-									  document.getElementById("expExcel").disabled=false;
-										document.getElementById('range').style.display = 'block';
-										
-									 var partyname="GFPL";
-                                     var gstNo="#012";
+								$
+										.each(
+												data,
+												function(key,
+														billWisePurchaseData) {
+
+													document
+															.getElementById("expExcel").disabled = false;
+													document
+															.getElementById('range').style.display = 'block';
+
+													var partyname = "GFPL";
+													var gstNo = "#012";
+
+													var tr = $('<tr></tr>');
+
+													tr
+															.append($(
+																	'<td class="col-md-1"></td>')
+																	.html(
+																			key + 1));
+													/* 	tr.append($('<td class="col-md-1" ></td>').html(partyname));
+													 */
+													/* 							  	tr.append($('<td class="col-md-1"></td>').html(gstNo));
+													 */
+													tr
+															.append($(
+																	'<td class="col-md-1"></td>')
+																	.html(
+																			billWisePurchaseData.invoiceNo));
+
+													tr
+															.append($(
+																	'<td class="col-md-2"></td>')
+																	.html(
+																			billWisePurchaseData.billDate));
+
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right"></td>')
+																	.html(
+																			(billWisePurchaseData.taxableAmt)
+																					.toFixed(2)));
+
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right"></td>')
+																	.html(
+																			(billWisePurchaseData.igstRs)
+																					.toFixed(2)));
+
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right"></td>')
+																	.html(
+																			(billWisePurchaseData.cgstRs)
+																					.toFixed(2)));
+
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right"></td>')
+																	.html(
+																			(billWisePurchaseData.sgstRs)
+																					.toFixed(2)));
+
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right"></td>')
+																	.html(
+																			(billWisePurchaseData.roundOff)
+																					.toFixed(2)));
+
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right"></td>')
+																	.html(
+																			(billWisePurchaseData.grandTotal)
+																					.toFixed(2)));
+
+													taxTotal = taxTotal
+															+ billWisePurchaseData.taxableAmt;
+													cgstTotal = cgstTotal
+															+ billWisePurchaseData.cgstRs;
+													sgstTotal = sgstTotal
+															+ billWisePurchaseData.sgstRs;
+													igstTotal = igstTotal
+															+ billWisePurchaseData.igstRs;
+
+													roundOffTotal = roundOffTotal
+															+ billWisePurchaseData.roundOff;
+
+													billTotal = billTotal
+															+ billWisePurchaseData.grandTotal;
+
+													$('#table_grid tbody')
+															.append(tr);
+
+												});
 
 								var tr = $('<tr></tr>');
 
-							  
-								tr.append($('<td class="col-md-1"></td>').html(key+1));
-							  /* 	tr.append($('<td class="col-md-1" ></td>').html(partyname));
- */
-/* 							  	tr.append($('<td class="col-md-1"></td>').html(gstNo));
- */
-							  	tr.append($('<td class="col-md-1"></td>').html(billWisePurchaseData.invoiceNo));
+								tr.append($('<td class="col-md-1"></td>').html(
+										""));
 
-							  	tr.append($('<td class="col-md-2"></td>').html(billWisePurchaseData.billDate));
+								tr.append($('<td class="col-md-1"></td>').html(
+										""));
 
-								tr.append($('<td class="col-md-1"style="text-align:right"></td>').html((billWisePurchaseData.taxableAmt).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-2" style="font-weight:bold;"></td>')
+												.html("Total"));
 
-								tr.append($('<td class="col-md-1"style="text-align:right"></td>').html((billWisePurchaseData.igstRs).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-1" style="text-align:right"></td>')
+												.html((taxTotal).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-1" style="text-align:right"></td>')
+												.html(igstTotal.toFixed(2)));
 
-								tr.append($('<td class="col-md-1"style="text-align:right"></td>').html((billWisePurchaseData.cgstRs).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-1" style="text-align:right"></td>')
+												.html(cgstTotal.toFixed(2)));
 
-								tr.append($('<td class="col-md-1"style="text-align:right"></td>').html((billWisePurchaseData.sgstRs).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-1" style="text-align:right"></td>')
+												.html(sgstTotal.toFixed(2)));
 
-								tr.append($('<td class="col-md-1"style="text-align:right"></td>').html((billWisePurchaseData.roundOff).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-1" style="text-align:right"></td>')
+												.html(roundOffTotal.toFixed(2)));
 
-								tr.append($('<td class="col-md-1"style="text-align:right"></td>').html((billWisePurchaseData.grandTotal).toFixed(2)));
+								tr
+										.append($(
+												'<td class="col-md-1" style="text-align:right"></td>')
+												.html(billTotal.toFixed(2)));
 
-								
 								$('#table_grid tbody').append(tr);
 
-							});
 							}
-								
 
-
-		);	
+					);
+		}
 	}
-	}
-	</script>
-	<script type="text/javascript">
+</script>
+<script type="text/javascript">
 	function validate() {
-	
-	
-		var fromDate =$("#fromdatepicker").val();
-		var toDate =$("#todatepicker").val();
-		
+
+		var fromDate = $("#fromdatepicker").val();
+		var toDate = $("#todatepicker").val();
 
 		var isValid = true;
 
-	 if (fromDate == "" || fromDate == null) {
+		if (fromDate == "" || fromDate == null) {
 
 			isValid = false;
 			alert("Please select From Date");
-		}
-	 else if (toDate == "" || toDate == null) {
+		} else if (toDate == "" || toDate == null) {
 
 			isValid = false;
 			alert("Please select To Date");
@@ -315,45 +443,43 @@ jQuery(document).ready(function(){
 
 	}
 </script>
-	<script>
+<script>
 	/*
-//  jquery equivalent
-jQuery(document).ready(function() {
-   jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
-   jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
- });
-*/
-(function() {
-  var fauxTable = document.getElementById("faux-table");
-  var mainTable = document.getElementById("table_grid");
-  var clonedElement = table_grid.cloneNode(true);
-  var clonedElement2 = table_grid.cloneNode(true);
-  clonedElement.id = "";
-  clonedElement2.id = "";
-  fauxTable.appendChild(clonedElement);
-  fauxTable.appendChild(clonedElement2);
-})();
+	//  jquery equivalent
+	jQuery(document).ready(function() {
+	jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
+	jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
+	});
+	 */
+	(function() {
+		var fauxTable = document.getElementById("faux-table");
+		var mainTable = document.getElementById("table_grid");
+		var clonedElement = table_grid.cloneNode(true);
+		var clonedElement2 = table_grid.cloneNode(true);
+		clonedElement.id = "";
+		clonedElement2.id = "";
+		fauxTable.appendChild(clonedElement);
+		fauxTable.appendChild(clonedElement2);
+	})();
 
-function exportToExcel()
-{
-	 
-	window.open("${pageContext.request.contextPath}/exportToExcel");
-			document.getElementById("expExcel").disabled=true;
-}
-	</script>
+	function exportToExcel() {
+
+		window.open("${pageContext.request.contextPath}/exportToExcel");
+		document.getElementById("expExcel").disabled = true;
+	}
+</script>
 <script type="text/javascript">
-function genPdf()
-{
-	var isValid=validate();
-	if(isValid==true)
-		{
-	var fromDate = document.getElementById("fromdatepicker").value;
-	var toDate = document.getElementById("todatepicker").value;
-	var frId=document.getElementById("frId").value;
-	window.open('${pageContext.request.contextPath}/pdf?reportURL=pdf/showPurchaseBillwiseReportPdf/'+fromDate+'/'+toDate+'/'+frId);
+	function genPdf() {
+		var isValid = validate();
+		if (isValid == true) {
+			var fromDate = document.getElementById("fromdatepicker").value;
+			var toDate = document.getElementById("todatepicker").value;
+			var frId = document.getElementById("frId").value;
+			window
+					.open('${pageContext.request.contextPath}/pdf?reportURL=pdf/showPurchaseBillwiseReportPdf/'
+							+ fromDate + '/' + toDate + '/' + frId);
 		}
 	}
-
-</script>		
+</script>
 </body>
 </html>
