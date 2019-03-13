@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -58,15 +58,15 @@ import com.monginis.ops.model.TabTitleData;
 @Scope("session")
 public class ItemController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 	private List<GetFrItem> frItemList = new ArrayList<>();
 	private List<GetFrItem> prevFrItemList = new ArrayList<>();
 
-	private  int globalIndex = 2;
+	private  int globalIndex =0;
 	private  int currentMenuId = 0;
 	List<String> subCatList = new ArrayList<>();
 	public MultiValueMap<String, Object> map;
-	public static String qtyAlert="Enter the Quantity as per the Limit.";
+	public String qtyAlert="Enter the Quantity as per the Limit.";
 	
 
 	@RequestMapping(value = "/showSavouries/{index}", method = RequestMethod.GET)
@@ -74,7 +74,7 @@ public class ItemController {
 			HttpServletResponse response) throws ParseException {
 
 		ModelAndView model = new ModelAndView("order/itemorder");
-		logger.info("/item order request mapping. index:" + index);
+		//logger.info("/item order request mapping. index:" + index);
 
 		subCatList = new ArrayList<>();
 		globalIndex = index;

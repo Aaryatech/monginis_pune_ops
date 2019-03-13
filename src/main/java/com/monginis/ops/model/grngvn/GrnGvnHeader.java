@@ -1,6 +1,5 @@
 package com.monginis.ops.model.grngvn;
 
-import java.util.Date;
 import java.util.List;
 
 public class GrnGvnHeader {
@@ -27,7 +26,7 @@ public class GrnGvnHeader {
 	
 	private int isCreditNote;
 
-	private int creditNoteId;
+	private String creditNoteId;//changed datatype for , separated crn no
 	
 	private String approvedDatetime;
 	
@@ -134,11 +133,11 @@ public class GrnGvnHeader {
 		this.isCreditNote = isCreditNote;
 	}
 
-	public int getCreditNoteId() {
+	public String getCreditNoteId() {
 		return creditNoteId;
 	}
 
-	public void setCreditNoteId(int creditNoteId) {
+	public void setCreditNoteId(String creditNoteId) {
 		this.creditNoteId = creditNoteId;
 	}
 

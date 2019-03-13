@@ -566,7 +566,6 @@ public class SpCakeController {
 			System.out.println("Month >=4::Cur Str Year " + curStrYear);
 		}
 
-		////
 
 		int length = String.valueOf(settingValue).length();
 

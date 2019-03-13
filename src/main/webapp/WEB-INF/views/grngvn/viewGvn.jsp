@@ -203,7 +203,28 @@ table, th, td {
 														title='Detail'><i class='fa fa-list'></i></abbr></a>&nbsp;<a href='#' class='action_btn'
 													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
 														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a> <%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
+<c:choose>
+													<c:when test="${grnList.isCreditNote==1}">
+															<td class="col-md-1" style="text-align: center;"><a href='#' class='action_btn'
+													onclick="getGvnDetail(${grnList.grnGvnHeaderId})"><abbr
+														title='Detail'><i class='fa fa-list'></i></abbr></a>&nbsp;<a href='#' class='action_btn'
+													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
+														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a> &nbsp;<a href='#' class='action_btn'
+													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
+														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a> <%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
 
+													</c:when>
+													<c:otherwise>
+														<td class="col-md-1" style="text-align: center;"><a href='#' class='action_btn'
+													onclick="getGvnDetail(${grnList.grnGvnHeaderId})"><abbr
+														title='Detail'><i class='fa fa-list'></i></abbr></a>&nbsp;<a href='#' class='action_btn'
+													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
+														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a>&nbsp;<a href='#' class='action_btn'
+													onclick="genCrnPdf(${grnList.grnGvnHeaderId})"><abbr
+														title='Pdf'>CRN</abbr></a> <%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
+
+													</c:otherwise>
+												</c:choose>
 												<%-- <td class="col-md-1"><a href='#' class='action_btn'
 													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
 														title='Pdf'><i class='fa fa-list'></i></abbr></a> --%> <%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
@@ -318,8 +339,12 @@ document.getElementById("headeIdText").value=0;
 
 
 						//tr.append($('<td class="col-md-2"></td>').html("<input type='button' onclick='getGrnDetail("+grndata.grnGvnHeaderId+")' id='grnDetailButton' value='Detail'>"));
-						tr.append($('<td class="col-md-2" style="text-align: center;" ><a href="#" class="action_btn" onclick="getGvnDetail('+grndata.grnGvnHeaderId+')"><abbr title="Detail"><i class="fa fa-list"></i></abbr></a>&nbsp; <a href="#" class="action_btn" onclick="genPdf('+grndata.grnGvnHeaderId+')"><i class="fa fa-file-pdf-o" style="color:red"></i></a></td>'));
-
+						if(grndata.isCreditNote==1)
+							{
+						tr.append($('<td class="col-md-2" style="text-align: center;" ><a href="#" class="action_btn" onclick="getGvnDetail('+grndata.grnGvnHeaderId+')"><abbr title="Detail"><i class="fa fa-list"></i></abbr></a>&nbsp; <a href="#" class="action_btn" onclick="genPdf('+grndata.grnGvnHeaderId+')"><i class="fa fa-file-pdf-o" style="color:red"></i></a>&nbsp; <a href="#" class="action_btn" onclick="genCrnPdf('+grndata.grnGvnHeaderId+')">CRN</a></td>'));
+							}else{
+								tr.append($('<td class="col-md-2" style="text-align: center;" ><a href="#" class="action_btn" onclick="getGvnDetail('+grndata.grnGvnHeaderId+')"><abbr title="Detail"><i class="fa fa-list"></i></abbr></a>&nbsp; <a href="#" class="action_btn" onclick="genPdf('+grndata.grnGvnHeaderId+')"><i class="fa fa-file-pdf-o" style="color:red"></i></a></td>'));
+						    }
 							//tr.append($('<td ><a href="#" class="action_btn" onclick="getGvnDetail('+grndata.grnGvnHeaderId+')"><abbr title="Detail"><i class="fa fa-list"></i></abbr></a></td>'));
 							//tr.append($('<td ><a href="#" class="action_btn" onclick="genPdf('+grndata.grnGvnHeaderId+')"><abbr title="Pdf"><i class="fa fa-list"></i></abbr></a></td>'));
 
@@ -424,6 +449,13 @@ function genPdf(headerId) {
 			
 	}
 	</script>
+<script>
 
+function genCrnPdf(headerId) {
+	   
+		    window.open('${pageContext.request.contextPath}/pdf/getCrnCheckedHeaders/'+headerId);
+			
+	}
+	</script>
 </body>
 </html>

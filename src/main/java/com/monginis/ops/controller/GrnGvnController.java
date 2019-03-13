@@ -55,6 +55,14 @@ import com.monginis.ops.model.GetCurrentStockDetails;
 import com.monginis.ops.model.MCategory;
 import com.monginis.ops.model.PostFrItemStockHeader;
 import com.monginis.ops.model.SellBillDetailList;
+import com.monginis.ops.model.creditnote.CreditNoteHeaderPrint;
+import com.monginis.ops.model.creditnote.CreditPrintBean;
+import com.monginis.ops.model.creditnote.CrnDetailsSummary;
+import com.monginis.ops.model.creditnote.CrnSrNoDateBean;
+import com.monginis.ops.model.creditnote.GetCreditNoteHeaders;
+import com.monginis.ops.model.creditnote.GetCreditNoteHeadersList;
+import com.monginis.ops.model.creditnote.GetCrnDetails;
+import com.monginis.ops.model.creditnote.GetCrnDetailsList;
 import com.monginis.ops.model.frsetting.FrSetting;
 import com.monginis.ops.model.grngvn.GetBillsForFr;
 import com.monginis.ops.model.grngvn.GetBillsForFrList;
@@ -984,7 +992,7 @@ public class GrnGvnController {
 			grnHeader.setFrId(fraId);
 			grnHeader.setApporvedAmt(0);
 			grnHeader.setApprovedDatetime(curDateTime);
-			grnHeader.setCreditNoteId(0);
+			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
 			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response));
 			grnHeader.setGrngvnStatus(1);
@@ -1837,7 +1845,7 @@ public class GrnGvnController {
 			grnHeader.setFrId(frDetails.getFrId());
 			grnHeader.setApporvedAmt(0);
 			grnHeader.setApprovedDatetime(curDateTime);
-			grnHeader.setCreditNoteId(0);
+			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
 			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response));
 			grnHeader.setGrngvnStatus(1);
@@ -2476,5 +2484,146 @@ public class GrnGvnController {
 		}
 		return model;
 
+	}
+	GetCrnDetailsList crnDetailResponse=null;
+	List<GetCreditNoteHeaders> creditHeaderList=null;List<GetCrnDetails> crnDetailList=null;
+	@RequestMapping(value = "pdf/getCrnCheckedHeaders/{checked}", method = RequestMethod.GET)
+	public ModelAndView getCrnCheckedHeaders(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("checked") int grnGvnHeaderId) {
+		DateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+
+		ModelAndView model = new ModelAndView("creditnote/creditnotePdf");
+
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("grnGvnHeaderId", grnGvnHeaderId);
+			GetCreditNoteHeadersList	headerResponse = restTemplate.postForObject(Constant.URL + "getCrnHeadersByGrnGvnHeaderId", map,
+					GetCreditNoteHeadersList.class);
+
+			creditHeaderList = headerResponse.getCreditNoteHeaders();
+
+			// Getting crn Details
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("grnGvnHeaderId", grnGvnHeaderId);
+			crnDetailResponse = restTemplate.postForObject(Constant.URL + "getCrnDetailsByGrnGvnHeaderId", map,
+					GetCrnDetailsList.class);
+			crnDetailList = new ArrayList<>();
+
+			crnDetailList = crnDetailResponse.getCrnDetails();
+			List<CreditPrintBean> printList = new ArrayList<>();
+        	CreditPrintBean printBean = new CreditPrintBean();
+
+			for (int i = 0; i < creditHeaderList.size(); i++) {
+				printBean = new CreditPrintBean();
+				CreditNoteHeaderPrint cNoteHeaderPrint = new CreditNoteHeaderPrint();
+
+				 try {
+				 map = new LinkedMultiValueMap<String, Object>();
+				 map.add("crnId", creditHeaderList.get(i).getCrnId());
+				 List<CrnDetailsSummary> crnSummaryList = restTemplate.postForObject(Constant.URL + "getCrnDetailsSummary", map,
+							List.class);
+				 cNoteHeaderPrint.setCrnDetailsSummaryList(crnSummaryList);
+				 System.err.println(crnSummaryList.toString());
+				 }
+				 catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				cNoteHeaderPrint.setFrAddress(creditHeaderList.get(i).getFrAddress());
+				cNoteHeaderPrint.setFrId(creditHeaderList.get(i).getFrId());
+
+				cNoteHeaderPrint.setFrName(creditHeaderList.get(i).getFrName());
+				cNoteHeaderPrint.setCrnId(creditHeaderList.get(i).getCrnId());
+				cNoteHeaderPrint.setCrnDate(creditHeaderList.get(i).getCrnDate());
+
+				cNoteHeaderPrint.setFrGstNo(creditHeaderList.get(i).getFrGstNo());
+				cNoteHeaderPrint.setIsGrn(creditHeaderList.get(i).getIsGrn());
+
+				List<GetCrnDetails> crnPrintDetailList = new ArrayList<>();
+
+				List<String> srNoList = new ArrayList<String>();
+				List<CrnSrNoDateBean> srNoDateList = new ArrayList<CrnSrNoDateBean>();
+
+				String fDate = null, tDate = null;
+
+				for (int j = 0; j < crnDetailList.size(); j++) {
+
+					if (creditHeaderList.get(i).getCrnId() == crnDetailList.get(j).getCrnId()) {
+
+						crnPrintDetailList.add(crnDetailList.get(j));
+
+						java.util.Date initDateFrom = fmt.parse(crnDetailList.get(0).getGrnGvnDate());
+						java.util.Date toLastDate = fmt.parse(crnDetailList.get(0).getGrnGvnDate());
+
+						
+						boolean isPrev=false;
+						for(CrnSrNoDateBean bean: srNoDateList) {
+							
+								if(bean.getSrNo().equalsIgnoreCase(crnDetailList.get(j).getGrngvnSrno())) {
+									isPrev=true;
+								}
+							
+						}
+						
+						if(!isPrev) {
+							
+							CrnSrNoDateBean bean=new CrnSrNoDateBean();
+							bean.setGrnGvnDate(crnDetailList.get(j).getGrnGvnDate());
+							bean.setSrNo(crnDetailList.get(j).getGrngvnSrno());
+							
+							srNoDateList.add(bean);
+							
+						}
+		
+						
+
+						if (initDateFrom.before(fmt.parse(crnDetailList.get(j).getGrnGvnDate()))) {
+
+						} else {
+							initDateFrom = fmt.parse(crnDetailList.get(j).getGrnGvnDate());
+						}
+
+						if (toLastDate.after(fmt.parse(crnDetailList.get(j).getGrnGvnDate()))) {
+
+						} else {
+							toLastDate = fmt.parse(crnDetailList.get(j).getGrnGvnDate());
+						}
+						fDate = fmt.format(initDateFrom);
+						tDate = fmt.format(toLastDate);
+					} // end of if
+
+				} // end of Inner for
+
+				cNoteHeaderPrint.setFromDate(fDate);
+				cNoteHeaderPrint.setToDate(tDate);
+
+				cNoteHeaderPrint.setCrnDetails(crnPrintDetailList);
+				cNoteHeaderPrint.setCrnNo(creditHeaderList.get(i).getCrnNo());
+				cNoteHeaderPrint.setSrNoDateList(srNoDateList);
+				cNoteHeaderPrint.setSrNoList(srNoList);
+				cNoteHeaderPrint.setExInt1(creditHeaderList.get(i).getExInt1());
+				cNoteHeaderPrint.setExVarchar1(creditHeaderList.get(i).getExVarchar1());
+				printBean.setCreditHeader(cNoteHeaderPrint);
+
+				printList.add(printBean);
+				System.err.println("printList = " + printList.toString());
+			} // end of outer for
+
+			System.err.println("printList = " + printList.toString());
+			model.addObject("crnPrint", printList);
+			model.addObject("FACTORYNAME", Constant.FACTORYNAME);
+			model.addObject("FACTORYADDRESS", Constant.FACTORYADDRESS);
+
+		} catch (Exception e) {
+			System.err.println("Exce Occured ");
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return model;
 	}
 }

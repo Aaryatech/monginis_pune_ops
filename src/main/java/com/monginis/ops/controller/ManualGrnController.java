@@ -513,7 +513,7 @@ System.err.println("Inside Manual Grn POST method ");
 			grnHeader.setFrId(fraId);
 			grnHeader.setApporvedAmt(0);
 			grnHeader.setApprovedDatetime(curDateTime);
-			grnHeader.setCreditNoteId(0);
+			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
 			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response));
 			grnHeader.setGrngvnStatus(1);
