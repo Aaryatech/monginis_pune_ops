@@ -112,14 +112,14 @@ th {
 												</c:forEach>
 								  <tr>
 								  <td colspan='4'><b>Total</b></td>
-								  <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value ="${taxableAmt}"/></b></td>
-								   <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${taxAmount}"/></b></td> 
-								   <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${total}"/></b></td>
-								   <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${igst}"/></b></td>
-								  <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value ="${cgst}"/></b></td> 
-								  <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value ="${sgst}"/></b></td> 
-								     <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${igst}"/></b></td> 
-								     <td style="text-align:right"><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${aprTotal}"/></b></td>
+								  <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2"  maxFractionDigits = "2" value ="${taxableAmt}"/></b></td>
+								   <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2"  maxFractionDigits = "2" value = "${taxAmount}"/></b></td> 
+								   <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2" maxFractionDigits = "2" value = "${total}"/></b></td>
+								   <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2" maxFractionDigits = "2" value = "${igst}"/></b></td>
+								  <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2"  maxFractionDigits = "2" value ="${cgst}"/></b></td> 
+								  <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2" maxFractionDigits = "2" value ="${sgst}"/></b></td> 
+								     <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2" maxFractionDigits = "2" value = "${igst}"/></b></td> 
+								     <td style="text-align:right"><b><fmt:formatNumber type = "number" minFractionDigits="2"  maxFractionDigits = "2" value = "${aprTotal}"/></b></td>
 								     
 								       
 								     <!--  <td><b>Total</b></td> -->

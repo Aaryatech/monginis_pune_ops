@@ -11,7 +11,7 @@ private int sellBillNo;
 	
  	private int frId;
 	
- 	private int month;
+ 	private String month;
  	private String day;
 	private float cash;
 	private float card;
@@ -83,11 +83,11 @@ private int sellBillNo;
 		this.frName = frName;
 	}
 
-	public int getMonth() {
+	public String getMonth() {
 		return month;
 	}
 
-	public void setMonth(int month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 

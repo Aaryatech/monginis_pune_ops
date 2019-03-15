@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,12 +106,12 @@ public class SellReport {
 		 			 rowData.add(""+(i+1));
 		 			 rowData.add(""+tSellReport.get(i).getItemName());
 		 			 rowData.add(""+tSellReport.get(i).getHsnNo());
-		 			 rowData.add(""+tSellReport.get(i).getCgst());
-		 			 rowData.add(""+tSellReport.get(i).getSgst()); 
-		 			 rowData.add(""+tSellReport.get(i).getIgst());
-		 			 rowData.add(""+tSellReport.get(i).getTaxableAmt());
-		 			 rowData.add(""+tSellReport.get(i).getTotalTax());
-		 			 rowData.add(""+tSellReport.get(i).getGrandTotal());
+		 			 rowData.add(""+roundUp(tSellReport.get(i).getCgst()));
+		 			 rowData.add(""+roundUp(tSellReport.get(i).getSgst())); 
+		 			 rowData.add(""+roundUp(tSellReport.get(i).getIgst()));
+		 			 rowData.add(""+roundUp(tSellReport.get(i).getTaxableAmt()));
+		 			 rowData.add(""+roundUp(tSellReport.get(i).getTotalTax()));
+		 			 rowData.add(""+roundUp(tSellReport.get(i).getGrandTotal()));
   
 		 			expoExcel.setRowData(rowData);
 		 			exportToExcelList.add(expoExcel);
@@ -130,7 +131,10 @@ public class SellReport {
 			}
 			return tSellReport;			
 	}
-	
+	public static float roundUp(float d) {
+		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+	}
+
 	@RequestMapping(value = "pdf/getHsnWiseReportPdf/{fromDate}/{toDate}/{frId}", method = RequestMethod.GET)
 	public ModelAndView getHsnWiseReportPdf(@PathVariable String fromDate,@PathVariable String toDate,@PathVariable int frId,HttpServletRequest request, HttpServletResponse response) {
 
@@ -232,16 +236,17 @@ public class SellReport {
 		 			 rowData=new ArrayList<String>();
 		 			 
 		 			 rowData.add(""+(i+1));
+		 			 rowData.add(""+getgrnReport.get(i).getGrnGvnDate());
 		 			 rowData.add(""+getgrnReport.get(i).getItemName());
 		 			 rowData.add(""+getgrnReport.get(i).getTaxRate());
-		 			 rowData.add(""+getgrnReport.get(i).getTaxableAmt());
-		 			 rowData.add(""+getgrnReport.get(i).getTotalTax()); 
-		 			 rowData.add(""+getgrnReport.get(i).getGrnGvnAmt());
-		 			 rowData.add(""+getgrnReport.get(i).getAprTaxableAmt());
-		 			 rowData.add(""+getgrnReport.get(i).getAprCgstRs());
-		 			 rowData.add(""+getgrnReport.get(i).getAprSgstRs());
-		 			 rowData.add(""+getgrnReport.get(i).getAprIgstRs());
-		 			 rowData.add(""+getgrnReport.get(i).getAprGrandTotal());
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getTaxableAmt()));
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getTotalTax())); 
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getGrnGvnAmt()));
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getAprTaxableAmt()));
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getAprCgstRs()));
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getAprSgstRs()));
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getAprIgstRs()));
+		 			 rowData.add(""+roundUp(getgrnReport.get(i).getAprGrandTotal()));
 		 			 
 		 			expoExcel.setRowData(rowData);
 		 			exportToExcelList.add(expoExcel);
@@ -330,10 +335,10 @@ public class SellReport {
 			map.add("isGrn", isGrn);
 			System.out.println("map " + map);
 			RestTemplate rest = new RestTemplate();
-			GrnGvnReport grnGvnReportList[] = rest.postForObject(Constant.URL + "/grnGvnReport",map,
+			GrnGvnReport[] grnGvnReportList = rest.postForObject(Constant.URL + "/grnGvnReport",map,
 					GrnGvnReport[].class);
 			 
-			getgrnReport = new ArrayList<>(Arrays.asList(grnGvnReportList));
+			getgrnReport = new ArrayList<GrnGvnReport>(Arrays.asList(grnGvnReportList));
 			System.out.println("getgrnReport " +getgrnReport);
 			System.out.println("grnGvnReportList " +grnGvnReportList);
 			 List<ExportToExcel> exportToExcelList=new ArrayList<ExportToExcel>();
@@ -363,6 +368,7 @@ public class SellReport {
 		 			 rowData=new ArrayList<String>();
 		 			 
 		 			 rowData.add(""+(i+1));
+		 			 rowData.add(""+getgrnReport.get(i).getGrnGvnDate());
 		 			 rowData.add(""+getgrnReport.get(i).getItemName());
 		 			 rowData.add(""+getgrnReport.get(i).getTaxRate());
 		 			 rowData.add(""+getgrnReport.get(i).getTaxableAmt());
@@ -383,7 +389,7 @@ public class SellReport {
 				HttpSession session = request.getSession();
 				session.setAttribute("exportExcelList", exportToExcelList);
 				session.setAttribute("excelName", "GrnGvnReport");
-			
+			System.err.println("exportToExcelList"+exportToExcelList.toString());
 			}
 			catch(Exception e)
 			{

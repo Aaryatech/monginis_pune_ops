@@ -58,7 +58,7 @@ th {
 														<td><c:out value="${reportList.billDate}" /></td>
 														<td><c:out value="${reportList.billNo}" /></td>
 												
-													<td style="text-align:center;">GFPL</td>
+													<td style="text-align:center;">LUTF FOODS PVT. LTD.</td>
 														<td><c:out value="${reportList.itemName}" /></td>
 												
 													<td style="text-align:right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${reportList.qty}"/></td>

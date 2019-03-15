@@ -2,7 +2,7 @@ package com.monginis.ops.model;
 
 public class ItemWiseDetail {
 
-    private int billNo;
+    private String billNo;
 	
 	private int itemId;
 	
@@ -37,11 +37,11 @@ public class ItemWiseDetail {
 		this.billDate = billDate;
 	}
 
-	public int getBillNo() {
+	public String getBillNo() {
 		return billNo;
 	}
 
-	public void setBillNo(int billNo) {
+	public void setBillNo(String billNo) {
 		this.billNo = billNo;
 	}
 

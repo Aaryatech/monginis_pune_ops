@@ -289,7 +289,7 @@ jQuery(document).ready(function(){
 													document
 															.getElementById('range').style.display = 'block';
 
-													var partyname = "GFPL";
+													var partyname = "LUTF FOODS PVT. LTD.";
 													var grnType;
 
 													if (itemWiseTaxData.grnType == 0)

@@ -132,9 +132,9 @@
 
 											<th class="col-md-1">Sr. NO.</th>
 											<th class="col-md-1">Party Name</th>
-											<th class="col-md-1">GSTIN</th>
-											<th class="col-md-1">Bill No</th>
-											<th class="col-md-1">Bill Date</th>
+											<!-- <th class="col-md-1">GSTIN</th> -->
+											<!-- <th class="col-md-1">Bill No</th>
+											<th class="col-md-1">Bill Date</th> -->
 
 											<th class="col-md-1">Taxable Amt</th>
 											<th class="col-md-1">Tax Rate</th>
@@ -235,8 +235,8 @@
 												data,
 												function(key, billWiseTaxData) {
 
-													var partyname = "GFPL";
-													var gstNo = "#012";
+													var partyname = "LUTF FOODS PVT. LTD.";
+													/* var gstNo = "#012"; */
 
 													var tr = $('<tr></tr>');
 
@@ -252,12 +252,12 @@
 																	.html(
 																			partyname));
 
-													tr
+												/* 	tr
 															.append($(
 																	'<td class="col-md-1"></td>')
 																	.html(gstNo));
-
-													tr
+ */
+												/* 	tr
 															.append($(
 																	'<td class="col-md-1"></td>')
 																	.html(
@@ -268,42 +268,42 @@
 																	'<td class="col-md-1" ></td>')
 																	.html(
 																			billWiseTaxData.billDate));
+ */
+													tr
+															.append($(
+																	'<td class="col-md-1" style="text-align:right;"></td>')
+																	.html(
+																			(billWiseTaxData.taxableAmt).toFixed(2)));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			billWiseTaxData.taxableAmt));
+																			(billWiseTaxData.taxRate).toFixed(2)));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			billWiseTaxData.taxRate));
+																			(billWiseTaxData.igstRs).toFixed(2)));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			billWiseTaxData.igstRs));
+																			(billWiseTaxData.cgstRs).toFixed(2)));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			billWiseTaxData.cgstRs));
+																			(billWiseTaxData.sgstRs).toFixed(2)));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			billWiseTaxData.sgstRs));
-
-													tr
-															.append($(
-																	'<td class="col-md-1" style="text-align:right;"></td>')
-																	.html(
-																			billWiseTaxData.grandTotal));
+																			(billWiseTaxData.grandTotal).toFixed(2)));
 
 													tr
 															.append($(
@@ -340,12 +340,12 @@
 										.append($(
 												'<td class="col-md-1" style="font-weight:bold;"></td>')
 												.html("Total"));
-								tr.append($('<td class="col-md-1"></td>').html(
+								/* tr.append($('<td class="col-md-1"></td>').html(
 										""));
 								tr.append($('<td class="col-md-1"></td>').html(
-										""));
-								tr.append($('<td class="col-md-1"></td>').html(
-										""));
+										"")); */
+							/* 	tr.append($('<td class="col-md-1"></td>').html(
+										"")); */
 
 								tr
 										.append($(

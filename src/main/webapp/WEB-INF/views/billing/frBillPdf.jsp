@@ -269,7 +269,7 @@ page-break-inside: auto !important
 
 				<td align="center" colspan="5" width="38%"
 					style="border-bottom: 1px solid #313131; border-top: 1px solid #313131; border-left: 1px solid #313131; padding: 10px; color: #000; font-size: 11px;"><p>
-						<b>For DEVOUR FOODS LLP<br></br> <br></br> <br></br>
+						<b>For LUTF FOODS PVT. LTD.<br></br> <br></br> <br></br>
 							Authorised Signatory
 						</b>
 					</p></td>

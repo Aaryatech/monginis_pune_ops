@@ -123,11 +123,11 @@ jQuery(document).ready(function(){
 							</div>
 		<div class="col-sm-1"><div class="pull-left"><b>From</b></div></div>
 	    <div class="col-md-3">
-		<input id="fromdatepicker"  placeholder="From Date"  name="from_Date" type="text" style="width: 230px; text-align:left;" size="30"  class="form-control">
+		<input id="fromdatepicker"  placeholder="From Date"  name="from_Date" type="text" style="width: 230px; text-align:left;" size="30"  class="form-control" autocomplete="off">
 		</div>
 			<div class="col-sm-1"><div class="pull-left"><b>TO</b></div></div>
 			  <div class="col-md-3">
-		<input id="todatepicker"  placeholder="To Date"  name="to_Date" type="text" size="30" style="width: 230px;  text-align:left;"  class="form-control">
+		<input id="todatepicker"  placeholder="To Date"  name="to_Date" type="text" size="30" style="width: 230px;  text-align:left;"  class="form-control" autocomplete="off">
 		</div></div>
 					<input type="hidden" name="frId" id="frId" value="${frId}">
 		

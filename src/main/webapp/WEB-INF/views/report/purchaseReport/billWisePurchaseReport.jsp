@@ -163,7 +163,7 @@ jQuery(document).ready(function(){
 										<th class="col-md-1" style="text-align: center;">IGST Amt</th>
 										<th class="col-md-1" style="text-align: center;">CGST Amt</th>
 										<th class="col-md-1" style="text-align: center;">SGST Amt</th>
-										<th class="col-md-1" style="text-align: center;">R.off</th>
+										<!-- <th class="col-md-1" style="text-align: center;">R.off</th> -->
 										<th class="col-md-2" style="text-align: center;">Bill
 											Amount</th>
 									</tr>
@@ -190,7 +190,7 @@ jQuery(document).ready(function(){
 										<th class="col-md-1" style="text-align: center;">IGST Amt</th>
 										<th class="col-md-1" style="text-align: center;">CGST Amt</th>
 										<th class="col-md-1" style="text-align: center;">SGST Amt</th>
-										<th class="col-md-1" style="text-align: center;">R.off</th>
+									<!-- 	<th class="col-md-1" style="text-align: center;">R.off</th> -->
 										<th class="col-md-2" style="text-align: center;">Bill
 											Amount</th>
 									</tr>
@@ -284,7 +284,7 @@ jQuery(document).ready(function(){
 													document
 															.getElementById('range').style.display = 'block';
 
-													var partyname = "GFPL";
+													var partyname = "LUTF FOODS PVT. LTD.";
 													var gstNo = "#012";
 
 													var tr = $('<tr></tr>');
@@ -306,7 +306,7 @@ jQuery(document).ready(function(){
 
 													tr
 															.append($(
-																	'<td class="col-md-2"></td>')
+																	'<td class="col-md-2" style="text-align:center;"></td>')
 																	.html(
 																			billWisePurchaseData.billDate));
 
@@ -338,12 +338,12 @@ jQuery(document).ready(function(){
 																			(billWisePurchaseData.sgstRs)
 																					.toFixed(2)));
 
-													tr
+												/* 	tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right"></td>')
 																	.html(
 																			(billWisePurchaseData.roundOff)
-																					.toFixed(2)));
+																					.toFixed(2))); */
 
 													tr
 															.append($(
@@ -404,10 +404,10 @@ jQuery(document).ready(function(){
 												'<td class="col-md-1" style="text-align:right"></td>')
 												.html(sgstTotal.toFixed(2)));
 
-								tr
+							/* 	tr
 										.append($(
 												'<td class="col-md-1" style="text-align:right"></td>')
-												.html(roundOffTotal.toFixed(2)));
+												.html(roundOffTotal.toFixed(2))); */
 
 								tr
 										.append($(

@@ -53,7 +53,7 @@ th {
 								  	<c:forEach items="${reportList}" var="reportList" varStatus="count">
 												<tr>
 													<td style="text-align:center;"><c:out value="${count.index+1}" /></td>
-													<c:forEach items="${month}" var="month" varStatus="count1">
+													<%-- <c:forEach items="${month}" var="month" varStatus="count1">
 													<c:choose>
 																	<c:when test="${count1.index==reportList.month}">
 																		
@@ -61,8 +61,8 @@ th {
 																	</c:when>
 													</c:choose>
 														
-													</c:forEach>
-													
+													</c:forEach> --%>
+													<td style="text-align:left;"><c:out value="${reportList.month}" /></td>
 													<c:set var="amt"  value="${reportList.cash + reportList.card + reportList.other }"/>
 													<td style="text-align:right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value="${amt}" /></td>
 													 <c:set var="totalAmount" value="${totalAmount + amt}"/>

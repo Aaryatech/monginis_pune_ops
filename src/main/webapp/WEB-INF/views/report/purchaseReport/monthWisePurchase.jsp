@@ -168,7 +168,7 @@ jQuery(document).ready(function(){
 												<th class="col-md-1" style="text-align: center;">CGST</th>
 												<th class="col-md-1" style="text-align: center;">SGST</th>
 												<th class="col-md-1" style="text-align: center;">CESS</th>
-												<th class="col-md-1" style="text-align: center;">ROFF</th>
+											<!-- 	<th class="col-md-1" style="text-align: center;">ROFF</th> -->
 												<th class="col-md-1" style="text-align: center;">TOTAL</th>
 
 											</tr>
@@ -193,7 +193,7 @@ jQuery(document).ready(function(){
 											<th class="col-md-1" style="text-align: center;">CGST</th>
 											<th class="col-md-1" style="text-align: center;">SGST</th>
 											<th class="col-md-1" style="text-align: center;">CESS</th>
-											<th class="col-md-1" style="text-align: center;">ROFF</th>
+											<!-- <th class="col-md-1" style="text-align: center;">ROFF</th> -->
 											<th class="col-md-1" style="text-align: center;">TOTAL</th>
 
 										</tr>
@@ -331,8 +331,7 @@ jQuery(document).ready(function(){
 												tr
 														.append($(
 																'<td class="col-md-1"style="text-align:center;"></td>')
-																.html(
-																		monthNames[monthNumber]));
+																.html(monthNumber));
 
 												tr
 														.append($(
@@ -375,13 +374,13 @@ jQuery(document).ready(function(){
 																		(monthWisePurchaseData.sess)
 																				.toFixed(2)));
 
-												tr
+											/* 	tr
 														.append($(
 																'<td class="col-md-1"style="text-align:right;"></td>')
 																.html(
 																		(monthWisePurchaseData.roundOff)
 																				.toFixed(2)));
-
+ */
 												tr
 														.append($(
 																'<td class="col-md-1"style="text-align:right;"></td>')
@@ -444,11 +443,11 @@ jQuery(document).ready(function(){
 											'<td class="col-md-1" style="text-align:right"></td>')
 											.html(cessTotal.toFixed(2)));
 
-							tr
+						/* 	tr
 									.append($(
 											'<td class="col-md-1" style="text-align:right"></td>')
 											.html(roundOffTotal.toFixed(2)));
-
+ */
 							tr
 									.append($(
 											'<td class="col-md-1" style="text-align:right"></td>')

@@ -38,7 +38,7 @@ th {
 									<th style="text-align:center;">Sr no.</th>
 									
 									<th style="text-align:center;">Item Name</th>
-									<th style="text-align:center;">Item Id</th>
+									<!-- <th style="text-align:center;">Item Id</th> -->
 									<th style="text-align:center;">Group Name</th>
 								 	<th style="text-align:center;">Quantity</th>
 									<th style="text-align:center;">Amount</th> 
@@ -52,7 +52,7 @@ th {
 													<td align="center"><c:out value="${count.index+1}" /></td>
 													
 													<td><c:out value="${reportList.itemName}" /></td>
-													<td><c:out value="${reportList.itemId}" /></td>
+													<%-- <td><c:out value="${reportList.itemId}" /></td> --%>
 													<td style="text-align:center;"><c:out value="${reportList.catName}" /></td>
 													<td style="text-align:right;"><c:out value="${reportList.qty}" /></td>
 													<c:set var="qty"  value="${qty + reportList.qty }"/>
@@ -66,7 +66,7 @@ th {
 												</tr>
 										</c:forEach>
 								  <tr>
-								  <td colspan='4'><b>Total</b></td>
+								  <td colspan='3'><b>Total</b></td>
 								  <td style="text-align:right;"><b><c:out value="${qty}" /></b></td>
 								     <td style="text-align:right;"><b><fmt:formatNumber type = "number"  minFractionDigits = "2"  maxFractionDigits = "2" value = "${totalAmount}"/></b></td>
 								     

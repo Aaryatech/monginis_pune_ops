@@ -8,9 +8,9 @@ public class GetRepTaxSell {
 	
 	private int sellBillDetailNo;
 	
-	private int sellBillNo;
+	private String sellBillNo;
 	
-	private Date billDate;
+	private String billDate;
 
 	private int frId;
 	
@@ -44,19 +44,19 @@ public class GetRepTaxSell {
 		this.sellBillDetailNo = sellBillDetailNo;
 	}
 
-	public int getSellBillNo() {
+	public String getSellBillNo() {
 		return sellBillNo;
 	}
 
-	public void setSellBillNo(int sellBillNo) {
+	public void setSellBillNo(String sellBillNo) {
 		this.sellBillNo = sellBillNo;
 	}
 
-	public Date getBillDate() {
+	public String getBillDate() {
 		return billDate;
 	}
 
-	public void setBillDate(Date billDate) {
+	public void setBillDate(String billDate) {
 		this.billDate = billDate;
 	}
 

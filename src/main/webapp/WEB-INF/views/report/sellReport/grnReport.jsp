@@ -62,10 +62,10 @@
 <div class="colOuter">
 		<div align="center" >
 		<div class="col1"><div class="col1title"><b>From&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-		<input id="fromdatepicker"  placeholder="Delivery Date"  name="from_Date" type="text" size="35" >
+		<input id="fromdatepicker" autocomplete="off" placeholder="Delivery Date"  name="from_Date" type="text" size="35" >
 		</div></div>
 		<div class="col2"><div class="col1title"><b>TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-		<input id="todatepicker"  placeholder="Delivery Date"  name="to_Date" type="text" size="35" >
+		<input id="todatepicker" autocomplete="off" placeholder="Delivery Date"  name="to_Date" type="text" size="35" >
 		</div></div>
 										<input type="hidden" name="frId" id="frId" value="${frId}">
 										<input type="hidden" name="frName" id="frName" value="${frName}">
@@ -88,9 +88,8 @@
 
 
 				<div id="table-scroll" class="table-scroll">
-					<div id="faux-table" class="faux-table" aria="hidden"></div>
-					<div class="table-wrap">
-						<table id="table_grid" class="main-table">
+					<div id="faux-table" class="faux-table" aria="hidden">
+					<table id="table_grid1" class="main-table" border="1">
 							<thead>
 								<tr class="bgpink">
 
@@ -98,7 +97,35 @@
 								
 									<th class="col-md-1" style="text-align:center;">Sr.No.</th> 
 									<th class="col-md-1" style="text-align:center;">Grn Gvn Date</th>
-									<th class="col-md-1" style="text-align:center;">Item Name</th>
+									<th class="col-md-1" style="text-align:center;">Item_Name</th>
+									<th class="col-md-1" style="text-align:center;">Tax Rate</th>
+									<th class="col-md-1" style="text-align:center;">Taxable Amt</th>
+									<th class="col-md-1" style="text-align:center;">Total Tax</th>
+									<th class="col-md-1" style="text-align:center;">Grn Gvn Amt</th> 
+									<th class="col-md-1" style="text-align:center;">Aprv. Taxable Amt</th>
+									<th class="col-md-1" style="text-align:center;">Aprv. CGST Amt</th>
+									<th class="col-md-1" style="text-align:center;">Aprv. SGST Amt</th>
+									<th class="col-md-1" style="text-align:center;">Aprv. IGST Amt</th> 
+								 	<th class="col-md-1" style="text-align:center;">Total</th>  
+								  </tr>
+								</thead>
+								
+								 <tbody >
+								
+								</tbody>
+								  
+								</table>
+					</div>
+					<div class="table-wrap">
+						<table id="table_grid" class="main-table" border="1">
+							<thead>
+								<tr class="bgpink">
+
+															
+								
+									<th class="col-md-1" style="text-align:center;">Sr.No.</th> 
+									<th class="col-md-1" style="text-align:center;">Grn Gvn Date</th>
+									<th class="col-md-1" style="text-align:center;">Item_Name</th>
 									<th class="col-md-1" style="text-align:center;">Tax Rate</th>
 									<th class="col-md-1" style="text-align:center;">Taxable Amt</th>
 									<th class="col-md-1" style="text-align:center;">Total Tax</th>
@@ -205,7 +232,7 @@
 										var tr = $('<tr></tr>');
 
 									  	tr.append($('<td class="col-md-1"></td>').html(key+1));
-									  	tr.append($('<td class="col-md-1"></td>').html(list.grnGvnDate));
+									  	tr.append($('<td class="col-md-1"  style="font-size:15px;"></td>').html(list.grnGvnDate));
 									  	tr.append($('<td class="col-md-1"></td>').html(list.itemName)); 
 									  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.taxRate)); 
 									  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.taxableAmt.toFixed(2)));

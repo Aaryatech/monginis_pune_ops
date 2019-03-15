@@ -236,7 +236,7 @@ table, th, td {
 													document
 															.getElementById('range').style.display = 'block';
 
-													var partyname = "GFPL";
+													var partyname = "LUTF FOODS PVT. LTD.";
 
 													var tr = $('<tr></tr>');
 

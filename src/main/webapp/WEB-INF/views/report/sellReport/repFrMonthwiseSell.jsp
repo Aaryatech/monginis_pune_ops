@@ -181,7 +181,7 @@ jQuery(document).ready(function(){
 									<th class="col-md-1" style="text-align:center;">Amount</th>
 									<th class="col-md-1" style="text-align:center;">Cash</th>
 								 	<th class="col-md-1" style="text-align:center;">Card</th>
-									<!-- <th class="col-md-1" style="text-align:center;">Other</th>  -->
+									 <th class="col-md-1" style="text-align:center;">Other</th>  
 								  </tr>
 								</thead>
 								
@@ -293,21 +293,21 @@ jQuery(document).ready(function(){
 								    
 								    var monthNames = ['0','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-							 tr.append($('<td class="col-md-1"style="text-align:center;"></td>').html(monthNames[monthNumber]));
+							 tr.append($('<td class="col-md-1"style="text-align:left;"></td>').html(monthNumber));
 								  	
 								  	var amt=sellBillData.cash + sellBillData.card + sellBillData.other;
-								  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(amt));
+								  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html((amt).toFixed(2)));
 								  	
 								  	amtTotal=amtTotal + sellBillData.cash + sellBillData.card + sellBillData.other;
 									
-								  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(sellBillData.cash));
+								  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html((sellBillData.cash).toFixed(2)));
 								  	cashTotal=cashTotal + sellBillData.cash;
 
-								  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(sellBillData.card));
+								  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html((sellBillData.card).toFixed(2)));
 								  	cardTotal=cardTotal + sellBillData.card;
 								  	
-								 /*  	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(sellBillData.other));
-								  	otherTotal=otherTotal + sellBillData.other; */
+									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html((sellBillData.other).toFixed(2)));
+								  	otherTotal=otherTotal + sellBillData.other; 
 
 								  	
 
@@ -323,17 +323,17 @@ jQuery(document).ready(function(){
 								 var total = "<td colspan='2'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
 								 
 								var totalAmt = "<td style=text-align:right;>&nbsp;&nbsp;&nbsp;<b>"
-									+ amtTotal
+									+ (amtTotal).toFixed(2)
 									+ "</b></td>";
 								 var cash = "<td style=text-align:right;><b>&nbsp;&nbsp;&nbsp;"
-									+  cashTotal
+									+  (cashTotal).toFixed(2)
 									+ "</b></td>";
 								var card = "<td style=text-align:right;><b>&nbsp;&nbsp;&nbsp;"
-									+ cardTotal
+									+ (cardTotal).toFixed(2)
 									+ "</b></td>";
-							/* 	var other = "<td style=text-align:right;><b>&nbsp;&nbsp;&nbsp;"
-									+ otherTotal
-									+ "</b></td>";  */
+								var other = "<td style=text-align:right;><b>&nbsp;&nbsp;&nbsp;"
+									+ (otherTotal).toFixed(2)
+									+ "</b></td>"; 
 									
 								
 								var trclosed = "</tr>";
@@ -349,8 +349,8 @@ jQuery(document).ready(function(){
 									.append(cash);
 								 $('#table_grid tbody')
 								.append(card);
-							/* 	$('#table_grid tbody')
-								.append(other);  */
+						 	$('#table_grid tbody')
+								.append(other);  
 								$('#table_grid tbody')
 								.append(trclosed); 
 								 

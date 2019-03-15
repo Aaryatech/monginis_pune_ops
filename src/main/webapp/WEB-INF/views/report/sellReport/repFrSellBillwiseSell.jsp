@@ -77,13 +77,13 @@ table, th, td {
 								<div class="col1title">
 									<b>From&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <input
 										id="fromdatepicker" placeholder="Delivery Date"
-										name="from_Date" type="text" size="35">
+										name="from_Date" type="text" autocomplete="off"  size="35">
 								</div>
 							</div>
 							<div class="col2">
 								<div class="col1title">
 									<b>TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <input
-										id="todatepicker" placeholder="Delivery Date" name="to_Date"
+										id="todatepicker" placeholder="Delivery Date" name="to_Date" autocomplete="off" 
 										type="text" size="35">
 								</div>
 							</div>
@@ -118,13 +118,13 @@ table, th, td {
 											<tr class="bgpink">
 
 												<th class="col-sm-1" style="text-align: center;">Sr.No.</th>
-												<th class="col-sm-1" style="text-align: center;">Bill
-													No</th>
-												<th class="col-sm-1" style="text-align: center;">Invoice
+												<!-- <th class="col-sm-1" style="text-align: center;">Bill
+													No</th> -->
+												<th class="col-md-2" style="text-align: center;">Invoice
 													No</th>
 												<th class="col-md-2" style="text-align: center;">Franchisee
 													Name</th>
-												<th class="col-md-2" style="text-align: center;">Bill
+												<th class="col-md-1" style="text-align: center;">Bill
 													Date</th>
 												<th class="col-md-1" style="text-align: center;">Amount</th>
 												<th class="col-md-2" style="text-align: center;">Payment
@@ -149,13 +149,13 @@ table, th, td {
 											<tr class="bgpink">
 
 												<th class="col-sm-1" style="text-align: center;">Sr.No.</th>
-												<th class="col-sm-1" style="text-align: center;">Bill
-													No</th>
-												<th class="col-sm-1" style="text-align: center;">Invoice
+												<!-- <th class="col-sm-1" style="text-align: center;">Bill
+													No</th> -->
+												<th class="col-md-2" style="text-align: center;">Invoice
 													No</th>
 												<th class="col-md-2" style="text-align: center;">Franchisee
 													Name</th>
-												<th class="col-md-2" style="text-align: center;">Bill
+												<th class="col-md-1" style="text-align: center;">Bill
 													Date</th>
 												<th class="col-md-1" style="text-align: center;">Amount</th>
 												<th class="col-md-2" style="text-align: center;">Payment
@@ -265,14 +265,14 @@ table, th, td {
 																		.html(
 																				key + 1));
 
-														tr
+													/* 	tr
 																.append($(
 																		'<td class="col-sm-1"></td>')
 																		.html(
-																				sellBillData.sellBillNo));
+																				sellBillData.sellBillNo)); */
 														tr
 																.append($(
-																		'<td class="col-sm-1"></td>')
+																		'<td class="col-md-2"></td>')
 																		.html(
 																				sellBillData.invoiceNo));
 														tr
@@ -283,7 +283,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-2"></td>')
+																		'<td class="col-md-1"></td>')
 																		.html(
 																				sellBillData.billDate));
 
@@ -419,7 +419,7 @@ table, th, td {
 													})
 
 									var tr = "<tr>";
-									var total = "<td colspan='5'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
+									var total = "<td colspan='4'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
 
 									var totalAmt = "<td style=text-align:right;>&nbsp;&nbsp;&nbsp;<b>"
 											+ (amtTotal).toFixed(2);
@@ -441,6 +441,7 @@ table, th, td {
 									$('#table_grid tbody').append(tr);
 									$('#table_grid tbody').append(total);
 									$('#table_grid tbody').append(totalAmt);
+									$('#table_grid tbody').append(td);
 									$('#table_grid tbody').append(td);
 									/*$('#table_grid tbody')
 									.append(card);

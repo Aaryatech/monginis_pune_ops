@@ -37,7 +37,7 @@ th {
 		<thead>
 			<tr class="bgpink">
 				<th style="text-align: center; width: 60px">Sr no.</th>
-				<th style="text-align: center; width: 100px">Bill No</th>
+				<!-- <th style="text-align: center; width: 100px">Bill No</th> -->
 				<th style="text-align: center; width: 100px">Invoice No</th>
 				<th style="text-align: center; width: 100px">Franchisee Name</th>
 				<th style="text-align: center; width: 100px">Bill Date</th>
@@ -57,7 +57,7 @@ th {
 			<c:forEach items="${reportList}" var="reportList" varStatus="count">
 				<tr>
 					<td><c:out value="${count.index+1}" /></td>
-					<td><c:out value="${reportList.sellBillNo}" /></td>
+				<%-- 	<td><c:out value="${reportList.sellBillNo}" /></td> --%>
 					<td><c:out value="${reportList.invoiceNo}" /></td>
 					<td style="text-align: left;"><c:out
 							value="${reportList.frName}" /></td>
@@ -111,12 +111,12 @@ th {
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan='5'><b>Total</b></td>
+				<td colspan='4'><b>Total</b></td>
 
 				<td style="text-align: right;"><b><fmt:formatNumber
 							type="number" minFractionDigits="2" maxFractionDigits="2"
 							value="${totalAmount}" /></b></td>
-
+             <td></td>  <td></td>
 			</tr>
 		</tbody>
 	</table>

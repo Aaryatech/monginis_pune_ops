@@ -32,17 +32,17 @@ th {
 </head>
 <body>
 
-
-					
-								<table >
+<h4 align="center">View Sell Tax Report</h4>
+<div align="center"> <h6>  ${frName} &nbsp;&nbsp;&nbsp;&nbsp;From &nbsp; ${fromDate}  &nbsp;To &nbsp; ${toDate}</h6></div>
+<table  width="100%" border="1" cellspacing="0" cellpadding="1" id="table_grid" class="table table-bordered">
 								<thead >
 									<tr>
-									<th align="center">Sr no.</th>
-									<th align="center">Tax %</th>
-									<th align="center">Taxable Amount</th>
-									<th align="center">IGST</th>
-								 	<th align="center">CGST</th>
-									<th align="center">SGST</th> 
+									<th style="text-align: center;">Sr no.</th>
+									<th style="text-align: center;">Tax %</th>
+									<th style="text-align: center;">Taxable Amount</th>
+									<th style="text-align: center;">IGST</th>
+								 	<th style="text-align: center;">CGST</th>
+									<th style="text-align: center;">SGST</th> 
 									<!-- <th align="center">CESS</th>  -->
 								  </tr>
 								</thead>
@@ -56,14 +56,14 @@ th {
 												<tr>
 													<td align="center"><c:out value="${count.index+1}" /></td>
 													<td><c:out value="${reportList.tax_per}" /> %</td>
-													<td><c:out value="${reportList.tax_amount}" /></td>
+													<td style="text-align: right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${reportList.tax_amount}"/></td>
 													 <c:set var="taxAmount" value="${taxAmount + reportList.tax_amount}"/>
-													<td><c:out value="${reportList.igst}" /></td>
+													<td style="text-align: right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${reportList.igst}"/></td>
 														<c:set var="igst"  value="${igst + reportList.igst}"/>
-													<td><c:out value="${reportList.cgst}" /></td>
-														<c:set var="cgst"  value="${cgst+reportList.cgst }"/>
-													<td><c:out value="${reportList.sgst}" /></td>
-														<c:set var="sgst"  value="${sgst+reportList.sgst }"/>
+													<td style="text-align: right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${reportList.cgst}"/></td>
+														<c:set var="cgst"  value="${cgst+reportList.cgst}"/>
+													<td style="text-align: right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${reportList.sgst}"/></td>
+														<c:set var="sgst"  value="${sgst+reportList.sgst}"/>
 													<%-- <td><c:out value="${reportList.sess}" /></td> --%>
 													
 													
@@ -71,10 +71,10 @@ th {
 												</c:forEach>
 								  <tr>
 								  <td colspan='2'><b>Total</b></td>
-								  <td><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value ="${taxAmount}"/></b></td>
-								     <td><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${igst}"/></b></td>
-								      <td><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${cgst}"/></b></td>
-								       <td><b><fmt:formatNumber type = "number"  maxFractionDigits = "2" value = "${sgst}"/></b></td>
+								  <td style="text-align: right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${taxAmount}"/></b></td>
+								  <td style="text-align: right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${igst}"/></b></td>
+								  <td style="text-align: right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${cgst}"/></b></td>
+								  <td style="text-align: right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${sgst}"/></b></td>
 								     <!--  <td><b>Total</b></td> -->
 								  </tr>
 							 </tbody>

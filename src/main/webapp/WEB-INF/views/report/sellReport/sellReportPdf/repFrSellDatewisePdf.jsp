@@ -37,6 +37,7 @@ th {
 									<tr class="bgpink">
 									<th style="text-align:center;" style="width:100px">Sr no.</th>
 									<!-- <th align="center">Bill No</th> -->
+									<th style="text-align:center;">Day</th>
 									<th style="text-align:center;">Date</th>
 									<th style="text-align:center;">Total Day Sale</th>
 									<th style="text-align:center;">Cash</th>
@@ -54,6 +55,7 @@ th {
 								  	<c:forEach items="${reportList}" var="reportList" varStatus="count">
 												<tr>
 													<td style="text-align:left;"><c:out value="${count.index+1}" /></td>
+													<td><c:out value="${reportList.day}" /></td>
 													<td><c:out value="${reportList.billDate}" /></td>
 													<c:set var="amt"  value="${reportList.cash + reportList.card + reportList.other }"/>
 													<td style="text-align:right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value="${amt}" /></td>
@@ -71,7 +73,7 @@ th {
 												</tr>
 												</c:forEach>
 								  <tr>
-								  <td colspan='2'><b>Total</b></td>
+								  <td colspan='3'><b>Total</b></td>
 								  <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${totalAmount}"/></b></td>
 								     <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${totalCash}"/></b></td>
 								      <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${totalCard}"/></b></td>

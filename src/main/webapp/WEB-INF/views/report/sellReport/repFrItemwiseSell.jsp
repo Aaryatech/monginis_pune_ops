@@ -68,10 +68,10 @@ table, th, td {
 	<div class="colOuter">
 		<div align="center" >
 		<div class="col1"><div class="col1title"><b>From&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-		<input id="fromdatepicker"  placeholder="Delivery Date"  name="from_Date" type="text" size="35" >
+		<input id="fromdatepicker"  placeholder="Delivery Date"  name="from_Date" type="text" size="35" autocomplete="off" >
 		</div></div>
 		<div class="col2"><div class="col1title"><b>TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-		<input id="todatepicker"  placeholder="Delivery Date"  name="to_Date" type="text" size="35" >
+		<input id="todatepicker"  placeholder="Delivery Date"  name="to_Date" type="text" size="35" autocomplete="off">
 		</div></div>
 												<input type="hidden" name="frId" id="frId" value="${frId}"/>
 		                                        <input type="hidden" name="catId" id="catId"/>
@@ -97,7 +97,7 @@ table, th, td {
 									<th style="text-align:center;" class="col-md-1">Sr no.</th>
 									<!-- <th align="center">Bill No</th> -->
 									<th style="text-align:center;"class="col-md-2">Item Name</th>
-									<th style="text-align:center;"class="col-sm-1">Item Id</th>
+								<!-- 	<th style="text-align:center;"class="col-sm-1">Item Id</th> -->
 									<th style="text-align:center;"class="col-md-1">Group Name</th>
 								 	<th style="text-align:center;"class="col-md-1">Quantity</th>
 									<th style="text-align:center;"class="col-md-1">Amount</th> 
@@ -116,7 +116,7 @@ table, th, td {
 									<th style="text-align:center;" class="col-md-1">Sr no.</th>
 									<!-- <th align="center">Bill No</th> -->
 									<th style="text-align:center;"class="col-md-2">Item Name</th>
-									<th style="text-align:center;"class="col-sm-1">Item Id</th>
+									<!-- <th style="text-align:center;"class="col-sm-1">Item Id</th> -->
 									<th style="text-align:center;"class="col-md-1">Group Name</th>
 								 	<th style="text-align:center;"class="col-md-1">Quantity</th>
 									<th style="text-align:center;"class="col-md-1">Amount</th> 
@@ -265,10 +265,10 @@ table, th, td {
 								  	
 								  	tr.append($('<td style=text-align:center;></td>').html('<p style="color:blue;"  onclick=itemSellBill('+sellBillData.catId+');>'+sellBillData.catName+'</p>'));
 								  	
-									tr.append($('<td style=text-align:right;></td>').html(sellBillData.qty));
+									tr.append($('<td style=text-align:right;></td>').html((sellBillData.qty).toFixed(2)));
 									totalQty=totalQty + sellBillData.qty;
 								  	
-								  	tr.append($('<td style=text-align:right;></td>').html(sellBillData.amount));
+								  	tr.append($('<td style=text-align:right;></td>').html((sellBillData.amount).toFixed(2)));
 								  	
 								  	amtTotal=amtTotal + sellBillData.amount;
 								  	
@@ -286,10 +286,10 @@ table, th, td {
 								 var total = "<td colspan='2'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
 								 
 								var totalAmt = "<td style=text-align:right;>&nbsp;&nbsp;&nbsp;<b>"
-									+ amtTotal
+									+ (amtTotal).toFixed(2)
 									+ "</b></td>";
 								 var totalQty = "<td style=text-align:right;><b>&nbsp;&nbsp;&nbsp;"
-									+  totalQty
+									+  (totalQty).toFixed(2)
 									+ "</b></td>";
 							
 									
@@ -372,7 +372,7 @@ table, th, td {
 
 								  	tr.append($('<td class="col-md-2"></td>').html(sellBillData.itemName));
 								  	
-								  	tr.append($('<td style=text-align:center; class="col-sm-1"></td>').html(sellBillData.itemId));
+								 /*  	tr.append($('<td style=text-align:center; class="col-sm-1"></td>').html(sellBillData.itemId)); */
 								  	
 								  	tr.append($('<td style=text-align:center; class="col-md-1"></td>').html(sellBillData.catName));
 								  	
@@ -394,7 +394,7 @@ table, th, td {
 												})
 												
 							var tr = "<tr>";
-								 var total = "<td colspan='4'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
+								 var total = "<td colspan='3'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
 								 
 								var totalAmt = "<td style=text-align:right;>&nbsp;&nbsp;&nbsp;<b>"
 									+ (amtTotal).toFixed(2)
