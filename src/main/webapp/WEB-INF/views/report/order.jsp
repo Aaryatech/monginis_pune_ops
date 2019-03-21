@@ -177,9 +177,9 @@ document.body.onload = function()
   
     <tr>
       <td width="200" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong>Delivery Date : </strong>
-      <fmt:parseDate value="${spCakeOrder.spDeliveryDate}" pattern="yyyy-MM-dd" var="spDeliveryDateFrmt"/>
-<fmt:formatDate value="${spDeliveryDateFrmt}" var="spDeliveryDateFormat" pattern="dd-MM-yyyy"/> 
-    ${spDeliveryDateFormat}   </td>
+ <%--      <fmt:parseDate value="${spCakeOrder.spDeliveryDate}" pattern="yyyy-MM-dd" var="spDeliveryDateFrmt"/>
+<fmt:formatDate value="${spDeliveryDateFrmt}" var="spDeliveryDateFormat" pattern="dd-MM-yyyy"/>  --%>
+    ${spCakeOrder.spDeliveryDate}   </td>
       
     </tr>
     <tr>

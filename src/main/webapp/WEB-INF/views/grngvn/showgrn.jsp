@@ -66,6 +66,7 @@ table, th, td {
 
 				<div class="clearfix"></div>
 				<form action="${pageContext.request.contextPath}/insertGrnProcess"
+					onsubmit="return confirm('Do you really want to save ?');"
 					name="validation_form" id="validation_form" method="post">
 
 

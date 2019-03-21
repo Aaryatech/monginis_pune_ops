@@ -123,7 +123,7 @@ table, th, td {
  -->
 					<form action="${pageContext.request.contextPath}/addGvnProcess"
 						name="proceed_gvn" id="proceed_gvn" enctype="multipart/form-data"
-						method="post">
+						method="post" onsubmit="return confirm('Do you really want to Proceed ?');">
 
 						<div class="clearfix"></div>
 

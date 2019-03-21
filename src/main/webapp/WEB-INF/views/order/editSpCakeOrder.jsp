@@ -299,6 +299,9 @@ select {
 <input type="hidden" name="isSameDayApplicable" id="isSameDayApplicable" value="${isSameDayApplicable}">
 <input type="hidden" name="slipNo" id="slipNo" value="${slipNo}">
 <input type="hidden" name=noOfChars id="noOfChars" value="${specialCake.noOfChars}">
+<input type="hidden" name="orderPhotoPrevious" id="orderPhotoPrevious" value="${spCakeOrder.orderPhoto}"/>
+<input type="hidden" name="custPhotoPrevious" id="custPhotoPrevious" value="${spCakeOrder.orderPhoto2}"/>
+<input type="hidden" name="orderDate" id="orderDate" value="${spCakeOrder.orderDate}"/>
 
 <!--centerForm-->	
  
@@ -514,7 +517,7 @@ select {
                                 <input class="upload" type="file" id="cust_choice_ck" name="cust_choice_ck"/>   
                             </div>
                             </div>
-                             <img id="img"  src="${URLCUST}${spCakeOrder.orderPhoto1}"/>
+                             <img id="img"  src="${URLCUST}${spCakeOrder.orderPhoto2}"/>
                             </div>
                             </div>
                             </div>
@@ -534,7 +537,7 @@ select {
                                 
                      </div>
                  </div>
-                 <img id="image" />
+                 <img id="image" src="${URLSP}${spCakeOrder.orderPhoto}" />
               </div>
           </div>
         </div>
@@ -1339,7 +1342,7 @@ function validate() {
 <script>
 
 var todaysDate=new Date();
-var min=new Date(todaysDate.setDate(todaysDate.getDate()+1));
+/* var min=new Date(todaysDate.setDate(todaysDate.getDate()+1));
 
   $( function() {
     $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' ,  minDate:min,
@@ -1378,7 +1381,10 @@ var min=new Date(todaysDate.setDate(todaysDate.getDate()+1));
              }
          }
       });
-  } );
+  } ); */
+  $( function() {
+	    $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
+   } );
   $( function() {
     $( "#datepicker2" ).datepicker({ dateFormat: 'dd-mm-yy' });
   } );

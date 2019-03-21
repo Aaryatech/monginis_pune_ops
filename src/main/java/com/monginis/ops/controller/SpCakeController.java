@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.monginis.ops.common.DateConvertor;
 import com.monginis.ops.common.Firebase;
 import com.monginis.ops.constant.Constant;
 import com.monginis.ops.constant.VpsImageUpload;
@@ -1537,7 +1538,7 @@ public class SpCakeController {
 				logger.info("English Inst :" + spInstructions);
 
 			}
-
+			String orderDate = request.getParameter("orderDate");
 			String spDeliveryDt = request.getParameter("datepicker");
 			logger.info("14" + spDeliveryDt);
 
@@ -1627,6 +1628,12 @@ public class SpCakeController {
 			isSlotUsed = Integer.parseInt(request.getParameter("isSlotUsed")); // isSlotUsed
 
 			spImage = request.getParameter("prevImage");
+			
+			String	orderPhotoPrevious = request.getParameter("orderPhotoPrevious");
+			String	custPhotoPrevious = request.getParameter("custPhotoPrevious");
+			System.err.println("Order Photo1:"+orderPhotoPrevious);
+			System.err.println("Order Photo2:"+custPhotoPrevious);
+
 
 			// ---------isCustSpCk And isSpPhoUpload Special Cake Value(1/0)-------
 			int isCustSpCk = Integer.parseInt(request.getParameter("isCustChoiceCk"));
@@ -1635,29 +1642,22 @@ public class SpCakeController {
 			String addonRatePerKG = request.getParameter("addonRatePerKG");
 
 			float backendSpRate = Float.parseFloat(request.getParameter("spBackendRate"));
-			/*Calendar cal1 = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			System.out.println(sdf.format(cal1.getTime()));
-
-			String curTimeStamp = sdf.format(cal1.getTime());*/
+			
 			String curTimeStamp = new SimpleDateFormat("yyyy_MM_dd.HH_mm_ss").format(new Date());
 
 			String custChCk = "";
 			String orderPhoto1 = "";
-
+			orderPhoto1 =orderPhotoPrevious;
+			custChCk =custPhotoPrevious;
 			if (isSpPhoUpload == 1) {
 
-				System.out.println("Empty image");
-				// orderPhoto1 = ImageS3Util.uploadPhotoCakeImage(orderPhoto);
-
 				VpsImageUpload upload = new VpsImageUpload();
-
-				
-
 				try {
+					if(!orderPhoto.get(0).getOriginalFilename().equalsIgnoreCase(orderPhotoPrevious)) {
+						
 					if(orderPhoto.get(0).getOriginalFilename()=="")
 					{
-						orderPhoto1 ="";
+						orderPhoto1 =orderPhotoPrevious;
 					}else
 					{
 						orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
@@ -1666,7 +1666,13 @@ public class SpCakeController {
 					upload.saveUploadedFiles(orderPhoto, Constant.SPCAKE_IMAGE_TYPE,
 							curTimeStamp+""+orderPhoto.get(0).getOriginalFilename());
 					System.out.println("upload method called " + orderPhoto.toString());
+					}
+					else
+					{
+						orderPhoto1 =orderPhotoPrevious;
+						System.err.println("Order Photo1else1:"+orderPhoto1);
 
+					}
 				} catch (IOException e) {
 
 					System.out.println("Exce in File Upload In Sp Cake Photo Insert " + e.getMessage());
@@ -1677,34 +1683,32 @@ public class SpCakeController {
 
 			if (isCustSpCk == 1) {
 
-				System.out.println("Empty image");
-				// custChCk = ImageS3Util.uploadPhotoCakeImage(custChoiceCk);
-
-				// orderPhoto1 = ImageS3Util.uploadPhotoCakeImage(orderPhoto);
-
 				VpsImageUpload upload = new VpsImageUpload();
 
-				//Calendar cal = Calendar.getInstance();
-				//SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-				//System.out.println(sdf.format(cal.getTime()));
-
-				//String curTimeStamp = sdf.format(cal.getTime());
-
 				try {
+					if(!orderPhoto.get(0).getOriginalFilename().equalsIgnoreCase(orderPhotoPrevious)) {
+						
 					if(orderPhoto.get(0).getOriginalFilename()=="")
 					{
-						orderPhoto1 ="";
+						orderPhoto1 =orderPhotoPrevious;
 					}else
 					{
 						orderPhoto1 = curTimeStamp+""+orderPhoto.get(0).getOriginalFilename();
 					}
-					
 
 					upload.saveUploadedFiles(orderPhoto, Constant.SPCAKE_IMAGE_TYPE,
 							curTimeStamp+""+orderPhoto.get(0).getOriginalFilename());
+					}
+					else
+					{
+						orderPhoto1 =orderPhotoPrevious;
+						System.err.println("Order Photo1else2:"+orderPhoto1);
+
+					}
+					if(!custChoiceCk.get(0).getOriginalFilename().equalsIgnoreCase(custPhotoPrevious)) {
 					if(custChoiceCk.get(0).getOriginalFilename()=="")
 					{
-						custChCk ="";
+						custChCk =custPhotoPrevious;
 					}else
 					{
 						custChCk = curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename();
@@ -1715,7 +1719,13 @@ public class SpCakeController {
 							curTimeStamp+""+custChoiceCk.get(0).getOriginalFilename());
 
 					System.out.println("upload method called for two photo   " + orderPhoto.get(0).getName());
-
+					}
+					else
+					{
+						custChCk =custPhotoPrevious;
+						System.err.println("Order Photo2else2:"+custPhotoPrevious);
+					}
+					
 				} catch (IOException e) {
 
 					System.out.println("Exce in File Upload In Sp Cake Photo Insert " + e.getMessage());
@@ -1739,7 +1749,7 @@ public class SpCakeController {
 			c.setTime(currentDate);
 
 			// Current Date
-			Date orderDate = c.getTime();
+			//Date orderDate = c.getTime();
 
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(delDate);
@@ -1762,6 +1772,7 @@ public class SpCakeController {
 			// ---------------------------------------------------------------
 
 			final SimpleDateFormat dmyFormat = new SimpleDateFormat("dd-MM-yyyy");
+			final SimpleDateFormat ymdFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		    Date date = new Date();
 			try {
@@ -1776,7 +1787,7 @@ public class SpCakeController {
 
 			java.util.Date utilSpEdt = new java.util.Date();
 			try {
-				utilSpEdt = dmyFormat.parse(spEdt);
+				utilSpEdt = ymdFormat.parse(spEdt);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -1797,7 +1808,7 @@ public class SpCakeController {
 			java.sql.Date sqlSpDeliveryDt = new java.sql.Date(utilSpDeliveryDt.getTime());
 
 			spCakeOrder.setItemId(spCode);
-			spCakeOrder.setOrderDate(dateFormat.format(orderDate));
+			spCakeOrder.setOrderDate(DateConvertor.convertToYMD(orderDate));
 			float rmAmt=spSubTotal-spAdvance;
 			spCakeOrder.setRmAmount(rmAmt);
 			spCakeOrder.setSpTotalAddRate(Float.valueOf(spAddRate));

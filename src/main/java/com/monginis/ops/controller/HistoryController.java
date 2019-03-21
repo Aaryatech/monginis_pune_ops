@@ -73,7 +73,7 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 @Scope("session")
-public class HistoryController {
+public class HistoryController { 
 	public List<Menus> menusList;ArrayList<FrMenu> menuList=null;
 	List<MCategory> mCategoryList=null;
 	List<FrMenu> menuListSelected=null;List<FrMenu> menuListNotSelected=null;

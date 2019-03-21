@@ -4,7 +4,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/tableSearch.css">
 
 <!--rightNav
 <script type="text/javascript">
@@ -125,7 +128,7 @@ a:hover {
 					</div>
 					<div class="ordermto20px">
 						<div class="order-price">Total Amount :</div>
-						<div class="order-amount">INR : ${grandTotal}</div>
+						<div class="order-amount">INR : <fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${grandTotal}"/>	</div>
 
 
 					</div>
@@ -148,12 +151,19 @@ a:hover {
 
 				<form action="${pageContext.request.contextPath}/saveOrder"
 					name="form1" method="post">
+					 <div class="col-md-9"></div>
+							<label for="search" class="col-md-3" id="search"> <i
+								class="fa fa-search" style="font-size: 20px"></i> <input
+								type="text" id="myInput" onkeyup="myFunction()"
+								style="border-radius: 25px;" placeholder="Search items by name"
+								title="Type item name">
+							</label>
                     <input type="hidden" name="menuTitle" value="${menuTitle}">
 <!-- <div class="col-md-4" style="float: left;"><input type="button" onclick="sortTable()" value="Sort ASC By Name"/>
 <input type="button" onclick="reload()" value="Default"/></div> -->
 
 					<!--tabNavigation-->
-					<div class="cd-tabs">
+					<div class="cd-tabs" style="margin-top: 2px;">
 						<!--tabMenu-->
 					<%-- 	<nav>
 							<ul class="cd-tabs-navigation">
@@ -198,9 +208,9 @@ a:hover {
  --%>
 
 
-								<div class="clearfix"></div>
+							
 
-
+                             
 
 								<div id="table-scroll" class="table-scroll">
 							 
@@ -271,8 +281,9 @@ a:hover {
 																	<td class="col-md-1"><c:out value='${items.itemRate1}' /></td>
 																	<c:set var="rate" value="${items.itemRate1}" />
 																	<c:set var="qty" value="${items.itemQty}" />
-																	<td class="col-md-1" id="total${items.id}"><c:out
-																			value='${rate * qty}' /></td>
+																	<td class="col-md-1" id="total${items.id}">
+																<fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${rate * qty}"/>	
+																	</td>
 
 	                                              
 	                                                <c:choose>
@@ -320,8 +331,7 @@ a:hover {
 																	<td class="col-md-1"><c:out value='${items.itemRate2}' /></td>
 																	<c:set var="rate" value="${items.itemRate2}" />
 																	<c:set var="qty" value="${items.itemQty}" />
-																	<td id="total${items.id}"><c:out
-																			value='${rate * qty}' /></td>
+																	<td id="total${items.id}"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${rate * qty}"/>	</td>
 																 <c:choose>
 													<c:when test="${menuIdFc=='67'}">
 													 <c:choose>
@@ -366,8 +376,7 @@ a:hover {
 																	<td class="col-md-1"><c:out value='${items.itemRate3}' /></td>
 																	<c:set var="rate" value="${items.itemRate3}" />
 																	<c:set var="qty" value="${items.itemQty}" />
-																	<td class="col-md-1" id="total${items.id}"><c:out
-																			value='${rate * qty}' /></td>
+																	<td class="col-md-1" id="total${items.id}"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${rate * qty}"/>	</td>
 																
 																 <c:choose>
 													<c:when test="${menuIdFc=='67'}">
@@ -643,6 +652,25 @@ function sortTable() {
 function reload() {
     location.reload();
 }
+</script>
+<script>
+	function myFunction() {
+		var input, filter, table, tr, td, i;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("table_grid1");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
 </script>
 </body>
 </html>

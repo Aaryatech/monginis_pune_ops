@@ -121,6 +121,7 @@ table, th, td {
 					<!-- 						</form>
  -->
 					<form action="${pageContext.request.contextPath}/postManualGrn"
+					onsubmit="return confirm('Do you really want to save ?');"
 						name="grn_add" id="grn_add" method="post">
 						
 						<div class="col-md-9">
@@ -128,7 +129,7 @@ table, th, td {
 					</div>
 					<label for="search" class="col-md-3" id="search">
     <i class="fa fa-search" style="font-size:20px"></i>
-									<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search items by name.." title="Type in a name">
+									<input type="text" style="border-radius:25px;" id="myInput" onkeyup="myFunction()" placeholder="Search items by name.." title="Type in a name">
 										</label>  
 						
 
@@ -520,7 +521,7 @@ function myFunction() {
   table = document.getElementById("table_grid");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
+    td = tr[i].getElementsByTagName("td")[3];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";

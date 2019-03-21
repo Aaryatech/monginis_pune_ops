@@ -479,5 +479,16 @@ public class HomeController {
 		return model;
 		// return "redirect:/";
 	}
+	@RequestMapping(value = "/sessionTimeOut" , method = RequestMethod.GET)
+	public ModelAndView displayLoginAgain(HttpServletRequest request, HttpServletResponse response) {
 
+		ModelAndView model = new ModelAndView("login");
+
+		logger.info("/login request mapping.");
+
+		model.addObject("message", "Session timeout ! Please login again . . .");
+
+		return model;
+
+	}
 }
