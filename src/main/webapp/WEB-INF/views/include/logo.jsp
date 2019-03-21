@@ -11,7 +11,7 @@
        
          <c:choose>
                <c:when test = "${isSpDayShow ==true}">
-                    <a class="special-day" href="${pageContext.request.contextPath}/showSpDayCake">Special Day Cake</a>
+                    <a class="special-day" href="${pageContext.request.contextPath}/showSpDayCake"> Advance Order </a>
               </c:when>
                <c:otherwise>
               </c:otherwise>

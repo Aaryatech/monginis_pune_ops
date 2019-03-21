@@ -137,7 +137,7 @@ $("#tech").change(function() {
 				<!--rightSidebar-->
 				<div class="sidebarright">
 					<div class="order-left">
-						<h2 class="pageTitle">Special Day Cake Order</h2>
+						<h2 class="pageTitle">Advance Order</h2>
 					</div>
 
 					<form name="frm_search" id="frm_search" method="post"
@@ -148,7 +148,7 @@ $("#tech").change(function() {
                      <input type="hidden" id="flag" name="flag" value="1"/>
 						<div class="colOuter">
 							<div class="col1">
-								<div class="col1title">Select Day</div>
+								<div class="col1title">Select Menu</div>
 							</div>
 							<div class="col2">
 								<select name="spdayId" id="spdayId" onchange="onChangeDay()"
@@ -176,27 +176,26 @@ $("#tech").change(function() {
 								</select>
 							</div>
 						</div>
-						 <div class="col2full" id="availDate" style="text-align:right; text-color:red;">  </div>
+						 <div class="col2full" id="availDate" style="text-align:center; text-color:red;">  </div>
 						<div class="colOuter">
 							<div class="col1">
 								<div class="col1title">Delivery Date</div>
 							</div>
 							<div class="col2">
-								<input id="datepicker" class="texboxitemcode texboxcal"
-									placeholder="Delivery Date" name="datepicker" type="text" autocomplete="off"
+								<input id="datepicker111" class="texboxitemcode texboxcal"
+									placeholder="Delivery Date" name="datepicker" type="text"  readonly="readonly"
 									value="${delDate}" >
 							</div>
+							
+							<input name="btn" id="btn" class="buttonsaveorder" value="Search" 
+									type="submit" >
+									
 						</div>
                     
 					<input id="fromDate" name="fromDate" type="hidden" value="${fromDate}"/>
 					<input id="toDate"  name="toDate" type="hidden" value="${toDate}"/>
 							
-						<div class="colOuter">
-							<div class="col2full">
-								<input name="btn" id="btn" class="buttonsaveorder" value="Search" 
-									type="submit" >
-							</div>
-						</div>
+						
 						
 					</form>
 					<form
@@ -331,7 +330,7 @@ $("#tech").change(function() {
 						<div class="order-btn"><a href="#" class="saveOrder">SAVE ORDER</a></div> -->
 						<div class="order-btn textcenter">
 
-							<input name="" class="buttonsaveorder" value="SAVE ORDER"
+							<input name="saveorder123" class="buttonsaveorder" value="SAVE ORDER"
 								type="button" ONCLICK="button1()">
 						</div>
 
@@ -380,12 +379,13 @@ function closeNav3() {
            
             function button1()
             {
-            	var isValidated=validate();
+            var isValidated=validate();
             	//alert(isValidated)
             	 if(isValidated)
             		{
                 form1.submit();
-            		} 
+            		}  
+            	 //form1.submit();
             	
             }    
            
@@ -482,6 +482,8 @@ function onChangeDay() {
 
 	var spdayId = $('#spdayId').find(":selected").val();
 	document.getElementById("btn").disabled = false;
+	//document.getElementById("saveorder123").disabled = false;
+	
 	 $.getJSON(
 				'${findDelToAndFromDate}',
 				{
@@ -502,10 +504,12 @@ function onChangeDay() {
 					  $( function() {
 					   // $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy', minDate:data.orderFromDate ,maxDate:data.orderToDate}
 					    	/* ); */
-						  document.getElementById("availDate").innerHTML=" <strong>Delivery From Date: </strong>&nbsp;&nbsp;&nbsp;&nbsp;"+data.deliveryFromDate+", &nbsp; &nbsp; &nbsp;<strong>To Date :</strong> &nbsp;&nbsp;&nbsp;&nbsp;"+data.deliveryToDate+"  <strong>From Time: </strong>"+data.fromTime+"  <strong> To Time: </strong> "+data.toTime;
+						  document.getElementById("availDate").innerHTML="&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp<strong>From Time: </strong>"+data.fromTime+" &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp <strong> To Time: </strong> "+data.toTime;
 						  document.getElementById("availDate").style.color = "green";
 						  document.getElementById("fromDate").value=data.deliveryFromDate;
 						  document.getElementById("toDate").value=data.deliveryToDate;
+						  document.getElementById("datepicker111").value=data.deliveryToDate;
+						  
 					  } );
 					  
 					  var timeA = new Date(); 
@@ -518,6 +522,8 @@ function onChangeDay() {
 					  if(timeC>=timeA && timeC<=timeB)
 						  {
 						  document.getElementById("btn").disabled = false;
+						  //document.getElementById("saveorder").disabled = false;
+						  
 						  }
 					  else
 						  {
@@ -536,6 +542,7 @@ function onChangeDay() {
 						  timeString1 = h + timeString1.substr(2, 3) + ampm;
 						  
 						  document.getElementById("btn").disabled = true;
+						  //document.getElementById("saveorder").disabled = true;
                           alert("Order Time is From "+timeString+" to "+timeString1+" currently it's not available!!"); 
 						  }
 				
@@ -560,12 +567,13 @@ function onChangeDay() {
 	<script type="text/javascript">
 	function validate()
 	{
-
+		//alert("Please Select Special Day."+spdayId);
 		var spdayId = $('#spdayId').find(":selected").val();
-		var selectedDate = $('#datepicker').val();//delivery Date
+		var isValid=true;
+		/* var selectedDate = $('#datepicker').val();//delivery Date
 		var fromDate = $('#fromDate').val();
 		var toDate = $('#toDate').val();
-		var isValid=true;
+		
 		
 		var firstValue = fromDate.split('-');
 		var secondValue = toDate.split('-');
@@ -576,17 +584,21 @@ function onChangeDay() {
 		var tDate=new Date();
 		tDate.setFullYear(secondValue[0],(secondValue[1] - 1 ),secondValue[2]);
 		var sDate=new Date();
-		sDate.setFullYear(selectedValue[0],(selectedValue[1] - 1 ),selectedValue[2]);
+		sDate.setFullYear(selectedValue[0],(selectedValue[1] - 1 ),selectedValue[2]); */
 
-	
+		 
 		if(spdayId==-1)
 			{
 			  
-			 alert("Please Select Special Day.")
+			 alert("Please Select Menu.")
 			 return false;
 			}
+		else
+			{
+			return true;
+			}
 		 
-		else if(sDate<frDate || sDate>tDate)
+		/* else if(sDate<frDate || sDate>tDate)
 			{
 				 alert("Please Select Delivery Date Between  --"+   fromDate+"-&-"+toDate)
 				 return false;
@@ -597,7 +609,7 @@ function onChangeDay() {
 				 alert("Please Select Valid Delivery Date")
 				 return false;
 
-			}
+			} */
            return isValid;
 		
 	}

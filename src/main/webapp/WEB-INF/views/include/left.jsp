@@ -29,22 +29,22 @@
 			</li>
 		</c:if>
 		
-					<li><a href="${pageContext.request.contextPath}/showExpressBill"><div
+					<%-- <li><a href="${pageContext.request.contextPath}/showExpressBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Express Bill <span></span>
-					</div></a></li>
+					</div></a></li> --%>
 					
 					
-					<li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
+					<%-- <li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Customer Bill <span></span>
-					</div></a></li>
+					</div></a></li> --%>
 		<c:if test="${info.accessRight==1 or info.accessRight==2}">	
 			<li><a href="#" onClick="openNav1()"><div class="img">
 						<img
@@ -80,20 +80,20 @@
 						View Purchase <span>Bills</span>
 					</div></a></li>
 					
-						<li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
+						<%-- <li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Other Item Stock
-					</div></a></li>
-						<li><a href="${pageContext.request.contextPath}/showOtherBill"><div
+					</div></a></li> --%>
+						<%-- <li><a href="${pageContext.request.contextPath}/showOtherBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Other Purchase Bill
-					</div></a></li>
+					</div></a></li> --%>
 					<c:if test="${info.accessRight==1}">
 			
 					<li><a href="#" onClick="openNav4()"><div class="img">
@@ -112,7 +112,7 @@
 						Rule And Regulation <span></span>
 					</div></a></li> --%>
 					
-						<c:if test="${info.accessRight==1 or info.accessRight==2}">	
+						<%-- <c:if test="${info.accessRight==1 or info.accessRight==2}">	
 					<li><a href="${pageContext.request.contextPath}/showstockdetail" ><div class="img">
 						<img
 							src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
@@ -120,7 +120,7 @@
 					</div>
 					<div class="title">
 						Stock <span>Details</span>
-					</div></a></li></c:if>
+					</div></a></li></c:if> --%>
 					
 					
 					
@@ -189,7 +189,7 @@
 									pageContext.setAttribute("toTime", _12HourSDF.format(toTime12Hrs));
 
 									int isSameDayApplicable = (int) pageContext.getAttribute("isSameDayApplicable");
-									int catId = (int) pageContext.getAttribute("catId");
+									int catId = (Integer) pageContext.getAttribute("catId");
 									int settingType = (int) pageContext.getAttribute("settingType");
 
 									System.out.println("\n\n\nMenu To Timing" + menuToTiming);
@@ -467,7 +467,7 @@
 					alt="monginis"></a>
 				<div class="listarea">
 					<ul>
-						<li class="small-box">
+						<%-- <li class="small-box">
 						
 							<div class="ibox">
 						<div class="ibox-head">
@@ -482,7 +482,7 @@
 								
 						</div>
 						
-					</li>
+					</li> --%>
 							
 	 						<li class="small-box">
 	 						
@@ -517,12 +517,12 @@
 								
 								<div class="ibox">
 						<div class="ibox-head">
-						<div class="ibox-title">Tax Report</div>
+						<div class="ibox-title">GRN GVN Report</div>
 						</div>
-						<a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
+						<%-- <a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
 						<a href="${pageContext.request.contextPath}/viewFrDatewiseTaxSellBill"><i class="fa fa-calendar icon"></i> Date Report (Sell) </a>
 						<a href="${pageContext.request.contextPath}/viewFrBillwiseTaxSellBill"><i class="fa fa-files-o icon"></i> Bill Report (Sell)</a>
-						<a href="${pageContext.request.contextPath}/hsnWiseReport"><i class="fa fa-files-o icon"></i> HSN Code wise Report (Sell)</a>
+						<a href="${pageContext.request.contextPath}/hsnWiseReport"><i class="fa fa-files-o icon"></i> HSN Code wise Report (Sell)</a> --%>
 						<a href="${pageContext.request.contextPath}/grnReport"><i class="fa fa-files-o icon"></i> GRN Report (Sell)</a>
 						<a href="${pageContext.request.contextPath}/gvnReport"><i class="fa fa-files-o icon"></i> GVN Report (Sell)</a>
 						
