@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,31 +16,37 @@
     </title>
     </head>
 <style type="text/css">
-<!--
-.style2 {font-size: 14px}
-.style5 {font-size: 10px}
-.style6 {font-size: 9px}
+
+.style2 {font-size: 12px;padding-top: 2px;}
+.style5 {font-size: 10px;padding-top: 2px;}
+.style6 {font-size: 9px;padding-top: 2px;}
 .style7 {
-	font-size: 12px;
-	font-weight: bold;
+	font-size: 11px;
+	font-weight: bold;padding-top: 2px;
 }
 .style8 {
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: bold;padding-top: 2px;
 }
--->
+
 </style>
 </head>
 
 </head>
 <body >
 	 
-				  <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:5px; font-family:verdana; font-size:12px; border:1px solid #E7E7E7;">
+				  <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:2px; font-family:verdana; font-size:12px; border:1px solid #E7E7E7;">
   <tbody>
   <tr>
-      <td colspan="2" align="center" style="padding:1px;"><p>BILL OF SUPPLY</p>
-      <p class="style2" ><b>${billList[0].frName}</b><br /><span style="font-size: 10px; font-family: Arial;">(The Monginis Cake Shop)</span></p>
-                      GSTIN:<b> ${billList[0].gstn}</b> <br />
+      <td colspan="2" align="center" style="padding:0px;"><span>BILL OF SUPPLY</span>
+      
+      
+      </td>
+ </tr>
+     <tr>
+       <td colspan="2" align="center" style="padding:0px;border-top: 1px solid #E7E7E7;">
+      <span><b>${billList[0].frName}</b><br /><span style="font-size: 10px; font-family: Arial;">(The Monginis Cake Shop)</span></span>
+                <br /> <span style="font-size: 10px;">GSTIN:<b> ${billList[0].gstn} </b>  </span>
       
       </td>
     </tr>
@@ -49,8 +55,8 @@
        </td>
     </tr> --%>
     <tr>
-      <td colspan="2" align="center" style="padding:3px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:12px;"><p class="style5">${billList[0].frAddress}
-         <br /> 
+      <td colspan="2" align="center" style="padding:2px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:9px;"><span >${billList[0].frAddress}
+
          
         <%--  <c:choose>
             <c:when test="${frGstType==2000000}">
@@ -64,29 +70,28 @@
                 BE COLLECT TAX ON SUPPLIES</span>
           </c:when>
         </c:choose></td> --%>
-        
+        </span>
     </tr>
     <tr>
       <td colspan="2">
-      <table width="100%" border="0" cellspacing="0" cellpadding="7">
+      <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tbody>
     <tr>
-      <td  align="left">Invoice No: </td>
-      <td align="left">${billList[0].invoiceNo} </td>
-     <fmt:parseDate pattern="yyyy-MM-dd" value="${billList[0].billDate}" var="dateparsed" />
+      <td  align="left" style="font-size: 10px;">Invoice No: </td>
+      <td align="left" style="font-size: 10px;">${billList[0].invoiceNo} </td>
+       <fmt:parseDate pattern="yyyy-MM-dd" value="${billList[0].billDate}" var="dateparsed" />
       <td style="font-size: 10px;"><fmt:formatDate pattern="dd-MM-yyyy" value="${dateparsed}" /></td>
     </tr>
     <tr>
-      <td>Name</td>
-      <td colspan="3">${billList[0].custName}</td>
-     
-      </tr>
-      <tr>
-        <td >GST NO:</td>
-      <td colspan="3">${billList[0].userGstNo}</td>
+      <td style="font-size: 10px;">Name</td>
+      <td colspan="3" style="font-size: 10px;">${billList[0].custName}</td>
+    
+      </tr><tr>
+        <td style="font-size: 10px;">GST NO:</td>
+      <td colspan="3" style="font-size: 10px;">${billList[0].userGstNo}</td>
       </tr>
     <tr>
-      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="5" class="tbl-inner">
+      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="3" class="tbl-inner">
         <tbody>
           <tr>
             <th width="43%" align="left" bgcolor="#ECECEC">Item</th>
@@ -96,21 +101,22 @@
           </tr>
           <c:forEach items="${billList}" var="billList" varStatus="count">
           <tr>
-            <td><p style="font-size:12px">${billList.itemName}</p>
-				<p style="font-size:10px">${billList.hsnCode}</p></td>
-            <td align="center"><p style="font-size:12px">${billList.qty}</p></td>
-            <td align="center"><p style="font-size:12px">${billList.mrp}</p></td>
-            <td align="right"><p style="font-size:12px">   <fmt:formatNumber type="number"
-			maxFractionDigits="2" minFractionDigits="2" value=" ${billList.qty*billList.mrp}"/></p></td>
+            <td><span style="font-size:11px">${billList.itemName}</span><br>
+				<span style="font-size:10px">HSN-${billList.hsnCode}</span></td>
+            <td align="center"><span style="font-size:11px">${billList.qty}</span></td>
+            <td align="center"><span style="font-size:11px">${billList.mrp}</span></td>
+            <td align="right"><span style="font-size:11px">
+            <fmt:formatNumber type="number"
+			maxFractionDigits="2" minFractionDigits="2" value=" ${billList.qty*billList.mrp}"/>
+           </span></td>
           </tr>
           </c:forEach>
           <tr>
             <td rowspan="3">&nbsp;</td>
             <td colspan="2" align="right"><span class="style5"><strong>Total :</strong></span></td>
             
-                        <td align="right"><span class="style5"><strong><c:choose><c:when test="${billList[0].billType eq 'R'}">${billList[0].discountAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose> </strong></span></td>
             
-           <%--  <td align="right"><span class="style5"><strong>${billList[0].discountAmt}</strong></span></td> --%>
+            <td align="right"><span class="style5"><strong><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose> </strong></span></td>
           </tr>
           <c:if test="${billList[0].discountPer gt 0 or billList[0].intDiscAmt gt 0}">
           <tr>
@@ -120,10 +126,8 @@
           </c:if>
           <tr>
             <td colspan="2" align="right"><span class="style7">Bill Total:</span></td>
-<%--             <td align="right"><span class="style7">${billList[0].intBillAmt}</span></td>
- --%>            <td align="right"><span class="style7"><c:choose><c:when test="${billList[0].billType eq 'R'}">${billList[0].discountAmt-billList[0].intDiscAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
-         
-   </tr>
+            <td align="right"><span class="style7"><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt-billList[0].intDiscAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
+          </tr>
         </tbody>
       </table></td>
       </tr>
@@ -132,20 +136,20 @@
     </tr>
     <tr>
       <td colspan="2">
-        <table width="100%" border="0" cellspacing="0" cellpadding="7" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="2" >
   
- <!--    <tr>
-      <td align="center" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><p  class="style6"> Customer Care:7352244444
-									</p>       </td>
-    </tr> -->
     <tr>
-      <td style="border-top:1px solid #E7E7E7; padding:5px 7px;">Kindly consume all Fresh Cream Product within 1 hour unless refrigerated<br/>Seller Registered under Composition Scheme not allowed to collect taxes.<br />
-        This is computer generated Invoice does not require signature</td>
+      <td align="center" style="border-top:1px solid #E7E7E7; padding:1px;font-size: 9px;"><span> Customer Care: 7352244444
+									</span>       </td>
+    </tr>
+    <tr>
+      <td style="border-top:1px solid #E7E7E7; padding:2px;font-size: 9px;">Kindly consume all Fresh Cream Product within 1 hour unless refrigerated.<br/> <c:if test="${frGstType=='2000000'}">Seller Registered under Composition Scheme not allowed to collect taxes.<br /></c:if>  
+        This is computer generated Invoice does not require signature.</td>
     </tr>
 </table>      </td>
     </tr>
     <tr>
-      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong> ${billList[0].frName}</strong></td>
+      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:2px;"><strong> ${billList[0].frName}</strong></td>
     </tr>
   </tbody>
 </table>

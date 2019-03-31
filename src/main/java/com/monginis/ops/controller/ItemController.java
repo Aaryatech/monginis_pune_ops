@@ -779,19 +779,21 @@ public class ItemController {
 					
 
 						int frGrnTwo=frDetails.getGrnTwo();
-					
+					/*
 						if(frItem.getGrnTwo()==1) {
+							*/
 							
-							if(frGrnTwo==1) {
+						if(frGrnTwo==1) {
 							
 							order.setGrnType(1);
 							
 							
-							}else {
+						}else {
 						
 							order.setGrnType(0);
-							}
-						}//end of if
+						}
+							
+						/*}//end of if
 						
 						else {	
 							if(frItem.getGrnTwo()==2) {
@@ -802,7 +804,7 @@ public class ItemController {
 							order.setGrnType(0);
 						}
 						}// end of else
-						
+						*/
 						
 						//for no grn these menuIds
 						if(menuList.get(globalIndex).getMenuId()==29||menuList.get(globalIndex).getMenuId()==30||

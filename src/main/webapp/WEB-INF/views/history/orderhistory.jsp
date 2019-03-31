@@ -337,7 +337,7 @@ jQuery(document).ready(function(){
 									<table id="table_grid" class="main-table">
 										<thead>
 											<tr class="bgpink">
-
+												<th class="col-md-1" style="text-align: center;">Sr No</th>
 												<th class="col-md-2" style="text-align: center;">Item Name</th>
 												<th class="col-md-1" style="text-align: center;">MRP</th>
 												<th class="col-sm-1" style="text-align: center;">Quantity</th>
@@ -351,10 +351,10 @@ jQuery(document).ready(function(){
 										<tbody>
 										<c:choose>
 					                     	<c:when test="${catId==42||catId==80}">
-											<c:forEach items="${orderHistory}" var="orderList">
+											<c:forEach items="${orderHistory}" var="orderList" varStatus="count">
 
 												<tr>
-
+ 													<td class="col-md-1">${count.index+1}</td>
 													<td class="col-md-2" ><c:out
 															value="${orderList.itemName}" /></td>
 													<td class="col-md-1"style="text-align: right;"><c:out
@@ -370,10 +370,10 @@ jQuery(document).ready(function(){
 											</c:when>
 										<c:otherwise>
 										
-											<c:forEach items="${orderHistory}" var="orderList">
+											<c:forEach items="${orderHistory}" var="orderList" varStatus="count">
 
 												<tr>
-
+													 <td class="col-md-1">${count.index+1}</td>
 													<td class="col-md-2"><c:out
 															value="${orderList.itemName}" /></td>
 													<td class="col-md-1" style="text-align: right;"><c:out
@@ -443,6 +443,7 @@ jQuery(document).ready(function(){
 								<table id="table_grid" class="main-table">
 									<thead>
 										<tr class="bgpink">
+											<th class="col-md-1" style="text-align: center;">Sr No</th>
 											<th class="col-md-2" style="text-align: center;">Item Name</th>
 											<th class="col-md-1"style="text-align: center;">Flavour</th>
 										
@@ -456,8 +457,9 @@ jQuery(document).ready(function(){
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${orderHistory}" var="orderList">
+										<c:forEach items="${orderHistory}" var="orderList" varStatus="count">
 											<tr>
+											    <td class="col-md-1">${count.index+1}</td>
 												<td class="col-md-2">
 												&nbsp;&nbsp;&nbsp;&nbsp;
 												<c:out value="${orderList.spName}" />

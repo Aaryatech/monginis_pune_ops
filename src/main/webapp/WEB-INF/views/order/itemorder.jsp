@@ -224,11 +224,11 @@ a:hover {
 													<th class="col-md-1" >MRP</th>
 													<th class="col-md-1">Rate</th>
 													<th class="col-md-1" >Total</th>
-													<c:choose>
+												<%-- 	<c:choose>
 													<c:when test="${menuIdFc=='67'}">
 														<th class="col-md-1" >Order1</th>
 													</c:when>
-													</c:choose>
+													</c:choose> --%>
 												</tr>
 												</thead>
 												</table> 
@@ -245,11 +245,11 @@ a:hover {
 													<th class="col-md-1" >MRP</th>
 													<th class="col-md-1">Rate</th>
 													<th class="col-md-1">Total</th>
-													<c:choose>
+												<%-- 	<c:choose>
 													<c:when test="${menuIdFc=='67'}">
 														<th class="col-md-1" >Order1</th>
 													</c:when>
-													</c:choose>
+													</c:choose> --%>
 												</tr>
 												</thead>
 												<tbody>
@@ -286,7 +286,7 @@ a:hover {
 																	</td>
 
 	                                              
-	                                                <c:choose>
+	                                               <%--  <c:choose>
 													<c:when test="${menuIdFc=='67'}">
 												
 	                                                <c:choose>
@@ -308,7 +308,7 @@ a:hover {
 													</c:otherwise>
 													</c:choose>
 													</c:when>
-													</c:choose>
+													</c:choose> --%>
 
 																</tr>
 															</c:when>
@@ -332,7 +332,7 @@ a:hover {
 																	<c:set var="rate" value="${items.itemRate2}" />
 																	<c:set var="qty" value="${items.itemQty}" />
 																	<td id="total${items.id}"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${rate * qty}"/>	</td>
-																 <c:choose>
+																 <%-- <c:choose>
 													<c:when test="${menuIdFc=='67'}">
 													 <c:choose>
 													<c:when test="${flagRes==1}">
@@ -353,7 +353,7 @@ a:hover {
 													</c:otherwise>
 													</c:choose>
 													</c:when>
-													</c:choose>
+													</c:choose> --%>
 																
 																</tr>
 															</c:when>
@@ -378,7 +378,7 @@ a:hover {
 																	<c:set var="qty" value="${items.itemQty}" />
 																	<td class="col-md-1" id="total${items.id}"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${rate * qty}"/>	</td>
 																
-																 <c:choose>
+																<%--  <c:choose>
 													<c:when test="${menuIdFc=='67'}">
 													 <c:choose>
 													<c:when test="${flagRes==1}">
@@ -399,7 +399,7 @@ a:hover {
 													</c:otherwise>
 													</c:choose>
 													</c:when>
-													</c:choose>
+													</c:choose> --%>
 																</tr>
 															</c:when>
 														</c:choose>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Special Cake Invoice</title>
+<title>Sp Invoice</title>
 
 <html lang="en">
   <head>
@@ -35,68 +35,72 @@
 </head>
 <body >
 	 
-				  <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:5px; font-family:verdana; font-size:12px; border:1px solid #E7E7E7;">
+				  <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:0px; font-family:Times New Roman; font-size:12px; border:1px solid #E7E7E7;">
 
   <tbody> 
-  <tr>
-  <td align="right" style="padding:0px;"></td>  </tr><tr>
+ <tr>
      <c:choose>
       <c:when test="${frGstType==10000000}">
-        <td colspan="2" align="center" style="padding:1px;"><p>TAX INVOICE</p></td> 
+        <td colspan="2" align="center" style="padding-top:3px;">TAX INVOICE</td> 
  
       </c:when>
       <c:otherwise>
-         <td colspan="2" align="center" style="padding:1px;"><p>BILL OF SUPPLY</p></td> 
+         <td colspan="2" align="center" style="padding-top:3px;">BILL OF SUPPLY</td> 
       </c:otherwise>
       </c:choose>
     </tr>
     <tr>
-      <td colspan="2" align="center" style="padding:2px; border-bottom:1px solid #E7E7E7;"><p class="style2" ><b>${sessionScope.frDetails.frName}</b><br /><span style="font-size: 10px; font-family: Arial;">(The Monginis Cake Shop)</span></p>
+      <td colspan="2" align="center" style="padding:3px; border-bottom:1px solid #E7E7E7;"><span style="font-size: 12px; font-family: Times New Roman;"><b>${sessionScope.frDetails.frName}</b></span><br /><span style="font-size: 10px; font-family: Times New Roman;">(The Monginis Cake Shop)</span>
        </td>
     </tr>
     <tr>
-      <td colspan="2" align="center" style="padding:3px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:12px;"><p class="style5">
-         <br />
-          <strong>${sessionScope.frDetails.frAddress}</strong><br/><br/>
+      <td colspan="2" align="center" style="padding-left: 5px; padding:2px;font-family: Times New Roman; border-bottom:1px solid #E7E7E7; font-size:12px;"><span style="font-size: 10px;">
+       
+          <strong>${sessionScope.frDetails.frAddress}</strong><br/>
            <c:choose>
             <c:when test="${frGstType>=2000000}">
-                GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong><br/>
+                GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong> &nbsp;&nbsp;&nbsp;
              </c:when>
         </c:choose>
        
           Phone:<strong>${sessionScope.frDetails.frMob}</strong><br/>
-          
+        
            <c:choose>
           <c:when test="${frGstType==2000000}">
-              <span style="font-size:9px; font-family: Arial;">COMPOSITION TAXABLE FIRM, NOT SUPPOSED TO<br />
+              <span style="font-size:7px; font-family: Times New Roman;">COMPOSITION TAXABLE FIRM, NOT SUPPOSED TO<br />
                 BE COLLECT TAX ON SUPPLIES</span>
           </c:when>
-          <c:when test="${frGstType==10000000}">
-           <span style="font-size:9px; font-family: Arial;">COMPOSITION TAXABLE PERSON, NOT TO<br />
+         <%--  <c:when test="${frGstType==10000000}">
+           <span style="font-size:7px; font-family: Times New Roman;">COMPOSITION TAXABLE PERSON, NOT TO<br />
           COLLECT TAX ON SUPPLIES        </span>
           
-          </c:when>
+          </c:when> --%>
         </c:choose>
-       
+       </span></td>
     </tr>
     <tr>
       <td colspan="2">
-      <table width="100%" border="0" cellspacing="0" cellpadding="7">
+      <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tbody>
     <tr>
-      <td  style="font-size:8px">Invoice No: </td>
+      <td  style="font-size:8px;padding-left: 5px; ">Invoice No: </td>
       <td style="font-size:9px">${spCakeOrder.spBookForMobNo}(${spCakeOrder.spOrderNo})</td>
       <td style="font-size:8px">Date:</td>
         
       <td style="font-size:9px">${date} </td>
     </tr >
      <tr>
-      <td>Order No</td>
-      <td colspan="3">${spCakeOrder.spDeliveryPlace}</td>
+      <td style="font-size:8px; padding-left: 5px; ">Order No</td>
+      <td colspan="3" style="font-size:9px">${spCakeOrder.spDeliveryPlace}</td>
+     
+      </tr> 
+        <tr>
+      <td style="font-size:8px; padding-left: 5px; ">GST No</td>
+      <td colspan="3" style="font-size:9px">${spCakeOrder.custGstNo}</td>
      
       </tr> 
     <tr>
-      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="5" class="tbl-inner">
+      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="2" class="tbl-inner">
         <tbody>
           <tr>
             <th width="43%" align="left" bgcolor="#ECECEC">Item</th>
@@ -106,10 +110,14 @@
           </tr>
           <%-- <c:forEach items="${billList}" var="billList" varStatus="count"> --%>
           <tr>
-            <td><p style="font-size:12px">${spCakeOrder.spName}(${spCakeOrder.itemId})-${spCakeOrder.spfName}</p>
-            <td align="center"><p style="font-size:12px">${spCakeOrder.spSelectedWeight}</p></td>
-            <td align="center"><p style="font-size:12px">${spCakeOrder.spSubTotal/spCakeOrder.spSelectedWeight}</p></td>
-            <td align="right"><p style="font-size:12px">${spCakeOrder.spSubTotal}</p></td>
+            <td style="font-size:10px;padding-left: 5px; ">${spCakeOrder.spName}(${spCakeOrder.itemId})-${spCakeOrder.spfName}</td>
+            <td align="center" style="font-size:10px">${spCakeOrder.spSelectedWeight}</td>
+            <td align="center" style="font-size:10px">${spCakeOrder.spSubTotal/spCakeOrder.spSelectedWeight}</td>
+            <td align="right" style="font-size:10px">${spCakeOrder.spSubTotal}</td>
+          </tr>
+           <tr>
+            <td style="font-size:10px;padding-left: 5px; ">HSN- ${spInvoiceHsn}</td>
+          
           </tr>
         <%--   </c:forEach> --%>
          <tr>
@@ -122,7 +130,7 @@
             <td colspan="3" align="right"><span class="style5"><strong>Total :</strong></span></td>
             <td align="right"><span class="style5"><strong>${spCakeOrder.spSubTotal}</strong></span></td>
           </tr>
-            <tr>
+           <%--  <tr>
            <!--  <td rowspan="3">&nbsp;</td> -->
             <td colspan="3" align="right"><span class="style5"><strong>Advance :</strong></span></td>
             <td align="right"><span class="style5"><strong>${spCakeOrder.spAdvance}</strong></span></td>
@@ -130,7 +138,7 @@
           <tr>
             <td colspan="3" align="right"><span class="style5"><strong>Remaining Amt:</strong></span></td>
             <td align="right"><span class="style5"><strong>${spCakeOrder.rmAmount}</strong></span></td>
-          </tr>
+          </tr> --%>
         </tbody>
       </table></td>
       </tr>
@@ -141,7 +149,7 @@
       <c:when test="${frGstType==10000000 }">
     		<tr>
 				<td colspan="2"><table width="100%" border="0" cellspacing="0"
-						cellpadding="7">
+						cellpadding="2">
 						<tr>
 							<th width="17%" align="left" bgcolor="#ECECEC" rowspan="2">Taxable<br />
 								Value
@@ -182,9 +190,9 @@
 									value="${totaltax+(spCakeOrder.tax1Amt+spCakeOrder.tax2Amt) }" />
 							</tr>
 					<%-- 	</c:forEach> --%>
-						<td width="14%" colspan="6">&nbsp;</td>
+						
 
-						</tr>
+						
 						<tr>
 							<td bgcolor="#ECECEC"><b><fmt:formatNumber type="number"
 										maxFractionDigits="2" minFractionDigits="2"  value="${taxAmount}" /></b></td>
@@ -205,27 +213,27 @@
 			</c:choose>
  <tr>
 							<td align="center"
-								style="border-top: 1px solid #E7E7E7; padding: 5px 7px;"
-								colspan="6"><p class="style8">Thank You, Visit Again
+								style="border-top: 1px solid #E7E7E7; padding: 2px 2px;"
+								colspan="6"><span style="padding: 3px; font-size: 10px; font-weight: bold;">Thank You, Visit Again
 									!!!
-									</p></td>
+									</span></td>
 						</tr>
 						<tr>
-							<td style="border-top: 1px solid #E7E7E7; padding: 5px 7px;"
+							<td style="border-top: 1px solid #E7E7E7; padding-left:5px;padding-top: 2px;padding-bottom: 2px;   font-size: 11px;"
 								colspan="6">We declare that this invoice shows the actual
-								price of the goods<br /> described and that all particulars are
-								true and correct.<br /> <span style="font-size: 10px"> I/
-									We hereby certify that food/oods mentioned in this invoice are
+								price of the goods described and that all particulars are
+							<br /> 	true and correct.<br /> <span style="font-size: 10px"> I/
+									We hereby certify that food/Foods mentioned in this invoice are
 									warranted to be the nature and quality which this
 									purports/purport to be.</span>
 							</td>
 						</tr>
     <tr>
-      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong>For ${sessionScope.frDetails.frName}</strong></td>
+      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding-left:5px;padding-top: 2px;padding-bottom: 2px;"><strong>For ${sessionScope.frDetails.frName}</strong></td>
     </tr>
   </tbody>
 </table>
-			</body>	<body onload="directPrint()">
+			</body> 	<body onload="directPrint()">
 	<script>
 	 function directPrint()
 	{
@@ -234,6 +242,6 @@
 		window.close();
 	} 
 	
-	</script>
+	</script> 
 </body>
 </html>

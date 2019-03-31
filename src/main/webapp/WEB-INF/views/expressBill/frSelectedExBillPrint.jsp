@@ -21,28 +21,28 @@
 .style5 {font-size: 10px}
 .style6 {font-size: 9px}
 .style7 {
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
 }
 .style8 {
 	font-size: 11px;
 	font-weight: bold;
 }
--->
+
 </style>
 </head>
 
 </head>
 <body >
 	 
- <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:5px; font-family:verdana; font-size:12px; border:1px solid #E7E7E7;">
+ <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:0px; font-family:verdana; font-size:12px; border:1px solid #E7E7E7;">
 
   <tbody> 
   <tr>
-  <td align="right" style="padding:0px;font-size: 7px;">EX</td>  </tr><%-- <tr>
-      <td colspan="2" align="center" style="padding:1px;"><p>
+  <td align="right" style="padding:2px; padding-bottom:4px; font-size: 7px;">EX</td>  </tr><tr >
+      <td colspan="2" align="center" style="font-weight: bold;border-bottom:1px solid #E7E7E7;">
       <c:choose>
-      <c:when test="${frGstType==10000000 }">
+      <c:when test="${frGstType==10000000}">
       TAX INVOICE
       
       </c:when>
@@ -50,12 +50,12 @@
         BILL OF SUPPLY
       </c:otherwise>
     
-      </c:choose></p></td>  
-    </tr>--%>
+      </c:choose></td>  
+    </tr>
    
     <tr>
-      <td colspan="2" align="center" style="padding:2px; border-bottom:1px solid #E7E7E7;"><p class="style2" style="text-align: center;" ><b>${sessionScope.frDetails.frName}  </b><br /><span style="font-size: 10px; font-family: Arial;">(The Monginis Cake Shop)</span></p>
-                      GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong><br/>
+      <td colspan="2" align="center" style="padding:2px; border-bottom:1px solid #E7E7E7;"><span style="font-size: 12px; font-weight:bold; text-align: center;padding:0px;"><b>${sessionScope.frDetails.frName}  </b></span><br /><span style="font-size: 8px; font-family: Arial;">(The Monginis Cake Shop)</span></br>
+                 <span style="font-size: 10px;">GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong></span><br/>
        </td>
      
       
@@ -80,19 +80,19 @@
     </tr>
     
    <tr>
-      <td colspan="2" align="center" style="padding:3px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:12px;"><p class="style5">      <br />
-          <strong>${sessionScope.frDetails.frAddress}</strong><br/><br/>
+      <td colspan="2" align="center" style="padding:0px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:9px;"><span style="font-size:10px;">     
+         ${sessionScope.frDetails.frAddress}</span><br/>
           
-          Phone:<strong class="style8">${sessionScope.frDetails.frMob}</strong><br/>
+          Phone:<span style="font-weight: bold;">${sessionScope.frDetails.frMob}</span>
         
        
     </tr>
     <tr>
       <td colspan="2">
-      <table width="100%" border="0" cellspacing="0" cellpadding="7">
+      <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tbody>
     <tr>
-      <td style="font-size:9px">Invoice  No: </td>
+      <td style="font-size:9px;padding-left: 2px;">Invoice No:</td>
       <td style="font-size:10px">${invNo} </td>
       <td style="font-size:10px">${date} </td>
     </tr >
@@ -102,7 +102,7 @@
      
       </tr>  --%>
     <tr>
-      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="5" class="tbl-inner">
+      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="2" class="tbl-inner">
         <tbody>
           <tr>
             <th width="43%" align="left" bgcolor="#ECECEC">Item</th>
@@ -113,22 +113,23 @@
            <c:set var = "total" value = "0"/>
            <c:forEach items="${exBill}" var="exBill" varStatus="count">  
           <tr>
-            <td><p style="font-size:12px">${exBill.itemName}</p>
-				<p style="font-size:10px">Det No:<b style="font-size: 9px;">${exBill.sellBillDetailNo}</b></p></td>
-            <td align="center"><p style="font-size:12px">${exBill.qty}</p></td>
-            <td align="center"><p style="font-size:12px">${exBill.mrp}</p></td>
-            <td align="right"><p style="font-size:12px">${exBill.qty*exBill.mrp}</p></td>
+            <td><span style="font-size:10px">${exBill.itemName}</span></br>
+				<span style="font-size:8px">Det No:<span style="font-size: 8px;">${exBill.sellBillDetailNo}</span> <br> HSN- ${exBill.remark}</span></td>
+            <td align="center"><span style="font-size:10px">${exBill.qty}</span></td>
+            <td align="center"><span style="font-size:10px">${exBill.mrp}</span></td>
+            <td align="right"><span style="font-size:10px">${exBill.qty*exBill.mrp}</span></td>
           </tr>
           <c:set var = "total" value = "${total+exBill.qty*exBill.mrp}"/>
           </c:forEach>  
           <tr>
             <td rowspan="3">&nbsp;</td>
             <td colspan="2" align="right"><span class="style5"><strong>Total :</strong></span></td>
-            <td align="right"><span class="style5"><strong><c:out value = "${total}"/></strong></span></td>
+            <td align="right"><span class="style5"><strong> <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2"  value="${total}" />
+            </strong></span></td>
           </tr>
           <tr>
             <td colspan="2" align="right"><span class="style7">Bill Total:</span></td>
-            <td align="right"><span class="style7"><c:out value = "${total}"/></span></td>
+            <td align="right"><span class="style7"> <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2"  value="${total}" /></span></td>
           </tr>
         </tbody>
       </table></td>
@@ -141,22 +142,22 @@
       <c:when test="${frGstType==10000000}">
     		<tr>
 				<td colspan="2"><table width="100%" border="0" cellspacing="0"
-						cellpadding="7">
+						cellpadding="2">
 						<tr>
-							<th width="17%" align="left" bgcolor="#ECECEC" rowspan="2">Taxable<br />
+							<th width="17%" align="left" bgcolor="#ECECEC" rowspan="2" style="font-size:10px">Taxable<br />
 								Value
 							</th>
-							<th bgcolor="#ECECEC" colspan="2">CGST</th>
-							<th bgcolor="#ECECEC" colspan="2">SGST</th>
-							<th width="25%" align="center" bgcolor="#ECECEC">Total</th>
+							<th bgcolor="#ECECEC" colspan="2" style="font-size:10px">CGST</th>
+							<th bgcolor="#ECECEC" colspan="2" style="font-size:10px">SGST</th>
+							<th width="25%" align="center" bgcolor="#ECECEC" style="font-size:10px">Total</th>
 						</tr>
 
 						<tr>
-							<th width="14%" bgcolor="#ECECEC">%</th>
-							<th width="15%" bgcolor="#ECECEC">Amt</th>
-							<th width="16%" bgcolor="#ECECEC">%</th>
-							<th width="13%" bgcolor="#ECECEC">Amt</th>
-							<th width="25%" align="center" bgcolor="#ECECEC">GST</th>
+							<th width="14%" bgcolor="#ECECEC" style="font-size:10px">%</th>
+							<th width="15%" bgcolor="#ECECEC" style="font-size:10px">Amt</th>
+							<th width="16%" bgcolor="#ECECEC" style="font-size:10px">%</th>
+							<th width="13%" bgcolor="#ECECEC" style="font-size:10px">Amt</th>
+							<th width="25%" align="center" bgcolor="#ECECEC" style="font-size:10px">GST</th>
 						</tr>
 						<c:set var="taxAmount" value="${0}" />
 						<c:set var="totaltax" value="${0 }" />
@@ -165,40 +166,39 @@
 				 	<c:forEach items="${custBilltax}" var="custBilltax"
 							varStatus="count"> 
 							<tr>
-								<td><fmt:formatNumber
+								<td style="font-size:10px"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.taxableAmt}" /></td>
 								<c:set var="taxAmount"
 									value="${taxAmount + custBilltax.taxableAmt}" />
-								<td><fmt:formatNumber
+								<td style="font-size:10px"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.cgstPer}" /></td>
-								<td><fmt:formatNumber
+								<td style="font-size:10px"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.cgstRs}" /></td>
 								<c:set var="cgst" value="${cgst+custBilltax.cgstRs }" />
-								<td><fmt:formatNumber
+								<td style="font-size:10px"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.sgstPer}" /></td>
-								<td><fmt:formatNumber
+								<td style="font-size:10px"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.sgstRs}" /></td>
 								<c:set var="sgst" value="${sgst+custBilltax.sgstRs }" />
-								
-								<td><fmt:formatNumber
+									
+								<td style="font-size:10px;" align="center"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.cgstRs+custBilltax.sgstRs}" /></td>
 								<c:set var="totaltax"
 									value="${totaltax+custBilltax.sgstRs+custBilltax.cgstRs }" />
 							</tr>
 					</c:forEach> 
-						<td width="14%" colspan="6">&nbsp;</td>
-						</tr>
+						
 						<tr>
-							<td bgcolor="#ECECEC"><b><fmt:formatNumber type="number"
+							<td style="font-size:10px" bgcolor="#ECECEC"><b><fmt:formatNumber type="number"
 										maxFractionDigits="2" minFractionDigits="2"  value="${taxAmount}" /></b></td>
 
-							<td bgcolor="#ECECEC"></td>
-							<td bgcolor="#ECECEC"><fmt:formatNumber type="number"
+							<td style="font-size:10px" bgcolor="#ECECEC"></td>
+							<td style="font-size:10px" bgcolor="#ECECEC"><fmt:formatNumber type="number"
 									maxFractionDigits="2" minFractionDigits="2"  value="${cgst}" /></td>
-							<td bgcolor="#ECECEC"></td>
-							<td bgcolor="#ECECEC"><fmt:formatNumber type="number"
+							<td style="font-size:10px" bgcolor="#ECECEC"></td>
+							<td style="font-size:10px; " bgcolor="#ECECEC"><fmt:formatNumber type="number"
 									maxFractionDigits="2" minFractionDigits="2"  value="${sgst}" /></td>
-							<td align="center" bgcolor="#ECECEC"><fmt:formatNumber
+							<td style="font-size:10px; " align="center" bgcolor="#ECECEC"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${totaltax}" /></td>
 						</tr>
 					
@@ -208,22 +208,22 @@
 			</c:choose>
    	<tr>
 								<td align="center"
-								style="border-top: 1px solid #E7E7E7; padding: 5px 7px;"
-								colspan="6"><p  class="style6"> Customer Care:7352244444
-									</p></td>
+								style="border-top: 1px solid #E7E7E7; padding: 2px;"
+								colspan="6"><span style="font-size: 9px;"> Customer Care:7352244444
+									</span></td>
 						</tr>
 						<tr>
-							<td style="border-top: 1px solid #E7E7E7; padding: 5px 7px; font-size: 10px;"
-								colspan="6">Kindly consume all Fresh Cream Product within 1 hour unless refrigerated<br/>This is not a GST Invoice. Dealer prepares a consolidated Tax Invoice as per GST laws applicable.<br/>For GST bill kindly demand a "Customer Bill" from seller.<br/>Seller Registered under Composition Scheme not allowed to collect taxes. <span style="font-size: 10px">
+							<td style="border-top: 1px solid #E7E7E7; padding: 2px; font-size: 9px;"
+								colspan="6">Kindly consume all Fresh Cream Product within 1 hour unless refrigerated<br/>This is not a GST Invoice. Dealer prepares a consolidated Tax Invoice as per GST laws applicable.<br/>For GST bill kindly demand a "Customer Bill" from seller.<br/>Seller Registered under Composition Scheme not allowed to collect taxes. <span style="font-size: 9px">
 								</span>
 							</td>
 						</tr>
     <tr>
-      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong>${sessionScope.frDetails.frName}</strong></td>
+      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:1px;"><strong>${sessionScope.frDetails.frName}</strong></td>
     </tr>
   </tbody>
 </table>
-			</body>	<body onload="directPrint()">
+			</body> 	<body onload="directPrint()">
 	<script>
 	 function directPrint()
 	{
@@ -232,6 +232,6 @@
 		window.close();
 	} 
 	
-	</script>
+	</script> 
 </body>
 </html>

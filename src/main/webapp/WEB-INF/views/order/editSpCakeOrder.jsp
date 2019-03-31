@@ -307,8 +307,8 @@ select {
  
 <div class="center">
 
-	 <div  class="colOuter">
-		<div class="col1"><div class="col1title">Type</div></div>
+	 <div  class="colOuter">  <input name="sptype"  id="sptype" value="1" type="hidden">
+		<%-- <div class="col1"><div class="col1title">Type</div></div>
 		<div class="col2">
          <select name="sptype" tabindex="-1" id="sptype" required>
               <option value="">Select Type</option>
@@ -386,7 +386,7 @@ select {
               </c:choose>
               
             </select>
-			</div>
+			</div> --%>
 			<div class="col3" >
 			<c:choose>
 			<c:when test="${delFlag==true}">
@@ -824,7 +824,7 @@ function closeNav3() {
 </script>
 
 <!------------------------GETTING FLAVOURS BY SELECTED FLAVOUR TYPE---------------------------->	
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() { 
 	$('#sptype').change(
 			function() {alert($(this).val());
@@ -847,7 +847,7 @@ $(document).ready(function() {
 				});
 			});
 });
-</script>
+</script> -->
 <!------------------------------------------------END------------------------------------------------>	
 <!------------------------CALLING FUNCTION WHEN WEIGHT CHANGE---------------------------------------->	
 

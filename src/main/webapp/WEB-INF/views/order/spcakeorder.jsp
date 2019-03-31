@@ -304,7 +304,8 @@ select {
 <div class="center">
 
 	 <div  class="colOuter">
-		<div class="col1"><div class="col1title">Type</div></div>
+	    <input name="sptype"  id="sptype" value="1" type="hidden">
+		<%-- <div class="col1"><div class="col1title">Type</div></div>
 		<div class="col2">
          <select name="sptype" tabindex="-1" id="sptype" required>
               <option value="">Select Type</option>
@@ -333,7 +334,7 @@ select {
               </c:choose>
               
             </select>
-			</div>
+			</div> --%>
 			<div class="col3" >
 			<c:choose>
 			<c:when test="${delFlag==true}">
@@ -365,6 +366,10 @@ select {
 		<div class="col2full" >
                 <select name="spFlavour"  tabindex="-1"  onchange="onChangeFlavour()"id="spFlavour" required>
                   <option value="">Select Flavour</option>
+                   <c:forEach items="${flavoursList}" var="flavoursList">
+                     <option value="${flavoursList.spfId}">${flavoursList.spfName}</option>
+                   </c:forEach>
+                  
                  </select>
         </div>
 	</div>  
@@ -738,7 +743,7 @@ function closeNav3() {
 </script>
 
 <!------------------------GETTING FLAVOURS BY SELECTED FLAVOUR TYPE---------------------------->	
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() { 
 	$('#sptype').change(
 			function() {
@@ -761,7 +766,7 @@ $(document).ready(function() {
 				});
 			});
 });
-</script>
+</script> -->
 <!------------------------------------------------END------------------------------------------------>	
 <!------------------------CALLING FUNCTION WHEN WEIGHT CHANGE---------------------------------------->	
 
@@ -1215,7 +1220,12 @@ function validate() {
 				  }
 		     }
 			}
-    
+    if(isValid)
+    	{
+    	document.getElementById("click").style.background='#5659a0';
+    	document.getElementById("click").disabled = true;//new
+
+    	}
     return isValid;
  
 }
@@ -1359,6 +1369,7 @@ $(document).ready(function () {
    				
    				
    				if(valid){
+   					document.getElementById("click").disabled = true;//new
    					document.forms["from_ord"].submit();
    				}	
             	 

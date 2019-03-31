@@ -198,14 +198,14 @@ table, th, td {
 														value="${grnList.creditNoteId}"></c:out></td>
 												
 												
-												<td class="col-md-1" style="text-align: center;"><a href='#' class='action_btn'
+	<%-- 											<td class="col-md-1" style="text-align: center;"><a href='#' class='action_btn'
 													onclick="getGvnDetail(${grnList.grnGvnHeaderId})"><abbr
 														title='Detail'><i class='fa fa-list'></i></abbr></a>&nbsp;<a href='#' class='action_btn'
 													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
-														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a> <%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
-<c:choose>
+														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a> <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"></td>
+ --%><c:choose>
 													<c:when test="${grnList.isCreditNote==1}">
-															<td class="col-md-1" style="text-align: center;"><a href='#' class='action_btn'
+															<td class="col-md-2" ><a href='#' class='action_btn'
 													onclick="getGvnDetail(${grnList.grnGvnHeaderId})"><abbr
 														title='Detail'><i class='fa fa-list'></i></abbr></a>&nbsp;<a href='#' class='action_btn'
 													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
@@ -215,13 +215,11 @@ table, th, td {
 
 													</c:when>
 													<c:otherwise>
-														<td class="col-md-1" style="text-align: center;"><a href='#' class='action_btn'
+														<td class="col-md-2" ><a href='#' class='action_btn'
 													onclick="getGvnDetail(${grnList.grnGvnHeaderId})"><abbr
 														title='Detail'><i class='fa fa-list'></i></abbr></a>&nbsp;<a href='#' class='action_btn'
 													onclick="genPdf(${grnList.grnGvnHeaderId})"><abbr
-														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a>&nbsp;<a href='#' class='action_btn'
-													onclick="genCrnPdf(${grnList.grnGvnHeaderId})"><abbr
-														title='Pdf'>CRN</abbr></a> <%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
+														title='Pdf'><i class='fa fa-file-pdf-o' style="color:red"></i></abbr></a>&nbsp;<%-- <input type="button" onclick="getGvnDetail(${grnList.grnGvnHeaderId})" id="grnDetailButton" value="Detail"> --%></td>
 
 													</c:otherwise>
 												</c:choose>

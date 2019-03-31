@@ -17,11 +17,11 @@
     </head>
 <style type="text/css">
 <!--
-.style2 {font-size: 14px}
+.style2 {font-size: 12px}
 .style5 {font-size: 10px}
 .style6 {font-size: 9px}
 .style7 {
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
 }
 .style8 {
@@ -35,39 +35,41 @@
 </head>
 <body >
 	 
-				  <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:5px; font-family:verdana; font-size:12px; border:1px solid #E7E7E7;">
+				  <table width="250" border="0" cellspacing="0" cellpadding="0" style="padding:0px; font-family:verdana; font-size:11px; border:1px solid #E7E7E7;">
 
   <tbody> 
-  <tr>
-  <td align="right" style="padding:0px; font-size: 7px;">EX</td>  </tr>
-    <%--  <c:choose>
+ <tr>
+  <td align="right" style="padding:3px; padding-bottom:4px;  font-size: 7px;">EX</td>  </tr><tr >
+      <td colspan="2" align="center" style="font-weight: bold;border-bottom:1px solid #E7E7E7;">
+      <c:choose>
       <c:when test="${frGstType==10000000}">
-        <td colspan="2" align="center" style="padding:1px;"><p>TAX INVOICE</p></td> 
- 
+     <b> TAX INVOICE</b>
+      
       </c:when>
       <c:otherwise>
-         <td colspan="2" align="center" style="padding:1px;"><p>BILL OF SUPPLY</p></td> 
+     <b>BILL OF SUPPLY</b>   
       </c:otherwise>
-      </c:choose> --%>
-   
+    
+      </c:choose></td>  
+    </tr>
     <tr>
-      <td colspan="2" align="center" style="padding:2px; border-bottom:1px solid #E7E7E7;"><p class="style2" style="text-align: center;" ><b>${sessionScope.frDetails.frName}  </b><br /><span style="font-size: 10px; font-family: Arial;">(The Monginis Cake Shop)</span></p>
-                      GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong><br/>
+      <td colspan="2" align="center" style="padding:0px; border-bottom:1px solid #E7E7E7;"><span style="font-size: 10px; font-weight:12px; text-align: center;padding:2px;" ><b>${sessionScope.frDetails.frName}  </b><br /><span style="font-size: 10px; font-family: Arial;">(The Monginis Cake Shop)</span></span>
+            <span style="font-size: 10px;"> GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong></span><br/>
       
        </td>
     </tr>
     <tr>
-      <td colspan="2" align="center" style="padding:3px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:12px;"><p class="style5">${billList[0].frAddress}
-         <br />
-          <strong>${sessionScope.frDetails.frAddress}</strong><br/><br/>
+      <td colspan="2" align="center" style="padding:1px;font-family: Arial; border-bottom:1px solid #E7E7E7; font-size:10px;"><span style="font-size:10px;">${billList[0].frAddress}
+         
+          ${sessionScope.frDetails.frAddress}<br/>
           <%--  <c:choose>
             <c:when test="${frGstType>=2000000}">
                 GSTIN:<strong>${sessionScope.frDetails.frGstNo}</strong><br/>
              </c:when>
         </c:choose> --%>
        
-          Phone:<strong class="style8">${sessionScope.frDetails.frMob}</strong><br/>
-          
+          Phone:<strong class="style8">${sessionScope.frDetails.frMob}</strong>
+          </span>
          <%--   <c:choose>
           <c:when test="${frGstType==2000000}">
               <span style="font-size:9px; font-family: Arial;">COMPOSITION TAXABLE FIRM, NOT SUPPOSED TO<br />
@@ -83,7 +85,7 @@
     </tr>
     <tr>
       <td colspan="2">
-      <table width="100%" border="0" cellspacing="0" cellpadding="7">
+      <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tbody>
     <tr>
       <td  style="font-size:9px">Invoice No: </td>
@@ -96,7 +98,7 @@
      
       </tr>  --%>
     <tr>
-      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="5" class="tbl-inner">
+      <td colspan="4"><table width="100%" border="0" cellspacing="0" cellpadding="2" class="tbl-inner">
         <tbody>
           <tr>
             <th width="43%" align="left" bgcolor="#ECECEC">Item</th>
@@ -106,21 +108,21 @@
           </tr>
           <%-- <c:forEach items="${billList}" var="billList" varStatus="count"> --%>
           <tr>
-            <td><p style="font-size:12px">${itemName}</p><p style="font-size:10px">Det No.:${exBill.sellBillDetailNo}
-				Hsn-${itemHsn}</p></td>
-            <td align="center"><p style="font-size:12px">${exBill.qty}</p></td>
-            <td align="center"><p style="font-size:12px">${exBill.mrp}</p></td>
-            <td align="right"><p style="font-size:12px">${exBill.qty*exBill.mrp}</p></td>
+            <td><span style="font-size:10px">${itemName}</span><br><span style="font-size:7px">Det No.:${exBill.sellBillDetailNo}
+			<br>HSN-${itemHsn}</span></td>
+            <td align="center"><span style="font-size:10px">${exBill.qty}</span></td>
+            <td align="center"><span style="font-size:10px">${exBill.mrp}</span></td>
+            <td align="right"><span style="font-size:10px">${exBill.qty*exBill.mrp}</span></td>
           </tr>
         <%--   </c:forEach> --%>
           <tr>
             <td rowspan="3">&nbsp;</td>
             <td colspan="2" align="right"><span class="style5"><strong>Total :</strong></span></td>
-            <td align="right"><span class="style5"><strong>${exBill.grandTotal}</strong></span></td>
+            <td align="right"><span class="style5"><strong><fmt:formatNumber type="number" maxFractionDigits="1" minFractionDigits="1"  value="${exBill.grandTotal}"/></strong></span></td>
           </tr>
           <tr>
             <td colspan="2" align="right"><span class="style7">Bill Total:</span></td>
-            <td align="right"><span class="style7">${exBill.grandTotal}</span></td>
+            <td align="right"><span class="style7"> <fmt:formatNumber type="number" maxFractionDigits="1" minFractionDigits="1"  value="${exBill.grandTotal}"/></span></td>
           </tr>
         </tbody>
       </table></td>
@@ -132,7 +134,7 @@
       <c:when test="${frGstType==10000000 }">
     		<tr>
 				<td colspan="2"><table width="100%" border="0" cellspacing="0"
-						cellpadding="7">
+						cellpadding="2">
 						<tr>
 							<th width="17%" align="left" bgcolor="#ECECEC" rowspan="2">Taxable<br />
 								Value
@@ -166,15 +168,13 @@
 								<td>${custBilltax.sgstRs}</td>
 								<c:set var="sgst" value="${sgst+custBilltax.sgstRs }" />
 								
-								<td><fmt:formatNumber
+								<td align="center"><fmt:formatNumber
 									type="number" maxFractionDigits="2" minFractionDigits="2"  value="${custBilltax.cgstRs+custBilltax.sgstRs}" /></td>
 								<c:set var="totaltax"
 									value="${totaltax+custBilltax.sgstRs+custBilltax.cgstRs }" />
 							</tr>
 					<%-- 	</c:forEach> --%>
-						<td width="14%" colspan="6">&nbsp;</td>
-
-						</tr>
+						
 						<tr>
 							<td bgcolor="#ECECEC"><b><fmt:formatNumber type="number"
 										maxFractionDigits="2" minFractionDigits="2"  value="${taxAmount}" /></b></td>
@@ -195,18 +195,18 @@
 			</c:choose>
  <tr>
 							<td align="center"
-								style="border-top: 1px solid #E7E7E7; padding: 5px 7px;"
-								colspan="6"><p  class="style6"> Customer Care:7352244444
-									</p></td>
+								style="border-top: 1px solid #E7E7E7; padding: 2px;"
+								colspan="6"><span class="style6"> Customer Care:7352244444
+									</span></td>
 						</tr>
 						<tr>
-							<td style="border-top: 1px solid #E7E7E7; padding: 5px 7px; font-size: 10px;"
+							<td style="border-top: 1px solid #E7E7E7; padding: 2px; font-size: 9px;"
 								colspan="6">Kindly consume all Fresh Cream Product within 1 hour unless refrigerated<br />This is not a GST Invoice. Dealer prepares a consolidated Tax Invoice as per GST laws applicable.<br/>For GST bill kindly demand a "Customer Bill" from seller.<br/>Seller Registered under Composition Scheme not allowed to collect taxes. <span style="font-size: 10px">
 								</span>
 							</td>
 						</tr>
     <tr>
-      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:5px 7px;"><strong>${sessionScope.frDetails.frName}</strong></td>
+      <td width="200" align="center" style="border-top:1px solid #E7E7E7; padding:2px;"><strong>${sessionScope.frDetails.frName}</strong></td>
     </tr>
   </tbody>
 </table>

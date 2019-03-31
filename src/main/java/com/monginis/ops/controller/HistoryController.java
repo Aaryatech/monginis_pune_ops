@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -50,6 +51,8 @@ import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.AllMenuResponse;
 import com.monginis.ops.model.CategoryList;
 import com.monginis.ops.model.ExportToExcel;
+import com.monginis.ops.model.FrItemStockConfiResponse;
+import com.monginis.ops.model.FrItemStockConfigure;
 import com.monginis.ops.model.FrMenu;
 import com.monginis.ops.model.Franchisee;
 import com.monginis.ops.model.GetCustBillTax;
@@ -547,6 +550,7 @@ public class HistoryController {
 	@RequestMapping(value = "/printSpCkBill/{spOrderNo}", method = RequestMethod.GET)
 	public ModelAndView showExpressBillPrint(@PathVariable int spOrderNo,HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("history/spBillInvoice");
+		RestTemplate restTemplate = new RestTemplate();
 
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		try {
@@ -560,7 +564,23 @@ public class HistoryController {
 				   break;
 			   }
 			}
-	
+			int settingValue = 0;
+			try {
+				FrItemStockConfiResponse frItemStockConfiResponse = restTemplate
+						.getForObject(Constant.URL + "getfrItemConfSetting", FrItemStockConfiResponse.class);
+				List<FrItemStockConfigure> frItemStockConfigures = new ArrayList<FrItemStockConfigure>();
+				frItemStockConfigures = frItemStockConfiResponse.getFrItemStockConfigure();
+
+				for (int i = 0; i < frItemStockConfigures.size(); i++) {
+
+					if (frItemStockConfigures.get(i).getSettingKey().equalsIgnoreCase("spInvoiceHsn")) {
+						settingValue = frItemStockConfigures.get(i).getSettingValue();
+					}
+
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		HttpSession session = request.getSession();
 
 		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
@@ -571,6 +591,7 @@ public class HistoryController {
 		//model.addObject("invNo",sellInvoiceGlobal);
 		model.addObject("frGstType", frGstType);
 		model.addObject("spCakeOrder", spOrderHisSelected);
+		model.addObject("spInvoiceHsn", settingValue);
 
 		}
 		catch (Exception e) {
@@ -610,9 +631,9 @@ public class HistoryController {
 		 try {
 		 System.out.println("Inside PDF Table try");
 		 table.setWidthPercentage(100);
-	     table.setWidths(new float[]{ 2.4f, 3.2f, 4.2f, 3.2f, 3.2f, 3.2f, 3.2f,3.2f});
-	     Font headFont = new Font(FontFamily.HELVETICA, 8, Font.ITALIC, BaseColor.BLACK);
-	     Font headFont1 = new Font(FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
+	     table.setWidths(new float[]{ 1.0f, 6.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f,2.2f});
+	     Font headFont = new Font(FontFamily.TIMES_ROMAN,12, Font.NORMAL, BaseColor.BLACK);
+	     Font headFont1 = new Font(FontFamily.TIMES_ROMAN,12, Font.BOLD, BaseColor.BLACK);
 	     Font f=new Font(FontFamily.TIMES_ROMAN,12.0f,Font.UNDERLINE,BaseColor.BLUE);
 	     
 	     PdfPCell hcell;
@@ -799,9 +820,9 @@ public class HistoryController {
 			 try {
 			 System.out.println("Inside PDF Table try");
 			 table.setWidthPercentage(100);
-		     table.setWidths(new float[]{ 2.4f, 3.2f, 4.2f, 3.2f, 3.2f,3.2f});
-		     Font headFont = new Font(FontFamily.HELVETICA, 8, Font.ITALIC, BaseColor.BLACK);
-		     Font headFont1 = new Font(FontFamily.HELVETICA, 8, Font.BOLD, BaseColor.BLACK);
+		     table.setWidths(new float[]{1.0f,6.2f, 2.2f, 2.2f, 2.2f,2.2f});
+		     Font headFont = new Font(FontFamily.TIMES_ROMAN, 8, Font.NORMAL, BaseColor.BLACK);
+		     Font headFont1 = new Font(FontFamily.TIMES_ROMAN, 8, Font.BOLD, BaseColor.BLACK);
 		     Font f=new Font(FontFamily.TIMES_ROMAN,12.0f,Font.UNDERLINE,BaseColor.BLUE);
 		     
 		     PdfPCell hcell;
@@ -834,6 +855,7 @@ public class HistoryController {
 		   
 		     
 		     int index=0;
+		     double qtyTotal=0; double allTotal=0;
 		     double mrpTl=0;
 		     double qtyTtl=0;
 		     double rateTtl=0;
@@ -845,8 +867,8 @@ public class HistoryController {
 			         
 			         double total = work.getOrderQty()*work.getOrderRate();
 			         //double mrp = mrpTl+work.getOrderMrp();
-			         
-			         
+			         allTotal=allTotal+total;
+			         qtyTotal=qtyTotal+work.getOrderQty();
 			         cell = new PdfPCell(new Phrase(String.valueOf(index),headFont));
 			         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -855,7 +877,7 @@ public class HistoryController {
 			        
 			         cell = new PdfPCell(new Phrase( work.getItemName(),headFont));
 			         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			         cell.setPaddingRight(5);
 			         table.addCell(cell);
 			         
@@ -879,7 +901,7 @@ public class HistoryController {
 			         cell.setPaddingRight(5);
 			         table.addCell(cell);
 			         
-			         cell = new PdfPCell(new Phrase(String.valueOf(total),headFont));
+			         cell = new PdfPCell(new Phrase(roundUp(total)+"",headFont));
 			         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			         cell.setPaddingRight(5);
@@ -889,6 +911,39 @@ public class HistoryController {
 			         
 			         
 		     }  
+		     
+		     PdfPCell cell;
+	       
+	         cell = new PdfPCell(new Phrase(String.valueOf(""),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         table.addCell(cell);
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf("Total"),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	         table.addCell(cell);
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf(""),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         table.addCell(cell);
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf(""+qtyTotal),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	         table.addCell(cell);
+	         
+	         cell = new PdfPCell(new Phrase(String.valueOf(""),headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	         table.addCell(cell);
+	         
+	         cell = new PdfPCell(new Phrase(roundUp(allTotal)+"",headFont));
+	         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	         table.addCell(cell);
+	         
 		     doc.open();
 		     
 		     Paragraph heading = new Paragraph("Regular Cake Order History");
@@ -950,5 +1005,8 @@ public class HistoryController {
 			
 		}
 		
+	}
+	public static float roundUp(double d) {
+		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 }

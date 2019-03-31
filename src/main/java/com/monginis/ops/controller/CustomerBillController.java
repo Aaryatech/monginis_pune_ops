@@ -317,8 +317,13 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 		return model;
 	}
 	
+	
+
 	PostFrItemStockHeader frItemStockHeader;
 	int runningMonth;
+	
+	
+
 	
 	@RequestMapping(value = "/showCustomerBill", method = RequestMethod.GET)
 	public ModelAndView displayCustomerBill1(HttpServletRequest request, HttpServletResponse response) {
@@ -338,11 +343,12 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 		// currentStockDetailList.toString());
 
 		HttpSession session = request.getSession();
+		//---------------------------------Start---Month End--------------------------------------
 	     Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
-	 	
+	
 	     RestTemplate restTemplate = new RestTemplate();
 			
-	     
+	  
 		
 	     try {
 				
@@ -443,7 +449,9 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 				System.out.println("Exception in runningMonth" + e.getMessage());
 				e.printStackTrace();
 
-			}	
+			}		
+			//---------------------------------End---Month End--------------------------------------
+
 		try {
 
 			ArrayList<FrMenu> menuList = (ArrayList<FrMenu>) session.getAttribute("allMenuList");
@@ -457,7 +465,7 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 			for (FrMenu frMenu : menuList) {
 
 				if (frMenu.getMenuId() == 26 || frMenu.getMenuId() == 31 || frMenu.getMenuId() == 33
-						|| frMenu.getMenuId() == 34 || frMenu.getMenuId()==63) {
+						|| frMenu.getMenuId() == 34 || frMenu.getMenuId()==63|| frMenu.getMenuId()==66|| frMenu.getMenuId()==68|| frMenu.getMenuId()==81) {
 
 					String str = frMenu.getItemShow();
 					System.out.println("getItemShow" + frMenu.getItemShow());
@@ -475,12 +483,11 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 
 			// getAllSubCategories
 
-
 			CategoryList catergoryList = restTemplate.getForObject(Constant.URL + "/showAllCategory",
 					CategoryList.class);
 			System.out.println("Category List " + catergoryList.toString());
 
-			 map = new LinkedMultiValueMap<String, Object>();
+			map = new LinkedMultiValueMap<String, Object>();
 			map.add("itemList", items);
 
 			ItemResponse itemsList = restTemplate.postForObject(Constant.URL + "/getItemsById", map,
@@ -2139,8 +2146,7 @@ if(currentNewItem.getCatId()==7) {
 	@RequestMapping(value = "/pdfSellBill", method = RequestMethod.GET)
 	public ModelAndView demoBill(HttpServletRequest request, HttpServletResponse response) {
 		String sellBillNo = request.getParameter("billNo");
-		//String billType=request.getParameter("type");
-		// String fr_Id=request.getParameter("frId");
+		String billType=request.getParameter("type");
 		int billNo = Integer.parseInt(sellBillNo);
 		// int billNo=Integer.parseInt(fr_Id);
 		HttpSession ses = request.getSession();
@@ -2172,7 +2178,7 @@ if(currentNewItem.getCatId()==7) {
 		float billAmt = billResponse.getIntDiscAmt();
 		float discPer = billResponse.getDiscountPer();
 
-		float intDiscAmt = (billAmt * discPer) / 100;
+		int intDiscAmt = Math.round((billAmt * discPer) / 100);
 
 		getCustmoreBillResponseList.get(0).setIntDiscAmt(intDiscAmt);
 
@@ -2180,7 +2186,7 @@ if(currentNewItem.getCatId()==7) {
 
 		model.addObject("billList", getCustmoreBillResponseList);
 		model.addObject("frGstType", frGstType);
-		//model.addObject("billType", billType);
+		model.addObject("billType", billType);
 		return model;
 	}
 

@@ -211,7 +211,7 @@ $("#tech").change(function() {
 <!--centerForm-->	
 <div class="center">
 
-	<div class="fullform">
+	<%-- <div class="fullform">
 		<div class="cackleft">Type</div>
 		<div class="cackright">
 			<c:choose>
@@ -226,7 +226,7 @@ $("#tech").change(function() {
 						
 	</c:choose>
 			</div>
-	</div>
+	</div> --%>
     
 <div class="fullform">
 		<div class="cackleft">Flavour</div>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Custmore Bill</title>
+<title>Customer Bill</title>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -46,36 +46,35 @@
 <body>
 
 	<table width="250" border="0" cellspacing="0" cellpadding="0"
-		style="padding: 5px; font-family: verdana; font-size: 12px; border: 1px solid #E7E7E7;">
+		style="padding: 2px; font-family: verdana; font-size: 11px; border: 1px solid #E7E7E7;">
 		<tbody>
 			<tr>
-				<td colspan="2" align="center" style="padding: 3px;"><p>TAX
-						INVOICE</p></td>
+				<td colspan="2" align="center" style="padding:2px;border-bottom: 1px solid #E7E7E7;font-size: 12px;"><b>TAX
+						INVOICE</b></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"
-					style="padding: 2px; border-bottom: 1px solid #E7E7E7;"><p
-						class="style2">
+					style="padding: 2px; border-bottom: 1px solid #E7E7E7;">
 						<b>${billList[0].frName}</b><br /> <span
 							style="font-size: 10px; font-family: Arial;">(The Monginis
 							Cake Shop)</span>
-					</p></td>
+					</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"
-					style="padding: 3px; font-family: Arial; border-bottom: 1px solid #E7E7E7; font-size: 12px;"><p
-						class="style5">${billList[0].frAddress}
-						<br /> Phone:<strong>${billList[0].frMob}</strong><br /> <br />
-						<span style="font-size: 9px; font-family: Arial;">GSTN:<b> ${billList[0].gstn}</b><br /> State: 27-Maharashtra
+					style="padding:2px; font-family: Arial; border-bottom: 1px solid #E7E7E7; font-size: 8px;">${billList[0].frAddress}
+						<br /> Phone:<strong>${billList[0].frMob}</strong><br /> 
+						<span style="font-size: 8px; font-family: Arial;">GSTIN:<b> ${billList[0].gstn}</b> State: 27-Maharashtra <br>FSSAI :
+							11515031000866
 						</span></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<table width="100%" border="0" cellspacing="0" cellpadding="7">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
 						<tbody>
 							<tr>
-								<td align="left">Bill No:</td>
-								<td align="left">${billList[0].sellBillNo}</td>
+								<td align="left">Inv No:</td>
+								<td align="left">${billList[0].invoiceNo}</td>
 								<td>Date:</td>
 								 <fmt:parseDate pattern="yyyy-MM-dd" value="${billList[0].billDate}" var="dateparsed" />
       
@@ -86,13 +85,13 @@
 								<td colspan="3">${billList[0].custName}</td>
 
 							</tr>
-								<tr>
+							<tr>
         <td>GST No:</td>
       <td colspan="3">${billList[0].userGstNo}</td>
       </tr>
 							<tr>
 								<td colspan="4"><table width="100%" border="0"
-										cellspacing="0" cellpadding="5" class="tbl-inner">
+										cellspacing="0" cellpadding="4" class="tbl-inner">
 										<tbody>
 											<tr>
 												<th width="43%" align="left" bgcolor="#ECECEC">Item <span
@@ -105,34 +104,32 @@
 											<c:forEach items="${billList}" var="billList"
 												varStatus="count">
 												<tr>
-													<td><p style="font-size: 12px">${billList.itemName}<br />
-															<span style="font-size: 8">HSN- ${billList.hsnCode}</span>
-														</p></td>
-													<td align="center"><p style="font-size: 12px">${billList.cgstPer+billList.sgstPer}%</p></td>
-													<td align="center"><p style="font-size: 12px">${billList.qty}</p></td>
-													<td align="center"><p style="font-size: 12px">${billList.mrp}</p></td>
-													<td align="right"><p style="font-size: 12px"><fmt:formatNumber type="number"
-			maxFractionDigits="2" minFractionDigits="2" value=" ${billList.qty*billList.mrp}"/></p></td>
+													<td><span style="font-size: 11px">${billList.itemName}<br />
+															<span style="font-size: 8px">HSN- ${billList.hsnCode}</span>
+														</span></td>
+													<td align="center"><span style="font-size: 11px">${billList.cgstPer+billList.sgstPer}%</span></td>
+													<td align="center"><span style="font-size: 11px">${billList.qty}</span></td>
+													<td align="center"><span style="font-size: 11px">${billList.mrp}</span></td>
+													<td align="right"><span style="font-size: 11px"> <fmt:formatNumber type="number"
+			maxFractionDigits="2" minFractionDigits="2" value=" ${billList.qty*billList.mrp}"/></span></td>
 												</tr>
 											</c:forEach>
-											 <tr>
-												
-												<td colspan="4" align="right"><span class="style5"><strong>Total
-															:</strong></span></td>
-<%-- 												<td align="right"><span class="style5"><strong>${billList[0].discountAmt}</strong></span></td>
- --%>												<td align="right"><span class="style5"><strong><c:choose><c:when test="${billList[0].billType eq 'R'}">${billList[0].discountAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose> </strong></span></td>
-											</tr> 
 											<tr>
-												<td colspan="4" align="right"><span class="style5"><strong>Discount
+												<td rowspan="3">&nbsp;</td>
+												<td colspan="3" align="right"><span class="style5"><strong>Total
+															:</strong></span></td>
+												<td align="right"><span class="style5"><strong><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose> </strong></span></td>
+											</tr>
+											<tr>
+												<td colspan="3" align="right"><span class="style5"><strong>Discount
 															${billList[0].discountPer}% :</strong></span></td>
-												<td  align="right"><fmt:formatNumber type="number"
-										maxFractionDigits="2" minFractionDigits="2" value="${billList[0].intDiscAmt}"/></td>
+												<td colspan="2" align="right"><span class="style5"><strong>${billList[0].intDiscAmt}</strong></span></td>
 
 											</tr>
 											<tr>
-												<td colspan="4" align="right"><span class="style7">Bill
+												<td colspan="3" align="right"><span class="style7">Bill
 														Total:</span></td>
-												<td align="right"><span class="style7"><c:choose><c:when test="${billList[0].billType eq 'R'}"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].discountAmt-billList[0].intDiscAmt}"/></c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
+												<td align="right"><span class="style7"><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt-billList[0].intDiscAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
 											</tr>
 										</tbody>
 									</table></td>
@@ -179,15 +176,13 @@
 								<td><fmt:formatNumber type="number"
 										maxFractionDigits="2" value="${custBilltax.sgstRs}"/></td>
 								<c:set var="sgst" value="${sgst+custBilltax.sgstRs }" />
-								<td><fmt:formatNumber type="number"
+								<td align="center"><fmt:formatNumber type="number"
 										maxFractionDigits="2" value="${custBilltax.cgstRs+custBilltax.sgstRs}"/></td>
 								<c:set var="totaltax"
 									value="${totaltax+custBilltax.sgstRs+custBilltax.cgstRs }" />
 							</tr>
 						</c:forEach>
-						<td width="14%" colspan="6">&nbsp;</td>
-
-						</tr>
+						
 						<tr>
 							<td bgcolor="#ECECEC"><b><fmt:formatNumber type="number"
 										maxFractionDigits="2" value="${taxAmount}" /></b></td>
@@ -203,13 +198,13 @@
 						</tr>
 						<tr>
 							<td align="center"
-								style="border-top: 1px solid #E7E7E7; padding: 5px 7px;"
-								colspan="6"><p class="style8">Thank You, Visit Again
+								style="border-top: 1px solid #E7E7E7; padding: 3px;"
+								colspan="6"><span style="font-weight: bold;">Thank You, Visit Again
 									!!!
-									</p></td>
+									</span></td>
 						</tr>
 						<tr>
-							<td style="border-top: 1px solid #E7E7E7; padding: 5px 7px;"
+							<td style="border-top: 1px solid #E7E7E7; padding: 2px;"
 								colspan="6">We declare that this invoice shows the actual
 								price of the goods<br /> described and that all particulars are
 								true and correct.<br /> <span style="font-size: 10px"> I/

@@ -125,7 +125,7 @@ table, th, td {
 						name="grn_add" id="grn_add" method="post">
 						
 						<div class="col-md-9">
-						<h6 class="pageTitle">Request Manual GRN</h6>
+						<h6 class="pageTitle">Request GRN</h6>
 					</div>
 					<label for="search" class="col-md-3" id="search">
     <i class="fa fa-search" style="font-size:20px"></i>

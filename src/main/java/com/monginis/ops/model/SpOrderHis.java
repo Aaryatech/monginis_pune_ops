@@ -49,6 +49,8 @@ public class SpOrderHis {
 	
 	private String spCustMobNo;
 	
+	private String custGstNo;
+	
 	private String spBookedForName;
 	
 	private String spBookForDob;
@@ -97,6 +99,14 @@ public class SpOrderHis {
 
     
     
+	public String getCustGstNo() {
+		return custGstNo;
+	}
+
+	public void setCustGstNo(String custGstNo) {
+		this.custGstNo = custGstNo;
+	}
+
 	public int getIsBillGenerated() {
 		return isBillGenerated;
 	}
@@ -474,16 +484,14 @@ public class SpOrderHis {
 				+ spProdTime + ", spEstDeliDate=" + spEstDeliDate + ", spProdDate=" + spProdDate + ", spEvents="
 				+ spEvents + ", spEventsName=" + spEventsName + ", spInstructions=" + spInstructions
 				+ ", spDeliveryDate=" + spDeliveryDate + ", spCustName=" + spCustName + ", spCustDob=" + spCustDob
-				+ ", spCustMobNo=" + spCustMobNo + ", spBookedForName=" + spBookedForName + ", spBookForDob="
-				+ spBookForDob + ", spBookForMobNo=" + spBookForMobNo + ", spGrandTotal=" + spGrandTotal + ", spPrice="
-				+ spPrice + ", spTotalAddRate=" + spTotalAddRate + ", spBackendRate=" + spBackendRate + ", spSubTotal="
-				+ spSubTotal + ", spAdvance=" + spAdvance + ", rmAmount=" + rmAmount + ", tax1=" + tax1 + ", tax2="
-				+ tax2 + ", tax1Amt=" + tax1Amt + ", tax2Amt=" + tax2Amt + ", orderPhoto=" + orderPhoto + ", orderDate="
-				+ orderDate + ", orderPhoto2=" + orderPhoto2 + ", isSlotUsed=" + isSlotUsed + ", spfName=" + spfName
-				+ ", spName=" + spName + ", spAddRate=" + spAddRate + ", spGrand=" + spGrand + ", isBillGenerated="
-				+ isBillGenerated + "]";
+				+ ", spCustMobNo=" + spCustMobNo + ", custGstNo=" + custGstNo + ", spBookedForName=" + spBookedForName
+				+ ", spBookForDob=" + spBookForDob + ", spBookForMobNo=" + spBookForMobNo + ", spGrandTotal="
+				+ spGrandTotal + ", spPrice=" + spPrice + ", spTotalAddRate=" + spTotalAddRate + ", spBackendRate="
+				+ spBackendRate + ", spSubTotal=" + spSubTotal + ", spAdvance=" + spAdvance + ", rmAmount=" + rmAmount
+				+ ", tax1=" + tax1 + ", tax2=" + tax2 + ", tax1Amt=" + tax1Amt + ", tax2Amt=" + tax2Amt
+				+ ", orderPhoto=" + orderPhoto + ", orderDate=" + orderDate + ", orderPhoto2=" + orderPhoto2
+				+ ", isSlotUsed=" + isSlotUsed + ", spfName=" + spfName + ", spName=" + spName + ", spAddRate="
+				+ spAddRate + ", spGrand=" + spGrand + ", isBillGenerated=" + isBillGenerated + "]";
 	}
-
-	
-
+    
 }

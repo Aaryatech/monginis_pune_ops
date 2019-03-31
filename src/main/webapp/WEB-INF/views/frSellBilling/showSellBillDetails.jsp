@@ -174,7 +174,7 @@ jQuery(document).ready(function(){
 
 											<tr>
 												<td><c:out value="${count.index+1}" /></td>
-												<td><input type="checkbox" name="select_to_print"
+												<td><input type="checkbox" name="select_to_print" style="width: 25px;height:25px;"
 													onchange="selectToPrint()" id="select_to_print"
 													value="${sellBill.sellBillDetailNo}"></td>
 

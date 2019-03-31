@@ -234,6 +234,11 @@ public class SpCakeController {
 	public ModelAndView searchSpCakeBySpCode(HttpServletRequest request, HttpServletResponse response) {
 
 		logger.info("inside Search Sp Cake Request");
+		//----------------------------------------------------------
+		List<Flavour> flavoursList = new ArrayList<Flavour>();
+		List<Flavour> filterFlavoursList = new ArrayList<Flavour>();
+		flavoursListWithAddonRate=new ArrayList<>();
+		//----------------------------------------------------------
 
 		String spCode = request.getParameter("sp_code");
 		ModelAndView model = new ModelAndView("order/spcakeorder");
@@ -250,7 +255,7 @@ public class SpCakeController {
 					map, SearchSpCakeResponse.class);
 			ErrorMessage errorMessage = searchSpCakeResponse.getErrorMessage();
 			specialCake = searchSpCakeResponse.getSpecialCake();
-			System.out.println("sp id is:::"+specialCake.getSpId());
+			System.out.println("sp id is:::"+specialCake.toString());
 			 cutSec =searchSpCakeResponse.getSpCakeSup().getCutSection();
 			
 			System.out.println("cutSec is ::::"+cutSec);
@@ -375,7 +380,28 @@ public class SpCakeController {
 				model.addObject("eventList", spMessageList);
 
 				int spBookb4 = Integer.parseInt(specialCake.getSpBookb4());
+				//--------------------------New For Flavors----------------------------------------
 
+				flavourList = restTemplate.getForObject(Constant.URL + "/showFlavourList", FlavourList.class);
+				flavoursList = flavourList.getFlavour();
+
+				for (int i = 0; i < flavoursList.size(); i++) {
+                 	filterFlavoursList.add(flavoursList.get(i));
+				}
+				List<String> list = Arrays.asList(specialCake.getErpLinkcode().split(","));
+				System.err.println("list"+specialCake.getErpLinkcode());
+				for (Flavour flavour : filterFlavoursList) {
+					
+						if (list.contains(""+flavour.getSpfId())) {
+							flavour.setSpfAdonRate(0.0);
+						
+						    flavoursListWithAddonRate.add(flavour);
+						}
+					
+					
+				}
+				
+				//------------------------------------------------------------------
 				model.addObject("spBookb4", spBookb4);
 				model.addObject("isFound", "");
 				model.addObject("specialCakeList", specialCakeList);
@@ -422,7 +448,8 @@ public class SpCakeController {
 			model.addObject("frMenuList", frMenuList);
 			return model;
 		}
-
+		model.addObject("flavoursList", flavoursListWithAddonRate);
+		
 		model.addObject("menuList", menuList);
 		model.addObject("eventList", spMessageList);
 		model.addObject("flavourList", flavourList);
@@ -1346,24 +1373,25 @@ public class SpCakeController {
 		List<Flavour> filterFlavoursList=new ArrayList<>();
 			for (int i = 0; i < flavourList.getFlavour().size(); i++) {
 
-				if (flavourList.getFlavour().get(i).getSpType() == spCakeOrder.getSpType()) {
+				/*if (flavourList.getFlavour().get(i).getSpType() == spCakeOrder.getSpType()) {*/
 					filterFlavoursList.add(flavourList.getFlavour().get(i));
 
-				}
+				/*}*/
 			}
 			for (Flavour flavour : filterFlavoursList) {
-				if (specialCake.getIsAddonRateAppli() == 1) {
+			/*	if (specialCake.getIsAddonRateAppli() == 1) {*/
 					List<String> list = Arrays.asList(specialCake.getErpLinkcode().split(","));
 					if (list.contains(""+flavour.getSpfId())) {
 						flavour.setSpfAdonRate(0.0);
+						flavoursListWithAddonRate.add(flavour);
 					}
-					flavoursListWithAddonRate.add(flavour);
+					
 					//System.err.println(flavour.getSpfId());
 					//System.err.println(flavoursListWithAddonRate.toString());
-				} else {
+				/*} else {
 					flavour.setSpfAdonRate(0.0);
 					flavoursListWithAddonRate.add(flavour);
-				}
+				}*/
 			}
 			Flavour orderdFlavour=new Flavour();
 			for (Flavour flavour : flavoursListWithAddonRate) {

@@ -488,9 +488,8 @@ table, th, td {
 
 							</div>
 
-	<div class="col-md-2"></div>
 
-									<div class="col-md-3">
+									<div class="col-md-2">
 
 										<button type="button" class="btn btn-primary"
 											onclick="exportToExcel();" id="expExcel"
@@ -509,7 +508,7 @@ table, th, td {
 
 
 							<div class="colOuter" id="monthEnd" style="display: none">
-								<div class="col2full">
+								<div class="col4full" align="right">
 									<input name="" class="buttonsaveorder" value="Month End"
 										type="submit">
 								</div>
@@ -716,37 +715,29 @@ table, th, td {
 
 								$('#table_grid th').remove();
 								var tr = $('<tr class=bgpink></tr>');
-
 								tr.append($('<th align=left>Item Id</th>'));
-
 								tr.append($('<th align=left>Item Name</th>'));
-
-								tr
-										.append($('<th align=center>Regular Opening Stock</th>'));
-								tr
-										.append($('<th align=left>Special Opening Stock</th>'));
-
-								tr
-										.append($('<th align=left>Reg Purchase Qty</th>'));
-								tr
-										.append($('<th align=left>Sp Purchase Qty</th>'));
-
-								tr
-										.append($('<th align=left>GRN / GVN Qty</th>'));
-								tr.append($('<th align=left>Reg Sale</th>'));
-								tr.append($('<th align=left>Sp Sale</th>'));
+								tr.append($('<th align=center>Rate/MRP</th>'));
+								tr.append($('<th align=left>Op Stock</th>'));
+								tr.append($('<th align=left>Op Stock Value</th>'));
+								tr.append($('<th align=left>Pur Qty</th>'));
+								tr.append($('<th align=left>Pur Value</th>'));
+								tr.append($('<th align=left>Grn-Gvn Qty</th>'));
+								tr.append($('<th align=left>Grn-Gvn Value</th>'));
+								tr.append($('<th align=left>Regular Sale</th>'));
 
 								/* tr.append($('<th align=left>Reorder Qty</th>')); */
 								tr
-										.append($('<th align=left>Regular Current Stock</th>'));
+										.append($('<th align=left>Reg Sale Val</th>'));
 								tr
-										.append($('<th align=center>Special Current Stock</th>'));
-
+										.append($('<th align=center>Cur Stock</th>'));
+								tr
+								.append($('<th align=center>CurStock Val</th>'));
 								tr
 										.append($('<th align=left>Physical Stock</th>'));
 
 								tr
-										.append($('<th align=left>Stock Difference</th>'));
+										.append($('<th align=left>Stock Diff</th>'));
 
 								$('#table_grid').append(tr);
 							}
@@ -780,7 +771,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.spOpeningStock));
 													} else
@@ -788,13 +779,13 @@ table, th, td {
 													{
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.spTotalPurchase));
 													}
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regOpeningStock));
 													var regOpStockValue;
@@ -804,7 +795,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regOpStockValue));
 													} else
@@ -814,14 +805,14 @@ table, th, td {
 																* item.regOpeningStock;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regOpStockValue));
 													}
 
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regTotalPurchase));
 
@@ -831,7 +822,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalPurchaseVal));
 													} else
@@ -841,13 +832,13 @@ table, th, td {
 																* item.regTotalPurchase;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalPurchaseVal));
 													}
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regTotalGrnGvn));
 
@@ -857,7 +848,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalGrnGvnVal));
 													} else
@@ -867,7 +858,7 @@ table, th, td {
 																* item.regTotalGrnGvn;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalGrnGvnVal));
 													}
@@ -875,12 +866,12 @@ table, th, td {
 													if (item.regTotalSell < 0) {
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(0));
 													} else {
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.regTotalSell));
 													}
@@ -890,7 +881,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;" ></td>')
 																		.html(
 																				regTotalSellVal));
 													} else
@@ -900,7 +891,7 @@ table, th, td {
 																* item.regTotalSell;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalSellVal));
 													}
@@ -914,12 +905,12 @@ table, th, td {
 													if (regCurrentStock < 0) {
 														tr
 																.append($(
-																		'<td class="col-md-1"> </td>')
+																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(0));
 													} else {
 														tr
 																.append($(
-																		'<td class="col-md-1"> </td>')
+																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(
 																				regCurrentStock));
 													}
@@ -927,22 +918,22 @@ table, th, td {
  if (selectRate == 1) {
 	   if (regCurrentStock < 0) {
             
-			tr.append($('<td class="col-md-1"></td>').html(0));
+			tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(0));
 	     }else
 	    	 {
 	    		var regCurrentStockVal = item.spOpeningStock*regCurrentStock;
                 
-				tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+				tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(regCurrentStockVal.toFixed(2)));
 	    	 }
 } else
 {
 	if (regCurrentStock < 0) {
-	  tr.append($('<td class="col-md-1"></td>').html(0));
+	  tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(0));
   }
   else
   {
 	 var regCurrentStockVal = item.spTotalPurchase* regCurrentStock;
-	 tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+	 tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(regCurrentStockVal.toFixed(2)));
   }
 }
 
@@ -950,7 +941,7 @@ table, th, td {
 															&& selectedStockOption == 1) {
 
 														tr
-																.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+																.append($('<td class="col-md-1" style="text-align:right;"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
 																		+ item.itemId
 																		+ ','
 																		+ regCurrentStock
@@ -967,19 +958,15 @@ table, th, td {
 																		+ '></td>'));
 
 														tr
-																.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
+																.append($('<td class="col-md-1"  style="text-align:right;"   name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
 													}
 
 													$('#table_grid tbody')
 															.append(tr);
 
 												} else if (stType == 2) {
-													if (regCurrentStock > reOrderQty) {
+													if (regCurrentStock > 0) {
 														var tr = $('<tr ></tr>');
-
-													} else {
-														var tr = $('<tr class="re-order" ></tr>');
-													}
 
 													tr
 															.append($(
@@ -995,7 +982,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.spOpeningStock));
 													} else
@@ -1003,13 +990,13 @@ table, th, td {
 													{
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.spTotalPurchase));
 													}
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regOpeningStock));
 
@@ -1019,7 +1006,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regOpStockValue));
 													} else
@@ -1029,14 +1016,14 @@ table, th, td {
 																* item.regOpeningStock;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regOpStockValue));
 													}
 
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regTotalPurchase));
 
@@ -1046,7 +1033,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalPurchaseVal));
 													} else
@@ -1056,13 +1043,13 @@ table, th, td {
 																* item.regTotalPurchase;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalPurchaseVal));
 													}
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regTotalGrnGvn));
 
@@ -1072,7 +1059,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalGrnGvnVal));
 													} else
@@ -1082,7 +1069,7 @@ table, th, td {
 																* item.regTotalGrnGvn;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalGrnGvnVal));
 													}
@@ -1090,12 +1077,12 @@ table, th, td {
 													if (item.regTotalSell < 0) {
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(0));
 													} else {
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.regTotalSell));
 													}
@@ -1105,7 +1092,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalSellVal));
 													} else
@@ -1115,7 +1102,7 @@ table, th, td {
 																* item.regTotalSell;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalSellVal));
 													}
@@ -1129,12 +1116,12 @@ table, th, td {
 													if (regCurrentStock < 0) {
 														tr
 																.append($(
-																		'<td class="col-md-1"> </td>')
+																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(0));
 													} else {
 														tr
 																.append($(
-																		'<td class="col-md-1"> </td>')
+																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(
 																				regCurrentStock));
 													}
@@ -1142,22 +1129,22 @@ table, th, td {
 													if (selectRate == 1) {
 														   if (regCurrentStock < 0) {
 				                                                  
-																tr.append($('<td class="col-md-1"></td>').html(0));
+																tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(0));
 														     }else
 														    	 {
 														    		var regCurrentStockVal = item.spOpeningStock*regCurrentStock;
 				                                                      
-																	tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+																	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(regCurrentStockVal.toFixed(2)));
 														    	 }
 												    } else
 													{
 												    	if (regCurrentStock < 0) {
-												    	  tr.append($('<td class="col-md-1"></td>').html(0));
+												    	  tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(0));
 													    }
 													    else
 													    {
 														 var regCurrentStockVal = item.spTotalPurchase* regCurrentStock;
-														 tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+														 tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(regCurrentStockVal.toFixed(2)));
 													    }
 													}
 
@@ -1165,7 +1152,7 @@ table, th, td {
 															&& selectedStockOption == 1) {
 
 														tr
-																.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+																.append($('<td class="col-md-1" style="text-align:right;"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
 																		+ item.itemId
 																		+ ','
 																		+ regCurrentStock
@@ -1182,19 +1169,16 @@ table, th, td {
 																		+ '></td>'));
 
 														tr
-																.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
+																.append($('<td class="col-md-1"  style="text-align:right;"  name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
 													}
 
 													$('#table_grid tbody')
 															.append(tr);
-
-												} else if (stType == 3) {
-													if (regCurrentStock > reOrderQty) {
-														var tr = $('<tr ></tr>');
-
-													} else {
-														var tr = $('<tr class="re-order" ></tr>');
 													}
+												} else if (stType == 3) {
+													if (regCurrentStock==0) {
+													
+														var tr = $('<tr class="re-order" ></tr>');
 
 													tr
 															.append($(
@@ -1210,7 +1194,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.spOpeningStock));
 													} else
@@ -1218,13 +1202,13 @@ table, th, td {
 													{
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.spTotalPurchase));
 													}
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regOpeningStock));
 
@@ -1234,7 +1218,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regOpStockValue));
 													} else
@@ -1244,14 +1228,14 @@ table, th, td {
 																* item.regOpeningStock;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regOpStockValue));
 													}
 
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regTotalPurchase));
 
@@ -1261,7 +1245,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalPurchaseVal));
 													} else
@@ -1271,13 +1255,13 @@ table, th, td {
 																* item.regTotalPurchase;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalPurchaseVal));
 													}
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
 																			item.regTotalGrnGvn));
 
@@ -1287,7 +1271,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalGrnGvnVal));
 													} else
@@ -1297,7 +1281,7 @@ table, th, td {
 																* item.regTotalGrnGvn;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalGrnGvnVal));
 													}
@@ -1305,12 +1289,12 @@ table, th, td {
 													if (item.regTotalSell < 0) {
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(0));
 													} else {
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				item.regTotalSell));
 													}
@@ -1320,7 +1304,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalSellVal));
 													} else
@@ -1330,7 +1314,7 @@ table, th, td {
 																* item.regTotalSell;
 														tr
 																.append($(
-																		'<td class="col-md-1"></td>')
+																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
 																				regTotalSellVal));
 													}
@@ -1344,12 +1328,12 @@ table, th, td {
 													if (regCurrentStock < 0) {
 														tr
 																.append($(
-																		'<td class="col-md-1"> </td>')
+																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(0));
 													} else {
 														tr
 																.append($(
-																		'<td class="col-md-1"> </td>')
+																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(
 																				regCurrentStock));
 													}
@@ -1357,22 +1341,22 @@ table, th, td {
  if (selectRate == 1) {
 	   if (regCurrentStock < 0) {
             
-			tr.append($('<td class="col-md-1"></td>').html(0));
+			tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(0));
 	     }else
 	    	 {
 	    		var regCurrentStockVal = item.spOpeningStock*regCurrentStock;
                 
-				tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+				tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(regCurrentStockVal.toFixed(2)));
 	    	 }
 } else
 {
 	if (regCurrentStock < 0) {
-	  tr.append($('<td class="col-md-1"></td>').html(0));
+	  tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(0));
   }
   else
   {
 	 var regCurrentStockVal = item.spTotalPurchase* regCurrentStock;
-	 tr.append($('<td class="col-md-1"></td>').html(regCurrentStockVal));
+	 tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(regCurrentStockVal.toFixed(2)));
   }
 }
 
@@ -1380,7 +1364,7 @@ table, th, td {
 															&& selectedStockOption == 1) {
 
 														tr
-																.append($('<td class="col-md-1"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
+																.append($('<td class="col-md-1" style="text-align:right;"> <input type=number min=0 style=width:80px; onkeyup= updateStockDiff('
 																		+ item.itemId
 																		+ ','
 																		+ regCurrentStock
@@ -1397,11 +1381,12 @@ table, th, td {
 																		+ '></td>'));
 
 														tr
-																.append($('<td class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
+																.append($('<td style="text-align:right;"  class="col-md-1" name=stockDiff'+ item.itemId + ' id=stockDiff'+ item.itemId + ' value =' + 0 + '  > 0</td>'));
 													}
 
 													$('#table_grid tbody')
 															.append(tr);
+													}
 												}
 
 											})

@@ -64,7 +64,7 @@ public class ExportExcelController {
 	            throw new RuntimeException("Error writing spreadsheet to output stream");
 	        } finally {
 	            if (wb != null) {
-	                wb.close();
+	                wb.close(); 
 	            }
 	        }
 	        session.removeAttribute( "exportExcelList" );
