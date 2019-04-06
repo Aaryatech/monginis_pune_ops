@@ -6,12 +6,14 @@
 <%-- <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-1.10.2.min.js"></script> --%>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
-
+<html>
+<head>
 <style>
 table, th, td {
     border: 1px solid #9da88d;
 }
 </style>
+
 <%-- <!DOCTYPE html>
 <html>
 <head>
@@ -170,6 +172,8 @@ jQuery(document).ready(function(){
 		});
 	});
 </script>
+</head>
+<body>
 <!--datepicker-->
 <c:url var="getMenus" value="/getMenus"/>
 
@@ -445,13 +449,16 @@ jQuery(document).ready(function(){
 										<tr class="bgpink">
 											<th class="col-md-1" style="text-align: center;">Sr No</th>
 											<th class="col-md-2" style="text-align: center;">Item Name</th>
-											<th class="col-md-1"style="text-align: center;">Flavour</th>
-										
 											<th class="col-md-1"style="text-align: center;">Delivery Date</th>
-											<th class="col-md-1"style="text-align: center;">Rate</th>
-											<th class="col-md-1"style="text-align: center;">Add On Rate</th>
+											<th class="col-md-1"style="text-align: center;">Flavour</th>
+											<th class="col-md-1"style="text-align: center;">Message</th>
+											<th class="col-md-2"style="text-align: center;">Instructions</th>
+											
+											<th class="col-md-1"style="text-align: center;">Weight</th>
+											<!-- <th class="col-md-1"style="text-align: center;">Rate</th> -->
+										<!-- 	<th class="col-md-1"style="text-align: center;">Add On Rate</th> -->
 											<th class="col-md-1"style="text-align: center;">Total</th>
-											<th class="col-md-1"style="text-align: center;">Advance</th>
+										<!-- 	<th class="col-md-1"style="text-align: center;">Advance</th> -->
 											<th class="col-md-1"style="text-align: center;">Memo & Bill</th>
 										
 										</tr>
@@ -473,17 +480,19 @@ jQuery(document).ready(function(){
 												</c:otherwise>
 												</c:choose>
 												</td>
-												<td class="col-md-1"><c:out
-														value="${orderList.spfName}" /></td>
+												<td class="col-md-1" ><c:out value="${orderList.spDeliveryDate}" /></td>
+												<td class="col-md-1"><c:out	value="${orderList.spfName}" /></td>
+												<td class="col-md-1" style="font-size: 14px;"><c:out	value="${orderList.spEvents} - ${orderList.spEventsName}" /></td>
 											<c:set var="price" value="${orderList.spGrandTotal-orderList.spTotalAddRate}"></c:set>
-												<td class="col-md-1" ><c:out
-														value="${orderList.spDeliveryDate}" /></td>
-												<td class="col-md-1" style="text-align: right;"><fmt:formatNumber type = "number" maxFractionDigits = "2" minFractionDigits = "2"  groupingUsed = "false" value = "${price}" /></td>
-												<td class="col-md-1"style="text-align: right;"><c:out
-														value="${orderList.spTotalAddRate}" /></td>
+											<td class="col-md-1" style="font-size: 14px;"><c:out	value="${orderList.spInstructions}" /></td>
+											
+											<td class="col-md-1" style="text-align: right;"><c:out value="${orderList.spSelectedWeight}" /></td>
+											<%-- 	<td class="col-md-1" style="text-align: right;"><fmt:formatNumber type = "number" maxFractionDigits = "2" minFractionDigits = "2"  groupingUsed = "false" value = "${price}" /></td> --%>
+												<%-- <td class="col-md-1"style="text-align: right;"><c:out
+														value="${orderList.spTotalAddRate}" /></td> --%>
 												<td class="col-md-1"style="text-align: right;"><fmt:formatNumber type = "number" maxFractionDigits = "2" minFractionDigits = "2"  groupingUsed = "false" value = "${orderList.spGrandTotal}" /></td>
-												<td class="col-md-1"style="text-align: right;"><c:out
-														value="${orderList.spAdvance}" /></td>
+												<%-- <td class="col-md-1"style="text-align: right;"><c:out
+														value="${orderList.spAdvance}" /></td> --%>
 												<td class="col-md-1" style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath}/showSpCakeOrderHisPDF/${orderList.spOrderNo}" target="_blank">
 					<abbr title="Order Memo"><i class="fa fa-file-pdf-o"></i></abbr></a>

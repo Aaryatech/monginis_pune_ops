@@ -256,7 +256,7 @@ select {
 
 										Calendar cal = Calendar.getInstance();
 										cal.setTime(new Date()); // Now use today date.
-										if(menuId!=46){
+										if(menuId!=68 && menuId!=88){
 										cal.add(Calendar.DATE, 1); // Adding 1 days
 										}
 										Date date = cal.getTime();
@@ -335,9 +335,10 @@ select {
               
             </select>
 			</div> --%>
-			<div class="col3" >
+			<!-- <div class="col3" > -->
 			<c:choose>
 			<c:when test="${delFlag==true}">
+			 <div class="col1"><div class="col1title">Delivery Menu</div></div><div class="col2">
 			<select name="spMenuId" data-placeholder="Menu"  tabindex="-1" id="spMenuId" required>
                   <option value="">Select Menu</option>
                     <c:forEach items="${frMenuList}" var="frMenuList">
@@ -351,14 +352,14 @@ select {
                     </c:otherwise>
                     </c:choose>
              </c:forEach>
-                 </select>
+                 </select></div>
 			</c:when>
 			<c:otherwise>
 			<input type="hidden" name="spMenuId" id="spMenuId" value="${menuId}"/>
 			</c:otherwise>
 			</c:choose>
                 
-        </div>
+      <!--   </div> -->
 	</div>
 	
     <div class="colOuter">
@@ -406,11 +407,11 @@ select {
 		<div class="col2">  <select id="show" class="form-control" name="text1" onchange="showDiv1(this)" required>
                               <option value="1" id="marathi" >Marathi</option>
                               <option value="2" id="hindi" >Hindi</option>
-                              <option value="3" id="english" >English</option>
+                              <option value="3" id="english" selected>English</option>
                        </select></div>
- <div class="col3" id="msgMarathi" ><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name" autocomplete="off">
+ <div class="col3" id="msgMarathi" style="display: none"><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name" autocomplete="off">
 		</div> 
-		<div class="col3" id="msgEnglish" style="display: none"><input class="texboxitemcode" placeholder="Name" name="event_name" type="text" id="event_name_e" autocomplete="off">
+		<div class="col3" id="msgEnglish" ><input class="texboxitemcode" placeholder="Name" name="event_name1" type="text" id="event_name_e" autocomplete="off">
 		</div>
 		</div>
 <c:choose>
@@ -471,8 +472,8 @@ select {
 		<div class="col1"><div class="col1title">Special Instructions</div></div>
         <div class="col2full">
                       <select id="show" class="form-control" name="showtextarea" onchange="showDiv(this)" required>
-                              <option value="1" id="marathi" >Marathi</option>
-                              <option value="2" id="hindi" >Hindi</option>
+                           <!--    <option value="1" id="marathi" >Marathi</option>
+                              <option value="2" id="hindi" >Hindi</option> -->
                               <option value="3" id="english" >English</option>
                        </select>
         </div>
@@ -481,18 +482,18 @@ select {
      <div class="colOuter">
 	    <div class="col1"><div class="col1title">Special Instructions</div></div>
 		
-		<div class="col1full" id="marathiDiv">
+		<div class="col1full" id="marathiDiv" style="display: none;">
 		<textarea id="transliterateTextarea"  name="sp_inst1" cols="" rows="" style="width:250px;height:60px"maxlength="300" autocomplete="off" ></textarea>
 		</div>
 		
-	    <div class="col1full" id="englishDiv" style="display: none;">
+	    <div class="col1full" id="englishDiv" >
 	    <textarea id="textarea"  name="sp_inst2"   cols="" rows="" style="width:250px;height:60px"maxlength="300" autocomplete="off"></textarea>
 	    </div>
 	</div>
 	
 	<div class="colOuter">
 		<div class="col1"><div class="col1title">Delivery Date</div></div>
-		<div class="col2"><c:choose><c:when test="${menuId==46}">
+		<div class="col2"><c:choose><c:when test="${menuId==68 || menuId==88}">
 			<input id="date" class="texboxitemcode texboxcal" value="<%=fDate %>"  name="datepicker" type="text" readonly>
 			<input id="datepicker" class="texboxitemcode texboxcal" value="<%=fDate %>"  name="datepicker" type="hidden" />
 
@@ -1114,7 +1115,7 @@ function validate() {
 	 var alphaExp = /^[a-zA-Z]+$/;
 
 
-    var eventName,spId,spCustName,spPlace,spCustMob,spType,spFlavour,spCode,spWt,noOfChars;
+    var eventName,spId,spCustName,spPlace,spCustMob,spType,spFlavour,spCode,spWt,noOfChars,image1;
     eventName = document.getElementById("event_name").value;
     spPlace = document.getElementById("sp_place").value;
     spCustName=document.getElementById("sp_cust_name").value;
@@ -1124,6 +1125,8 @@ function validate() {
     spCode=document.getElementById("sp_code").value;
     spWt=document.getElementById("spwt").value;
     noOfChars=document.getElementById("noOfChars").value;
+    image1 = document.getElementById('image');
+ 
     var isValid=true;
     
     if (spCode == "") {
@@ -1143,7 +1146,15 @@ function validate() {
         alert("Please Select Flavour");
   
         isValid=false;
-    }/* else  if (eventName == "") {
+    }/* else
+    if(image1.getAttribute('src') == ""||image1.getAttribute('src') == null)
+    {
+    	alert("Please Select Photo Cake 1");
+        
+        isValid=false;
+    } */
+    
+    /* else  if (eventName == "") {
         alert("Please Enter Message");
         document.getElementById('event_name').focus();
         

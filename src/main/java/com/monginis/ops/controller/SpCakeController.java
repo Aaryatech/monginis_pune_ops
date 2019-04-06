@@ -780,8 +780,19 @@ public class SpCakeController {
 	 
 		    spPhoUpload = request.getParameter("spPhoUpload");
 
-			String eventName = request.getParameter("event_name");
-
+		    int  eventNameLang = Integer.parseInt(request.getParameter("text1"));
+		    logger.info("eventNameLang" + eventNameLang);
+		    String eventName="";
+		    if(eventNameLang==1 || eventNameLang==2 )
+		    {
+		    	eventName =request.getParameter("event_name");
+		    }else  if(eventNameLang==3)
+		    {
+		    	eventName =request.getParameter("event_name1");
+		    }
+		    
+			
+			 logger.info("37  eventName" + eventName);
 			isCustCh = request.getParameter("isCustCh");
 
 			productionTime = request.getParameter("production_time");
