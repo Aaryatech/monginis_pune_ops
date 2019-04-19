@@ -58,7 +58,7 @@ document.body.onload = function()
       <td colspan="2" align="center" style="padding:10px;"><p></p></td>
     </tr>
     <tr>
-      <td colspan="2" align="center" style="padding:5px; border-bottom:1px solid #E7E7E7;"><img src="${pageContext.request.contextPath}/resources/images/monginislogo.jpg" alt="logo"></td>
+      <td colspan="2" align="center" style="padding:5px; border-bottom:1px solid #E7E7E7;"><img src="${pageContext.request.contextPath}/resources/images/monginislogo.png" alt="logo"></td>
     </tr>
     <tr>
       <td colspan="2" align="center" style="padding:10px; border-bottom:1px solid #E7E7E7; font-size:12px; font-weight:bold; "><p>ORDER MEMO</p></td>

@@ -140,7 +140,7 @@
 
 									</div>
 									<h3 class="homesliderTitle" style="font-size:15px "><center>${msgList.msgHeader}</center></h3>
-	                                <h3 class="homesliderTitle"  ><center>${msgList.msgDetails}</center></h3>
+	                                <h3 class="homesliderTitle"  >${msgList.msgDetails}</h3>
 
 								</div>
 							</div>

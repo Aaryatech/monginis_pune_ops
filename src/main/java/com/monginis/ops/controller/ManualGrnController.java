@@ -52,7 +52,6 @@ public class ManualGrnController {
 
 	@RequestMapping(value = "/showManGrn", method = RequestMethod.GET)
 	public ModelAndView showGvnProcess(HttpServletRequest request, HttpServletResponse response) {
-
 		ModelAndView modelAndView = new ModelAndView("grngvn/manGrn");
 
 		HttpSession session = request.getSession();
@@ -190,10 +189,10 @@ public class ManualGrnController {
 					}
 
 					if (objShowGrn.getGrnType() == 1) {
-						grnBaseRate = baseRate * 90 / 100;
-						// grnRate = (objShowGrn.getRate() * 90) / 100;
+						grnBaseRate = baseRate * 70 / 100;
+						// grnRate = (objShowGrn.getRate() * 70) / 100;
 
-						grnRate = (baseRate * 90) / 100;
+						grnRate = (baseRate * 70) / 100;
 					}
 
 					if (objShowGrn.getGrnType() == 2 || objShowGrn.getGrnType() == 4) {
@@ -384,8 +383,8 @@ System.err.println("Inside Manual Grn POST method ");
 				}
 
 				if (objShowGrnList.get(i).getGrnType() == 1) {
-					grnBaseRate = baseRate * 90 / 100;
-					grnRate = (objShowGrnList.get(i).getRate() * 90) / 100;
+					grnBaseRate = baseRate * 70 / 100;
+					grnRate = (objShowGrnList.get(i).getRate() * 70) / 100;
 					// postGrnGvn.setGrnGvnAmt(roundUp(grnAmt));
 				}
 
@@ -515,7 +514,7 @@ System.err.println("Inside Manual Grn POST method ");
 			grnHeader.setApprovedDatetime(curDateTime);
 			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
-			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response));
+			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response,frDetails.getFrCode()));
 			grnHeader.setGrngvnStatus(1);
 			grnHeader.setIsCreditNote(0);
 			grnHeader.setIsGrn(1);
@@ -728,7 +727,7 @@ System.err.println("Inside sellBillResponse != null");
 
 	}
 
-	public String getGrnGvnSrNo(HttpServletRequest request, HttpServletResponse response) {
+	public String getGrnGvnSrNo(HttpServletRequest request, HttpServletResponse response, String frCode) {
 		String grnGvnNo = null;
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -774,7 +773,7 @@ System.err.println("Inside sellBillResponse != null");
 			Calendar cale = Calendar.getInstance();
 			cale.setTime(date);
 			int month = cale.get(Calendar.MONTH);
-
+			month = month + 1;
 			if (month <= 3) {
 
 				curStrYear = preMarchStrYear + curStrYear;
@@ -793,14 +792,14 @@ System.err.println("Inside sellBillResponse != null");
 
 			if (length == 1)
 
-				invoiceNo = curStrYear + "-" + "000" + grnGvnSrNo;
+				invoiceNo = curStrYear + "-"+"000" + grnGvnSrNo;
 			if (length == 2)
 
-				invoiceNo = curStrYear + "-" + "00" + grnGvnSrNo;
+				invoiceNo = curStrYear + "-"+"00" + grnGvnSrNo;
 
 			if (length == 3)
 
-				invoiceNo = curStrYear + "-" + "0" + grnGvnSrNo;
+				invoiceNo = curStrYear + "-"+"0" + grnGvnSrNo;
 
 			System.out.println("*** settingValue= " + grnGvnSrNo);
 

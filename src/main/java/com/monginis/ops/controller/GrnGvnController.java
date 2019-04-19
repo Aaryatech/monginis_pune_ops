@@ -222,7 +222,6 @@ public class GrnGvnController {
 	public ModelAndView showBill(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("show Grn displayed");
 		ModelAndView modelAndView = new ModelAndView("grngvn/showgrn");
-
 		/*
 		 * java.util.Date date = new
 		 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(curDateTime);
@@ -618,9 +617,9 @@ public class GrnGvnController {
 					}
 
 					if (objShowGrn.getGrnType() == 1) {
-						grnBaseRate = baseRate * 90 / 100;
+						grnBaseRate = baseRate * 70 / 100;
 
-						grnRate = (baseRate * 90) / 100;
+						grnRate = (baseRate * 70) / 100;
 					}
 
 					if (objShowGrn.getGrnType() == 2 || objShowGrn.getGrnType() == 4) {
@@ -850,8 +849,8 @@ public class GrnGvnController {
 				}
 
 				if (objShowGrnList.get(i).getGrnType() == 1) {
-					grnBaseRate = baseRate * 90 / 100;
-					grnRate = (objShowGrnList.get(i).getRate() * 90) / 100;
+					grnBaseRate = baseRate * 70 / 100;
+					grnRate = (objShowGrnList.get(i).getRate() * 70) / 100;
 					// postGrnGvn.setGrnGvnAmt(roundUp(grnAmt));
 				}
 
@@ -2078,7 +2077,7 @@ public class GrnGvnController {
 				}
 				if (grnDetailList.get(i).getGrnType() == 1) {
 
-					refRate = grnDetailList.get(i).getItemRate() * 90 / 100;
+					refRate = grnDetailList.get(i).getItemRate() * 70 / 100;
 				}
 				if (grnDetailList.get(i).getGrnType() == 2 || grnDetailList.get(i).getGrnType() == 4) {
 

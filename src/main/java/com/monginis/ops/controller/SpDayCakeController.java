@@ -450,7 +450,7 @@ public class SpDayCakeController {
 				order.setOrderSubType(Integer.parseInt(frItem.getItemGrp2()));
 				order.setOrderType(Integer.parseInt(frItem.getItemGrp1()));
 				order.setProductionDate(Common.stringToSqlDate(prodDate));
-				order.setRefId(frItem.getId());
+				order.setRefId(0);
 				order.setUserId(0);
 			
 
