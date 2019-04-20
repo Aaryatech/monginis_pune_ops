@@ -111,19 +111,19 @@
 
 
 
-											<th class="col-md-1">Sr.No.</th>
+											<th class="col-sm-1" align="center">Sr.No.</th>
 											<!-- <th class="md=col-1">Bill No</th> -->
 											<!-- <th class="md=col-1">Party name</th> -->
 											<!-- <th class="col-md-1">GST No.</th> -->
-											<th class="col-md-1">Bill no.</th>
-											<th class="col-md-1">Date</th>
-											<th class="col-md-1">Bill Amt</th>
-											<th class="col-md-1">Taxable Amt</th>
-											<th class="col-md-1">Tax Rate</th>
-											<th class="col-md-1">IGST</th>
-											<th class="col-md-1">CGST</th>
-											<th class="col-md-1">SGST</th>
-											<th class="col-md-1">CESS</th>
+											<th class="col-md-2" align="center">Bill No.</th>
+											<th class="col-md-1" align="center">Date</th>
+											<th class="col-md-1" align="center">Bill Amt</th>
+											<th class="col-md-1" align="center">Taxable Amt</th>
+											<th class="col-md-1" align="center">Tax %</th>
+											<th class="col-md-1" align="center">IGST</th>
+											<th class="col-md-1" align="center">CGST</th>
+											<th class="col-md-1" align="center">SGST</th>
+											
 										</tr>
 									</thead>
 
@@ -140,19 +140,19 @@
 
 
 
-											<th class="col-md-1">Sr.No.</th>
+											<th class="col-sm-1" align="center">Sr.No.</th>
 											<!-- <th class="md=col-1">Bill No</th> -->
 											<!-- <th class="md=col-1">Party name</th> -->
 											<!-- <th class="col-md-1">GST No.</th> -->
-											<th class="col-md-1">Bill no.</th>
-											<th class="col-md-1">Date</th>
-											<th class="col-md-1">Bill Amt</th>
-											<th class="col-md-1">Taxable Amt</th>
-											<th class="col-md-1">Tax Rate</th>
-											<th class="col-md-1">IGST</th>
-											<th class="col-md-1">CGST</th>
-											<th class="col-md-1">SGST</th>
-											<th class="col-md-1">CESS</th>
+											<th class="col-md-2" align="center">Bill No.</th>
+											<th class="col-md-1" align="center">Date</th>
+											<th class="col-md-1" align="center">Bill Amt</th>
+											<th class="col-md-1" align="center">Taxable Amt</th>
+											<th class="col-md-1" align="center">Tax Rate</th>
+											<th class="col-md-1" align="center">IGST</th>
+											<th class="col-md-1" align="center">CGST</th>
+											<th class="col-md-1" align="center">SGST</th>
+											
 										</tr>
 									</thead>
 
@@ -248,7 +248,7 @@
 
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-sm-1"></td>')
 																	.html(
 																			key + 1));
 
@@ -256,7 +256,7 @@
 													 */
 													tr
 															.append($(
-																	'<td class="col-md-1"></td>')
+																	'<td class="col-md-2"></td>')
 																	.html(
 																			sellTaxData.sellBillNo));
 
@@ -307,13 +307,7 @@
 													sgstTotal = sgstTotal
 															+ sellTaxData.sgst;
 
-													tr
-															.append($(
-																	'<td class="col-md-1" style="text-align:right;"></td>')
-																	.html((sellTaxData.cess).toFixed(2)));
-													cessTotal = cessTotal
-															+ sellTaxData.cess;
-
+													
 													$('#table_grid tbody')
 															.append(tr);
 
@@ -328,9 +322,7 @@
 								var totalTax = "<td style='text-align:right'>&nbsp;&nbsp;&nbsp;<b>"
 										+ taxTotal.toFixed(2);
 								+"</b></td>";
-								var blank = "<td style='text-align:right'>&nbsp;&nbsp;&nbsp;<b>"
-
-										+ "</b></td>";
+								
 								var igst = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
 										+ igstTotal.toFixed(2);
 								+"</b></td>";
@@ -340,9 +332,7 @@
 								var sgst = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
 										+ sgstTotal.toFixed(2);
 								+"</b></td>";
-								var cess = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
-										+ cessTotal.toFixed(2);
-								+"</b></td>";
+								
 
 								var trclosed = "</tr>";
 
@@ -355,8 +345,8 @@
 								$('#table_grid tbody').append(igst);
 								$('#table_grid tbody').append(cgst);
 								$('#table_grid tbody').append(sgst);
-								$('#table_grid tbody').append(cess);
-								$('#table_grid tbody').append(trclosed);
+								
+								
 
 							});
 

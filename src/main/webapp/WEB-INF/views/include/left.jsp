@@ -29,22 +29,22 @@
 			</li>
 		</c:if>
 		
-					<%-- <li><a href="${pageContext.request.contextPath}/showExpressBill"><div
+					<li><a href="${pageContext.request.contextPath}/showExpressBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Express Bill <span></span>
-					</div></a></li> --%>
+					</div></a></li> 
 					
 					
-					<%-- <li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
+					 <li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Customer Bill <span></span>
-					</div></a></li> --%>
+					</div></a></li>
 		<c:if test="${info.accessRight==1 or info.accessRight==2}">	
 			<li><a href="#" onClick="openNav1()"><div class="img">
 						<img
@@ -80,20 +80,20 @@
 						View Purchase <span>Bills</span>
 					</div></a></li>
 					
-						<%-- <li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
+						 <li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Other Item Stock
-					</div></a></li> --%>
-						<%-- <li><a href="${pageContext.request.contextPath}/showOtherBill"><div
+					</div></a></li> 
+						 <li><a href="${pageContext.request.contextPath}/showOtherBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Other Purchase Bill
-					</div></a></li> --%>
+					</div></a></li> 
 					<c:if test="${info.accessRight==1}">
 			
 					<li><a href="#" onClick="openNav4()"><div class="img">
@@ -104,15 +104,15 @@
 					</div></a></li>
 					</c:if>
 					
-				<%-- 	<li><a href="${pageContext.request.contextPath}/showRuleFilePdf"><div
+					<li><a href="${pageContext.request.contextPath}/showRuleFilePdf"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Rule And Regulation <span></span>
-					</div></a></li> --%>
+					</div></a></li> 
 					
-						<%-- <c:if test="${info.accessRight==1 or info.accessRight==2}">	
+						 <c:if test="${info.accessRight==1 or info.accessRight==2}">	
 					<li><a href="${pageContext.request.contextPath}/showstockdetail" ><div class="img">
 						<img
 							src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
@@ -120,7 +120,7 @@
 					</div>
 					<div class="title">
 						Stock <span>Details</span>
-					</div></a></li></c:if> --%>
+					</div></a></li></c:if> 
 					
 					
 					
@@ -395,8 +395,8 @@
 						<a href="${pageContext.request.contextPath}/displayGrn"><i class="fa fa-search-plus icon"></i> View GRN </a>
 												<div class="clearfix"></div>
 						
-					<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-search-plus icon"></i> Manual GRN </a>
- 							
+ 						<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-search-plus icon"></i> Manual GRN </a>
+ 								
 						</div>
 						</li>
 	 						
@@ -448,8 +448,7 @@
 									<a href="order-savouries.html">Upload <i
 										class="fa fa-cloud-upload"></i></a>
 								</div>
-							</div></li> --%>
-
+							</div></li>  --%>
 					</ul>
 				</div>
 
@@ -467,7 +466,7 @@
 					alt="monginis"></a>
 				<div class="listarea">
 					<ul>
-						<%-- <li class="small-box">
+						 <li class="small-box">
 						
 							<div class="ibox">
 						<div class="ibox-head">
@@ -482,7 +481,7 @@
 								
 						</div>
 						
-					</li> --%>
+					</li> 
 							
 	 						<li class="small-box">
 	 						
@@ -499,30 +498,20 @@
 								
 						</div>
 						</li>
-						<!-- 	
-							<li class="small-box">
-							
-								<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">Item wise</div>
-						</div>
-						
-								
-						</div>
-						
-							</li> -->
+						 	
+					 
 							
 								<li class="small-box">
 								
 								
 								<div class="ibox">
 						<div class="ibox-head">
-						<div class="ibox-title">GRN GVN Report</div>
+						<div class="ibox-title">TAX Reports & GRN GVN Report</div>
 						</div>
-						<%-- <a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
+						 <a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
 						<a href="${pageContext.request.contextPath}/viewFrDatewiseTaxSellBill"><i class="fa fa-calendar icon"></i> Date Report (Sell) </a>
 						<a href="${pageContext.request.contextPath}/viewFrBillwiseTaxSellBill"><i class="fa fa-files-o icon"></i> Bill Report (Sell)</a>
-						<a href="${pageContext.request.contextPath}/hsnWiseReport"><i class="fa fa-files-o icon"></i> HSN Code wise Report (Sell)</a> --%>
+						<a href="${pageContext.request.contextPath}/hsnWiseReport"><i class="fa fa-files-o icon"></i> HSN Code wise Report (Sell)</a> 
 						<a href="${pageContext.request.contextPath}/grnReport"><i class="fa fa-files-o icon"></i> GRN Report (Sell)</a>
 						<a href="${pageContext.request.contextPath}/gvnReport"><i class="fa fa-files-o icon"></i> GVN Report (Sell)</a>
 						
@@ -556,7 +545,7 @@
 	<!--4nav-->
 
 	<!--3nav-->
-	<%-- <div id="mySidenav3" class="sidenav">
+	 <div id="mySidenav3" class="sidenav">
 
 		<div class="topSlide">
 			<div class="topSlide2 textcen">
@@ -668,7 +657,7 @@
 				</div>
 			</div>
 		</div>
-	</div> --%>
+	</div> 
 	<!--3nav-->
 
 	<!--navInner-->
