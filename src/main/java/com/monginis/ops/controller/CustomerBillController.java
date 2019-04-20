@@ -490,7 +490,7 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("itemList", items);
 
-			ItemResponse itemsList = restTemplate.postForObject(Constant.URL + "/getItemsById", map,
+			ItemResponse itemsList = restTemplate.postForObject(Constant.URL + "/getItemsNameById", map,
 					ItemResponse.class);
 
 			newItemsList = itemsList.getItemList();

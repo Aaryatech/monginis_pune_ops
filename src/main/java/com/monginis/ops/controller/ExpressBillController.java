@@ -228,7 +228,7 @@ public class ExpressBillController {
 
 			mvm.add("itemList", items);
 
-			ItemResponse itemsList = restTemplate.postForObject(Constant.URL + "/getItemsById", mvm,
+			ItemResponse itemsList = restTemplate.postForObject(Constant.URL + "/getItemsNameById", mvm,
 					ItemResponse.class);
 
 			List<Item> newItemsList = itemsList.getItemList();
