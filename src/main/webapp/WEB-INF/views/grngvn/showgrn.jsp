@@ -127,7 +127,7 @@ table, th, td {
 										varStatus="count">
 										<tr>
 
-											<%-- 	<td>${count.index+1}</td> --%>
+										
 											<td class="col-md-1"  style="text-align: center;"><fmt:formatDate pattern="dd-MM-yyyy" value="${grnConfList.billDate}" />
 </td>
 											<td class="col-md-1"  style="text-align: center;"><c:out
@@ -184,11 +184,9 @@ table, th, td {
 												minFractionDigits="2" maxFractionDigits="2"
 												value="${grnConfList.taxableAmt}" />
 
-											<c:set var="taxableAmt" value="${taxableAmt}" />
+										 <c:set var="taxableAmt" value="${taxableAmt}" />
 
-											<td id='taxable_amt${grnConfList.billDetailNo}' style="text-align: center;" class="col-md-1"><fmt:formatNumber type="number"
-												minFractionDigits="2" maxFractionDigits="2"
-												value="${taxableAmt}"/></td>
+											<td id='taxable_amt${grnConfList.billDetailNo}' style="text-align: center;" class="col-md-1">${taxableAmt}</td> 
 
 
 											<td  style="text-align: center;" id='tax_amt${grnConfList.billDetailNo}' class="col-md-1">
@@ -211,8 +209,7 @@ table, th, td {
 																${remarkList.remark}
 																<option value="${remarkList.remark}">${remarkList.remark}</option>
 													</c:forEach>
-											</select></td>
-
+											</select></td> 
 
 										</tr>
 									</c:forEach>

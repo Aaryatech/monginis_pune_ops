@@ -390,13 +390,13 @@
 						</div>
 						
 						
-						<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-plus-circle icon"></i> Request GRN </a>
+						<a href="${pageContext.request.contextPath}/showGrn"><i class="fa fa-plus-circle icon"></i> Request GRN </a>
 						<div class="clearfix"></div>
 						<a href="${pageContext.request.contextPath}/displayGrn"><i class="fa fa-search-plus icon"></i> View GRN </a>
 												<div class="clearfix"></div>
 						
-<%-- 												<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-search-plus icon"></i> Manual GRN </a>
- --%>								
+					<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-search-plus icon"></i> Manual GRN </a>
+ 							
 						</div>
 						</li>
 	 						

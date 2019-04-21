@@ -2,7 +2,7 @@ package com.monginis.ops.model;
 
 public class BillWiseTaxReport {
 	
-    private int billNo;
+    private String billNo;
 	
     private int billDetailNo;
 
@@ -31,11 +31,11 @@ public class BillWiseTaxReport {
 		this.billDetailNo = billDetailNo;
 	}
 
-	public int getBillNo() {
+	public String getBillNo() {
 		return billNo;
 	}
 
-	public void setBillNo(int billNo) {
+	public void setBillNo(String billNo) {
 		this.billNo = billNo;
 	}
 
