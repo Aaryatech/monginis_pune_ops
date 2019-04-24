@@ -365,7 +365,7 @@ table, th, td {
 				<div class="row">
 					<div class="col-md-12">
 						<!--table-->
-						<form action="monthEndProcess" method="POST">
+						<form action="monthEndProcess" method="POST" onsubmit="substk.disabled = true; return confirm('Do you want to Generate Bill ?');">
 							<div class="clearfix"></div>
 							<div class="col-md-9"></div>
 							<label for="search" class="col-md-3" id="search"> <i
@@ -405,25 +405,23 @@ table, th, td {
 									<table id="table_grid" class="main-table">
 										<thead>
 											<tr class="bgpink">
-												<th class="col-md-1">Item_Id</th>
+												<th class="col-md-1">Item Id</th>
 												<th class="col-md-1">Item_Name</th>
-												<th class="col-md-1">Rate/MRP</th>
-												<th class="col-md-1">Op Stock</th>
-												<th class="col-md-1">Op Stock Value</th>
-												<th class="col-md-1">Pur Qty</th>
-												<th class="col-md-1">Pur Value</th>
+												<th class="col-md-1">Reg Op Stock</th>
+											<!-- 	<th class="col-md-1">Sp Op Stock</th> -->
+												<th class="col-md-1">Reg Pur Qty</th>
+												<!-- <th class="col-md-1">Sp Pur Qty</th> -->
 												<th class="col-md-1">Grn-Gvn Qty</th>
-												<th class="col-md-1">Grn-Gvn Value</th>
 												<th class="col-md-1">Regular Sale</th>
-												<th class="col-md-1">Reg Value Sale</th>
-											<!-- 	<th>Reorder Qty</th> -->
-												<th class="col-md-1">Cur Stock</th>
-												<th class="col-md-1">Cur Stock Value</th>
+												<!-- <th class="col-md-1">Sp Sale</th> -->
+												<!-- <th>Reorder Qty</th> -->
+												<th class="col-md-1">Reg Curr Stock</th>
+												<!-- <th class="col-md-1">Sp Cur Stock</th> -->
 
-												<%-- 	<c:if test="${isMonthCloseApplicable eq true}">
+												<c:if test="${isMonthCloseApplicable eq true}">
 													<th>Physical Stock</th>
 													<th>Stock Difference</th>
-												</c:if> --%>
+												</c:if>
 
 											</tr>
 										</thead>
@@ -509,7 +507,7 @@ table, th, td {
 
 							<div class="colOuter" id="monthEnd" style="display: none">
 								<div class="col4full" align="right">
-									<input name="" class="buttonsaveorder" value="Month End"
+									<input name="" class="buttonsaveorder" value="Month End"  id="substk"
 										type="submit">
 								</div>
 							</div>

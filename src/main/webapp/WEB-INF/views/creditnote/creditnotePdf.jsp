@@ -32,7 +32,7 @@ contentType="text/html; charset=ISO8859_1"%>
   
   </tr>
     <tr >
-    <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">&nbsp;GSTIN Number&nbsp;&nbsp;&nbsp;: 27A44446757Z9</td>
+    <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">&nbsp;GSTIN Number&nbsp;&nbsp;&nbsp;: 27AAACL1073F1ZU</td>
       <td   width="70%" colspan="6" align="left"  style="border-top:1px solid #313131;border-left:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;"></td>
   
   </tr>
