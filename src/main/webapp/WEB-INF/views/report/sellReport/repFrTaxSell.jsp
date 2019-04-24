@@ -101,7 +101,7 @@ jQuery(document).ready(function(){
 
 				<div class="row">
 					<div class="col-md-12">
-						<h3 class="pageTitle">View Sell Tax Report</h3>
+						<h3 class="pageTitle">View Sell Tax Report Summary </h3>
 					</div>
 				</div>
 				<div class="colOuter">

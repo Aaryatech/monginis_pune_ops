@@ -118,11 +118,9 @@ table, th, td {
 											<tr class="bgpink">
 
 												<th class="col-sm-1" style="text-align: center;">Sr.No.</th>
-												<!-- <th class="col-sm-1" style="text-align: center;">Bill
-													No</th> -->
 												<th class="col-md-2" style="text-align: center;">Invoice
 													No</th>
-												<th class="col-md-2" style="text-align: center;">Franchisee
+												<th class="col-md-3" style="text-align: center;">Franchise
 													Name</th>
 												<th class="col-md-1" style="text-align: center;">Bill
 													Date</th>
@@ -153,7 +151,7 @@ table, th, td {
 													No</th> -->
 												<th class="col-md-2" style="text-align: center;">Invoice
 													No</th>
-												<th class="col-md-2" style="text-align: center;">Franchisee
+												<th class="col-md-3" style="text-align: center;">Franchisee
 													Name</th>
 												<th class="col-md-1" style="text-align: center;">Bill
 													Date</th>
@@ -277,7 +275,7 @@ table, th, td {
 																				sellBillData.invoiceNo));
 														tr
 																.append($(
-																		'<td class="col-md-2"></td>')
+																		'<td class="col-md-3"></td>')
 																		.html(
 																				sellBillData.frName));
 
