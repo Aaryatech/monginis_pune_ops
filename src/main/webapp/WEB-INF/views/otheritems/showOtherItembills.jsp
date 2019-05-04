@@ -305,7 +305,7 @@ body {
 													<b>From Date:-</b>
 												</h4>
 													<div class="col-md-8">
-														<input id="datepicker1" class="texboxitemcode texboxcal" value="${fromDate}"
+														<input id="datepicker1" class="texboxitemcode texboxcal" value="${fromDate}"  autocomplete="off"
 															name="fromDate" type="text" required>
 													</div>
  											</div>
@@ -315,7 +315,7 @@ body {
 													<b>To Date:-</b>
 												</h4>
 													<div class="col-md-8">
-														<input id="datepicker2"  class="texboxitemcode texboxcal" value="${toDate}"
+														<input id="datepicker2"  class="texboxitemcode texboxcal" value="${toDate}" autocomplete="off"
 															name="toDate" type="text" required>
 													</div>
  											</div>

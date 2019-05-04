@@ -219,7 +219,7 @@ table, th, td {
 					</div>
 					<div class="col-md-2" align="left">
 
-						<input id="fromdatepicker" class="texboxitemcode texboxcal"
+						<input id="fromdatepicker" class="texboxitemcode texboxcal" autocomplete="off"
 							placeholder="From Date" name="from_datepicker" type="text">
 
 					</div>
@@ -232,7 +232,7 @@ table, th, td {
 						<div class="col1title">To Date:</div>
 					</div>
 					<div class="col-md-2" align="left">
-						<input id="todatepicker" class="texboxitemcode texboxcal"
+						<input id="todatepicker" class="texboxitemcode texboxcal"  autocomplete="off"
 							placeholder="To Date" name="to_datepicker" type="text">
 					</div>
 
@@ -542,25 +542,23 @@ table, th, td {
 					$.each(data, function(key, item) {
 						//alert(JSON.stringify(item));
 						var tr = $('<tr class=bgpink></tr>');
-				
-						tr.append($('<td class="col-md-1"></td>').html(item.itemId));
+						var curStock=(parseFloat(item.openingStock)+parseFloat(item.purchaseQty))-(parseFloat(item.sellQty));//+parseFloat(item.damagedStock)
+						tr.append($('<td class="col-md-1"></td>').html(item.itemId+'<input type="hidden" id="currStk'+item.id+'" value='+curStock+'  />'));
 						tr.append($('<td class="col-md-1"></td>').html(item.itemName));
 						tr.append($('<td class="col-md-1"></td>').html(item.openingStock));
 						tr.append($('<td class="col-md-1"></td>').html(item.purchaseQty));
 						tr.append($('<td class="col-md-1"></td>').html(item.sellQty));
 						
 						if(isMonthClose==0){
-						tr.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px; readonly onkeyup= updateStockDiff('
-								+ item.id +') onchange= updateStockDiff('+ item.id + ')  id= damagedStock'+ item.id+ ' name=damagedStock'+item.id+' value = '+item.damagedStock+ '></td>'));
+						tr.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px; readonly  onchange= updateStockDiff('+ item.id+','+curStock+')  id= damagedStock'+ item.id+ ' name=damagedStock'+item.id+' value = '+item.damagedStock+ '></td>'));
 					}else{
 						
-						tr.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px;  onkeyup= updateStockDiff('
-								+ item.id +') onchange= updateStockDiff('+ item.id + ')  id= damagedStock'+ item.id+ ' name=damagedStock'+item.id+' value = '+item.damagedStock+ '></td>'));
+						tr.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px;   onchange= updateStockDiff('+ item.id+','+curStock+')  id= damagedStock'+ item.id+ ' name=damagedStock'+item.id+' value = '+item.damagedStock+ ' /> </td>'));
 					}
 					//	tr.append($('<td class="col-md-1"></td>').html(item.damagedStock));
 						
-						var curStock=(parseFloat(item.openingStock)+parseFloat(item.purchaseQty))-(parseFloat(item.sellQty)+parseFloat(item.damagedStock));
-						tr.append($('<td class="col-md-1"></td>').html(curStock));
+						
+						tr.append($('<td class="col-md-1"  id="stockDiff'+item.id+'"></td>').html(curStock));
 																		    
 							
 						$('#table_grid tbody').append(tr);
@@ -571,25 +569,28 @@ table, th, td {
 		</script>
 
 <script type="text/javascript">
-		function updateStockDiff1(id, currentStock) {
+		function updateStockDiff(id, currentStock) {
 			
 			var physicalStockQty = $("#damagedStock" + id).val();
-			var oldDiff = $('#stockDiff'+id).val();
-			
+			var oldDiff = $('#stockDiff'+id).html();
+			var currStk=$('#currStk'+id).val();
 			var stockDiff=0;
 			
-			if(currentStock > physicalStockQty){
+			if(currentStock >= physicalStockQty){
 				
 			 stockDiff =currentStock - physicalStockQty;
-			 
+			 $('#stockDiff'+id).html(stockDiff);
 			}else{
 				
-				 stockDiff =physicalStockQty - currentStock ;
-
+				// stockDiff =physicalStockQty - currentStock ;
+                alert("You can not enter damaged qty greator than current stock!!");
+                
+                document.getElementById('damagedStock'+id).value=0;
+                $('#stockDiff'+id).html(currStk);
 			}
 			
 			
-			 $('#stockDiff'+id).html(stockDiff);
+			
 		}
 	</script>
 

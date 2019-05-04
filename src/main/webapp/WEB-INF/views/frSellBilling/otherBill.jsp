@@ -244,7 +244,9 @@ body {
 					</div>
 					<br>
 					<div class="order-right" align="right">
-					 <a href="${pageContext.request.contextPath}/toOtherStock"><input type="button" value="Other Stock" class="btn btn-info">
+					 <a href="${pageContext.request.contextPath}/showOthItemStock"><input type="button" value="Other Stock" class="btn btn-info">
+										</a>
+					 <a href="${pageContext.request.contextPath}/toOtherStock"><input type="button" value="Other Op Stock" class="btn btn-info">
 										</a>
 						<a href="${pageContext.request.contextPath}/addSupplier"><input type="button" value="Add Supplier" class="btn btn-info">
 										</a>
@@ -300,7 +302,7 @@ body {
 													<b>Select Bill Date:-</b>
 												</h4>
 													<div class="col-md-8">
-														<input id="datepicker" placeholder="Bill Date" class="texboxitemcode texboxcal"
+														<input id="datepicker" placeholder="Bill Date" class="texboxitemcode texboxcal" autocomplete="off"
 															name="billDate" type="text" required>
 													</div>
  											</div>
@@ -397,7 +399,7 @@ body {
 													<th class="col-md-1">Tax%</th>
 													<th class="col-md-1">Tax Amt</th>
 													<th class="col-md-1">Total</th>
-													<th class="col-md-1">Action</th>
+													<th class="col-md-2">Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -590,7 +592,7 @@ body {
 										  	tr.append($('<td></td>').html('<input type="hidden" value="'+itemList.itemTax3+'" id="taxRate'+key+'" class="form-control" disabled="true"><h4>'+itemList.itemTax3.toFixed(2)+'</h4>'));
 										  	tr.append($('<td></td>').html('<h4 id="taxRs'+key+'" >'+itemList.itemTax3rs.toFixed(2)+'</h4>'));
 										  	tr.append($('<td></td>').html('<h4 id="grndTotal'+key+'" >'+itemList.grandTotal.toFixed(2)+'</h4>'));
-										  	tr.append($('<td></td>').html('<abbr title="Edit"><i id="edit'+key+'" onclick="edit('+key+')" class="fa fa-edit"></i> </abbr><span style="visibility: hidden;" class="glyphicon glyphicon-ok" onclick="submit('+key+');" id="ok'+key+'"></span><abbr title="Delete"><i onclick="del('+key+')" class="fa fa-trash"></i></abbr>'));
+										  	tr.append($('<td  class="col-md-2"></td>').html('<abbr title="Edit"><i id="edit'+key+'" onclick="edit('+key+')" class="fa fa-edit"></i> </abbr><span style="visibility: hidden;" class="fa fa-save" onclick="submit('+key+');" id="ok'+key+'"></span><abbr title="Delete"><i onclick="del('+key+')" class="fa fa-trash"></i></abbr>'));
 										    $('#table_grid1 tbody').append(tr);
 
 											 
@@ -686,7 +688,7 @@ body {
 								  	tr.append($('<td></td>').html('<input type="hidden" value="'+itemList.itemTax3+'" id="taxRate'+key+'" class="form-control" disabled="true"><h4>'+itemList.itemTax3.toFixed(2)+'</h4>'));
 								  	tr.append($('<td></td>').html('<h4 id="taxRs'+key+'" >'+itemList.itemTax3rs.toFixed(2)+'</h4>'));
 								  	tr.append($('<td></td>').html('<h4 id="grndTotal'+key+'" >'+itemList.grandTotal.toFixed(2)+'</h4>'));
-								  	tr.append($('<td></td>').html('<abbr title="Edit"><i id="edit'+key+'" onclick="edit('+key+')" class="fa fa-edit"></i> </abbr><span style="visibility: hidden;" class="glyphicon glyphicon-ok" onclick="submit('+key+');" id="ok'+key+'"></span><abbr title="Delete"><i onclick="del('+key+')" class="fa fa-trash"></i></abbr>'));
+								  	tr.append($('<td  class="col-md-2"></td>').html('<abbr title="Edit"><i id="edit'+key+'" onclick="edit('+key+')" class="fa fa-edit"></i> </abbr><span style="visibility: hidden;" class="fa fa-save" onclick="submit('+key+');" id="ok'+key+'"></span><abbr title="Delete"><i onclick="del('+key+')" class="fa fa-trash"></i></abbr>'));
 								    $('#table_grid1 tbody').append(tr);
 
 									 
@@ -760,7 +762,7 @@ body {
 								  	tr.append($('<td></td>').html('<input type="hidden" value="'+itemList.itemTax3+'" id="taxRate'+key+'" class="form-control" disabled="true"><h4>'+itemList.itemTax3.toFixed(2)+'</h4>'));
 								  	tr.append($('<td></td>').html('<h4 id="taxRs'+key+'" >'+itemList.itemTax3rs.toFixed(2)+'</h4>'));
 								  	tr.append($('<td></td>').html('<h4 id="grndTotal'+key+'" >'+itemList.grandTotal.toFixed(2)+'</h4>'));
-								  	tr.append($('<td></td>').html('<abbr title="Edit"><i id="edit'+key+'" onclick="edit('+key+')" class="fa fa-edit"></i> </abbr><span style="visibility: hidden;" class="glyphicon glyphicon-ok" onclick="submit('+key+');" id="ok'+key+'"></span><abbr title="Delete"><i onclick="del('+key+')" class="fa fa-trash"></i></abbr>'));
+								  	tr.append($('<td  class="col-md-2"></td>').html('<abbr title="Edit"><i id="edit'+key+'" onclick="edit('+key+')" class="fa fa-edit"></i> </abbr><span style="visibility: hidden;" class="fa fa-save" onclick="submit('+key+');" id="ok'+key+'"></span><abbr title="Delete"><i onclick="del('+key+')" class="fa fa-trash"></i></abbr>'));
 								    $('#table_grid1 tbody').append(tr);
 
 									 

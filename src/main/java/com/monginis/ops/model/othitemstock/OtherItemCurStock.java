@@ -4,7 +4,7 @@ package com.monginis.ops.model.othitemstock;
 public class OtherItemCurStock {
 	
 	private int id;
-	private int itemId;
+	private String itemId;
 	private String itemName;
 	private String frName;
 	
@@ -21,10 +21,10 @@ public class OtherItemCurStock {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
-	public void setItemId(int itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 	public String getItemName() {

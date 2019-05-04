@@ -543,7 +543,7 @@ public class OtherBillController {
 					FrSupplier.class);
 			
 			map = new LinkedMultiValueMap<String, Object>();
-			map.add("itemGrp1", 6); 
+			map.add("itemGrp1", 7); 
 			Item[] items  = rest.postForObject(Constant.URL + "/getItemsByCatId", map,
 					Item[].class);  
 			ArrayList<Item> itemsList =new ArrayList<>(Arrays.asList(items));

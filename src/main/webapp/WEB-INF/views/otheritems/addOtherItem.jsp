@@ -299,7 +299,7 @@ body {
 													<b>Bill Date:-</b>
 												</h4>
 													<div class="col-md-8">
-														<input id="datepicker" placeholder="Bill Date" class="texboxitemcode texboxcal"
+														<input id="datepicker" placeholder="Bill Date" class="texboxitemcode texboxcal" autocomplete="off"
 															name="billDate" type="text" required>
 													</div>
  											</div>

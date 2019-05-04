@@ -314,7 +314,7 @@ table, th, td {
 					</div>
 					<div class="col-md-2" align="left">
 
-						<input id="fromdatepicker" class="texboxitemcode texboxcal"
+						<input id="fromdatepicker" class="texboxitemcode texboxcal" autocomplete="off"
 							placeholder="From Date" name="from_datepicker" type="text">
 
 					</div>
@@ -327,7 +327,7 @@ table, th, td {
 						<div class="col1title">To Date:</div>
 					</div>
 					<div class="col-md-2" align="left">
-						<input id="todatepicker" class="texboxitemcode texboxcal"
+						<input id="todatepicker" class="texboxitemcode texboxcal" autocomplete="off"
 							placeholder="To Date" name="to_datepicker" type="text">
 					</div>
 
@@ -365,7 +365,7 @@ table, th, td {
 				<div class="row">
 					<div class="col-md-12">
 						<!--table-->
-						<form action="monthEndProcess" method="POST" onsubmit="substk.disabled = true; return confirm('Do you want to Generate Bill ?');">
+						<form action="monthEndProcess" method="POST" onsubmit="substk.disabled = true; return confirm('Do you want to Month End ?');">
 							<div class="clearfix"></div>
 							<div class="col-md-9"></div>
 							<label for="search" class="col-md-3" id="search"> <i

@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
  
 
@@ -93,7 +94,7 @@ table, th, td {
 						<div class="col-md-2">
 							<div class="col1title" align="left">Bill Date: </div>
 						</div>
-						<div class="col-md-1" align="left">
+						<div class="col-md-2" align="left">
 							${otherBillHeader.billDate}
 
 						</div>
@@ -204,27 +205,25 @@ table, th, td {
 									varStatus="count">
 									<tr>
 										 <td class="col-md-1"><c:out value="${count.index+1}" /></td>
+										 <td class="col-md-1">
+										 <c:set var="name" value=""></c:set>
 										  <c:forEach items="${itemsList}" var="itemsList" >
 												 <c:choose> 
-												 <c:when test="${otherBillDetailList.itemId==itemsList.itemId}">
-												 <td class="col-md-1"><c:out
-												value="${itemsList.itemName}" /></td>
+												 <c:when test="${otherBillDetailList.itemId==itemsList.id}">
+												 <c:set var="name" value="${itemsList.itemName}"></c:set>
+												
 												 </c:when>
 												 </c:choose>
-										 </c:forEach>
+										 </c:forEach>${name}</td>
 										
-										<td class="col-md-1" style="text-align:right"><c:out
-												value="${otherBillDetailList.billQty}" /></td>
-										<td class="col-md-1" style="text-align:right"><c:out
-												value="${otherBillDetailList.baseRate}" /></td>
-										<td class="col-md-1" style="text-align:right"><c:out
-												value="${otherBillDetailList.discRs}" /></td>
-										<td class="col-md-1" style="text-align:right"><c:out
-												value="${otherBillDetailList.taxableAmt}" /></td>
-										<td class="col-md-1" style="text-align:right"><c:out
-												value="${otherBillDetailList.totalTax}" /></td>
-										<td class="col-md-1" style="text-align:right"><c:out
-												value="${otherBillDetailList.grandTotal}" /></td>
+										<td class="col-md-1" style="text-align:right">
+										<fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${otherBillDetailList.billQty}"/>
+										</td>
+										<td class="col-md-1" style="text-align:right"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${otherBillDetailList.baseRate}" /></td>
+										<td class="col-md-1" style="text-align:right"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${otherBillDetailList.discRs}" /></td>
+										<td class="col-md-1" style="text-align:right"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${otherBillDetailList.taxableAmt}" /></td>
+										<td class="col-md-1" style="text-align:right"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${otherBillDetailList.totalTax}" /></td>
+										<td class="col-md-1" style="text-align:right"><fmt:formatNumber type="number"	minFractionDigits="2" maxFractionDigits="2"	value="${otherBillDetailList.grandTotal}" /></td>
 										 
 									</tr>
 								</c:forEach>
