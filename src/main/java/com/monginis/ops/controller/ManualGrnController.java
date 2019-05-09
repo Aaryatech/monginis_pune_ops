@@ -445,7 +445,7 @@ System.err.println("Inside Manual Grn POST method ");
 					postGrnGvn.setFrGrnGvnRemark(frGrnRemark);
 					postGrnGvn.setGvnPhotoUpload1("grn:no photo");
 					postGrnGvn.setGvnPhotoUpload2("grn:no photo");
-					postGrnGvn.setGrnGvnStatus(1);
+					postGrnGvn.setGrnGvnStatus(2);//Changed on May 9 By Sachin
 					postGrnGvn.setApprovedLoginGate(0);
 					postGrnGvn.setApproveimedDateTimeGate(dateFormat.format(cal.getTime()));
 					postGrnGvn.setApprovedRemarkGate(" ");
@@ -483,7 +483,7 @@ System.err.println("Inside Manual Grn POST method ");
 
 					// setting new field added on 23 FEB
 
-					postGrnGvn.setAprQtyGate(0);
+					postGrnGvn.setAprQtyGate(grnQty);
 					postGrnGvn.setAprQtyStore(0);
 					postGrnGvn.setAprQtyAcc(0);
 					postGrnGvn.setAprTaxableAmt(0);
@@ -515,7 +515,7 @@ System.err.println("Inside Manual Grn POST method ");
 			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
 			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response,frDetails.getFrCode()));
-			grnHeader.setGrngvnStatus(1);
+			grnHeader.setGrngvnStatus(2);//Changed on May 9 By Sachin 1 with 2
 			grnHeader.setIsCreditNote(0);
 			grnHeader.setIsGrn(1);
 			grnHeader.setApporvedAmt(0);

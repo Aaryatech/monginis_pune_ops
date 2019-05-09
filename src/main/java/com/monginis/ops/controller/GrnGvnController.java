@@ -910,7 +910,7 @@ public class GrnGvnController {
 				postGrnGvn.setFrGrnGvnRemark(frGrnRemark);
 				postGrnGvn.setGvnPhotoUpload1("grn:no photo");
 				postGrnGvn.setGvnPhotoUpload2("grn:no photo");
-				postGrnGvn.setGrnGvnStatus(1);
+				postGrnGvn.setGrnGvnStatus(2);//changed to 2 from 1 on May 9 Sachin
 				postGrnGvn.setApprovedLoginGate(0);
 				postGrnGvn.setApproveimedDateTimeGate(dateFormat.format(cal.getTime()));
 				postGrnGvn.setApprovedRemarkGate(" ");
@@ -948,7 +948,7 @@ public class GrnGvnController {
 
 				// setting new field added on 23 FEB
 
-				postGrnGvn.setAprQtyGate(0);
+				postGrnGvn.setAprQtyGate(Integer.parseInt(tempGrnQty));
 				postGrnGvn.setAprQtyStore(0);
 				postGrnGvn.setAprQtyAcc(0);
 				postGrnGvn.setAprTaxableAmt(0);
@@ -994,7 +994,7 @@ public class GrnGvnController {
 			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
 			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response));
-			grnHeader.setGrngvnStatus(1);
+			grnHeader.setGrngvnStatus(2);//changed to 2 from 1 on May 9 Sachin
 			grnHeader.setIsCreditNote(0);
 			grnHeader.setIsGrn(1);
 			grnHeader.setApporvedAmt(0);
@@ -1745,7 +1745,7 @@ public class GrnGvnController {
 					postGrnGvn.setIsGrn(0);// 10 postGrnGvn.setIsGrnEdit(0);// 11
 					postGrnGvn.setGrnGvnEntryDateTime(dateFormat.format(cal.getTime()));// 12
 					postGrnGvn.setFrGrnGvnRemark(frGvnRemark);// 13
-					postGrnGvn.setGrnGvnStatus(1);// 16 postGrnGvn.setApprovedLoginGate(0);// 17
+					postGrnGvn.setGrnGvnStatus(2);//changed to 2 from 1 on May 9 By Sachin // 16 postGrnGvn.setApprovedLoginGate(0);// 17
 					postGrnGvn.setApproveimedDateTimeGate(dateFormat.format(cal.getTime()));// 18
 					postGrnGvn.setApprovedRemarkGate("");// 19
 					curDateTime = dateFormat.format(cal.getTime());
@@ -1813,7 +1813,7 @@ public class GrnGvnController {
 
 					// setting new field added on 23 FEB
 
-					postGrnGvn.setAprQtyGate(0);
+					postGrnGvn.setAprQtyGate(gvnQty);//changed to 2 from 1 on May 9 Sachin
 					postGrnGvn.setAprQtyStore(0);
 					postGrnGvn.setAprQtyAcc(0);
 					postGrnGvn.setAprTaxableAmt(0);
@@ -1847,7 +1847,7 @@ public class GrnGvnController {
 			grnHeader.setCreditNoteId("");
 			grnHeader.setGrngvnDate(new SimpleDateFormat("dd-MM-yyyy").format(grnGvnDate));
 			grnHeader.setGrngvnSrno(getGrnGvnSrNo(request, response));
-			grnHeader.setGrngvnStatus(1);
+			grnHeader.setGrngvnStatus(2);//changed to 2 from 1 on May 9 Sachin
 			grnHeader.setIsCreditNote(0);
 			// grnHeader.setIsGrn(0);
 			grnHeader.setApporvedAmt(0);
