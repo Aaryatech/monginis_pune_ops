@@ -159,7 +159,6 @@ table, th, td {
 					<br>
 					<div class="col-sm-2 col-lg-2 controls">
 						<input type="button" value="Generate PDF For Fr"
-							onClick="var checkedVals = $('.chk:checkbox:checked').map(function() { return this.value;}).get();checkedVals=checkedVals.join(',');if(checkedVals==''){alert('No Rows Selected');return false;	}else{   return confirm('Are you sure want to delete record');}"
 							onclick="genPdf()" class="btn btn-primary">
 					</div>
 				</div>
@@ -270,7 +269,7 @@ table, th, td {
 													var tr = $('<tr></tr>');
 
 													tr
-															.append($('<td><input type=checkbox name="select_to_agree" id="select_to_agree'+key+'"  value='+headers.crnId+'></td>'));
+															.append($('<td><input class="chk" type=checkbox name="select_to_agree" id="select_to_agree'+key+'"  value='+headers.crnId+'></td>'));
 													tr
 															.append($(
 																	'<td class="col-sm-1"></td>')
@@ -411,5 +410,7 @@ table, th, td {
 	}
 </script>
 
+<!-- onclick="var checkedVals = $('.chk:checkbox:checked').map(function() { return this.value;}).get();checkedVals=checkedVals.join(',');if(checkedVals==''){alert('No Rows Selected');return false;	}else{   return confirm('Are you sure want to generate pdf');}"
+ -->
 </body>
 </html>
