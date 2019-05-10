@@ -328,6 +328,10 @@ table, th, td {
 																billType="Regular B2C";
 															}
 															else 
+																if(sellBillData.billType=='S'){
+																	billType="Special Cake";
+																}
+															else 
 																if(sellBillData.billType=='B'){
 																	billType="Regular B2B";
 																}else if(sellBillData.billType=='G'){

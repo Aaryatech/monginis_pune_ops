@@ -98,6 +98,11 @@ th {
 						<c:when test="${reportList.billType.toString()=='B'}">
 							<c:set var="billType" value="Regular B2B" />
 						</c:when>
+						
+						<c:when test="${reportList.billType.toString()=='S'}">
+							<c:set var="billType" value="Special Cake" />
+						</c:when>
+						
 
 						<c:when test="${reportList.billType.toString()=='G'}">
 							<c:set var="billType" value="Against GRN" />
