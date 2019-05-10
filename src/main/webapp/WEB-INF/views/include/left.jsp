@@ -8,111 +8,109 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <style type="text/css">
 .topSlide2 {
-   
-    padding: 20px 60px 20px 20px;
-} 
-
+	padding: 20px 60px 20px 20px;
+}
 </style>
- 	<div class="sidebarhome">
+<div class="sidebarhome">
 	<div class="content mCustomScrollbar">
 		<ul>
-		<c:if test="${info.accessRight==1 or info.accessRight==2}">
-			<li style="border: 1px;"><a href="#" onClick="openNav()"><div
-						class="img">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/nav-orderbook.png"
-							alt="img">
-					</div>
-					<div class="title">
-						Order <span>Booking</span>
-					</div></a>
-			</li>
-		</c:if>
-		
-					<%-- <li><a href="${pageContext.request.contextPath}/showExpressBill"><div
+			<c:if test="${info.accessRight==1 or info.accessRight==2}">
+				<li style="border: 1px;"><a href="#" onClick="openNav()"><div
+							class="img">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/nav-orderbook.png"
+								alt="img">
+						</div>
+						<div class="title">
+							Order <span>Booking</span>
+						</div></a></li>
+			</c:if>
+
+			<%-- <li><a href="${pageContext.request.contextPath}/showExpressBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Express Bill <span></span>
 					</div></a></li> --%>
-					
-					
-					<%-- <li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
+
+
+			<%-- <li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Customer Bill <span></span>
 					</div></a></li> --%>
-		<c:if test="${info.accessRight==1 or info.accessRight==2}">	
-			<li><a href="#" onClick="openNav1()"><div class="img">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/nav-goodsreturn.png"
-							alt="img">
-					</div>
-					<div class="title">
-						Goods <span>Return</span>
-					</div></a>
-			</li>
-			<c:if test="${info.accessRight==1 or info.accessRight==2 or info.accessRight==3}">	
-					
-			<li><a href="${pageContext.request.contextPath}/orderHistory"><div
-						class="img">
-						<i class="fa fa-file-text-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						Order <span>History</span>
-					</div></a></li>
-			</c:if>		
-					
-					
-				 
+			<c:if test="${info.accessRight==1 or info.accessRight==2}">
+				<li><a href="#" onClick="openNav1()"><div class="img">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/nav-goodsreturn.png"
+								alt="img">
+						</div>
+						<div class="title">
+							Goods <span>Return</span>
+						</div></a></li>
+				<c:if
+					test="${info.accessRight==1 or info.accessRight==2 or info.accessRight==3}">
+
+					<li><a href="${pageContext.request.contextPath}/orderHistory"><div
+								class="img">
+								<i class="fa fa-file-text-o icon"
+									style="font-size: 22px !important;"></i>
+							</div>
+							<div class="title">
+								Order <span>History</span>
+							</div></a></li>
+				</c:if>
+
+
+
 			</c:if>
-					
-			
-					
-					<li><a href="${pageContext.request.contextPath}/showBill"><div
+
+
+
+			<li><a href="${pageContext.request.contextPath}/showBill"><div
 						class="img">
 						<i class="fa fa-money icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						View Purchase <span>Bills</span>
 					</div></a></li>
-					
-						<%-- <li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
+
+			<%-- <li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Other Item Stock
 					</div></a></li> --%>
-						<%-- <li><a href="${pageContext.request.contextPath}/showOtherBill"><div
+			<%-- <li><a href="${pageContext.request.contextPath}/showOtherBill"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Other Purchase Bill
 					</div></a></li> --%>
-					<c:if test="${info.accessRight==1}">
-			
-					<li><a href="#" onClick="openNav4()"><div class="img">
-						<i class="fa fa-file-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						<span>Reports</span>
-					</div></a></li>
-					</c:if>
-					
-				<%-- 	<li><a href="${pageContext.request.contextPath}/showRuleFilePdf"><div
+			<c:if test="${info.accessRight==1}">
+
+				<li><a href="#" onClick="openNav4()"><div class="img">
+							<i class="fa fa-file-o icon" style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							<span>Reports</span>
+						</div></a></li>
+			</c:if>
+
+			<%-- 	<li><a href="${pageContext.request.contextPath}/showRuleFilePdf"><div
 						class="img">
 						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
 					</div>
 					<div class="title">
 						Rule And Regulation <span></span>
 					</div></a></li> --%>
-					
-						<%-- <c:if test="${info.accessRight==1 or info.accessRight==2}">	
+
+			<%-- <c:if test="${info.accessRight==1 or info.accessRight==2}">	
 					<li><a href="${pageContext.request.contextPath}/showstockdetail" ><div class="img">
 						<img
 							src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
@@ -121,227 +119,208 @@
 					<div class="title">
 						Stock <span>Details</span>
 					</div></a></li></c:if> --%>
-					
-					
-					
-					
-			<c:if test="${info.accessRight==1}">	
-					
-			<li><a href="${pageContext.request.contextPath}/showeditprofile" ><div class="img">
-						
-						<img
-							src="${pageContext.request.contextPath}/resources/images/nav-editprofile.png"
-							alt="img">
-					</div>
-					<div class="title">
-						Edit <span>Profile</span>
-					</div></a>
-		   </li>
-		   </c:if>
+
+
+
+
+			<c:if test="${info.accessRight==1}">
+
+				<li><a
+					href="${pageContext.request.contextPath}/showeditprofile"><div
+							class="img">
+
+							<img
+								src="${pageContext.request.contextPath}/resources/images/nav-editprofile.png"
+								alt="img">
+						</div>
+						<div class="title">
+							Edit <span>Profile</span>
+						</div></a></li>
+			</c:if>
 		</ul>
-		</div>
 	</div>
-	<!--leftNav-->
+</div>
+<!--leftNav-->
 
-	<!--navInner-->
+<!--navInner-->
 
-	<!--1nav-->
-	<div id="mySidenav" class="sidenav">
-		<div class="topSlide">
-			<div class="topSlide2">
-				<a href="javascript:void(0)" class="closebtn" onClick="closeNav()"><img
-					src="${pageContext.request.contextPath}/resources/images/closebtn.png"
-					alt="monginis"></a>
-				<div class="listarea">
-					<ul>
+<!--1nav-->
+<div id="mySidenav" class="sidenav">
+	<div class="topSlide">
+		<div class="topSlide2">
+			<a href="javascript:void(0)" class="closebtn" onClick="closeNav()"><img
+				src="${pageContext.request.contextPath}/resources/images/closebtn.png"
+				alt="monginis"></a>
+			<div class="listarea">
+				<ul>
 
-						<c:forEach var="menu" items="${menuList}" varStatus="loop">
-							<c:set var="menuToTime" value="${menu.toTime}" />
-							<c:set var="menuFromTime" value="${menu.fromTime}" />
-							<c:set var="menuDesc" value="${menu.menuDesc}" />
+					<c:forEach var="menu" items="${menuList}" varStatus="loop">
+						<c:set var="menuToTime" value="${menu.toTime}" />
+						<c:set var="menuFromTime" value="${menu.fromTime}" />
+						<c:set var="menuDesc" value="${menu.menuDesc}" />
 
-							<c:set var="frId" value="${menu.frId}" />
-							<c:set var="isSameDayApplicable"
-								value="${menu.isSameDayApplicable}" />
-							<c:set var="settingType" value="${menu.settingType}" />
+						<c:set var="frId" value="${menu.frId}" />
+						<c:set var="isSameDayApplicable"
+							value="${menu.isSameDayApplicable}" />
+						<c:set var="settingType" value="${menu.settingType}" />
 
-							<c:set var="catId" value="${menu.catId}" />
+						<c:set var="catId" value="${menu.catId}" />
 
-							<%
-								ZoneId z = ZoneId.of("Asia/Calcutta");
-									LocalTime now = LocalTime.now(z); // Explicitly specify the desired/expected time zone.
+						<%
+							ZoneId z = ZoneId.of("Asia/Calcutta");
+								LocalTime now = LocalTime.now(z); // Explicitly specify the desired/expected time zone.
 
-									String menuToTiming = (String) pageContext.getAttribute("menuToTime");
-									String menuFromTiming = (String) pageContext.getAttribute("menuFromTime");
+								String menuToTiming = (String) pageContext.getAttribute("menuToTime");
+								String menuFromTiming = (String) pageContext.getAttribute("menuFromTime");
 
-									String menuDesc = (String) pageContext.getAttribute("menuDesc");
+								String menuDesc = (String) pageContext.getAttribute("menuDesc");
 
-									
-									SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
-									SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-									Date fromTime12Hrs = _24HourSDF.parse(menuFromTiming);
-									Date toTime12Hrs = _24HourSDF.parse(menuToTiming);
+								SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
+								SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+								Date fromTime12Hrs = _24HourSDF.parse(menuFromTiming);
+								Date toTime12Hrs = _24HourSDF.parse(menuToTiming);
 
-									// System.out.println(_24HourDt);
-									//  System.out.println(_12HourSDF.format(_24HourDt));
+								// System.out.println(_24HourDt);
+								//  System.out.println(_12HourSDF.format(_24HourDt));
 
-									pageContext.setAttribute("fromTime", _12HourSDF.format(fromTime12Hrs));
-									pageContext.setAttribute("toTime", _12HourSDF.format(toTime12Hrs));
+								pageContext.setAttribute("fromTime", _12HourSDF.format(fromTime12Hrs));
+								pageContext.setAttribute("toTime", _12HourSDF.format(toTime12Hrs));
 
-									int isSameDayApplicable = (int) pageContext.getAttribute("isSameDayApplicable");
-									int catId = (Integer) pageContext.getAttribute("catId");
-									int settingType = (int) pageContext.getAttribute("settingType");
+								int isSameDayApplicable = (int) pageContext.getAttribute("isSameDayApplicable");
+								int catId = (Integer) pageContext.getAttribute("catId");
+								int settingType = (int) pageContext.getAttribute("settingType");
 
-									System.out.println("\n\n\nMenu To Timing" + menuToTiming);
-									System.out.println("Menu From Timing" + menuFromTiming);
+								System.out.println("\n\n\nMenu To Timing" + menuToTiming);
+								System.out.println("Menu From Timing" + menuFromTiming);
 
-									LocalTime toTime = LocalTime.parse(menuToTiming);
-									LocalTime fromTime = LocalTime.parse(menuFromTiming);
+								LocalTime toTime = LocalTime.parse(menuToTiming);
+								LocalTime fromTime = LocalTime.parse(menuFromTiming);
 
-									Boolean isLate = now.isAfter(toTime);
-									Boolean isEarly = now.isBefore(fromTime);
+								Boolean isLate = now.isAfter(toTime);
+								Boolean isEarly = now.isBefore(fromTime);
 
-									System.out.println("\nLocal time" + now + "Is Early :" + isLate);
-									System.out.println("Local time" + now + "Is Late :" + isLate);
+								System.out.println("\nLocal time" + now + "Is Early :" + isLate);
+								System.out.println("Local time" + now + "Is Late :" + isLate);
 
-									/* 	try {
-										    final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-										    final Date dateObj = sdf.parse(time);
-										    System.out.println(dateObj);
-										    System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
-										} catch (final ParseException e) {
-										    e.printStackTrace();
-										} */
-									Boolean isSameDay = fromTime.isBefore(toTime);
-									Boolean isValid = false;
+								/* 	try {
+									    final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+									    final Date dateObj = sdf.parse(time);
+									    System.out.println(dateObj);
+									    System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
+									} catch (final ParseException e) {
+									    e.printStackTrace();
+									} */
+								Boolean isSameDay = fromTime.isBefore(toTime);
+								Boolean isValid = false;
 
-									if (isSameDay) {
-										System.out.println("in isSameDay if loop");
+								if (isSameDay) {
+									System.out.println("in isSameDay if loop");
 
-										if (!isLate && !isEarly) {
+									if (!isLate && !isEarly) {
 
-											isValid = true;
-										}
-									} else {										
-										System.out.println("in isSameDay else loop");
-
-									
-										if (now.isAfter(fromTime)) {
-											isValid = true;
-										}else if( toTime.isAfter(now)){
-											isValid = true;
-										}
+										isValid = true;
 									}
-
-									if (isValid) {
-							%>
-
-							<li>
-								<%
-									if (catId != 5) {
-
-												if (isSameDayApplicable == 3) {
-													// if
-													if (settingType != 1) {
-								%>
-							<abbr title='${menu.menuDesc}'>			<div class="listareaBoxBlue"></abbr>
-									<a class="listareaBoximg"
-										href="${pageContext.request.contextPath}/showRegularSpCakeOrder/${loop.index}">
-
-
-
-										<%
-											//else
-															} else {
-										%>
-									<abbr title='${menu.menuDesc}'><a class="listareaBox"
-												href="${pageContext.request.contextPath}/showRegularSpCakeOrder/${loop.index}"><div class="listareaBoximg"></abbr>
-											
-
-												<%
-													}
-
-																} else {
-																	if (settingType != 1)
-
-																	{
-
-																		//if
-												%>
-											<abbr title='${menu.menuDesc}'><a class="listareaBoxBlue"
-														href="${pageContext.request.contextPath}/showSavouries/${loop.index}">	<div class="listareaBoximg"></abbr>
-													
-														<%
-															} else {
-														%>
-													<abbr title='${menu.menuDesc}'>	<a class="listareaBox"
-																href="${pageContext.request.contextPath}/showSavouries/${loop.index}">	<div class="listareaBoximg"></abbr>
-														
-																<%
-																	}
-
-																				}
-																			} else if (catId == 5) {
-
-																				// if
-																				if (settingType != 1)
-																				{
-																				
-																%> 
-															<abbr title='${menu.menuDesc}'><a class="listareaBoxBlue"
-																href="${pageContext.request.contextPath}/showSpCakeOrder/${loop.index}">	<div class="listareaBoximg"></abbr>
-																
-																
-																	<%
-																	//else
-																	}else{
-																		%> 
-																	<abbr title='${menu.menuDesc}'><a class="listareaBox"
-																		href="${pageContext.request.contextPath}/showSpCakeOrder/${loop.index}">	<div class="listareaBoximg"></abbr>
-																		
-																		
-																			<%
-																		
-																	}
-												
-																		
-
-																				}
-																	%> <img
-																	src="${pageContext.request.contextPath}/resources/images/${menu.menuImage}"
-																	alt="monginis"> <img
-																	src="${pageContext.request.contextPath}/resources/images/${menu.selectedMenuImage}"
-																	alt="monginis">
-															</div>
-																<h2>
-																	<c:out value='${menu.menuTitle}' />
-																</h2>
-																<h3>
-																	Booking -
-																	<c:out value='${fromTime}' />
-																	To
-																	<c:out value='${toTime}' />
-																</h3>
-														</a>
-							</li>
-
-
-							<%
 								} else {
-							%>
+									System.out.println("in isSameDay else loop");
+
+									if (now.isAfter(fromTime)) {
+										isValid = true;
+									} else if (toTime.isAfter(now)) {
+										isValid = true;
+									}
+								}
+
+								if (isValid) {
+						%>
+
+						<li>
+							<%
+								if (catId != 5) {
+
+											if (isSameDayApplicable == 3) {
+												// if
+												if (settingType != 1) {
+							%> <abbr title='${menu.menuDesc}'>
+								<div class="listareaBoxBlue">
+						</abbr> <a class="listareaBoximg"
+							href="${pageContext.request.contextPath}/showRegularSpCakeOrder/${loop.index}">
 
 
-							<li>
 
-								<div class="listareaBox">
+								<%
+									//else
+													} else {
+								%> <abbr title='${menu.menuDesc}'><a class="listareaBox"
+									href="${pageContext.request.contextPath}/showRegularSpCakeOrder/${loop.index}"><div
+											class="listareaBoximg"></abbr> <%
+ 	}
 
-									<a class="listareaBoximg"> <%-- <img
+ 				} else {
+ 					if (settingType != 1)
+
+ 					{
+
+ 						//if
+ %> <abbr title='${menu.menuDesc}'><a class="listareaBoxBlue"
+									href="${pageContext.request.contextPath}/showSavouries/${loop.index}">
+										<div class="listareaBoximg"></abbr> <%
+ 	} else {
+ %> <abbr title='${menu.menuDesc}'> <a class="listareaBox"
+									href="${pageContext.request.contextPath}/showSavouries/${loop.index}">
+										<div class="listareaBoximg"></abbr> <%
+ 	}
+
+ 				}
+ 			} else if (catId == 5) {
+
+ 				// if
+ 				if (settingType != 1) {
+ %> <abbr title='${menu.menuDesc}'><a class="listareaBoxBlue"
+									href="${pageContext.request.contextPath}/showSpCakeOrder/${loop.index}">
+										<div class="listareaBoximg"></abbr> <%
+ 	//else
+ 				} else {
+ %> <abbr title='${menu.menuDesc}'><a class="listareaBox"
+									href="${pageContext.request.contextPath}/showSpCakeOrder/${loop.index}">
+										<div class="listareaBoximg"></abbr> <%
+ 	}
+
+ 			}
+ %> <img
+								src="${pageContext.request.contextPath}/resources/images/${menu.menuImage}"
+								alt="monginis"> <img
+								src="${pageContext.request.contextPath}/resources/images/${menu.selectedMenuImage}"
+								alt="monginis">
+			</div>
+			<h2>
+				<c:out value='${menu.menuTitle}' />
+			</h2>
+			<h3>
+				Booking -
+				<c:out value='${fromTime}' />
+				To
+				<c:out value='${toTime}' />
+			</h3>
+			</a>
+			</li>
+
+
+			<%
+				} else {
+			%>
+
+
+			<li>
+
+				<div class="listareaBox">
+
+					<a class="listareaBoximg"> <%-- <img
 										src="${pageContext.request.contextPath}/resources/images/${menu.menuImage}"
 										alt="monginis"> <img
 										src="${pageContext.request.contextPath}/resources/images/${menu.selectedMenuImage}"
 										alt="monginis"> --%></a>
 
-									<%--
+					<%--
 									<h2>
 										<c:out value='${menu.menuTitle}' />
 									</h2>
@@ -349,74 +328,77 @@
 										Booking - <c:out value='${fromTime}' /> To 
 											<c:out value='${toTime}' />
 									</h3> --%>
-									</a>
-								</div>
-
-							</li>
-							<%
-								}
-							%>
-						</c:forEach>
-
-
-
-
-					</ul>
+					</a>
 				</div>
 
-			</div>
+			</li>
+			<%
+				}
+			%>
+			</c:forEach>
+
+
+
+
+			</ul>
 		</div>
+
 	</div>
-	<!--1nav-->
+</div>
+</div>
+<!--1nav-->
 
 
 
-	<!--2nav-->
-	<div id="mySidenav1" class="sidenav">
-		<div class="topSlide">
-			<div class="topSlide2">
-				<a href="javascript:void(0)" class="closebtn" onClick="closeNav1()"><img
-					src="${pageContext.request.contextPath}/resources//images/closebtn.png"
-					alt="monginis"></a>
-				<div class="listarea">
-				
-				
-					<ul>
-						<li class="small-box">
-						
+<!--2nav-->
+<div id="mySidenav1" class="sidenav">
+	<div class="topSlide">
+		<div class="topSlide2">
+			<a href="javascript:void(0)" class="closebtn" onClick="closeNav1()"><img
+				src="${pageContext.request.contextPath}/resources//images/closebtn.png"
+				alt="monginis"></a>
+			<div class="listarea">
+
+
+				<ul>
+					<li class="small-box">
+
 						<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">GRN</div>
-						</div>
-						
-						
-						<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-plus-circle icon"></i> Request GRN </a>
-						<div class="clearfix"></div>
-						<a href="${pageContext.request.contextPath}/displayGrn"><i class="fa fa-search-plus icon"></i> View GRN </a>
-												<div class="clearfix"></div>
-						
-					<%-- <a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-search-plus icon"></i> Manual GRN </a> --%>
- 							
-						</div>
-						</li>
-	 						
-	 						<li class="small-box">
-	 						
-	 							<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">GVN</div>
-						</div>
-						
-						
-						<a href="${pageContext.request.contextPath}/showGvn"><i	class="fa fa-plus-circle icon"></i> Request GVN 
-									</a>
-									<a href="${pageContext.request.contextPath}/displayGvn"><i class="fa fa-search-plus icon"></i> View GVN </a>
-								
-						</div>
-						
-						</li>
+							<div class="ibox-head">
+								<div class="ibox-title">GRN</div>
+							</div>
 
-						<%-- <li><div class="listareaBox">
+
+							<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i
+								class="fa fa-plus-circle icon"></i> Request GRN </a>
+							<div class="clearfix"></div>
+							<a href="${pageContext.request.contextPath}/displayGrn"><i
+								class="fa fa-search-plus icon"></i> View GRN </a>
+							<div class="clearfix"></div>
+
+							<%-- <a href="${pageContext.request.contextPath}/getGrnBillDetail"><i class="fa fa-search-plus icon"></i> Manual GRN </a> --%>
+
+						</div>
+					</li>
+
+					<li class="small-box">
+
+						<div class="ibox">
+							<div class="ibox-head">
+								<div class="ibox-title">GVN</div>
+							</div>
+
+
+							<a href="${pageContext.request.contextPath}/showGvn"><i
+								class="fa fa-plus-circle icon"></i> Request GVN </a> <a
+								href="${pageContext.request.contextPath}/displayGvn"><i
+								class="fa fa-search-plus icon"></i> View GVN </a>
+
+						</div>
+
+					</li>
+
+					<%-- <li><div class="listareaBox">
 								<a class="listareaBoximg"> <img
 									src="${pageContext.request.contextPath}/resources/images/icon8.png"
 									alt="monginis"> <img
@@ -450,24 +432,24 @@
 								</div>
 							</div></li> --%>
 
-					</ul>
-				</div>
-
+				</ul>
 			</div>
+
 		</div>
 	</div>
-	<!--2nav-->
+</div>
+<!--2nav-->
 
-	<!--4nav-->
-	<div id="mySidenav4" class="sidenav">
-		<div class="topSlide">
-			<div class="topSlide2">
-				<a href="javascript:void(0)" class="closebtn" onClick="closeNav4()"><img
-					src="${pageContext.request.contextPath}/resources//images/closebtn.png"
-					alt="monginis"></a>
-				<div class="listarea">
-					<ul>
-						<%-- <li class="small-box">
+<!--4nav-->
+<div id="mySidenav4" class="sidenav">
+	<div class="topSlide">
+		<div class="topSlide2">
+			<a href="javascript:void(0)" class="closebtn" onClick="closeNav4()"><img
+				src="${pageContext.request.contextPath}/resources//images/closebtn.png"
+				alt="monginis"></a>
+			<div class="listarea">
+				<ul>
+					<%-- <li class="small-box">
 						
 							<div class="ibox">
 						<div class="ibox-head">
@@ -483,23 +465,31 @@
 						</div>
 						
 					</li> --%>
-							
-	 						<li class="small-box">
-	 						
-	 						<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">Purchase Reports</div>
+
+					<li class="small-box">
+
+						<div class="ibox">
+							<div class="ibox-head">
+								<div class="ibox-title">Purchase Reports</div>
+							</div>
+
+							<a
+								href="${pageContext.request.contextPath}/viewBillWisePurchaseReport"><i
+								class="fa fa-files-o icon"></i>Billwise Purchase Report</a> <a
+								href="${pageContext.request.contextPath}/viewMonthWisePurchaseReport"><i
+								class="fa fa-files-o icon"></i>Monthwise Purchase Report</a> <a
+								href="${pageContext.request.contextPath}/viewItemWiseDetailReport"><i
+								class="fa fa-files-o icon"></i>Itemwise-Billwise-Datewise
+								Purchase Report</a> <a
+								href="${pageContext.request.contextPath}/viewItemWiseReport"><i
+								class="fa fa-files-o icon"></i>Itemwise Purchase Report</a> <a
+								href="${pageContext.request.contextPath}/viewBillTaxPurchaseReport"><i
+								class="fa fa-files-o icon"></i>Purchase Billwise Tax (Input)
+								Report</a>
+
 						</div>
-					
-						 <a href="${pageContext.request.contextPath}/viewBillWisePurchaseReport"><i class="fa fa-files-o icon"></i>Billwise Purchase Report</a> 
-						<a href="${pageContext.request.contextPath}/viewMonthWisePurchaseReport"><i class="fa fa-files-o icon"></i>Monthwise Purchase Report</a>
-						<a href="${pageContext.request.contextPath}/viewItemWiseDetailReport"><i class="fa fa-files-o icon"></i>Itemwise-Billwise-Datewise Purchase Report</a>
-						<a href="${pageContext.request.contextPath}/viewItemWiseReport"><i class="fa fa-files-o icon"></i>Itemwise Purchase Report</a>
-						<a href="${pageContext.request.contextPath}/viewBillTaxPurchaseReport"><i class="fa fa-files-o icon"></i>Purchase Billwise Tax (Input) Report</a>
-								
-						</div>
-						</li>
-						<!-- 	
+					</li>
+					<!-- 	
 							<li class="small-box">
 							
 								<div class="ibox">
@@ -511,52 +501,58 @@
 						</div>
 						
 							</li> -->
-							
-								<li class="small-box">
-								
-								
-								<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">GRN GVN Report</div>
-						</div>
-						<%-- <a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
+
+					<li class="small-box">
+
+
+						<div class="ibox">
+							<div class="ibox-head">
+								<div class="ibox-title">GRN GVN Report</div>
+							</div>
+							<%-- <a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
 						<a href="${pageContext.request.contextPath}/viewFrDatewiseTaxSellBill"><i class="fa fa-calendar icon"></i> Date Report (Sell) </a>
 						<a href="${pageContext.request.contextPath}/viewFrBillwiseTaxSellBill"><i class="fa fa-files-o icon"></i> Bill Report (Sell)</a>
 						<a href="${pageContext.request.contextPath}/hsnWiseReport"><i class="fa fa-files-o icon"></i> HSN Code wise Report (Sell)</a> --%>
-						<a href="${pageContext.request.contextPath}/grnReport"><i class="fa fa-files-o icon"></i> GRN Report (Sell)</a>
-						<a href="${pageContext.request.contextPath}/gvnReport"><i class="fa fa-files-o icon"></i> GVN Report (Sell)</a>
-						
-						
-								
-						</div>
-						
-						</li>
-						
-						<li class="small-box">
-	 						
-	 						<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">Special Cake Reports</div>
-						</div>
-					
-						 <a href="${pageContext.request.contextPath}/showSpAdvanceReport"><i class="fa fa-files-o icon"></i>SP Advance Report</a> 
-						<a href="${pageContext.request.contextPath}/showSpAdvTaxReport"><i class="fa fa-files-o icon"></i>Sp Advance Tax Report</a>
-						
-						</div>
-						</li>
+							<a href="${pageContext.request.contextPath}/grnReport"><i
+								class="fa fa-files-o icon"></i> GRN Report (Sell)</a> <a
+								href="${pageContext.request.contextPath}/gvnReport"><i
+								class="fa fa-files-o icon"></i> GVN Report (Sell)</a>
 
-						
 
-					</ul>
-				</div>
 
+						</div>
+
+					</li>
+
+					<li class="small-box">
+
+						<div class="ibox">
+							<div class="ibox-head">
+								<div class="ibox-title">Other Reports</div>
+							</div>
+
+							<a href="${pageContext.request.contextPath}/showSpAdvanceReport"><i
+								class="fa fa-files-o icon"></i>SP Advance Report</a> <a
+								href="${pageContext.request.contextPath}/showSpAdvTaxReport"><i
+								class="fa fa-files-o icon"></i>Sp Advance Tax Report</a> <a
+								href="${pageContext.request.contextPath}/showInsertCreditNote"><i
+								class="fa fa-files-o icon"></i>Credit Note Report</a>
+
+						</div>
+					</li>
+
+
+
+				</ul>
 			</div>
+
 		</div>
 	</div>
-	<!--4nav-->
+</div>
+<!--4nav-->
 
-	<!--3nav-->
-	<%-- <div id="mySidenav3" class="sidenav">
+<!--3nav-->
+<%-- <div id="mySidenav3" class="sidenav">
 
 		<div class="topSlide">
 			<div class="topSlide2 textcen">
@@ -669,67 +665,67 @@
 			</div>
 		</div>
 	</div> --%>
-	<!--3nav-->
+<!--3nav-->
 
-	<!--navInner-->
-	<script>
-		function openNav() {
-			document.getElementById("mySidenav").style.width = "100%";
-		}
+<!--navInner-->
+<script>
+	function openNav() {
+		document.getElementById("mySidenav").style.width = "100%";
+	}
 
-		function closeNav() {
-			document.getElementById("mySidenav").style.width = "0";
-		}
-		function openNav1() {
-			document.getElementById("mySidenav1").style.width = "100%";
-		}
+	function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+	}
+	function openNav1() {
+		document.getElementById("mySidenav1").style.width = "100%";
+	}
 
-		function closeNav1() {
-			document.getElementById("mySidenav1").style.width = "0";
-		}
-		function openNav3() {
-			document.getElementById("mySidenav3").style.width = "100%";
-		}
+	function closeNav1() {
+		document.getElementById("mySidenav1").style.width = "0";
+	}
+	function openNav3() {
+		document.getElementById("mySidenav3").style.width = "100%";
+	}
 
-		function closeNav3() {
-			document.getElementById("mySidenav3").style.width = "0";
-		}
-		function openNav4() {
-			document.getElementById("mySidenav4").style.width = "100%";
-		}
+	function closeNav3() {
+		document.getElementById("mySidenav3").style.width = "0";
+	}
+	function openNav4() {
+		document.getElementById("mySidenav4").style.width = "100%";
+	}
 
-		function closeNav4() {
-			document.getElementById("mySidenav4").style.width = "0";
-		}
-	</script>
+	function closeNav4() {
+		document.getElementById("mySidenav4").style.width = "0";
+	}
+</script>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('.imgpath').click(function() {
-				$(this).hide();
-				$('.videoWrapper').show();
-				$(".sproutvideo-player")[0].src += "?autoplay=1";
-			});
-			var owl = $("#owl-example");
-			owl.owlCarousel({
-				items : 2,
-				loop : false,
-				autoplay : false,
-			});
-
+<script
+	src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.imgpath').click(function() {
+			$(this).hide();
+			$('.videoWrapper').show();
+			$(".sproutvideo-player")[0].src += "?autoplay=1";
 		});
-	</script>
+		var owl = $("#owl-example");
+		owl.owlCarousel({
+			items : 2,
+			loop : false,
+			autoplay : false,
+		});
 
-	<script type="text/javascript">
-		function showWindow(fromTime, toTime) {
-			confirm("Timeout:\n You can place order from " + fromTime + " To "
-					+ toTime);
-		}
-	</script>
+	});
+</script>
+
+<script type="text/javascript">
+	function showWindow(fromTime, toTime) {
+		confirm("Timeout:\n You can place order from " + fromTime + " To "
+				+ toTime);
+	}
+</script>
 
 
-	<!-- custom scrollbar plugin added by kalpesh -->
-		<script type="text/javascript"
+<!-- custom scrollbar plugin added by kalpesh -->
+<script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
