@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.text.DateFormat;
 
@@ -67,6 +68,9 @@ import com.monginis.ops.model.PostFrItemStockHeader;
 @Controller
 @Scope("session")
 public class StockController {
+	public static float roundUp(float d) {
+		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+	}
 
 	List<MCategory> mAllCategoryList = new ArrayList<MCategory>();
 
@@ -472,7 +476,7 @@ public class StockController {
 		double pureQtyTotal = 0;
 		double pureTotalValue = 0;
 		double grnGvnTotal = 0;
-		double grnGvnValue = 0;
+		double grnGvnTotalValue = 0;
 		double regularSaleTotal = 0;
 		double regularSaleTotalValue = 0;
 		double reorderTotalQty = 0;
@@ -495,9 +499,12 @@ public class StockController {
 				pureQtyTotal = pureQtyTotal + currentStockDetailList.get(i).getRegTotalPurchase();
 				pureTotalValue = pureTotalValue + (currentStockDetailList.get(i).getSpOpeningStock()
 						* currentStockDetailList.get(i).getRegTotalPurchase());
-				grnGvnValue = grnGvnValue + currentStockDetailList.get(i).getRegTotalGrnGvn();
-				grnGvnTotal = grnGvnTotal + (currentStockDetailList.get(i).getSpOpeningStock()
-						* currentStockDetailList.get(i).getRegTotalPurchase());
+
+				grnGvnTotal = grnGvnTotal + currentStockDetailList.get(i).getRegTotalGrnGvn();
+
+				grnGvnTotalValue = grnGvnTotalValue + (currentStockDetailList.get(i).getSpOpeningStock()
+						* currentStockDetailList.get(i).getRegTotalGrnGvn());
+
 				regularSaleTotal = regularSaleTotal + currentStockDetailList.get(i).getRegTotalSell();
 				reorderTotalQty = reorderTotalQty + currentStockDetailList.get(i).getReOrderQty();
 				regularSaleTotalValue = regularSaleTotalValue + (currentStockDetailList.get(i).getSpOpeningStock()
@@ -544,7 +551,7 @@ public class StockController {
 				pureTotalValue = pureTotalValue + (currentStockDetailList.get(i).getSpTotalPurchase()
 						* currentStockDetailList.get(i).getRegTotalPurchase());
 				grnGvnTotal = grnGvnTotal + currentStockDetailList.get(i).getRegTotalGrnGvn();
-				grnGvnValue = grnGvnValue + (currentStockDetailList.get(i).getSpTotalPurchase()
+				grnGvnTotalValue = grnGvnTotalValue + (currentStockDetailList.get(i).getSpTotalPurchase()
 						* currentStockDetailList.get(i).getRegTotalGrnGvn());
 				regularSaleTotal = regularSaleTotal + currentStockDetailList.get(i).getRegTotalSell();
 				regularSaleTotalValue = regularSaleTotalValue + (currentStockDetailList.get(i).getSpTotalPurchase()
@@ -552,7 +559,7 @@ public class StockController {
 				reorderTotalQty = reorderTotalQty + currentStockDetailList.get(i).getReOrderQty();
 				totalCurrentStock = totalCurrentStock + currentStockDetailList.get(i).getCurrentRegStock();
 
-				totalCurrentStockValue = totalCurrentStockValue + (currentStockDetailList.get(i).getSpOpeningStock()
+				totalCurrentStockValue = totalCurrentStockValue + (currentStockDetailList.get(i).getSpTotalPurchase()
 						* currentStockDetailList.get(i).getCurrentRegStock());
 
 				rowData.add("" + currentStockDetailList.get(i).getSpTotalPurchase());
@@ -584,27 +591,30 @@ public class StockController {
 				rowData.add("" + (currentStockDetailList.get(i).getSpTotalPurchase()
 						* currentStockDetailList.get(i).getCurrentRegStock()));
 			}
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
 
 		}
 
+		expoExcel = new ExportToExcel();
 		rowData = new ArrayList<String>();
 
 		rowData.add("");
 		rowData.add("");
 		rowData.add("");
 		rowData.add("Total");
-		rowData.add(" " + totalOpStock);
-		rowData.add(" " + totalOpStockValue);
-		rowData.add(" " + pureQtyTotal);
-		rowData.add(" " + pureTotalValue);
-		rowData.add(" " + grnGvnTotal);
-		rowData.add(" " + grnGvnValue);
-		rowData.add(" " + regularSaleTotal);
-		rowData.add(" " + regularSaleTotalValue);
+		rowData.add(" " + roundUp((float) totalOpStock));
+		rowData.add(" " + roundUp((float) totalOpStockValue));
+		rowData.add(" " + roundUp((float) pureQtyTotal));
+		rowData.add(" " + roundUp((float) pureTotalValue));
+		rowData.add(" " + roundUp((float) grnGvnTotal));
+		rowData.add(" " + roundUp((float) grnGvnTotalValue));
+		rowData.add(" " + roundUp((float) regularSaleTotal));
+		rowData.add(" " + roundUp((float) regularSaleTotalValue));
 
-		rowData.add(" " + reorderTotalQty);
-		rowData.add(" " + totalCurrentStock);
-		rowData.add(" " + totalCurrentStockValue);
+		rowData.add(" " + roundUp((float) reorderTotalQty));
+		rowData.add(" " + roundUp((float) totalCurrentStock));
+		rowData.add(" " + roundUp((float) totalCurrentStockValue));
 
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
@@ -780,6 +790,7 @@ public class StockController {
 		System.out.println("time in Gen Bill PDF ==" + dateFormat.format(cal.getTime()));
 		String FILE_PATH = Constant.REPORT_SAVE;
 		File file = new File(FILE_PATH);
+		String type = null;
 
 		PdfWriter writer = null;
 
@@ -792,13 +803,13 @@ public class StockController {
 		}
 		document.setPageSize(PageSize.A4.rotate());
 
-		PdfPTable table = new PdfPTable(15);
+		PdfPTable table = new PdfPTable(14);
 		try {
 			System.out.println("Inside PDF Table try");
 			table.setWidthPercentage(100);
 			table.setHeaderRows(1);
-			table.setWidths(new float[] { 2.0f, 3.2f, 4.5f, 2.2f, 3.2f, 3.2f, 3.2f, 2.4f, 3.2f, 3.2f, 3.2f, 3.2f, 3.2f,
-					3.2f, 3.2f });
+			table.setWidths(
+					new float[] { 1.5f, 5.5f, 2.0f, 2.0f, 3.2f, 2.0f, 3.2f, 2.0f, 3.2f, 2.0f, 3.2f, 2.0f, 2.0f, 3.2f });
 			Font headFont = new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK);
 			Font headFont1 = new Font(FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLACK);
 			headFont1.setColor(BaseColor.WHITE);
@@ -809,12 +820,6 @@ public class StockController {
 
 			hcell.setPadding(3);
 			hcell = new PdfPCell(new Phrase("Sr.No.", headFont1));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(BaseColor.PINK);
-
-			table.addCell(hcell);
-
-			hcell = new PdfPCell(new Phrase("Item Id.", headFont1));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(BaseColor.PINK);
 
@@ -910,7 +915,7 @@ public class StockController {
 			double pureQtyTotal = 0;
 			double pureTotalValue = 0;
 			double grnGvnTotal = 0;
-			double grnGvnValue = 0;
+			double grnGvnTotalValue = 0;
 			double regularSaleTotal = 0;
 			double regularSaleTotalValue = 0;
 			double reorderTotalQty = 0;
@@ -927,13 +932,6 @@ public class StockController {
 				cell.setPaddingRight(2);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + work.getItemId(), headFont));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				cell.setPaddingRight(2);
-				cell.setPadding(3);
-				table.addCell(cell);
-
 				cell = new PdfPCell(new Phrase("" + work.getItemName(), headFont));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -942,6 +940,7 @@ public class StockController {
 				table.addCell(cell);
 
 				if (selectRate == 1) {
+					type = "Rate";
 
 					cell = new PdfPCell(new Phrase("" + work.getSpOpeningStock(), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -954,8 +953,9 @@ public class StockController {
 					totalOpStockValue = totalOpStockValue + (work.getSpOpeningStock() * work.getRegOpeningStock());
 					pureQtyTotal = pureQtyTotal + work.getRegTotalPurchase();
 					pureTotalValue = pureTotalValue + (work.getSpOpeningStock() * work.getRegTotalPurchase());
-					grnGvnValue = grnGvnValue + work.getRegTotalGrnGvn();
-					grnGvnTotal = grnGvnTotal + (work.getSpOpeningStock() * work.getRegTotalPurchase());
+
+					grnGvnTotal = grnGvnTotal + work.getRegTotalGrnGvn();
+					grnGvnTotalValue = grnGvnTotalValue + (work.getSpOpeningStock() * work.getRegTotalGrnGvn());
 					regularSaleTotal = regularSaleTotal + work.getRegTotalSell();
 					reorderTotalQty = reorderTotalQty + work.getReOrderQty();
 					regularSaleTotalValue = regularSaleTotalValue + (work.getSpOpeningStock() * work.getRegTotalSell());
@@ -971,7 +971,7 @@ public class StockController {
 					table.addCell(cell);
 
 					cell = new PdfPCell(
-							new Phrase("" + (work.getSpOpeningStock() * work.getRegOpeningStock()), headFont));
+							new Phrase("" + (roundUp((float)(work.getSpOpeningStock() * work.getRegOpeningStock()))), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					cell.setPaddingRight(2);
@@ -986,7 +986,7 @@ public class StockController {
 					table.addCell(cell);
 
 					cell = new PdfPCell(
-							new Phrase("" + (work.getSpOpeningStock() * work.getRegTotalPurchase()), headFont));
+							new Phrase("" + (roundUp((float)(work.getSpOpeningStock() * work.getRegTotalPurchase()))), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					cell.setPaddingRight(2);
@@ -1001,7 +1001,7 @@ public class StockController {
 					table.addCell(cell);
 
 					cell = new PdfPCell(
-							new Phrase("" + (work.getSpOpeningStock() * work.getRegTotalGrnGvn()), headFont));
+							new Phrase("" + (roundUp((float)(work.getSpOpeningStock() * work.getRegTotalGrnGvn()))), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					cell.setPaddingRight(2);
@@ -1015,7 +1015,7 @@ public class StockController {
 					cell.setPadding(3);
 					table.addCell(cell);
 
-					cell = new PdfPCell(new Phrase("" + (work.getSpOpeningStock() * work.getRegTotalSell()), headFont));
+					cell = new PdfPCell(new Phrase("" + (roundUp((float)(work.getSpOpeningStock() * work.getRegTotalSell()))), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					cell.setPaddingRight(2);
@@ -1037,13 +1037,14 @@ public class StockController {
 					table.addCell(cell);
 
 					cell = new PdfPCell(
-							new Phrase("" + (work.getSpOpeningStock() * work.getCurrentRegStock()), headFont));
+							new Phrase("" + (roundUp((float)(work.getSpOpeningStock() * work.getCurrentRegStock()))), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					cell.setPaddingRight(2);
 					cell.setPadding(3);
 					table.addCell(cell);
 				} else {
+					type = "MRP";
 
 					cell = new PdfPCell(new Phrase("" + work.getSpTotalPurchase(), headFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -1057,7 +1058,8 @@ public class StockController {
 					pureQtyTotal = pureQtyTotal + work.getRegTotalPurchase();
 					pureTotalValue = pureTotalValue + (work.getSpTotalPurchase() * work.getRegTotalPurchase());
 					grnGvnTotal = grnGvnTotal + work.getRegTotalGrnGvn();
-					grnGvnValue = grnGvnValue + (work.getSpTotalPurchase() * work.getRegTotalGrnGvn());
+
+					grnGvnTotalValue = grnGvnTotalValue + (work.getSpTotalPurchase() * work.getRegTotalGrnGvn());
 					regularSaleTotal = regularSaleTotal + work.getRegTotalSell();
 					regularSaleTotalValue = regularSaleTotalValue
 							+ (work.getSpTotalPurchase() * work.getRegTotalSell());
@@ -1168,13 +1170,6 @@ public class StockController {
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("", headFont));
-			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			cell.setPaddingRight(2);
-			cell.setPadding(3);
-			table.addCell(cell);
-
 			cell = new PdfPCell(new Phrase("Total", headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -1182,7 +1177,7 @@ public class StockController {
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + totalOpStock, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) totalOpStock), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
@@ -1196,63 +1191,63 @@ public class StockController {
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + pureQtyTotal, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) pureQtyTotal), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + pureTotalValue, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) pureTotalValue), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + grnGvnTotal, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) grnGvnTotal), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + grnGvnValue, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) grnGvnTotalValue), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + regularSaleTotal, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) regularSaleTotal), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + regularSaleTotalValue, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) regularSaleTotalValue), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + regularSaleTotal, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) reorderTotalQty), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + totalCurrentStock, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) totalCurrentStock), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
 			cell.setPadding(3);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("" + totalCurrentStockValue, headFont));
+			cell = new PdfPCell(new Phrase("" + roundUp((float) totalCurrentStockValue), headFont));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			cell.setPaddingRight(2);
@@ -1264,7 +1259,7 @@ public class StockController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph(" "));
-			Paragraph company = new Paragraph("Stock Details Report\n", f);
+			Paragraph company = new Paragraph("Stock Details Report" + " " + type + "\n", f);
 			company.setAlignment(Element.ALIGN_CENTER);
 			document.add(company);
 			document.add(new Paragraph(" "));

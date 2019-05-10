@@ -805,14 +805,14 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regOpStockValue));
+																				regOpStockValue.toFixed(2)));
 													}
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			item.regTotalPurchase));
+																			item.regTotalPurchase.toFixed(2)));
 
 													if (selectRate == 1) {
 														var regTotalPurchaseVal = item.spOpeningStock
@@ -822,7 +822,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalPurchaseVal));
+																				regTotalPurchaseVal.toFixed(2)));
 													} else
 
 													{
@@ -832,7 +832,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalPurchaseVal));
+																				regTotalPurchaseVal.toFixed(2)));
 													}
 													tr
 															.append($(
@@ -848,7 +848,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalGrnGvnVal));
+																				regTotalGrnGvnVal.toFixed(2)));
 													} else
 
 													{
@@ -858,7 +858,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalGrnGvnVal));
+																				regTotalGrnGvnVal.toFixed(2)));
 													}
 
 													if (item.regTotalSell < 0) {
@@ -871,7 +871,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				item.regTotalSell));
+																				item.regTotalSell.toFixed(2)));
 													}
 													if (selectRate == 1) {
 														var regTotalSellVal = item.spOpeningStock
@@ -881,7 +881,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;" ></td>')
 																		.html(
-																				regTotalSellVal));
+																				regTotalSellVal.toFixed(2)));
 													} else
 
 													{
@@ -891,7 +891,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalSellVal));
+																				regTotalSellVal.toFixed(2)));
 													}
 
 													/* tr
@@ -1006,7 +1006,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regOpStockValue));
+																				regOpStockValue.toFixed(2)));
 													} else
 
 													{
@@ -1016,7 +1016,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regOpStockValue));
+																				regOpStockValue.toFixed(2)));
 													}
 
 													tr
@@ -1033,7 +1033,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalPurchaseVal));
+																				regTotalPurchaseVal.toFixed(2)));
 													} else
 
 													{
@@ -1043,7 +1043,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalPurchaseVal));
+																				regTotalPurchaseVal.toFixed(2)));
 													}
 													tr
 															.append($(
@@ -1059,7 +1059,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalGrnGvnVal));
+																				regTotalGrnGvnVal.toFixed(2)));
 													} else
 
 													{
@@ -1069,7 +1069,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalGrnGvnVal));
+																				regTotalGrnGvnVal.toFixed(2)));
 													}
 
 													if (item.regTotalSell < 0) {
@@ -1082,7 +1082,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				item.regTotalSell));
+																				item.regTotalSell.toFixed(2)));
 													}
 													if (selectRate == 1) {
 														var regTotalSellVal = item.spOpeningStock
@@ -1092,7 +1092,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalSellVal));
+																				regTotalSellVal.toFixed(2)));
 													} else
 
 													{
@@ -1102,7 +1102,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalSellVal));
+																				regTotalSellVal.toFixed(2)));
 													}
 
 												/* 	tr
@@ -1121,7 +1121,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"> </td>')
 																		.html(
-																				regCurrentStock));
+																				regCurrentStock.toFixed(2)));
 													}
 
 													if (selectRate == 1) {
@@ -1218,7 +1218,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regOpStockValue));
+																				regOpStockValue).toFixed(2));
 													} else
 
 													{
@@ -1228,14 +1228,14 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regOpStockValue));
+																				regOpStockValue.toFixed(2)));
 													}
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			item.regTotalPurchase));
+																			item.regTotalPurchase.toFixed(2)));
 
 													if (selectRate == 1) {
 														var regTotalPurchaseVal = item.spOpeningStock
@@ -1245,7 +1245,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalPurchaseVal));
+																				regTotalPurchaseVal.toFixed(2)));
 													} else
 
 													{
@@ -1255,7 +1255,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalPurchaseVal));
+																				regTotalPurchaseVal.toFixed(2)));
 													}
 													tr
 															.append($(
@@ -1271,7 +1271,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalGrnGvnVal));
+																				regTotalGrnGvnVal.toFixed(2)));
 													} else
 
 													{
@@ -1281,7 +1281,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalGrnGvnVal));
+																				regTotalGrnGvnVal.toFixed(2)));
 													}
 
 													if (item.regTotalSell < 0) {
@@ -1304,7 +1304,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalSellVal));
+																				regTotalSellVal.toFixed(2)));
 													} else
 
 													{
@@ -1314,7 +1314,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				regTotalSellVal));
+																				regTotalSellVal.toFixed(2)));
 													}
 
 												/* 	tr
