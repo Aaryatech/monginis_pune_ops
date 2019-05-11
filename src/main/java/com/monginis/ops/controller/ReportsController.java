@@ -20,6 +20,8 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -1347,6 +1349,30 @@ public class ReportsController {
 		System.out.println("Sell Bill Header " + getSellBillHeaderList.toString());
 
 		// export to excel
+		
+		
+		
+		 /*Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
+			  public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
+				  
+				  String[] ar1=c1.getInvoiceNo().split("-");
+				  int a=Integer.parseInt(ar1[1]);
+				  
+				  String[] ar2=c2.getInvoiceNo().split("-");
+				  int b=Integer.parseInt(ar2[1]);
+				  
+				  if (a > b) return 1;
+			    if (a < b) return -1;
+			    return 0;
+			  }});*/
+		
+		Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
+			  public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
+				  
+				  String s1 = c1.getInvoiceNo();
+	              String s2 = c2.getInvoiceNo();
+	              return s1.compareToIgnoreCase(s2);
+			  }});
 
 		List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
 
@@ -2257,6 +2283,14 @@ public class ReportsController {
 					.exchange(Constant.URL + "getRepBillwiseTaxSell", HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
 			getRepTaxSell = responseEntity.getBody();
+			
+			Collections.sort(getRepTaxSell, new Comparator<GetRepTaxSell>() {
+				  public int compare(GetRepTaxSell c1, GetRepTaxSell c2) {
+					  
+					  String s1 = c1.getSellBillNo();
+		              String s2 = c2.getSellBillNo();
+		              return s1.compareToIgnoreCase(s2);
+				  }});
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

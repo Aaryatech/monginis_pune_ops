@@ -258,7 +258,7 @@
 															.append($(
 																	'<td class="col-md-2"></td>')
 																	.html(
-																			sellTaxData.sellBillNo));
+																			sellTaxData.sellBillNo));	
 
 													tr
 															.append($(
