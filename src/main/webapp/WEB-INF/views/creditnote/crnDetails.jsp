@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 <style>
 .pageTitle {
@@ -62,7 +63,6 @@
 	max-height: 60%
 }
 </style>
-<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 <!--topLeft-nav-->
 <div class="sidebarOuter"></div>
@@ -117,7 +117,7 @@
 				<div id="owl-example" class="owl-carousel"></div>
 				<!--slider-->
 
-				<table style="width: 100%; border: 1px dashed; font-size: 14px;">
+				<table style="width: 100%; border: 1px dashed; font-size: 14px;" >
 					<tbody>
 						<tr>
 							<td style="border: 1px dashed; font-weight: bold;">&nbsp;CREDIT
@@ -162,11 +162,11 @@
 				</table>
 				<br> <br>
 
-				<div class="table-responsive" style="border: 0">
+				<div class="table-wrap">
 					<table width="100%"
-						class="table table-advance table-responsive table-position"
+						 class="main-table" 
 						id="table2">
-						<thead style="background-color: #f3b5db;">
+						<thead >
 							<tr>
 
 								<th>Sr No</th>
@@ -285,6 +285,7 @@
 
 </div>
 <!--wrapper-end-->
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
