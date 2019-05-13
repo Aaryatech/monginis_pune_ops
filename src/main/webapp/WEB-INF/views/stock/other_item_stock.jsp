@@ -3,32 +3,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tableSearch.css">
- <style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/tableSearch.css">
+<style>
 table, th, td {
-    border: 1px solid #9da88d;
+	border: 1px solid #9da88d;
 }
 </style>
 <style>
 .alert1 {
-    padding: 10px;
-    background-color: #f44336;
-    color: white;
+	padding: 10px;
+	background-color: #f44336;
+	color: white;
 }
 
 .closebtn {
-    margin-left: 25px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 18px;
-    line-height: 10px;
-    cursor: pointer;
-    transition: 0.3s;
+	margin-left: 25px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 18px;
+	line-height: 10px;
+	cursor: pointer;
+	transition: 0.3s;
 }
 
 .closebtn:hover {
-    color: black;
+	color: black;
 }
 </style>
 <%-- <!DOCTYPE html>
@@ -119,14 +120,18 @@ table, th, td {
 
 
 			<!--leftNav-->
-<div class="colOuter"><div class="col-md-2"></div>
-					<div class="col-md-8">
-<c:if test="${not empty message}">
-<div class="alert1" >
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  ${message}
-</div>
-</c:if></div></div>
+			<div class="colOuter">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<c:if test="${not empty message}">
+						<div class="alert1">
+							<span class="closebtn"
+								onclick="this.parentElement.style.display='none';">&times;</span>
+							${message}
+						</div>
+					</c:if>
+				</div>
+			</div>
 
 			<!--rightSidebar-->
 			<div class="sidebarright">
@@ -135,7 +140,7 @@ table, th, td {
 					<!--<h3 class="pageTitle2">Order Date : 22-02-2017 </h3>-->
 				</div>
 
-<!-- 
+				<!-- 
 				<div class="colOuter">
 					<div class="col-md-2">
 						<div class="col1title">Current Month: </div>
@@ -174,13 +179,20 @@ table, th, td {
 
 							<option value="-1">Select Option</option>
 							<option value="1" id="currentStock">Get Current Stock</option>
-						
+
 							<option value="3" id="dateStock">Stock Between Dates</option>
 
 						</select>
 					</div>
-					<div class="col-md-2"><input name="search_stock" class="buttonsaveorder" value="Search"
-							type="button" onclick="searchStock()"></div>
+					<div class="col-md-2">
+						<input name="search_stock" class="buttonsaveorder" value="Search"
+							type="button" onclick="searchStock()">
+					</div>
+
+					<div class="col-md-1">
+						<button type="button" class="btn  buttonsaveorder" id='pdf'
+							onclick="genPdf()" disabled>Generate Pdf</button>
+					</div>
 
 
 				</div>
@@ -219,8 +231,9 @@ table, th, td {
 					</div>
 					<div class="col-md-2" align="left">
 
-						<input id="fromdatepicker" class="texboxitemcode texboxcal" autocomplete="off"
-							placeholder="From Date" name="from_datepicker" type="text">
+						<input id="fromdatepicker" class="texboxitemcode texboxcal"
+							autocomplete="off" placeholder="From Date" name="from_datepicker"
+							type="text">
 
 					</div>
 
@@ -232,8 +245,9 @@ table, th, td {
 						<div class="col1title">To Date:</div>
 					</div>
 					<div class="col-md-2" align="left">
-						<input id="todatepicker" class="texboxitemcode texboxcal"  autocomplete="off"
-							placeholder="To Date" name="to_datepicker" type="text">
+						<input id="todatepicker" class="texboxitemcode texboxcal"
+							autocomplete="off" placeholder="To Date" name="to_datepicker"
+							type="text">
 					</div>
 
 				</div>
@@ -246,7 +260,7 @@ table, th, td {
 						<div class="col1title"></div>
 					</div>
 					<div class="col2">
-						
+
 
 						<div align="center" id="loader" style="display: none">
 
@@ -264,23 +278,34 @@ table, th, td {
 
 				</div>
 
+				<div class="col-md-2">
+					<div class="col1title">
+						<b>${monthName}</b> <b>${year}</b>
+					</div>
+				</div>
+
+
+
+
 
 
 				<div class="row">
 					<div class="col-md-12">
 						<!--table-->
-					<form action="otherItemMonthEndProcess" method="POST">
-					<div class="clearfix"></div>
-					<div class="col-md-9" ></div> 
-					<label for="search" class="col-md-3" id="search">
-    				<i class="fa fa-search" style="font-size:20px"></i>
-									<input type="text"  id="myInput" onkeyup="myFunction()" style="border-radius:25px;" placeholder="Search items by name" title="Type item name Or Code">
-										</label>  
-						
+						<form action="otherItemMonthEndProcess" method="POST">
+							<div class="clearfix"></div>
+							<div class="col-md-9"></div>
+							<label for="search" class="col-md-3" id="search"> <i
+								class="fa fa-search" style="font-size: 20px"></i> <input
+								type="text" id="myInput" onkeyup="myFunction()"
+								style="border-radius: 25px;" placeholder="Search items by name"
+								title="Type item name Or Code">
+							</label>
+
 
 							<div id="table-scroll" class="table-scroll">
 								<!-- <div id="faux-table" class="faux-table" aria="hidden"> -->
-							<%-- <div class="table-wrap">	<table id="table_grid1" class="main-table">
+								<%-- <div class="table-wrap">	<table id="table_grid1" class="main-table">
 										<thead>
 											<tr class="bgpink">
 							<th class="col-md-1">Item Id</th>
@@ -301,33 +326,41 @@ table, th, td {
 													<th>Stock Difference</th>
 												</c:if>
 											</tr>
-										</thead></table></div> --%><!-- </div> -->
+										</thead></table></div> --%>
+								<!-- </div> -->
 								<div class="table-wrap">
-									<table id="table_grid" class="main-table" >
+									<table id="table_grid" class="main-table">
 										<thead>
 											<tr class="bgpink">
 												<th class="col-md-1">Item Code</th>
 												<th class="col-md-1">Item Name</th>
 												<th class="col-md-1">Opening Stock</th>
-												<th class="col-md-1"> Purchase Qty</th>
+												<th class="col-md-1">Purchase Qty</th>
 												<th class="col-md-1">Sale Qty</th>
 												<th class="col-md-1">Damage Qty</th>
 												<th class="col-md-1">Current Stock</th>
-											
 
-											<%-- 	<c:if test="${isMonthCloseApplicable eq true}">
+
+												<%-- 	<c:if test="${isMonthCloseApplicable eq true}">
 													<th>Physical Stock</th>
 													<th>Stock Difference</th>
 												</c:if> --%>
 
 											</tr>
+
 										</thead>
 										<tbody>
 
 										</tbody>
 									</table>
+
 								</div>
 
+							</div>
+							<div class="col-sm-3  controls">
+								<input type="button" id="expExcel" class="btn btn-primary"
+									value="EXPORT TO Excel" onclick="exportToExcel();"
+									disabled="disabled">
 							</div>
 
 
@@ -337,7 +370,7 @@ table, th, td {
 									<input name="" class="buttonsaveorder" value="Month End"
 										type="submit">
 								</div>
-								</div>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -361,281 +394,333 @@ table, th, td {
 
 <!-- Select Only Month and Year -->
 <script>
-			$(document)
-					.ready(
-							function() {
-								$('#txtDate')
-										.datepicker(
-												{
-													changeMonth : true,
-													changeYear : true,
-													dateFormat : 'MM yy',
+	$(document)
+			.ready(
+					function() {
+						$('#txtDate')
+								.datepicker(
+										{
+											changeMonth : true,
+											changeYear : true,
+											dateFormat : 'MM yy',
 
-													onClose : function() {
-														var iMonth = $(
-																"#ui-datepicker-div .ui-datepicker-month :selected")
-																.val();
-														var iYear = $(
-																"#ui-datepicker-div .ui-datepicker-year :selected")
-																.val();
-														$(this).datepicker(
-																'setDate',
-																new Date(iYear,
-																		iMonth,
-																		1));
-													},
+											onClose : function() {
+												var iMonth = $(
+														"#ui-datepicker-div .ui-datepicker-month :selected")
+														.val();
+												var iYear = $(
+														"#ui-datepicker-div .ui-datepicker-year :selected")
+														.val();
+												$(this).datepicker(
+														'setDate',
+														new Date(iYear, iMonth,
+																1));
+											},
 
-													beforeShow : function() {
-														if ((selDate = $(this)
-																.val()).length > 0) {
-															iYear = selDate
-																	.substring(
-																			selDate.length - 4,
-																			selDate.length);
-															iMonth = jQuery
-																	.inArray(
-																			selDate
-																					.substring(
-																							0,
-																							selDate.length - 5),
-																			$(
-																					this)
-																					.datepicker(
-																							'option',
-																							'monthNames'));
-															$(this)
-																	.datepicker(
-																			'option',
-																			'defaultDate',
-																			new Date(
-																					iYear,
-																					iMonth,
-																					1));
-															$(this)
-																	.datepicker(
-																			'setDate',
-																			new Date(
-																					iYear,
-																					iMonth,
-																					1));
-														}
-													}
-												});
-							});
-		</script>
+											beforeShow : function() {
+												if ((selDate = $(this).val()).length > 0) {
+													iYear = selDate.substring(
+															selDate.length - 4,
+															selDate.length);
+													iMonth = jQuery
+															.inArray(
+																	selDate
+																			.substring(
+																					0,
+																					selDate.length - 5),
+																	$(this)
+																			.datepicker(
+																					'option',
+																					'monthNames'));
+													$(this).datepicker(
+															'option',
+															'defaultDate',
+															new Date(iYear,
+																	iMonth, 1));
+													$(this).datepicker(
+															'setDate',
+															new Date(iYear,
+																	iMonth, 1));
+												}
+											}
+										});
+					});
+</script>
 
 <script>
-			$(document)
-					.ready(
-							function() {
-								$('#txtDateto')
-										.datepicker(
-												{
-													changeMonth : true,
-													changeYear : true,
-													dateFormat : 'MM yy',
+	$(document)
+			.ready(
+					function() {
+						$('#txtDateto')
+								.datepicker(
+										{
+											changeMonth : true,
+											changeYear : true,
+											dateFormat : 'MM yy',
 
-													onClose : function() {
-														var iMonth = $(
-																"#ui-datepicker-div .ui-datepicker-month :selected")
-																.val();
-														var iYear = $(
-																"#ui-datepicker-div .ui-datepicker-year :selected")
-																.val();
-														$(this).datepicker(
-																'setDate',
-																new Date(iYear,
-																		iMonth,
-																		1));
-													},
+											onClose : function() {
+												var iMonth = $(
+														"#ui-datepicker-div .ui-datepicker-month :selected")
+														.val();
+												var iYear = $(
+														"#ui-datepicker-div .ui-datepicker-year :selected")
+														.val();
+												$(this).datepicker(
+														'setDate',
+														new Date(iYear, iMonth,
+																1));
+											},
 
-													beforeShow : function() {
-														if ((selDate = $(this)
-																.val()).length > 0) {
-															iYear = selDate
-																	.substring(
-																			selDate.length - 4,
-																			selDate.length);
-															iMonth = jQuery
-																	.inArray(
-																			selDate
-																					.substring(
-																							0,
-																							selDate.length - 5),
-																			$(
-																					this)
-																					.datepicker(
-																							'option',
-																							'monthNames'));
-															$(this)
-																	.datepicker(
-																			'option',
-																			'defaultDate',
-																			new Date(
-																					iYear,
-																					iMonth,
-																					1));
-															$(this)
-																	.datepicker(
-																			'setDate',
-																			new Date(
-																					iYear,
-																					iMonth,
-																					1));
-														}
-													}
-												});
-							});
-		</script>
+											beforeShow : function() {
+												if ((selDate = $(this).val()).length > 0) {
+													iYear = selDate.substring(
+															selDate.length - 4,
+															selDate.length);
+													iMonth = jQuery
+															.inArray(
+																	selDate
+																			.substring(
+																					0,
+																					selDate.length - 5),
+																	$(this)
+																			.datepicker(
+																					'option',
+																					'monthNames'));
+													$(this).datepicker(
+															'option',
+															'defaultDate',
+															new Date(iYear,
+																	iMonth, 1));
+													$(this).datepicker(
+															'setDate',
+															new Date(iYear,
+																	iMonth, 1));
+												}
+											}
+										});
+					});
+</script>
 <script>
-			function showDiv(elem) {
-				//alert(elem.value);
-				if (elem.value == 1) {
-					//document.getElementById('select_month_year').style = "display:none";
-					document.getElementById('select_date').style = "display:none";
-					document.getElementById('monthEnd').style = "display:none";
-				} else if (elem.value == 3) {
-					document.getElementById('select_date').style.display = "block";
-					//document.getElementById('select_month_year').style = "display:none";
-					document.getElementById('monthEnd').style = "display:none";
+	function showDiv(elem) {
+		//alert(elem.value);
+		if (elem.value == 1) {
+			//document.getElementById('select_month_year').style = "display:none";
+			document.getElementById('select_date').style = "display:none";
+			document.getElementById('monthEnd').style = "display:none";
+		} else if (elem.value == 3) {
+			document.getElementById('select_date').style.display = "block";
+			//document.getElementById('select_month_year').style = "display:none";
+			document.getElementById('monthEnd').style = "display:none";
 
-				}
-			}
-		</script>
-
-<script type="text/javascript">
-			function searchStock() {
-				
-				$('#loader').show();
-				
-				var isMonthClose= ${isMonthEndAppli};
-				//alert("close " +isMonthClose);
-						
-				
-				var selectedStockOption=$("#selectStock").val();
-			//	alert("selectedStockOption"+selectedStockOption);
-				var selectedFromDate=$("#fromdatepicker").val();
-				var selectedToDate=$("#todatepicker").val();
-				
-				//document.getElementById('monthEnd').style.display = "block";
-
-				$.getJSON('${getOtherStock}', {
-					show_option : selectedStockOption,
-					fromDate : selectedFromDate,
-					toDate : selectedToDate,
-					ajax : 'true'
-				}, function(data) {
-					
-					$('#loader').hide();
-					var len = data.length;
-					//alert(len);					
-					$('#table_grid td').remove();
-					
-					if(isMonthClose == 1 && selectedStockOption == 1)
-
-					document.getElementById('monthEnd').style.display = "block";
-
-					//alert(isMonthClose+ "month close");			
-					//alert(data.monthClosed);	alert(selectedStockOption);
-
-				//	alert(data);
-					$.each(data, function(key, item) {
-						//alert(JSON.stringify(item));
-						var tr = $('<tr class=bgpink></tr>');
-						var curStock=(parseFloat(item.openingStock)+parseFloat(item.purchaseQty))-(parseFloat(item.sellQty));//+parseFloat(item.damagedStock)
-						tr.append($('<td class="col-md-1"></td>').html(item.itemId+'<input type="hidden" id="currStk'+item.id+'" value='+curStock+'  />'));
-						tr.append($('<td class="col-md-1"></td>').html(item.itemName));
-						tr.append($('<td class="col-md-1"></td>').html(item.openingStock));
-						tr.append($('<td class="col-md-1"></td>').html(item.purchaseQty));
-						tr.append($('<td class="col-md-1"></td>').html(item.sellQty));
-						
-						if(isMonthClose==0){
-						tr.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px; readonly  onchange= updateStockDiff('+ item.id+','+curStock+')  id= damagedStock'+ item.id+ ' name=damagedStock'+item.id+' value = '+item.damagedStock+ '></td>'));
-					}else{
-						
-						tr.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px;   onchange= updateStockDiff('+ item.id+','+curStock+')  id= damagedStock'+ item.id+ ' name=damagedStock'+item.id+' value = '+item.damagedStock+ ' /> </td>'));
-					}
-					//	tr.append($('<td class="col-md-1"></td>').html(item.damagedStock));
-						
-						
-						tr.append($('<td class="col-md-1"  id="stockDiff'+item.id+'"></td>').html(curStock));
-																		    
-							
-						$('#table_grid tbody').append(tr);
-
-					})
-				});
-			}
-		</script>
-
-<script type="text/javascript">
-		function updateStockDiff(id, currentStock) {
-			
-			var physicalStockQty = $("#damagedStock" + id).val();
-			var oldDiff = $('#stockDiff'+id).html();
-			var currStk=$('#currStk'+id).val();
-			var stockDiff=0;
-			
-			if(currentStock >= physicalStockQty){
-				
-			 stockDiff =currentStock - physicalStockQty;
-			 $('#stockDiff'+id).html(stockDiff);
-			}else{
-				
-				// stockDiff =physicalStockQty - currentStock ;
-                alert("You can not enter damaged qty greator than current stock!!");
-                
-                document.getElementById('damagedStock'+id).value=0;
-                $('#stockDiff'+id).html(currStk);
-			}
-			
-			
-			
 		}
-	</script>
+	}
+</script>
+
+<script type="text/javascript">
+	function searchStock() {
+
+		$('#loader').show();
+
+		var isMonthClose = ${isMonthEndAppli};
+		//alert("close " +isMonthClose);
+
+		var selectedStockOption = $("#selectStock").val();
+		//	alert("selectedStockOption"+selectedStockOption);
+		var selectedFromDate = $("#fromdatepicker").val();
+		var selectedToDate = $("#todatepicker").val();
+
+		//document.getElementById('monthEnd').style.display = "block";
+
+		$
+				.getJSON(
+						'${getOtherStock}',
+						{
+							show_option : selectedStockOption,
+							fromDate : selectedFromDate,
+							toDate : selectedToDate,
+							ajax : 'true'
+						},
+						function(data) {
+
+							$('#loader').hide();
+							var len = data.length;
+							//alert(len);					
+							$('#table_grid td').remove();
+
+							if (isMonthClose == 1 && selectedStockOption == 1)
+
+								document.getElementById('monthEnd').style.display = "block";
+
+							//alert(isMonthClose+ "month close");			
+							//alert(data.monthClosed);	alert(selectedStockOption);
+
+							//	alert(data);
+							if (data != null) {
+
+								 
+								  document.getElementById("expExcel").disabled=false;
+								document.getElementById("pdf").disabled = false;
+
+							}
+							$
+									.each(
+											data,
+											function(key, item) {
+												//alert(JSON.stringify(item));
+												var tr = $('<tr class=bgpink></tr>');
+												var curStock = (parseFloat(item.openingStock) + parseFloat(item.purchaseQty))
+														- (parseFloat(item.sellQty));//+parseFloat(item.damagedStock)
+												tr
+														.append($(
+																'<td class="col-md-1"></td>')
+																.html(
+																		item.itemId
+																				+ '<input type="hidden" id="currStk'+item.id+'" value='+curStock+'  />'));
+												tr
+														.append($(
+																'<td class="col-md-1"></td>')
+																.html(
+																		item.itemName));
+												tr
+														.append($(
+																'<td class="col-md-1"></td>')
+																.html(
+																		item.openingStock));
+												tr
+														.append($(
+																'<td class="col-md-1"></td>')
+																.html(
+																		item.purchaseQty));
+												tr
+														.append($(
+																'<td class="col-md-1"></td>')
+																.html(
+																		item.sellQty));
+
+												if (isMonthClose == 0) {
+													tr
+															.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px; readonly onchange= updateStockDiff('
+																	+ item.id
+																	+ ','
+																	+ curStock
+																	+ ')  id= damagedStock'
+																	+ item.id
+																	+ ' name=damagedStock'
+																	+ item.id
+																	+ ' value = '
+																	+ item.damagedStock
+																	+ '></td>'));
+												} else {
+
+													tr
+															.append($('<td class="col-md-1"> <input type=text min=0 style=width:80px;   onchange= updateStockDiff('
+																	+ item.id
+																	+ ','
+																	+ curStock
+																	+ ')  id= damagedStock'
+																	+ item.id
+																	+ ' name=damagedStock'
+																	+ item.id
+																	+ ' value = '
+																	+ item.damagedStock
+																	+ '><input type="hidden" id="currStk'+item.id+'" value='+curStock+'  /></td>'));
+												}
+												//	tr.append($('<td class="col-md-1"></td>').html(item.damagedStock));
+
+												tr
+														.append($(
+																'<td class="col-md-1" id="stockDiff'+item.id+'"></td>')
+																.html(curStock));
+
+												$('#table_grid tbody').append(
+														tr);
+
+											})
+						});
+	}
+</script>
+
+<script type="text/javascript">
+	function updateStockDiff(id, currentStock) {
+
+		var physicalStockQty = $("#damagedStock" + id).val();
+		var oldDiff = $('#stockDiff' + id).val();
+		var currStk = $('#currStk' + id).val();
+		var stockDiff = 0;
+
+		if (currentStock >= physicalStockQty) {
+
+			stockDiff = currentStock - physicalStockQty;
+			$('#stockDiff' + id).html(stockDiff);
+		} else {
+
+			// stockDiff =physicalStockQty - currentStock ;
+			alert("You can not enter damaged qty greator than current stock!!");
+
+			document.getElementById('damagedStock' + id).value = 0;
+			$('#stockDiff' + id).html(currStk);
+		}
+
+	}
+</script>
 
 <script>
 	/*
-//  jquery equivalent
-jQuery(document).ready(function() {
-   jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
-   jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
- });
-*/
-(function() {
-  var fauxTable = document.getElementById("faux-table");
-  var mainTable = document.getElementById("table_grid");
-  var clonedElement = table_grid.cloneNode(true);
-  var clonedElement2 = table_grid.cloneNode(true);
-  clonedElement.id = "";
-  clonedElement2.id = "";
-  fauxTable.appendChild(clonedElement);
-  fauxTable.appendChild(clonedElement2);
-})();
-
-
-	</script>
+	//  jquery equivalent
+	jQuery(document).ready(function() {
+	jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
+	jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
+	});
+	 */
+	(function() {
+		var fauxTable = document.getElementById("faux-table");
+		var mainTable = document.getElementById("table_grid");
+		var clonedElement = table_grid.cloneNode(true);
+		var clonedElement2 = table_grid.cloneNode(true);
+		clonedElement.id = "";
+		clonedElement2.id = "";
+		fauxTable.appendChild(clonedElement);
+		fauxTable.appendChild(clonedElement2);
+	})();
+</script>
 <script>
-function myFunction() {
-  var input, filter, table, tr, td,td1, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("table_grid");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    td1= tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      }else if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      }  else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+	function myFunction() {
+		var input, filter, table, tr, td, td1, i;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("table_grid");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[1];
+			td1 = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+</script>
+
+<script>
+	function genPdf() {
+		//alert("Inside Gen Pdf ");
+
+		// window.open('${pageContext.request.contextPath}/pdf?reportURL=pdf/getGrnPdf/'+fromDate+'/'+'/'+toDate+'/'+headerId+'/'+1+'/'+type);
+
+		window.open('${pageContext.request.contextPath}/getOtherItemStockPdf');
+
+	}
+	
+	function exportToExcel() {
+
+		window.open("${pageContext.request.contextPath}/exportToExcel");
+		document.getElementById("expExcel").disabled = true;
+	}
 </script>
 
 </body>
