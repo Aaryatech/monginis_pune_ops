@@ -84,6 +84,25 @@
 
 
 							</div>
+							<div class="form-group col-md-9">
+								<div align="center" id="loader" style="display: none">
+
+									<span>
+										<h4>
+											<font color="#343690">Loading</font>
+										</h4>
+									</span> <span class="l-1"></span> <span class="l-2"></span> <span
+										class="l-3"></span> <span class="l-4"></span> <span
+										class="l-5"></span> <span class="l-6"></span>
+								</div>
+								<!-- <div class="row" align="left">
+							<div class="col-md-12" style="text-align: center">
+								<button class="btn btn-primary" onclick="getItems()">Search</button>
+
+							</div>
+
+						</div> -->
+							</div>
 						</div>
 					</div>
 					<div class="box">
