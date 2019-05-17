@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%><%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-1.10.2.min.js"></script> --%>
@@ -188,6 +189,7 @@ jQuery(document).ready(function(){
 	<c:url var="findAddOnRate" value="/getAddOnRate" />
 	<c:url var="findItemsByCatId" value="/getFlavourBySpfId" />
 	<c:url var="findAllMenus" value="/getAllTypes" />
+	<c:url var="getSpBill" value="/getSpBill" />
 	<jsp:include page="/WEB-INF/views/include/logo.jsp"></jsp:include>
 
 
@@ -466,7 +468,17 @@ jQuery(document).ready(function(){
 									<tbody>
 										<c:forEach items="${orderHistory}" var="orderList" varStatus="count">
 											<tr>
-											    <td class="col-md-1">${count.index+1}</td>
+											    <td class="col-md-1">
+											    ${count.index+1}
+											    <c:choose>
+												<c:when test="${fn:length(orderList.spBookForMobNo)==1}">
+											     <button class="btn btn-info" value="Generate" id="genBill${orderList.spOrderNo}" onclick="genBill(${orderList.spOrderNo})">Generate</button>
+											    </c:when>
+											    <c:otherwise>
+											    
+											    </c:otherwise>
+											    </c:choose>
+											    </td>
 												<td class="col-md-2">
 												&nbsp;&nbsp;&nbsp;&nbsp;
 												<c:out value="${orderList.spName}" />
@@ -620,6 +632,26 @@ function exportToExcel()
 
 
 	</script>
+	<script type="text/javascript">
+	function genBill(spOrderNo)
+	{
+		
+		   $.getJSON('${getSpBill}', {
+			   spOrderNo:spOrderNo,
+               ajax : 'true'
+           }, function(data) {
+        	   if(data==true)
+        		   {
+        		   alert("Bill Generated Successfully");
+        		   document.getElementById("genBill"+spOrderNo).disabled = true;
+
+        		   }
+        	   
+           });
+		
+	}
+    </script>
+	
 	<script>
 	function getMenus(type)
 	{

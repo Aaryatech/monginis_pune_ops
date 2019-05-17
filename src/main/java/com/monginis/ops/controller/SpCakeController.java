@@ -978,7 +978,7 @@ public class SpCakeController {
 
 			spCakeOrder.setSpBookedForName(spBookedForName);
 			spCakeOrder.setSpBookForDob(sqlBookForDob);
-			spCakeOrder.setSpBookForMobNo(getInvoiceNo(request,response));
+			spCakeOrder.setSpBookForMobNo("0");//getInvoiceNo(request,response);   //commented on 16 may 19 Mahesh
 			spCakeOrder.setSpCustDob(sqlSpCustDOB);
 			spCakeOrder.setSpInstructions(spInstructions);
 			spCakeOrder.setOrderPhoto(orderPhoto1);
@@ -1169,7 +1169,26 @@ public class SpCakeController {
 
 	}
 	// ----------------------------------END----------------------------------------
-
+	
+	
+	@RequestMapping(value = "/getSpBill", method = RequestMethod.GET)
+	public @ResponseBody Boolean getSpBill(@RequestParam(value = "spOrderNo", required = true) int spOrderNo,HttpServletRequest request, HttpServletResponse response) {
+		
+		Boolean message=false;
+		try {
+		RestTemplate restTemplate = new RestTemplate();
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		map.add("spOrderNo", spOrderNo);
+		map.add("invoiceNo", getInvoiceNo(request,response));
+		
+		message = restTemplate.postForObject(Constant.URL + "/generateSpBillOps", map,
+				Boolean.class);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return message;
+	}
 	// -----------------Showing of order Datails Page------------------------------
 	@RequestMapping(value = "/orderRes", method = RequestMethod.GET)
 	public ModelAndView displayHome(HttpServletRequest request, HttpServletResponse response) {
