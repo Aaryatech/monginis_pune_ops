@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -53,6 +54,10 @@ import com.monginis.ops.model.othitemstock.OtherItemCurStock;
 
 @Controller
 public class OtherItemStockController {
+	
+	public static float roundUp(float d) {
+		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+	}
 
 	List<OtherItemCurStock> otherStockList = new ArrayList<OtherItemCurStock>();
 	MultiValueMap<String, Object> map = null;
@@ -234,11 +239,24 @@ public class OtherItemStockController {
 		rowData.add("Damage Qty");
 		rowData.add("Current Stock");
 
+		double openingStockTotal = 0;
+		double purQtyTotal = 0;
+		double saleQtytotal = 0;
+		double damageQtyTotal = 0;
+		double curStockTotal = 0;
+
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
 		for (int i = 0; i < otherStockList.size(); i++) {
 			expoExcel = new ExportToExcel();
 			rowData = new ArrayList<String>();
+
+			openingStockTotal = openingStockTotal + otherStockList.get(i).getOpeningStock();
+			purQtyTotal = purQtyTotal + otherStockList.get(i).getPurchaseQty();
+			saleQtytotal = saleQtytotal + otherStockList.get(i).getSellQty();
+			damageQtyTotal = damageQtyTotal + otherStockList.get(i).getDamagedStock();
+			curStockTotal = curStockTotal + (otherStockList.get(i).getOpeningStock()
+					+ otherStockList.get(i).getPurchaseQty() - otherStockList.get(i).getSellQty());
 
 			rowData.add("" + (i + 1));
 			rowData.add("" + otherStockList.get(i).getItemId());
@@ -256,6 +274,21 @@ public class OtherItemStockController {
 			exportToExcelList.add(expoExcel);
 
 		}
+
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+		rowData.add("");
+		rowData.add("");
+
+		rowData.add("Total");
+		rowData.add(" " + openingStockTotal);
+		rowData.add(" " + purQtyTotal);
+		rowData.add(" " + saleQtytotal);
+		rowData.add(" " + damageQtyTotal);
+		rowData.add(" " + curStockTotal);
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
 
 		session = request.getSession();
 		session.setAttribute("exportExcelList", exportToExcelList);
@@ -350,8 +383,11 @@ public class OtherItemStockController {
 			table.addCell(hcell);
 
 			int index = 0;
-			float totalMrp = 0;
-			float totalAmt = 0;
+			double openingStockTotal = 0;
+			double pureQtyTotal = 0;
+			double saleQtytotal = 0;
+			double damageQtyTotal = 0;
+			double curStockTotal = 0;
 
 			for (OtherItemCurStock advance : otherStockList) {
 				index++;
@@ -373,6 +409,13 @@ public class OtherItemStockController {
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 				cell.setPaddingRight(5);
 				table.addCell(cell);
+
+				openingStockTotal = openingStockTotal + advance.getOpeningStock();
+				pureQtyTotal = pureQtyTotal + advance.getPurchaseQty();
+				saleQtytotal = saleQtytotal + advance.getSellQty();
+				damageQtyTotal = damageQtyTotal + advance.getDamagedStock();
+				curStockTotal = curStockTotal + advance.getOpeningStock() + advance.getPurchaseQty()
+						- advance.getSellQty();
 
 				cell = new PdfPCell(new Phrase(String.valueOf(advance.getOpeningStock()), headFont));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -407,6 +450,68 @@ public class OtherItemStockController {
 				table.addCell(cell);
 
 			}
+			
+			PdfPCell cell;
+
+			cell = new PdfPCell(new Phrase("", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("Total", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + roundUp((float) openingStockTotal), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+		 
+
+			cell = new PdfPCell(new Phrase("" + roundUp((float) pureQtyTotal), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + roundUp((float) saleQtytotal), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + roundUp((float) damageQtyTotal), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + roundUp((float) curStockTotal), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(2);
+			cell.setPadding(3);
+			table.addCell(cell); 
+		 
+			
 
 			doc.open();
 
@@ -468,6 +573,7 @@ public class OtherItemStockController {
 		}
 
 	}
+
 
 	//
 
