@@ -190,7 +190,7 @@ jQuery(document).ready(function(){
 										<th class="col-md-1" style="text-align: center;">IGST Amt</th>
 										<th class="col-md-1" style="text-align: center;">CGST Amt</th>
 										<th class="col-md-1" style="text-align: center;">SGST Amt</th>
-									<!-- 	<th class="col-md-1" style="text-align: center;">R.off</th> -->
+										<!-- 	<th class="col-md-1" style="text-align: center;">R.off</th> -->
 										<th class="col-md-2" style="text-align: center;">Bill
 											Amount</th>
 									</tr>
@@ -338,12 +338,12 @@ jQuery(document).ready(function(){
 																			(billWisePurchaseData.sgstRs)
 																					.toFixed(2)));
 
-												/* 	tr
-															.append($(
-																	'<td class="col-md-1" style="text-align:right"></td>')
-																	.html(
-																			(billWisePurchaseData.roundOff)
-																					.toFixed(2))); */
+													/* 	tr
+																.append($(
+																		'<td class="col-md-1" style="text-align:right"></td>')
+																		.html(
+																				(billWisePurchaseData.roundOff)
+																						.toFixed(2))); */
 
 													tr
 															.append($(
@@ -404,10 +404,10 @@ jQuery(document).ready(function(){
 												'<td class="col-md-1" style="text-align:right"></td>')
 												.html(sgstTotal.toFixed(2)));
 
-							/* 	tr
-										.append($(
-												'<td class="col-md-1" style="text-align:right"></td>')
-												.html(roundOffTotal.toFixed(2))); */
+								/* 	tr
+											.append($(
+													'<td class="col-md-1" style="text-align:right"></td>')
+													.html(roundOffTotal.toFixed(2))); */
 
 								tr
 										.append($(
@@ -464,7 +464,7 @@ jQuery(document).ready(function(){
 
 	function exportToExcel() {
 
-		window.open("${pageContext.request.contextPath}/exportToExcel");
+		window.open("${pageContext.request.contextPath}/exportToExcelNew");
 		document.getElementById("expExcel").disabled = true;
 	}
 </script>

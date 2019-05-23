@@ -89,14 +89,14 @@ import com.monginis.ops.model.spadvreport.GetSpAdvTaxReport;
 import com.monginis.ops.model.spadvreport.GetSpAdvTaxReportList;
 import com.monginis.ops.model.spadvreport.GetSpAdvanceReport;
 import com.monginis.ops.model.spadvreport.GetSpAdvanceReportList;
-  
+
 @Controller
 @Scope("session")
 public class ReportsController {
 	public static float roundUp(float d) {
 		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
- 
+
 	public List<GetRepTaxSell> getRepTaxSell;
 	public List<GetRepFrDatewiseSellResponse> getRepFrDatewiseSellResponse;
 	public List<GetSellBillHeader> getSellBillHeaderList;
@@ -816,13 +816,15 @@ public class ReportsController {
 	@RequestMapping(value = "/findBillWisePurchase", method = RequestMethod.GET)
 	public @ResponseBody List<BillWisePurchaseReport> getBillWisePurchase(HttpServletRequest request,
 			HttpServletResponse response) {
+		String fromDate = "";
+		String toDate = "";
 
 		try {
 			System.out.println("in method");
-			String fromDate = request.getParameter("fromDate");
+			fromDate = request.getParameter("fromDate");
 			System.out.println("fromDate" + fromDate);
 
-			String toDate = request.getParameter("toDate");
+			toDate = request.getParameter("toDate");
 			System.out.println("toDate" + toDate);
 
 			HttpSession ses = request.getSession();
@@ -873,6 +875,13 @@ public class ReportsController {
 
 		exportToExcelList.add(expoExcel);
 
+		float taxableAmt = 0.0f;
+		float cgstSum = 0.0f;
+		float sgstSum = 0.0f;
+		float igstSum = 0.0f;
+
+		float grandTotal = 0.0f;
+
 		for (int i = 0; i < billWisePurchaseReportList.size(); i++) {
 			expoExcel = new ExportToExcel();
 			rowData = new ArrayList<String>();
@@ -892,11 +901,37 @@ public class ReportsController {
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
 
+			taxableAmt = taxableAmt + billWisePurchaseReportList.get(i).getTaxableAmt();
+			cgstSum = cgstSum + billWisePurchaseReportList.get(i).getCgstRs();
+			sgstSum = sgstSum + billWisePurchaseReportList.get(i).getSgstRs();
+			igstSum = igstSum + billWisePurchaseReportList.get(i).getIgstRs();
+
+			grandTotal = grandTotal + billWisePurchaseReportList.get(i).getGrandTotal();
+
 		}
 
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("Total");
+		rowData.add("");
+		rowData.add("" + roundUp(taxableAmt));
+		rowData.add("" + roundUp(cgstSum));
+		rowData.add("" + roundUp(sgstSum));
+		rowData.add("" + roundUp(igstSum));
+		rowData.add("" + roundUp(grandTotal));
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
 		HttpSession session = request.getSession();
-		session.setAttribute("exportExcelList", exportToExcelList);
-		session.setAttribute("excelName", "BillWisePurchaseReport");
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "BillWisePurchaseReport");
+		session.setAttribute("reportNameNew", "Billwise Purchase Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$L$1");
+		session.setAttribute("mergeUpto2", "$A$2:$L$2");
 
 		return billWisePurchaseReportList;
 
@@ -909,13 +944,14 @@ public class ReportsController {
 	@RequestMapping(value = "/findItemWiseDetailReport", method = RequestMethod.GET)
 	public @ResponseBody List<ItemWiseDetail> findItemWiseDetailReport(HttpServletRequest request,
 			HttpServletResponse response) {
-
+		String fromDate = "";
+		String toDate = "";
 		try {
 			System.out.println("in method");
-			String fromDate = request.getParameter("fromDate");
+			fromDate = request.getParameter("fromDate");
 			System.out.println("fromDate" + fromDate);
 
-			String toDate = request.getParameter("toDate");
+			toDate = request.getParameter("toDate");
 			System.out.println("toDate" + toDate);
 
 			int catId = Integer.parseInt(request.getParameter("catId"));
@@ -957,16 +993,15 @@ public class ReportsController {
 		rowData.add("Sr. No.");
 		rowData.add("Bill Date");
 		rowData.add("Purchase Bill No");
-
 		rowData.add("Item Id");
-
 		rowData.add("Item Name");
 		rowData.add("Rate");
-
 		rowData.add("Quantity");
-
 		rowData.add("Total Amount");
 		rowData.add("Grn type");
+
+		float totalQty = 0.0f;
+		float totalAmt = 0.0f;
 
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
@@ -995,14 +1030,37 @@ public class ReportsController {
 				rowData.add("GRN 4");
 			}
 
+			totalQty = totalQty + itemWiseDetailReportList.get(i).getQty();
+			totalAmt = totalAmt + itemWiseDetailReportList.get(i).getTotal();
+
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
 
 		}
 
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("Total");
+		rowData.add("");
+		rowData.add("");
+		rowData.add("");
+		rowData.add("");
+		rowData.add("" + roundUp(totalQty));
+		rowData.add("" + roundUp(totalAmt));
+		rowData.add("");
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
 		HttpSession session = request.getSession();
-		session.setAttribute("exportExcelList", exportToExcelList);
-		session.setAttribute("excelName", "ItemWiseDetailPurchaseReport");
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "ItemWiseDetailPurchaseReport");
+		session.setAttribute("reportNameNew", "Itemwise-Billwise-Datewise Purchase Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$L$1");
+		session.setAttribute("mergeUpto2", "$A$2:$L$2");
 
 		return itemWiseDetailReportList;
 
@@ -1015,12 +1073,15 @@ public class ReportsController {
 	public @ResponseBody List<ItemWiseReport> findItemWiseReport(HttpServletRequest request,
 			HttpServletResponse response) {
 
+		String fromDate = "";
+		String toDate = "";
+
 		try {
 			System.out.println("in method");
-			String fromDate = request.getParameter("fromDate");
+			fromDate = request.getParameter("fromDate");
 			System.out.println("fromDate" + fromDate);
 
-			String toDate = request.getParameter("toDate");
+			toDate = request.getParameter("toDate");
 			System.out.println("toDate" + toDate);
 
 			int catId = Integer.parseInt(request.getParameter("catId"));
@@ -1069,6 +1130,9 @@ public class ReportsController {
 
 		rowData.add("Total Amount");
 
+		float totalQty = 0.0f;
+		float totalAmt = 0.0f;
+
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
 		for (int i = 0; i < itemWiseReportList.size(); i++) {
@@ -1088,11 +1152,32 @@ public class ReportsController {
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
 
+			totalQty = totalQty + itemWiseReportList.get(i).getQty();
+			totalAmt = totalAmt + itemWiseReportList.get(i).getTotal();
+
 		}
 
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("Total");
+		rowData.add("");
+		rowData.add("");
+
+		rowData.add("" + roundUp(totalQty));
+		rowData.add("" + roundUp(totalAmt));
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
 		HttpSession session = request.getSession();
-		session.setAttribute("exportExcelList", exportToExcelList);
-		session.setAttribute("excelName", "ItemWisePurchaseReport");
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "ItemWisePurchaseReport");
+		session.setAttribute("reportNameNew", "Itemwise Purchase Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$L$1");
+		session.setAttribute("mergeUpto2", "$A$2:$L$2");
 
 		return itemWiseReportList;
 
@@ -1106,12 +1191,15 @@ public class ReportsController {
 	public @ResponseBody List<BillWiseTaxReport> getBillWiseTaxReport(HttpServletRequest request,
 			HttpServletResponse response) {
 
+		String fromDate = "";
+		String toDate = "";
+
 		try {
 			System.out.println("in method");
-			String fromDate = request.getParameter("fromDate");
+			fromDate = request.getParameter("fromDate");
 			System.out.println("fromDate" + fromDate);
 
-			String toDate = request.getParameter("toDate");
+			toDate = request.getParameter("toDate");
 			System.out.println("toDate" + toDate);
 
 			HttpSession ses = request.getSession();
@@ -1159,6 +1247,14 @@ public class ReportsController {
 		rowData.add("Grand Amount");
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
+
+		float taxableAmt = 0.0f;
+		float cgstSum = 0.0f;
+		float sgstSum = 0.0f;
+		float igstSum = 0.0f;
+		float totalCess = 0.0f;
+		float grandTotal = 0.0f;
+
 		for (int i = 0; i < billWiseTaxReport.size(); i++) {
 			expoExcel = new ExportToExcel();
 			rowData = new ArrayList<String>();
@@ -1172,14 +1268,42 @@ public class ReportsController {
 			rowData.add("" + roundUp(billWiseTaxReport.get(i).getCess()));
 			rowData.add("" + roundUp(billWiseTaxReport.get(i).getGrandTotal()));
 
+			taxableAmt = taxableAmt + billWiseTaxReport.get(i).getTaxableAmt();
+			cgstSum = cgstSum + billWiseTaxReport.get(i).getCgstRs();
+			sgstSum = sgstSum + billWiseTaxReport.get(i).getSgstRs();
+			igstSum = igstSum + billWiseTaxReport.get(i).getIgstRs();
+			totalCess = totalCess + billWiseTaxReport.get(i).getCess();
+			grandTotal = grandTotal + billWiseTaxReport.get(i).getGrandTotal();
+
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
 
 		}
 
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("Total");
+
+		rowData.add("" + roundUp(taxableAmt));
+		rowData.add("");
+		rowData.add("" + roundUp(cgstSum));
+		rowData.add("" + roundUp(sgstSum));
+		rowData.add("" + roundUp(igstSum));
+		rowData.add("" + roundUp(totalCess));
+		rowData.add("" + roundUp(grandTotal));
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
 		HttpSession session = request.getSession();
-		session.setAttribute("exportExcelList", exportToExcelList);
-		session.setAttribute("excelName", "BillWiseTaxPurchaseReport");
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "BillWiseTaxPurchaseReport");
+		session.setAttribute("reportNameNew", "Purchase Billwise Tax (Input) Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$L$1");
+		session.setAttribute("mergeUpto2", "$A$2:$L$2");
 
 		return billWiseTaxReport;
 
@@ -1192,12 +1316,15 @@ public class ReportsController {
 	public @ResponseBody List<MonthWiseReport> getMonthWiseReport(HttpServletRequest request,
 			HttpServletResponse response) {
 		String frName = "";
+
+		String fromDate = "";
+		String toDate = "";
 		try {
 			System.out.println("in method");
-			String fromDate = request.getParameter("fromDate");
+			fromDate = request.getParameter("fromDate");
 			System.out.println("fromDate" + fromDate);
 
-			String toDate = request.getParameter("toDate");
+			toDate = request.getParameter("toDate");
 			System.out.println("toDate" + toDate);
 
 			DateTimeFormatter f = DateTimeFormatter.ofPattern("MM-uuuu");
@@ -1258,6 +1385,13 @@ public class ReportsController {
 		/* rowData.add("Round Off"); */
 		rowData.add("Grand Amount");
 
+		float taxableAmt = 0.0f;
+		float cgstSum = 0.0f;
+		float sgstSum = 0.0f;
+		float igstSum = 0.0f;
+		float totalSess = 0.0f;
+		float grandTotal = 0.0f;
+
 		String[] monthNames = { "0", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
 				"Dec" };
 
@@ -1283,14 +1417,42 @@ public class ReportsController {
 
 			rowData.add("" + roundUp(monthWiseReportList.get(i).getGrandTotal()));
 
+			taxableAmt = taxableAmt + monthWiseReportList.get(i).getTaxableAmt();
+			cgstSum = cgstSum + monthWiseReportList.get(i).getCgstRs();
+			sgstSum = sgstSum + monthWiseReportList.get(i).getSgstRs();
+			igstSum = igstSum + monthWiseReportList.get(i).getIgstRs();
+			totalSess = totalSess + monthWiseReportList.get(i).getSess();
+			grandTotal = grandTotal + monthWiseReportList.get(i).getGrandTotal();
+
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
 
 		}
 
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("Total");
+		rowData.add("");
+
+		rowData.add("" + roundUp(taxableAmt));
+		rowData.add("" + roundUp(cgstSum));
+		rowData.add("" + roundUp(sgstSum));
+		rowData.add("" + roundUp(igstSum));
+		rowData.add("" + roundUp(totalSess));
+		rowData.add("" + roundUp(grandTotal));
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
 		HttpSession session = request.getSession();
-		session.setAttribute("exportExcelList", exportToExcelList);
-		session.setAttribute("excelName", "MonthWiseTaxPurchaseReport");
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "MonthWiseTaxPurchaseReport");
+		session.setAttribute("reportNameNew", "Monthwise Purchase Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$I$1");
+		session.setAttribute("mergeUpto2", "$A$2:$I$2");
 
 		return monthWiseReportList;
 
@@ -1349,30 +1511,26 @@ public class ReportsController {
 		System.out.println("Sell Bill Header " + getSellBillHeaderList.toString());
 
 		// export to excel
-		
-		
-		
-		 /*Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
-			  public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
-				  
-				  String[] ar1=c1.getInvoiceNo().split("-");
-				  int a=Integer.parseInt(ar1[1]);
-				  
-				  String[] ar2=c2.getInvoiceNo().split("-");
-				  int b=Integer.parseInt(ar2[1]);
-				  
-				  if (a > b) return 1;
-			    if (a < b) return -1;
-			    return 0;
-			  }});*/
-		
+
+		/*
+		 * Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
+		 * public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
+		 * 
+		 * String[] ar1=c1.getInvoiceNo().split("-"); int a=Integer.parseInt(ar1[1]);
+		 * 
+		 * String[] ar2=c2.getInvoiceNo().split("-"); int b=Integer.parseInt(ar2[1]);
+		 * 
+		 * if (a > b) return 1; if (a < b) return -1; return 0; }});
+		 */
+
 		Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
-			  public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
-				  
-				  String s1 = c1.getInvoiceNo();
-	              String s2 = c2.getInvoiceNo();
-	              return s1.compareToIgnoreCase(s2);
-			  }});
+			public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
+
+				String s1 = c1.getInvoiceNo();
+				String s2 = c2.getInvoiceNo();
+				return s1.compareToIgnoreCase(s2);
+			}
+		});
 
 		List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
 
@@ -1481,37 +1639,37 @@ public class ReportsController {
 
 			getRepFrDatewiseSellResponse = responseEntity.getBody();
 
-			/*LinkedHashMap<String, GetRepFrDatewiseSellResponse> hashList = new LinkedHashMap<String, GetRepFrDatewiseSellResponse>();
+			/*
+			 * LinkedHashMap<String, GetRepFrDatewiseSellResponse> hashList = new
+			 * LinkedHashMap<String, GetRepFrDatewiseSellResponse>();
+			 * 
+			 * for (int i = 0; i < getRepFrDatewiseSellResponse.size(); i++) { float cash =
+			 * 0, card = 0, other = 0;
+			 * 
+			 * if (hashList.containsKey(getRepFrDatewiseSellResponse.get(i).getBillDate())
+			 * == false) {
+			 * 
+			 * for (int j = 0; j < getRepFrDatewiseSellResponse.size(); j++) {
+			 * 
+			 * if (getRepFrDatewiseSellResponse.get(j).getBillDate()
+			 * .equals(getRepFrDatewiseSellResponse.get(i).getBillDate())) { cash = cash +
+			 * getRepFrDatewiseSellResponse.get(j).getCash(); card = card +
+			 * getRepFrDatewiseSellResponse.get(j).getCard(); other = other +
+			 * getRepFrDatewiseSellResponse.get(j).getOther(); } }
+			 * 
+			 * //System.err.println(getRepFrDatewiseSellResponse.get(i).getBillDate() +
+			 * " cash " + cash + "card " //+ card + "other " + other);
+			 * getRepFrDatewiseSellResponse.get(i).setCash(cash);
+			 * getRepFrDatewiseSellResponse.get(i).setCard(card);
+			 * getRepFrDatewiseSellResponse.get(i).setOther(other);
+			 * hashList.put(getRepFrDatewiseSellResponse.get(i).getBillDate(),
+			 * getRepFrDatewiseSellResponse.get(i));
+			 * 
+			 * } }
+			 * 
+			 * tempList = new ArrayList<GetRepFrDatewiseSellResponse>(hashList.values());
+			 */
 
-			for (int i = 0; i < getRepFrDatewiseSellResponse.size(); i++) {
-				float cash = 0, card = 0, other = 0;
-
-				if (hashList.containsKey(getRepFrDatewiseSellResponse.get(i).getBillDate()) == false) {
-
-					for (int j = 0; j < getRepFrDatewiseSellResponse.size(); j++) {
-
-						if (getRepFrDatewiseSellResponse.get(j).getBillDate()
-								.equals(getRepFrDatewiseSellResponse.get(i).getBillDate())) {
-							cash = cash + getRepFrDatewiseSellResponse.get(j).getCash();
-							card = card + getRepFrDatewiseSellResponse.get(j).getCard();
-							other = other + getRepFrDatewiseSellResponse.get(j).getOther();
-						}
-					}
-
-					//System.err.println(getRepFrDatewiseSellResponse.get(i).getBillDate() + " cash " + cash + "card "
-							//+ card + "other " + other);
-					getRepFrDatewiseSellResponse.get(i).setCash(cash);
-					getRepFrDatewiseSellResponse.get(i).setCard(card);
-					getRepFrDatewiseSellResponse.get(i).setOther(other);
-					hashList.put(getRepFrDatewiseSellResponse.get(i).getBillDate(),
-							getRepFrDatewiseSellResponse.get(i));
-
-				}
-			}
-
-			tempList = new ArrayList<GetRepFrDatewiseSellResponse>(hashList.values());
-*/
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -2283,14 +2441,15 @@ public class ReportsController {
 					.exchange(Constant.URL + "getRepBillwiseTaxSell", HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
 			getRepTaxSell = responseEntity.getBody();
-			
+
 			Collections.sort(getRepTaxSell, new Comparator<GetRepTaxSell>() {
-				  public int compare(GetRepTaxSell c1, GetRepTaxSell c2) {
-					  
-					  String s1 = c1.getSellBillNo();
-		              String s2 = c2.getSellBillNo();
-		              return s1.compareToIgnoreCase(s2);
-				  }});
+				public int compare(GetRepTaxSell c1, GetRepTaxSell c2) {
+
+					String s1 = c1.getSellBillNo();
+					String s2 = c2.getSellBillNo();
+					return s1.compareToIgnoreCase(s2);
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
