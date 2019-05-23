@@ -203,6 +203,12 @@
 							</div>
 						</div>
 
+						<div class="col-sm-3  controls">
+							<input type="button" id="expExcel" class="btn btn-primary"
+								value="EXPORT TO Excel" onclick="exportToExcel();"
+								disabled="disabled">
+						</div>
+
 
 
 					</div>
@@ -252,6 +258,8 @@
 						
 						if(data!=null){
 							 document.getElementById("pdf").disabled = false; 
+								document.getElementById("expExcel").disabled = false;
+
 
 						}
 						var tr = $('<tr></tr>');
@@ -377,6 +385,12 @@ function genPdf() {
 		    window.open('${pageContext.request.contextPath}/getSpAdvPdf');
 		   
 	}
+	
+function exportToExcel() {
+
+	window.open("${pageContext.request.contextPath}/exportToExcelNew");
+	document.getElementById("expExcel").disabled = true;
+}
 	</script>
 
 </body>

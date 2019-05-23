@@ -126,7 +126,15 @@
 									<tbody>
 								</table>
 							</div>
+
 						</div>
+
+						<div class="col-sm-3  controls">
+							<input type="button" id="expExcel" class="btn btn-primary"
+								value="EXPORT TO Excel" onclick="exportToExcel();"
+								disabled="disabled">
+						</div>
+
 					</div>
 					<!--tabNavigation-->
 				</form>
@@ -166,8 +174,10 @@
 
 				if (data != null) {
 					document.getElementById("pdf").disabled = false;
+					document.getElementById("expExcel").disabled = false;
 
 				}
+
 				var tr = $('<tr></tr>');
 
 				tr.append($('<td class="col-md-1"></td>').html(key + 1));
@@ -301,6 +311,12 @@
 <script>
 	function genPdf() {
 		window.open('${pageContext.request.contextPath}/getSpAdvTaxPdf');
+	}
+
+	function exportToExcel() {
+
+		window.open("${pageContext.request.contextPath}/exportToExcelNew");
+		document.getElementById("expExcel").disabled = true;
 	}
 </script>
 

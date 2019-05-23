@@ -134,10 +134,13 @@ public class ReportsController {
 			HttpServletResponse response) {
 		// ModelAndView modelAndView = new ModelAndView("grngvn/displaygrn");
 		advList = new ArrayList<>();
+
+		String fromDate = "";
+		String toDate = "";
 		try {
 			System.out.println("in method /getSpAdvance");
-			String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			fromDate = request.getParameter("fromDate");
+			toDate = request.getParameter("toDate");
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			HttpSession ses = request.getSession();
 			Franchisee frDetails = (Franchisee) ses.getAttribute("frDetails");
@@ -161,6 +164,67 @@ public class ReportsController {
 			System.err.println("Ex in gettting sp adv list " + e.getMessage());
 			e.printStackTrace();
 		}
+
+		// export to excel
+
+		List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+		ExportToExcel expoExcel = new ExportToExcel();
+		List<String> rowData = new ArrayList<String>();
+
+		rowData.add("Sr. No");
+		rowData.add("Customer Name");
+		rowData.add("Item Name");
+		rowData.add("Order Date");
+		rowData.add("MRP");
+		rowData.add("Adavnce Amt");
+
+		expoExcel.setRowData(rowData);
+
+		exportToExcelList.add(expoExcel);
+
+		float baseMrp = 0.0f;
+		float advAmt = 0.0f;
+
+		for (int i = 0; i < advList.size(); i++) {
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+
+			rowData.add("" + (i + 1));
+			rowData.add("" + advList.get(i).getCustName());
+			rowData.add("" + advList.get(i).getItemName());
+			rowData.add("" + advList.get(i).getOrderDate());
+
+			rowData.add("" + roundUp(advList.get(i).getTotalMrp()));
+			rowData.add("" + roundUp(advList.get(i).getAdvAmt()));
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			baseMrp = baseMrp + advList.get(i).getTotalMrp();
+			advAmt = advAmt + advList.get(i).getAdvAmt();
+		}
+
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("Total");
+		rowData.add("");
+		rowData.add("");
+		rowData.add("" + roundUp(baseMrp));
+		rowData.add("" + roundUp(advAmt));
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
+		HttpSession session = request.getSession();
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "GetSpAdvanceReport");
+		session.setAttribute("reportNameNew", "Sp   Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$F$1");
+		session.setAttribute("mergeUpto2", "$A$2:$F$2");
+
 		return advList;
 
 	}
@@ -381,10 +445,12 @@ public class ReportsController {
 			HttpServletResponse response) {
 		// ModelAndView modelAndView = new ModelAndView("grngvn/displaygrn");
 		spAdvTaxList = new ArrayList<>();
+		String fromDate = "";
+		String toDate = "";
 		try {
 			System.out.println("in method /getSpAdvTaxReport");
-			String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			fromDate = request.getParameter("fromDate");
+			toDate = request.getParameter("toDate");
 			fd = fromDate;
 			tD = toDate;
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -407,6 +473,97 @@ public class ReportsController {
 			spAdvTaxList = spTaxAdv.getSpAdvTaxReport();
 
 			System.err.println("Sp tax List List " + spTaxAdv.toString());
+
+			// export to excel
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("Sr. No");
+			rowData.add("Invoice No.");
+			rowData.add("Item name");
+			rowData.add("HSN Code");
+			rowData.add("Delivery Date");
+			rowData.add("Base MRP");
+			rowData.add("CGST %");
+			rowData.add("SGST %");
+			rowData.add("CGST Amt");
+			rowData.add("SGST Amt");
+
+			rowData.add("Total");
+			rowData.add("Remaning");
+			expoExcel.setRowData(rowData);
+
+			exportToExcelList.add(expoExcel);
+
+			float baseMrp = 0.0f;
+			float cgstSum = 0.0f;
+			float sgstSum = 0.0f;
+
+			float grandTotal = 0.0f;
+			float remFinalTotal = 0.0f;
+			for (int i = 0; i < spAdvTaxList.size(); i++) {
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+
+				rowData.add("" + (i + 1));
+				rowData.add("" + spAdvTaxList.get(i).getInvoiceNo());
+				rowData.add("" + spAdvTaxList.get(i).getSpName());
+				rowData.add("" + spAdvTaxList.get(i).getSpHsncd());
+				rowData.add("" + spAdvTaxList.get(i).getDelDate());
+
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getBaseMrp()));
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getTax1()));
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getTax2()));
+				/* rowData.add("" + billWisePurchaseReportList.get(i).getRoundOff()); */
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getTax1Amt()));
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getTax2Amt()));
+
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getTotal()));
+				rowData.add("" + roundUp(spAdvTaxList.get(i).getRmAmount()));
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				baseMrp = baseMrp + spAdvTaxList.get(i).getBaseMrp();
+				cgstSum = cgstSum + spAdvTaxList.get(i).getTax1Amt();
+				sgstSum = sgstSum + spAdvTaxList.get(i).getTax2Amt();
+				remFinalTotal = remFinalTotal + spAdvTaxList.get(i).getRmAmount();
+
+				grandTotal = grandTotal + spAdvTaxList.get(i).getTotal();
+			}
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+
+			rowData.add("");
+			rowData.add("Total");
+			rowData.add("");
+
+			rowData.add("");
+			rowData.add("");
+			rowData.add("" + roundUp(baseMrp));
+			rowData.add("");
+			rowData.add("");
+			rowData.add("" + roundUp(cgstSum));
+			rowData.add("" + roundUp(sgstSum));
+
+			rowData.add("" + roundUp(grandTotal));
+			rowData.add("" + roundUp(remFinalTotal));
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("exportExcelListNew", exportToExcelList);
+			session.setAttribute("excelNameNew", "GetSpAdvTaxReport");
+			session.setAttribute("reportNameNew", "Sp Tax Report");
+			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+			session.setAttribute("mergeUpto1", "$A$1:$L$1");
+			session.setAttribute("mergeUpto2", "$A$2:$L$2");
+
 		} catch (Exception e) {
 			System.err.println("Ex in gettting sp tax list " + e.getMessage());
 			e.printStackTrace();
