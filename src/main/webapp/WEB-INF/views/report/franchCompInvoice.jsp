@@ -116,17 +116,19 @@
             <td colspan="2" align="right"><span class="style5"><strong>Total :</strong></span></td>
             
             
-            <td align="right"><span class="style5"><strong><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose> </strong></span></td>
+            <td align="right"><span class="style5"><strong><c:choose><c:when test="${billType eq 'R'}"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].discountAmt}"/></c:when><c:otherwise><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].intBillAmt}"/></c:otherwise> </c:choose> </strong></span></td>
           </tr>
           <c:if test="${billList[0].discountPer gt 0 or billList[0].intDiscAmt gt 0}">
           <tr>
-           <td colspan="2" align="right"><span class="style5"><strong>Discount ${billList[0].discountPer}% :</strong></span></td>
-           <td colspan="2" align="right"><span class="style5"><strong>${billList[0].intDiscAmt}</strong></span></td>
+           <td colspan="2" align="right"><span class="style5"><strong>Discount <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].discountPer}"/> % :</strong></span></td>
+           <td colspan="2" align="right"><span class="style5"><strong> <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].intDiscAmt}"/></strong></span></td>
           </tr>
           </c:if>
           <tr>
             <td colspan="2" align="right"><span class="style7">Bill Total:</span></td>
-            <td align="right"><span class="style7"><c:choose><c:when test="${billType eq 'R'}">${billList[0].discountAmt-billList[0].intDiscAmt}</c:when><c:otherwise>${billList[0].intBillAmt}</c:otherwise> </c:choose></span></td>
+            <td align="right"><span class="style7"><c:choose><c:when test="${billType eq 'R'}">
+            <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].discountAmt-billList[0].intDiscAmt}"/>
+            </c:when><c:otherwise> <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${billList[0].intBillAmt}"/></c:otherwise> </c:choose></span></td>
           </tr>
         </tbody>
       </table></td>
