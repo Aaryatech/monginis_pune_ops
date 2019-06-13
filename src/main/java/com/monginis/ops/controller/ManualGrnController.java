@@ -150,7 +150,7 @@ public class ManualGrnController {
 					objShowGrn = new ShowGrnBean();
 
 					objShowGrn.setDiscPer(grnConfList.get(i).getDiscPer());
-					
+					objShowGrn.setHsnCode(grnConfList.get(i).getHsnCode());//new
 					objShowGrn.setBillDate(grnConfList.get(i).getBillDate());
 					objShowGrn.setBillDetailNo(grnConfList.get(i).getBillDetailNo());
 					objShowGrn.setBillNo(grnConfList.get(i).getBillNo());
@@ -430,7 +430,7 @@ System.err.println("Inside Manual Grn POST method ");
 					curDateTime = dateFormat.format(cal.getTime());
 					
 					postGrnGvn.setItemMrp(objShowGrnList.get(i).getDiscPer());//setting disc Per in Grn_gvn detail 4 Feb 2019
-					
+					postGrnGvn.setHsnCode(objShowGrnList.get(i).getHsnCode());
 					
 					postGrnGvn.setBillNo(objShowGrnList.get(i).getBillNo());
 					postGrnGvn.setFrId(frDetails.getFrId());
@@ -552,7 +552,7 @@ System.err.println("Inside Manual Grn POST method ");
 						.postForObject(Constant.URL + "/showNotDayClosedRecord", map, SellBillDataCommon.class);
 
 				if (!sellBillResponse.getSellBillHeaderList().isEmpty()) {
-System.err.println("Inside sellBillResponse != null");
+                System.err.println("Inside sellBillResponse != null");
 					List<SellBillHeader> sellBillHeaderList = sellBillResponse.getSellBillHeaderList();
 
 					int count = sellBillHeaderList.size();

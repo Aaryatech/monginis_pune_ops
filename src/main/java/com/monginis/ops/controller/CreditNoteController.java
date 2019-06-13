@@ -97,7 +97,7 @@ public class CreditNoteController {
 				map.add("frIdList", frDetails.getFrId());
 
 				System.out.println(frDetails.getFrId().toString());
-
+				map.add("isGrn", "-1");
 				headerResponse = restTemplate.postForObject(Constant.URL + "getCreditNoteHeaders", map,
 						GetCreditNoteHeadersList.class);
 

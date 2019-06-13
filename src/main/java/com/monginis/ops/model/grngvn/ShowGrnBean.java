@@ -27,14 +27,21 @@ public class ShowGrnBean {
 	    private String billDateTime;
         private float taxableAmt;
         private float grnRate;
-        
+        private String hsnCode;
         private float taxAmt;
-        
-       private float discPer;
+        private float discPer;
        
         
         
-	    public float getDiscPer() {
+	    public String getHsnCode() {
+			return hsnCode;
+		}
+
+		public void setHsnCode(String hsnCode) {
+			this.hsnCode = hsnCode;
+		}
+
+		public float getDiscPer() {
 		return discPer;
 	}
 
@@ -225,7 +232,8 @@ public class ShowGrnBean {
 					+ cgstPer + ", igstPer=" + igstPer + ", calcBaseRate=" + calcBaseRate + ", menuId=" + menuId
 					+ ", catId=" + catId + ", invoiceNo=" + invoiceNo + ", autoGrnQty=" + autoGrnQty + ", taxPer="
 					+ taxPer + ", grnAmt=" + grnAmt + ", billDateTime=" + billDateTime + ", taxableAmt=" + taxableAmt
-					+ ", grnRate=" + grnRate + ", taxAmt=" + taxAmt + ", discPer=" + discPer + "]";
+					+ ", grnRate=" + grnRate + ", hsnCode=" + hsnCode + ", taxAmt=" + taxAmt + ", discPer=" + discPer
+					+ "]";
 		}
-		
+         
 }

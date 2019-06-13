@@ -580,7 +580,7 @@ public class GrnGvnController {
 					objShowGrn = new ShowGrnBean();
 
 					objShowGrn.setDiscPer(grnConfList.get(i).getDiscPer());
-
+					objShowGrn.setHsnCode(grnConfList.get(i).getHsnCode());//new omn 4jun19
 					objShowGrn.setBillDate(grnConfList.get(i).getBillDate());
 					objShowGrn.setBillDetailNo(grnConfList.get(i).getBillDetailNo());
 					objShowGrn.setBillNo(grnConfList.get(i).getBillNo());
@@ -896,10 +896,11 @@ public class GrnGvnController {
 				postGrnGvn.setBillDetailNo(objShowGrnList.get(i).getBillDetailNo());// 15 Feb added
 
 				curDateTime = dateFormat.format(cal.getTime());
-
+                
 				postGrnGvn.setBillNo(objShowGrnList.get(i).getBillNo());
 				postGrnGvn.setFrId(frDetails.getFrId());
 				postGrnGvn.setItemId(objShowGrnList.get(i).getItemId());
+				postGrnGvn.setHsnCode(objShowGrnList.get(i).getHsnCode());//new on 4jun19
 				postGrnGvn.setItemRate(objShowGrnList.get(i).getRate());
 				//postGrnGvn.setItemMrp(objShowGrnList.get(i).getMrp());
 				postGrnGvn.setGrnGvnQty(grnQty);
@@ -1508,7 +1509,7 @@ public class GrnGvnController {
 				objShowGvn.setBillDetailNo(grnConfList.get(i).getBillDetailNo());
 				objShowGvn.setBillNo(grnConfList.get(i).getBillNo());
 				objShowGvn.setBillQty(grnConfList.get(i).getBillQty());
-
+				objShowGvn.setMenuId(grnConfList.get(i).getMenuId());//new jun
 				objShowGvn.setCgstPer(grnConfList.get(i).getCgstPer());
 				objShowGvn.setFrId(grnConfList.get(i).getFrId());
 				objShowGvn.setGrnType(grnConfList.get(i).getGrnType());
@@ -1520,7 +1521,7 @@ public class GrnGvnController {
 				objShowGvn.setSgstPer(grnConfList.get(i).getSgstPer());
 				objShowGvn.setCatId(grnConfList.get(i).getCatId());//newly  aaded
 				objShowGvn.setInvoiceNo(grnConfList.get(i).getInvoiceNo());
-
+				objShowGvn.setHsnCode(grnConfList.get(i).getHsnCode());//new for hsn code
 				float calcBaseRate = grnConfList.get(i).getRate() * 100
 						/ (grnConfList.get(i).getSgstPer() + grnConfList.get(i).getCgstPer() + 100);
 				
@@ -1755,7 +1756,7 @@ public class GrnGvnController {
 					postGrnGvn.setApprovedLoginAcc(0);// 23
 					postGrnGvn.setGrnApprovedDateTimeAcc(dateFormat.format(cal.getTime()));// 24
 					postGrnGvn.setApprovedRemarkAcc("");// 25
-
+					postGrnGvn.setHsnCode(gvnList.get(i).getHsnCode());//new for hsn code
 					postGrnGvn.setDelStatus(0);// 26 postGrnGvn.setGrnGvnQtyAuto(gvnQty);// 27
 
 					VpsImageUpload upload = new VpsImageUpload();
@@ -1807,7 +1808,7 @@ public class GrnGvnController {
 
 					postGrnGvn.setCatId(gvnList.get(i).getCatId());
 					postGrnGvn.setMenuId(gvnList.get(i).getMenuId());
-
+					postGrnGvn.setBillDetailNo(gvnList.get(i).getBillDetailNo());
 					postGrnGvn.setRefInvoiceDate(gvnList.get(i).getBillDate());
 					postGrnGvn.setInvoiceNo(gvnList.get(i).getInvoiceNo());
 

@@ -165,8 +165,19 @@ public class GrnGvn {
 			int isSameState;
 			//23 FEB new Fields to handle qty variation between entry(insert) and dispatch
 			
-	
-	
+	        //added on 4june19
+			private String hsnCode;
+
+			
+	public String getHsnCode() {
+				return hsnCode;
+			}
+
+
+			public void setHsnCode(String hsnCode) {
+				this.hsnCode = hsnCode;
+			}
+
 
 	public int getMenuId() {
 		return menuId;
@@ -746,9 +757,8 @@ public class GrnGvn {
 				+ ", frGrngvnSrno=" + frGrngvnSrno + ", aprQtyGate=" + aprQtyGate + ", aprQtyStore=" + aprQtyStore
 				+ ", aprQtyAcc=" + aprQtyAcc + ", aprTaxableAmt=" + aprTaxableAmt + ", aprTotalTax=" + aprTotalTax
 				+ ", aprSgstRs=" + aprSgstRs + ", aprCgstRs=" + aprCgstRs + ", aprIgstRs=" + aprIgstRs
-				+ ", aprGrandTotal=" + aprGrandTotal + ", aprROff=" + aprROff + ", isSameState=" + isSameState + "]";
+				+ ", aprGrandTotal=" + aprGrandTotal + ", aprROff=" + aprROff + ", isSameState=" + isSameState
+				+ ", hsnCode=" + hsnCode + "]";
 	}
-
-
-	
+     
 }
