@@ -215,7 +215,7 @@ public class GrnGvnController {
 	List<GetCurrentStockDetails> currentStockDetailList = new ArrayList<GetCurrentStockDetails>();
 
 	public static float roundUp(float d) {
-		return BigDecimal.valueOf(d).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 
 	@RequestMapping(value = "/showGrn", method = RequestMethod.GET)
@@ -937,7 +937,7 @@ public class GrnGvnController {
 				postGrnGvn.setTaxableAmt(roundUp(taxableAmt));
 				postGrnGvn.setTotalTax(roundUp(totalTax));
 				postGrnGvn.setFinalAmt(roundUp(finalAmt));
-				postGrnGvn.setRoundUpAmt(roundUpAmt);
+				postGrnGvn.setRoundUpAmt(roundUp(roundUpAmt));
 
 				postGrnGvn.setIsCreditNote(0);
 
@@ -1000,9 +1000,9 @@ public class GrnGvnController {
 			grnHeader.setIsGrn(1);
 			grnHeader.setApporvedAmt(0);
 
-			grnHeader.setTaxableAmt(sumTaxableAmt);
-			grnHeader.setTaxAmt(sumTaxAmt);
-			grnHeader.setTotalAmt(sumTotalAmt);
+			grnHeader.setTaxableAmt(roundUp(sumTaxableAmt));
+			grnHeader.setTaxAmt(roundUp(sumTaxAmt));
+			grnHeader.setTotalAmt(roundUp(sumTotalAmt));
 			grnHeader.setGrnGvn(postGrnGvnList);
 
 			modelAndView.addObject("grnConfList", objShowGrnList);
@@ -1733,7 +1733,7 @@ public class GrnGvnController {
 
 					gvnAmt = roundUp(gvnAmt);
 
-					postGrnGvn.setGrnGvnAmt(grandTotal);
+					postGrnGvn.setGrnGvnAmt(roundUp(grandTotal));
 					postGrnGvn.setGrnGvnDate(grnGvnDate);// 1
 					postGrnGvn.setItemMrp(gvnList.get(i).getDiscPer());//setting disc Per in Grn_gvn detail 4 Feb 2019
 
@@ -1802,7 +1802,7 @@ public class GrnGvnController {
 					postGrnGvn.setTaxableAmt(roundUp(taxableAmt));
 					postGrnGvn.setTotalTax(roundUp(totalTax));
 					postGrnGvn.setFinalAmt(roundUp(finalAmt));
-					postGrnGvn.setRoundUpAmt(roundUpAmt);
+					postGrnGvn.setRoundUpAmt(roundUp(roundUpAmt));
 
 					postGrnGvn.setIsCreditNote(0);
 
@@ -1853,9 +1853,9 @@ public class GrnGvnController {
 			// grnHeader.setIsGrn(0);
 			grnHeader.setApporvedAmt(0);
 
-			grnHeader.setTaxableAmt(sumTaxableAmt);
-			grnHeader.setTaxAmt(sumTaxAmt);
-			grnHeader.setTotalAmt(sumTotalAmt);
+			grnHeader.setTaxableAmt(roundUp(sumTaxableAmt));
+			grnHeader.setTaxAmt(roundUp(sumTaxAmt));
+			grnHeader.setTotalAmt(roundUp(sumTotalAmt));
 
 			postGrnList.setGrnGvnHeader(grnHeader);
 

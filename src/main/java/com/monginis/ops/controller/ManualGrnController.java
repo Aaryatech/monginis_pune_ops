@@ -103,7 +103,7 @@ public class ManualGrnController {
 	List<GetAllRemarks> getAllRemarks;
 	List<ShowGrnBean> objShowGrnList = new ArrayList<>();
 	public static float roundUp(float d) {
-		return BigDecimal.valueOf(d).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 
 	@RequestMapping(value = "/getGrnBillDetail", method = RequestMethod.GET)
@@ -471,7 +471,7 @@ System.err.println("Inside Manual Grn POST method ");
 					postGrnGvn.setTaxableAmt(roundUp(taxableAmt));
 					postGrnGvn.setTotalTax(roundUp(totalTax));
 					postGrnGvn.setFinalAmt(roundUp(finalAmt));
-					postGrnGvn.setRoundUpAmt(roundUpAmt);
+					postGrnGvn.setRoundUpAmt(roundUp(roundUpAmt));
 
 					postGrnGvn.setIsCreditNote(0);
 
@@ -520,9 +520,9 @@ System.err.println("Inside Manual Grn POST method ");
 			grnHeader.setIsGrn(1);
 			grnHeader.setApporvedAmt(0);
 
-			grnHeader.setTaxableAmt(sumTaxableAmt);
-			grnHeader.setTaxAmt(sumTaxAmt);
-			grnHeader.setTotalAmt(sumTotalAmt);
+			grnHeader.setTaxableAmt(roundUp(sumTaxableAmt));
+			grnHeader.setTaxAmt(roundUp(sumTaxAmt));
+			grnHeader.setTotalAmt(roundUp(sumTotalAmt));
 			grnHeader.setGrnGvn(postGrnGvnList);
 			grnHeader.setAprGrandTotal(0);
 
