@@ -44,19 +44,234 @@ import com.monginis.ops.model.reportv2.CrNoteRegisterList;
 import com.monginis.ops.model.reportv2.GstRegisterItem;
 import com.monginis.ops.model.reportv2.GstRegisterList;
 import com.monginis.ops.model.reportv2.GstRegisterSp;
+import com.monginis.ops.model.reportv2.HSNWiseReport;
 
 @Controller
 @Scope("session")
 public class ReportControllerV2 {
+	String todaysDate;
 
 	public static float roundUp(float d) {
 		return BigDecimal.valueOf(d).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 	}
 
-	public AllFrIdNameList allFrIdNameList = new AllFrIdNameList();
+	@RequestMapping(value = "/showHSNwiseReportBetDate", method = RequestMethod.GET)
+	public ModelAndView showHSNwiseReportBetDate(HttpServletRequest request, HttpServletResponse response) {
 
- 
-	
+		ModelAndView model = null;
+		HttpSession session = request.getSession();
+
+		model = new ModelAndView("reports/hsnwiseReport");
+
+		try {
+			ZoneId z = ZoneId.of("Asia/Calcutta");
+
+			LocalDate date = LocalDate.now(z);
+			DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d-MM-uuuu");
+			todaysDate = date.format(formatters);
+			model.addObject("todaysDate", todaysDate);
+
+		} catch (Exception e) {
+
+			System.out.println("Exc in show   report hsn wise  " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return model;
+
+	}
+
+	List<HSNWiseReport> hsnListBill = null;
+
+	@RequestMapping(value = "/getReportHSNwise", method = RequestMethod.GET)
+	public @ResponseBody List<HSNWiseReport> getReportHSNwise(HttpServletRequest request,
+			HttpServletResponse response) {
+		String fromDate = "";
+		String toDate = "";
+		List<HSNWiseReport> hsnList = null;
+		HttpSession ses = request.getSession();
+		Franchisee frDetails = (Franchisee) ses.getAttribute("frDetails");
+
+		try {
+			System.out.println("Inside get hsnList    ");
+			hsnListBill = new ArrayList<>();
+			hsnList = new ArrayList<>();
+			fromDate = request.getParameter("fromDate");
+			toDate = request.getParameter("toDate");
+			int type = Integer.parseInt(request.getParameter("type"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			RestTemplate restTemplate = new RestTemplate();
+
+			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+			map.add("toDate", DateConvertor.convertToYMD(toDate));
+			map.add("frId", frDetails.getFrId());
+
+			if (type == 1 || type == 3) {
+				ParameterizedTypeReference<List<HSNWiseReport>> typeRef = new ParameterizedTypeReference<List<HSNWiseReport>>() {
+				};
+				ResponseEntity<List<HSNWiseReport>> responseEntity = restTemplate.exchange(
+						Constant.URL + "getHsnBillReportByFrId", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+
+				hsnListBill = responseEntity.getBody();
+			}
+			if (type == 2 || type == 3) {
+				ParameterizedTypeReference<List<HSNWiseReport>> typeRef1 = new ParameterizedTypeReference<List<HSNWiseReport>>() {
+				};
+				ResponseEntity<List<HSNWiseReport>> responseEntity1 = restTemplate.exchange(
+						Constant.URL + "getHsnReportByFrId", HttpMethod.POST, new HttpEntity<>(map), typeRef1);
+
+				hsnList = responseEntity1.getBody();
+
+				System.out.println("hsn List Bill Wise " + hsnList.toString());
+			}
+
+			for (int i = 0; i < hsnList.size(); i++) {
+				for (int j = 0; j < hsnListBill.size(); j++) {
+					if (hsnList.get(i).getId().equals(hsnListBill.get(j).getId())) {
+						hsnListBill.get(j)
+								.setTaxableAmt(hsnListBill.get(j).getTaxableAmt() - hsnList.get(i).getTaxableAmt());
+						hsnListBill.get(j).setGrnGvnQty(hsnList.get(i).getBillQty());
+
+						hsnListBill.get(j).setCgstRs(hsnListBill.get(j).getCgstRs() - hsnList.get(i).getCgstRs());
+
+						hsnListBill.get(j).setSgstRs(hsnListBill.get(j).getSgstRs() - hsnList.get(i).getSgstRs());
+
+					}
+					// hsnListBill.get(j).setGrnGvnQty(0);
+				}
+			}
+			if (type == 2) {
+				hsnListBill.addAll(hsnList);
+			}
+			System.out.println(hsnListBill.toString());
+			System.out.println(hsnList.toString());
+
+		} catch (
+
+		Exception e) {
+			System.out.println("get sale Report hsn Wise " + e.getMessage());
+			e.printStackTrace();
+
+		}
+
+		// exportToExcel
+
+		List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+		ExportToExcel expoExcel = new ExportToExcel();
+		List<String> rowData = new ArrayList<String>();
+
+		rowData.add("Sr No");
+		rowData.add("HSN Code");
+		rowData.add("DESC");
+		rowData.add("UQC");
+		rowData.add("Total Qty");
+		rowData.add("Total Value");
+		rowData.add("Taxable Amount");
+		rowData.add("Integrated Tax Amount");
+		rowData.add("Central Tax Amount");
+		rowData.add("State/UT Tax Amount");
+		rowData.add("Cess Amount");
+
+		/*
+		 * rowData.add("TAX %"); rowData.add("MANUF"); rowData.add("RET");
+		 * 
+		 * rowData.add("CGST %"); rowData.add("CGST Amount"); rowData.add("SGST %");
+		 * rowData.add("SGST Amount");
+		 */
+
+		float taxableAmt = 0.0f;
+		float cgstSum = 0.0f;
+		float sgstSum = 0.0f;
+		float igstSum = 0.0f;
+		float totalTax = 0.0f;
+		float grandTotal = 0.0f;
+
+		expoExcel.setRowData(rowData);
+		int srno = 1;
+		exportToExcelList.add(expoExcel);
+		for (int i = 0; i < hsnListBill.size(); i++) {
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+
+			rowData.add("" + srno);
+			rowData.add(hsnListBill.get(i).getItemHsncd());
+			rowData.add(" ");
+			rowData.add(" ");
+			rowData.add(" " + (hsnListBill.get(i).getBillQty() - hsnListBill.get(i).getGrnGvnQty()));
+			rowData.add(" " + roundUp(hsnListBill.get(i).getTaxableAmt() + hsnListBill.get(i).getCgstRs()
+					+ hsnListBill.get(i).getSgstRs()));
+
+			rowData.add("" + Long.toString((long) (hsnListBill.get(i).getTaxableAmt())));
+
+			rowData.add(" " + 0);
+			rowData.add("" + roundUp(hsnListBill.get(i).getCgstRs()));
+			rowData.add("" + roundUp(hsnListBill.get(i).getSgstRs()));
+			rowData.add(" " + 0);
+
+			/*
+			 * rowData.add(" " + roundUp(hsnListBill.get(i).getItemTax1() +
+			 * hsnListBill.get(i).getItemTax2())); rowData.add(" " +
+			 * hsnListBill.get(i).getBillQty()); rowData.add(" " +
+			 * hsnListBill.get(i).getGrnGvnQty());
+			 * 
+			 * rowData.add(" " + roundUp(hsnListBill.get(i).getItemTax1()));
+			 * 
+			 * rowData.add(" " + roundUp(hsnListBill.get(i).getItemTax2()));
+			 */
+
+			totalTax = totalTax + roundUp(hsnListBill.get(i).getItemTax1()) + roundUp(hsnListBill.get(i).getItemTax2());
+			taxableAmt = taxableAmt + roundUp(hsnListBill.get(i).getTaxableAmt());
+			cgstSum = cgstSum + roundUp(hsnListBill.get(i).getCgstRs());
+			sgstSum = sgstSum + roundUp(hsnListBill.get(i).getSgstRs());
+			grandTotal = grandTotal + roundUp(hsnListBill.get(i).getTaxableAmt())
+					+ roundUp(hsnListBill.get(i).getCgstRs()) + roundUp(hsnListBill.get(i).getSgstRs());
+
+			srno = srno + 1;
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+		}
+
+		expoExcel = new ExportToExcel();
+		rowData = new ArrayList<String>();
+
+		rowData.add("");
+		rowData.add("");
+		rowData.add("");
+		rowData.add("Total");
+		rowData.add("");
+		rowData.add("" + Long.toString((long) (grandTotal)));
+		rowData.add("" + Long.toString((long) (taxableAmt)));
+		rowData.add("" + roundUp(igstSum));
+		rowData.add("" + roundUp(cgstSum));
+		rowData.add("" + roundUp(sgstSum));
+		rowData.add("" + roundUp(igstSum));
+		/* rowData.add("" + roundUp(totalTax)); */
+
+		rowData.add("");
+
+		rowData.add("");
+
+		expoExcel.setRowData(rowData);
+		exportToExcelList.add(expoExcel);
+
+		HttpSession session = request.getSession();
+		session.setAttribute("exportExcelListNew", exportToExcelList);
+		session.setAttribute("excelNameNew", "HSNWiseReport");
+		session.setAttribute("reportNameNew", "View HSN Wise Report");
+		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+		session.setAttribute("mergeUpto1", "$A$1:$L$1");
+		session.setAttribute("mergeUpto2", "$A$2:$L$2");
+
+		session.setAttribute("exportExcelList", exportToExcelList);
+		session.setAttribute("excelName", "HSNWiseReport");
+
+		return hsnListBill;
+	}
+
 	@RequestMapping(value = "/showCRNoteRegister", method = RequestMethod.GET)
 	public ModelAndView showCRNoteRegister(HttpServletRequest request, HttpServletResponse response) {
 
@@ -79,6 +294,7 @@ public class ReportControllerV2 {
 
 		return model;
 	}
+
 	List<CrNoteRegItem> crNoteRegItemList = new ArrayList<>();
 	// getCRNoteRegister Ajax
 
@@ -296,10 +512,7 @@ public class ReportControllerV2 {
 			DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d-MM-uuuu");
 			String todaysDate = date.format(formatters);
 
-			allFrIdNameList = restTemplate.getForObject(Constant.URL + "getAllFrIdName", AllFrIdNameList.class);
-
 			model.addObject("todaysDate", todaysDate);
-			model.addObject("allFrIdNameList", allFrIdNameList.getFrIdNamesList());
 
 		} catch (Exception e) {
 			System.out.println("Exce in showRegCakeSpOrderReport " + e.getMessage());
