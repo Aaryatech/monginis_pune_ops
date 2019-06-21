@@ -2,6 +2,7 @@ package com.monginis.ops.controller;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -28,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +44,8 @@ import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.CategoryList;
 import com.monginis.ops.model.CustomerBillData;
 import com.monginis.ops.model.CustomerBillItem;
+import com.monginis.ops.model.FrItemStockConfiResponse;
+import com.monginis.ops.model.FrItemStockConfigure;
 import com.monginis.ops.model.FrItemStockConfigureList;
 import com.monginis.ops.model.FrMenu;
 import com.monginis.ops.model.Franchisee;
@@ -59,7 +63,10 @@ import com.monginis.ops.model.MCategory;
 import com.monginis.ops.model.Main;
 import com.monginis.ops.model.PostFrItemStockHeader;
 import com.monginis.ops.model.SellBillDataCommon;
+import com.monginis.ops.model.SellBillDetailEdit;
 import com.monginis.ops.model.SellBillDetailList;
+import com.monginis.ops.model.SellBillEditBean;
+import com.monginis.ops.model.SpOrderHis;
 import com.monginis.ops.model.frsetting.FrSetting;
 
 @Controller
@@ -221,7 +228,186 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 
 		return model;
 	}
+	SellBillEditBean sellBillEditBean=null;
+	@RequestMapping(value = "/editBillDetails", method = RequestMethod.GET)
+	public ModelAndView editBillDetails(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("frSellBilling/editSellBill");
+
+		int sellBillNo = Integer.parseInt(request.getParameter("sellBillNo"));
+
+		String selBillDate = request.getParameter("billDate");
+	    RestTemplate restTemplate = new RestTemplate();
+
+		try {
+	     	MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		    map.add("billNo", sellBillNo);
+			 sellBillEditBean= restTemplate.postForObject(Constant.URL + "/getSellBillHeaderAndDetails",
+					map, SellBillEditBean.class);
+
+			List<SellBillDetailEdit> sellBillDetails = sellBillEditBean.getSellBillDetailList();
+		    System.err.println("sellBillDetails"+sellBillDetails.toString());
+			model.addObject("sellBillDetails", sellBillDetails);
+			model.addObject("sellBillHeader", sellBillEditBean.getSellBillHeader());
+		} catch (Exception e) {
+			e.printStackTrace();
+			}
+		model.addObject("sellBillNo", sellBillNo);
+		model.addObject("billDate", selBillDate);
+
+		return model;
+	}
 	
+	@RequestMapping(value = "/editSellBill", method = RequestMethod.POST)
+	public String editSellBill(HttpServletRequest request, HttpServletResponse response) {
+		int sellBillNo=0;
+		String billDate="";
+		try {
+			 sellBillNo=Integer.parseInt(request.getParameter("sellBillNo"));
+			 billDate=request.getParameter("billDate");
+			float paidAmt=Float.parseFloat(request.getParameter("paidAmt"));
+			if(sellBillEditBean!=null)
+			{
+				
+				float sumTaxableAmt = 0, sumTotalTax = 0, sumGrandTotal = 0, sumMrp = 0;
+				List<SellBillDetail> sellBillDetailList=new ArrayList<SellBillDetail>();
+				
+				for(int i=0;i<sellBillEditBean.getSellBillDetailList().size();i++)
+				{
+					int qty=Integer.parseInt(request.getParameter("qty"+sellBillEditBean.getSellBillDetailList().get(i).getSellBillDetailNo()));
+					SellBillDetail sellBillDetail = new SellBillDetail();
+					//System.err.println(sellBillEditBean.getSellBillDetailList().get(i).getSellBillDetailNo()+"sellBillEditBean.getSellBillDetailList().get(i).getSellBillDetailNo()");
+					sellBillDetail.setSellBillDetailNo(sellBillEditBean.getSellBillDetailList().get(i).getSellBillDetailNo());
+					sellBillDetail.setSellBillNo(sellBillEditBean.getSellBillDetailList().get(i).getSellBillNo());
+					Float rate = (float) sellBillEditBean.getSellBillDetailList().get(i).getMrp();
+
+					Float tax1 = (float) sellBillEditBean.getSellBillDetailList().get(i).getSgstPer();
+					Float tax2 = (float) sellBillEditBean.getSellBillDetailList().get(i).getCgstPer();
+					Float tax3 = (float) sellBillEditBean.getSellBillDetailList().get(i).getIgstPer();
+
+					Float mrpBaseRate = (rate * 100) / (100 + (tax1 + tax2));
+					mrpBaseRate = roundUp(mrpBaseRate);
+
+					System.out.println("Mrp: " + rate);
+					System.out.println("Tax1 : " + tax1);
+					System.out.println("tax2 : " + tax2);
+
+					Float taxableAmt = (float) (mrpBaseRate * qty);
+					taxableAmt = roundUp(taxableAmt);
+					// -----------------------------------------
+
+					float discAmt = ((taxableAmt * sellBillEditBean.getSellBillHeader().getDiscountPer()) / 100);
+					taxableAmt = taxableAmt - discAmt;
+
+					float sgstRs = (taxableAmt * tax1) / 100;
+					float cgstRs = (taxableAmt * tax2) / 100;
+					float igstRs = (taxableAmt * tax3) / 100;
+
+					sgstRs = roundUp(sgstRs);
+					cgstRs = roundUp(cgstRs);
+					igstRs = roundUp(igstRs);
+
+					Float totalTax = sgstRs + cgstRs;
+					totalTax = roundUp(totalTax);
+
+					Float grandTotal = totalTax + taxableAmt;
+					grandTotal = roundUp(grandTotal);
+
+					sellBillDetail.setCatId(sellBillEditBean.getSellBillDetailList().get(i).getCatId());
+					sellBillDetail.setSgstPer(tax1);
+					sellBillDetail.setSgstRs(sgstRs);
+					sellBillDetail.setCgstPer(tax2);
+					sellBillDetail.setCgstRs(cgstRs);
+					sellBillDetail.setDelStatus(0);
+					sellBillDetail.setGrandTotal(grandTotal);
+					sellBillDetail.setIgstPer(tax3);
+					sellBillDetail.setIgstRs(igstRs);
+					sellBillDetail.setItemId(sellBillEditBean.getSellBillDetailList().get(i).getItemId());
+					sellBillDetail.setMrp(rate);
+					sellBillDetail.setMrpBaseRate(mrpBaseRate);
+					sellBillDetail.setQty(qty);
+					sellBillDetail.setRemark("");
+					sellBillDetail.setBillStockType(sellBillEditBean.getSellBillDetailList().get(i).getBillStockType());
+
+					sumMrp = sumMrp + (rate * qty);
+					sumTaxableAmt = sumTaxableAmt + taxableAmt;
+					sumTotalTax = sumTotalTax + totalTax;
+					sumGrandTotal = sumGrandTotal + grandTotal;
+
+					sellBillDetail.setTaxableAmt(taxableAmt);
+					sellBillDetail.setTotalTax(totalTax);
+
+					sellBillDetailList.add(sellBillDetail);
+				}
+				
+				String convertedDate=null;
+				try {
+					SimpleDateFormat ymdSDF = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat dmySDF = new SimpleDateFormat("dd-MM-yyyy");
+					Date dmyDate = dmySDF.parse(sellBillEditBean.getSellBillHeader().getBillDate());
+					
+					convertedDate=ymdSDF.format(dmyDate);
+					
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				sellBillEditBean.getSellBillHeader().setBillDate(convertedDate);
+				sellBillEditBean.getSellBillHeader().setPaidAmt(Math.round(paidAmt));
+				sellBillEditBean.getSellBillHeader().setTaxableAmt(sumTaxableAmt);
+				// float discountAmt = 0;
+				// if(discountPer!=0.0)
+				// discountAmt = ((sumGrandTotal * discountPer) / 100);
+				float payableAmt = sumGrandTotal;
+
+				payableAmt = roundUp(payableAmt);
+
+				sellBillEditBean.getSellBillHeader().setDiscountAmt(sumMrp);
+				sellBillEditBean.getSellBillHeader().setPayableAmt(Math.round(payableAmt));
+				sellBillEditBean.getSellBillHeader().setTotalTax(sumTotalTax);
+				sellBillEditBean.getSellBillHeader().setGrandTotal(Math.round(sumGrandTotal));
+
+				float calRemainingTotal = (payableAmt - paidAmt);//commented paid amt
+
+				if (calRemainingTotal < 0) {
+					sellBillEditBean.getSellBillHeader().setRemainingAmt(0);
+
+				} else {
+
+					sellBillEditBean.getSellBillHeader().setRemainingAmt(calRemainingTotal);
+				}
+				if (calRemainingTotal <= 0) {
+
+					sellBillEditBean.getSellBillHeader().setStatus(1);
+				} else if (calRemainingTotal == payableAmt) {
+					sellBillEditBean.getSellBillHeader().setStatus(2);
+
+				} else if (payableAmt > calRemainingTotal) {
+					sellBillEditBean.getSellBillHeader().setStatus(3);
+				}
+
+				System.out.println("SellBillHeaderEditRes :" + sellBillEditBean.toString());
+				SellBillHeader sellBillHeader=new SellBillHeader();
+				sellBillHeader=sellBillEditBean.getSellBillHeader();
+				
+				RestTemplate restTemplate = new RestTemplate();
+				SellBillHeader	sellBillHeaderEditRes = restTemplate.postForObject(Constant.URL + "insertSellBillData", sellBillHeader,
+						SellBillHeader.class);
+				
+				List<SellBillDetail>	sellBillDetailEditRes = restTemplate.postForObject(Constant.URL + "insertSellBillDetails", sellBillDetailList,
+						List.class);
+
+				System.out.println("SellBillHeaderEditRes :" + sellBillHeaderEditRes.toString());
+
+				
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/editBillDetails?sellBillNo="+sellBillNo+"&billDate="+billDate;
+	}
+
 	//print function
 	List<SellBillDetail> BillDetailList = new ArrayList<SellBillDetail>();
 	List<GetCustBillTax> getCustBillTaxList;
@@ -2189,7 +2375,51 @@ if(currentNewItem.getCatId()==7) {
 		model.addObject("billType", billType);
 		return model;
 	}
+	@RequestMapping(value = "/printSpCkBillPrint/{spOrderNo}", method = RequestMethod.GET)
+	public ModelAndView showExpressBillPrint(@PathVariable int spOrderNo, HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("history/spBillInvoice");
+		RestTemplate restTemplate = new RestTemplate();
 
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		try {
+			RestTemplate rest = new RestTemplate();
+			map.add("spOrderNo", spOrderNo);
+			SpOrderHis spOrderHisSelected = rest.postForObject(Constant.URL + "/getSpCkOrderForExBillPrint", map, SpOrderHis.class);
+			
+				int settingValue = 0;
+			try {
+				FrItemStockConfiResponse frItemStockConfiResponse = restTemplate
+						.getForObject(Constant.URL + "getfrItemConfSetting", FrItemStockConfiResponse.class);
+				List<FrItemStockConfigure> frItemStockConfigures = new ArrayList<FrItemStockConfigure>();
+				frItemStockConfigures = frItemStockConfiResponse.getFrItemStockConfigure();
+
+				for (int i = 0; i < frItemStockConfigures.size(); i++) {
+
+					if (frItemStockConfigures.get(i).getSettingKey().equalsIgnoreCase("spInvoiceHsn")) {
+						settingValue = frItemStockConfigures.get(i).getSettingValue();
+					}
+
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			HttpSession session = request.getSession();
+
+			Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+			int frGstType = frDetails.getFrGstType();
+
+			model.addObject("date", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+
+			// model.addObject("invNo",sellInvoiceGlobal);
+			model.addObject("frGstType", frGstType);
+			model.addObject("spCakeOrder", spOrderHisSelected);
+			model.addObject("spInvoiceHsn", settingValue);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 	@RequestMapping(value = "/getItemIdByBarcode", method = RequestMethod.GET)
 	public @ResponseBody int getItemIdByBarcode(HttpServletRequest request, HttpServletResponse response) {
 

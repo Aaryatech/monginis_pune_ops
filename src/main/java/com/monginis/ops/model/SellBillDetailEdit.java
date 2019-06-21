@@ -1,22 +1,14 @@
-package com.monginis.ops.billing;
-
-import java.io.Serializable;
-import java.util.List;
+package com.monginis.ops.model;
 
 
+public class SellBillDetailEdit{
 
-public class SellBillDetail implements Serializable{
 
-
-	
 	private int sellBillDetailNo;
 		
-	
 	private int sellBillNo;
 	
-
 	private int catId;
-	
 	
 	private int itemId;
 	
@@ -24,61 +16,33 @@ public class SellBillDetail implements Serializable{
 
 	private float mrp;
 	
-	
 	private int qty;
-	
 	
 	private float mrpBaseRate;
 	
-	private int billStockType;
-	
 	private float taxableAmt;
-		
-	private float sgstPer;
 	
+	private float sgstPer;
 	
 	private float sgstRs;
 	
-	
 	private float cgstPer;
-	
 	
 	private float cgstRs;
 	
-	
 	private float igstPer;
 	
-
 	private float igstRs;
-	
 	
 	private float totalTax;
 	
-	
 	private float grandTotal;
 	
-
 	private String remark;
-	 
 	
 	private int delStatus;
 
-	
-	public int getBillStockType() {
-		return billStockType;
-	}
-
-	public void setBillStockType(int billStockType) {
-		this.billStockType = billStockType;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
+	private int billStockType;
 
 	public int getSellBillDetailNo() {
 		return sellBillDetailNo;
@@ -110,6 +74,14 @@ public class SellBillDetail implements Serializable{
 
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public float getMrp() {
@@ -224,16 +196,23 @@ public class SellBillDetail implements Serializable{
 		this.delStatus = delStatus;
 	}
 
-	@Override
-	public String toString() {
-		return "SellBillDetail [sellBillDetailNo=" + sellBillDetailNo + ", sellBillNo=" + sellBillNo + ", catId="
-				+ catId + ", itemId=" + itemId + ", itemName=" + itemName + ", mrp=" + mrp + ", qty=" + qty
-				+ ", mrpBaseRate=" + mrpBaseRate + ", billStockType=" + billStockType + ", taxableAmt=" + taxableAmt
-				+ ", sgstPer=" + sgstPer + ", sgstRs=" + sgstRs + ", cgstPer=" + cgstPer + ", cgstRs=" + cgstRs
-				+ ", igstPer=" + igstPer + ", igstRs=" + igstRs + ", totalTax=" + totalTax + ", grandTotal="
-				+ grandTotal + ", remark=" + remark + ", delStatus=" + delStatus + "]";
+	public int getBillStockType() {
+		return billStockType;
 	}
 
+	public void setBillStockType(int billStockType) {
+		this.billStockType = billStockType;
+	}
+
+	@Override
+	public String toString() {
+		return "SellBillDetailEdit [sellBillDetailNo=" + sellBillDetailNo + ", sellBillNo=" + sellBillNo + ", catId="
+				+ catId + ", itemId=" + itemId + ", itemName=" + itemName + ", mrp=" + mrp + ", qty=" + qty
+				+ ", mrpBaseRate=" + mrpBaseRate + ", taxableAmt=" + taxableAmt + ", sgstPer=" + sgstPer + ", sgstRs="
+				+ sgstRs + ", cgstPer=" + cgstPer + ", cgstRs=" + cgstRs + ", igstPer=" + igstPer + ", igstRs=" + igstRs
+				+ ", totalTax=" + totalTax + ", grandTotal=" + grandTotal + ", remark=" + remark + ", delStatus="
+				+ delStatus + ", billStockType=" + billStockType + "]";
+	}
 	
 	
 }
