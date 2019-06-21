@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,6 +87,9 @@ import com.monginis.ops.model.Main;
 import com.monginis.ops.model.MonthWiseReport;
 import com.monginis.ops.model.MonthWiseReportList;
 import com.monginis.ops.model.grngvn.GrnGvnHeader;
+import com.monginis.ops.model.reportv2.CrNoteRegItem;
+import com.monginis.ops.model.reportv2.CrNoteRegSp;
+import com.monginis.ops.model.reportv2.CrNoteRegisterList;
 import com.monginis.ops.model.spadvreport.GetSpAdvTaxReport;
 import com.monginis.ops.model.spadvreport.GetSpAdvTaxReportList;
 import com.monginis.ops.model.spadvreport.GetSpAdvanceReport;
@@ -3353,12 +3357,12 @@ public class ReportsController {
 			map.add("year", yearFormat.format(todaysDate));
 			DailySalesReportDao getDailySalesDataList = restTemplate.postForObject(Constant.URL + "getDailySalesData",
 					map, DailySalesReportDao.class);
-            System.err.println("getDailySalesDataList"+getDailySalesDataList.toString());
+			System.err.println("getDailySalesDataList" + getDailySalesDataList.toString());
 			model.addObject("catList", catList.getmCategoryList());
 			model.addObject("regularList", getDailySalesDataList.getDailySalesRegularList());
 			model.addObject("spList", getDailySalesDataList.getSpDailySalesList());
 
-			System.out.println("catList"+catList.toString());
+			System.out.println("catList" + catList.toString());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4026,7 +4030,7 @@ public class ReportsController {
 				float totalRate = 0;
 				float totalMrp = 0;
 				float totalProfit = 0;
-System.err.println("Category List:"+catList.getmCategoryList().toString());
+				System.err.println("Category List:" + catList.getmCategoryList().toString());
 				for (int i = 0; i < catList.getmCategoryList().size(); i++) {
 					if (catList.getmCategoryList().get(i).getCatId() != 5
 							&& catList.getmCategoryList().get(i).getCatId() != 7) {
@@ -4110,7 +4114,7 @@ System.err.println("Category List:"+catList.getmCategoryList().toString());
 
 						totalProfit = totalProfit + profit;
 					} else if (catList.getmCategoryList().get(i).getCatId() == 7) {
-						System.err.println("catList"+catList.toString());
+						System.err.println("catList" + catList.toString());
 						PdfPTable table = new PdfPTable(5);
 						table.setHeaderRows(1);
 						table.setWidthPercentage(100);
@@ -4198,7 +4202,6 @@ System.err.println("Category List:"+catList.getmCategoryList().toString());
 
 				}
 
-			
 				for (int i = 0; i < catList.getmCategoryList().size(); i++) {
 					if (catList.getmCategoryList().get(i).getCatId() == 5) {
 						PdfPTable table = new PdfPTable(5);
@@ -4409,7 +4412,7 @@ System.err.println("Category List:"+catList.getmCategoryList().toString());
 	public void showPDF(HttpServletRequest request, HttpServletResponse response) {
 
 		String url = request.getParameter("reportURL");
-		  File f = new File("/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf");
+		File f = new File("/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf");
 		// File f = new File("/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf");
 		// File f = new File("/home/ats-12/pdf/ordermemo221.pdf");
 		try {
@@ -4515,6 +4518,221 @@ System.err.println("Category List:"+catList.getmCategoryList().toString());
 
 			pd4ml.render(urlstring, fos);
 		}
+	}
+
+	@RequestMapping(value = "/showCRNoteRegisterDone", method = RequestMethod.GET)
+	public ModelAndView showCRNoteRegisterDone(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("reports/crNote_register_done");
+
+		try {
+
+			ZoneId z = ZoneId.of("Asia/Calcutta");
+
+			LocalDate date = LocalDate.now(z);
+			DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d-MM-uuuu");
+			String todaysDate = date.format(formatters);
+
+			model.addObject("todaysDate", todaysDate);
+
+		} catch (Exception e) {
+			System.out.println("Exce in showRegCakeSpOrderReport " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	List<CrNoteRegItem> crNoteRegItemListDone = new ArrayList<>();
+	// getCRNoteRegister Ajax
+
+	@RequestMapping(value = "/getCRNoteRegisterDone", method = RequestMethod.GET)
+	public @ResponseBody List<CrNoteRegItem> getCRNoteRegisterDone(HttpServletRequest request,
+			HttpServletResponse response) throws FileNotFoundException {
+
+		HttpSession ses = request.getSession();
+		Franchisee frDetails = (Franchisee) ses.getAttribute("frDetails");
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		System.out.println("inside getCRNoteRegister ajax call");
+
+		String fromDate = request.getParameter("fromDate");
+		String toDate = request.getParameter("toDate");
+		try {
+
+			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+
+			map.add("toDate", DateConvertor.convertToYMD(toDate));
+			map.add("frId", frDetails.getFrId());
+
+			CrNoteRegisterList crnArray = restTemplate.postForObject(Constant.URL + "getCrNoteRegisterDoneByFrId", map,
+					CrNoteRegisterList.class);
+
+			List<CrNoteRegSp> crnRegSpList = new ArrayList<>();
+
+			crNoteRegItemListDone = crnArray.getCrNoteRegItemList();
+			crnRegSpList = crnArray.getCrNoteRegSpList();
+
+			for (int j = 0; j < crnRegSpList.size(); j++) {
+				int flag = 0;
+
+				for (int i = 0; i < crNoteRegItemListDone.size(); i++) {
+
+					if (crNoteRegItemListDone.get(i).getCrnId() == crnRegSpList.get(j).getCrnId()
+							&& crNoteRegItemListDone.get(i).getHsnCode().equals(crnRegSpList.get(j).getHsnCode())) {
+						flag = 1;
+						crNoteRegItemListDone.get(i)
+								.setCrnQty(crNoteRegItemListDone.get(i).getCrnQty() + crnRegSpList.get(j).getCrnQty());
+
+						crNoteRegItemListDone.get(i).setCrnTaxable(
+								(crNoteRegItemListDone.get(i).getCrnTaxable() + crnRegSpList.get(j).getCrnTaxable()));
+
+						crNoteRegItemListDone.get(i).setCgstAmt(
+								(crNoteRegItemListDone.get(i).getCgstAmt() + crnRegSpList.get(j).getCgstAmt()));
+						crNoteRegItemListDone.get(i).setSgstAmt(
+								(crNoteRegItemListDone.get(i).getSgstAmt() + crnRegSpList.get(j).getSgstAmt()));
+						crNoteRegItemListDone.get(i).setCrnAmt(
+								(crNoteRegItemListDone.get(i).getCrnAmt() + crnRegSpList.get(j).getCrnAmt()));
+
+					}
+
+				}
+
+				if (flag == 0) {
+
+					System.err.println("New hsn code item found ");
+
+					CrNoteRegItem regItem = new CrNoteRegItem();
+
+					regItem.setCrnDate(crnRegSpList.get(j).getCrnDate());
+
+					regItem.setBillDate(crnRegSpList.get(j).getBillDate());
+					regItem.setCrndId(crnRegSpList.get(j).getCrndId());
+					regItem.setCrnId(crnRegSpList.get(j).getCrnId());
+					regItem.setCrnQty(crnRegSpList.get(j).getCrnQty());
+					regItem.setCgstAmt(crnRegSpList.get(j).getCgstAmt());
+					regItem.setCgstPer(crnRegSpList.get(j).getCgstPer());
+					regItem.setFrGstNo(crnRegSpList.get(j).getFrGstNo());
+					regItem.setFrName(crnRegSpList.get(j).getFrName());
+					regItem.setCrnAmt(crnRegSpList.get(j).getCrnAmt());
+					regItem.setHsnCode(crnRegSpList.get(j).getHsnCode());
+					regItem.setInvoiceNo(crnRegSpList.get(j).getInvoiceNo());
+					regItem.setSgstAmt(crnRegSpList.get(j).getSgstAmt());
+					regItem.setSgstPer(crnRegSpList.get(j).getSgstPer());
+					regItem.setCrnTaxable(crnRegSpList.get(j).getCrnTaxable());
+
+					regItem.setFrCode(crnRegSpList.get(j).getFrCode());
+
+					crNoteRegItemListDone.add(regItem);
+				}
+			}
+
+			System.err.println("crNoteRegItemList combined  " + crNoteRegItemListDone.toString());
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("Sr. No.");
+			rowData.add("GSTIN/UIN of Recipient");
+			rowData.add("Receiver Name");
+			rowData.add("Invoice/Advance Receipt Number");
+			rowData.add("Invoice/Advance Receipt date");
+			rowData.add("Note/Refund Voucher Number");
+			rowData.add("Note/Refund Voucher date");
+			rowData.add("Document Type");
+			rowData.add("Place Of Supply");
+			rowData.add("Note/Refund Voucher Value");
+			rowData.add("Applicable % of Tax Rate");
+			rowData.add("Rate");
+			rowData.add("Taxable Value");
+			rowData.add("Cess Amount");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+			float crnQty = 0.0f;
+			float crnTaxable = 0.0f;
+			float cgstAmt = 0.0f;
+			float sgstAmt = 0.0f;
+			float crnAmt = 0.0f;
+
+			for (int i = 0; i < crNoteRegItemListDone.size(); i++) {
+				float crnTotal = 0.0f;
+				for (int j = 0; j < crNoteRegItemListDone.size(); j++) {
+					if (crNoteRegItemListDone.get(i).getCrnId() == crNoteRegItemListDone.get(j).getCrnId()) {
+						crnTotal = crnTotal + roundUp(crNoteRegItemListDone.get(j).getCrnAmt());
+					}
+				}
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("" + (i + 1));
+				rowData.add("" + crNoteRegItemListDone.get(i).getFrGstNo());
+				rowData.add("" + crNoteRegItemListDone.get(i).getFrName());
+				rowData.add("" + crNoteRegItemListDone.get(i).getInvoiceNo());
+				rowData.add("" + crNoteRegItemListDone.get(i).getBillDate());
+				rowData.add("" + crNoteRegItemListDone.get(i).getFrCode());
+				rowData.add("" + crNoteRegItemListDone.get(i).getCrnDate());
+				rowData.add(" ");
+				rowData.add("27-Maharashtra");
+				rowData.add("" + roundUp(crnTotal));
+				rowData.add(" ");
+				rowData.add(
+						"" + (crNoteRegItemListDone.get(i).getCgstPer() + crNoteRegItemListDone.get(i).getSgstPer()));
+				rowData.add("" + roundUp(crNoteRegItemListDone.get(i).getCrnTaxable()));
+				rowData.add("0");
+
+				crnQty = crnQty + crNoteRegItemListDone.get(i).getCrnQty();
+				crnTaxable = crnTaxable + crNoteRegItemListDone.get(i).getCrnTaxable();
+				cgstAmt = cgstAmt + crNoteRegItemListDone.get(i).getCgstAmt();
+				sgstAmt = sgstAmt + crNoteRegItemListDone.get(i).getSgstAmt();
+				crnAmt = crnAmt + crNoteRegItemListDone.get(i).getCrnAmt();
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+			}
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add("Total");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+
+			rowData.add("" + Math.round(crnAmt));
+			rowData.add("");
+			rowData.add("");
+
+			rowData.add("" + roundUp(crnTaxable));
+
+			rowData.add("");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("exportExcelListNew", exportToExcelList);
+			session.setAttribute("excelNameNew", "CR Note Register");
+			session.setAttribute("reportNameNew", "Credit Note Register Report");
+			session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
+			session.setAttribute("mergeUpto1", "$A$1:$M$1");
+			session.setAttribute("mergeUpto2", "$A$2:$M$2");
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+		return crNoteRegItemListDone;
 	}
 
 }
