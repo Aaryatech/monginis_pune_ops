@@ -153,6 +153,8 @@ jQuery(document).ready(function(){
 						<div class="col-md-4">
 							<button class="btn btn-info" onclick="searchReport()">Search
 								Report</button>
+							<button class="btn btn-primary" value="PDF" id="PDFButton"
+								onclick="genPdf()">PDF</button>
 
 						</div>
 
@@ -406,15 +408,16 @@ jQuery(document).ready(function(){
 </script>
 <script type="text/javascript">
 	function genPdf() {
-		var isValid = validate();
-		if (isValid == true) {
-			var fromDate = document.getElementById("fromdatepicker").value;
-			var toDate = document.getElementById("todatepicker").value;
-			var frId = document.getElementById("frId").value;
-			window
-					.open('${pageContext.request.contextPath}/pdf?reportURL=pdf/showPurchaseBillwiseReportPdf/'
-							+ fromDate + '/' + toDate + '/' + frId);
-		}
+		var from_date = $("#fromdatepicker").val();
+		var to_date = $("#todatepicker").val();
+
+		/* 	window
+					.open('${pageContext.request.contextPath}/pdfForReport?url=pdf/showSaleReportByDatePdf/'
+							+ from_date + '/' + to_date);
+		 */
+		window.open("${pageContext.request.contextPath}/getHsnWisePdf/"
+				+ from_date + "/" + to_date);
+
 	}
 </script>
 </body>

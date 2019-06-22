@@ -132,6 +132,8 @@ jQuery(document).ready(function(){
 					</div>
 					<div class="col-md-2">
 						<button class="btn search_btn pull-left" onclick="searchReport()">Search</button>
+						<button class="btn btn-primary" value="PDF" id="PDFButton"
+							onclick="genPdf()" disabled="disabled">PDF</button>
 						<%-- 		  &nbsp;&nbsp;&nbsp;   <a href='${pageContext.request.contextPath}/pdf?reportURL=showPurchaseBillwiseReportPdf' id="btn_pdf" class="btn search_btn" style="display: none">PDF</a>
  --%>
 
@@ -258,6 +260,7 @@ jQuery(document).ready(function(){
 			if (data == "") {
 				alert("No records found !!");
 				document.getElementById("expExcel").disabled = true;
+				document.getElementById("PDFButton").disabled = true;
 
 			}
 			var crnQty = 0;
@@ -268,6 +271,7 @@ jQuery(document).ready(function(){
 			$.each(data, function(key, report) {
 
 				document.getElementById("expExcel").disabled = false;
+				document.getElementById("PDFButton").disabled = false;
 
 				document.getElementById('range').style.display = 'block';
 
@@ -385,15 +389,11 @@ jQuery(document).ready(function(){
 </script>
 <script type="text/javascript">
 	function genPdf() {
-		var isValid = validate();
-		if (isValid == true) {
-			var fromDate = document.getElementById("fromdatepicker").value;
-			var toDate = document.getElementById("todatepicker").value;
-			var frId = document.getElementById("frId").value;
-			window
-					.open('${pageContext.request.contextPath}/pdf?reportURL=pdf/showPurchaseBillwiseReportPdf/'
-							+ fromDate + '/' + toDate + '/' + frId);
-		}
+		var fromdate = $("#fromdatepicker").val();
+		var todate = $("#todatepicker").val();
+		window.open('${pageContext.request.contextPath}/getCRNoteRegisterPdf/'
+				+ fromdate + '/' + todate + '/');
+
 	}
 </script>
 </body>

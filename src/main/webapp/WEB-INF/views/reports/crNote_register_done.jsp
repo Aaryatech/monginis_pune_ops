@@ -10,47 +10,6 @@ table, th, td {
 }
 </style>
 
-<%-- <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-
-<title>Monginis</title>
-
-
-<link
-	href="${pageContext.request.contextPath}/resources/css/monginis.css"
-	rel="stylesheet" type="text/css" />
-<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="${pageContext.request.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>	
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
-<link rel="icon"
-	href="${pageContext.request.contextPath}/resources/images/feviconicon.png"
-	type="image/x-icon" />
-	
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>	
-	
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/jquery-1.10.2.min.js"></script>
-
-<!--rightNav-->
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/menuzord.js"></script>
-	
-<script type="text/javascript">
-jQuery(document).ready(function(){
-	jQuery("#menuzord").menuzord({
-		align:"left"
-	});
-});
-</script>
-<!--rightNav-->
-
-
-</head>
-<body> --%>
 <!--datepicker-->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
@@ -132,8 +91,8 @@ jQuery(document).ready(function(){
 					</div>
 					<div class="col-md-2">
 						<button class="btn search_btn pull-left" onclick="searchReport()">Search</button>
-						<%-- 		  &nbsp;&nbsp;&nbsp;   <a href='${pageContext.request.contextPath}/pdf?reportURL=showPurchaseBillwiseReportPdf' id="btn_pdf" class="btn search_btn" style="display: none">PDF</a>
- --%>
+						<button class="btn btn-primary" value="PDF" id="PDFButton"
+							onclick="genPdf()" disabled="disabled">PDF</button>
 
 
 					</div>
@@ -259,6 +218,7 @@ jQuery(document).ready(function(){
 			if (data == "") {
 				alert("No records found !!");
 				document.getElementById("expExcel").disabled = true;
+				document.getElementById("PDFButton").disabled = true;
 			}
 			var crnQty = 0;
 			var crnTaxable = 0;
@@ -268,6 +228,7 @@ jQuery(document).ready(function(){
 			$.each(data, function(key, report) {
 
 				document.getElementById("expExcel").disabled = false;
+				document.getElementById("PDFButton").disabled = false;
 
 				document.getElementById('range').style.display = 'block';
 
@@ -383,15 +344,12 @@ jQuery(document).ready(function(){
 </script>
 <script type="text/javascript">
 	function genPdf() {
-		var isValid = validate();
-		if (isValid == true) {
-			var fromDate = document.getElementById("fromdatepicker").value;
-			var toDate = document.getElementById("todatepicker").value;
-			var frId = document.getElementById("frId").value;
-			window
-					.open('${pageContext.request.contextPath}/pdf?reportURL=pdf/showPurchaseBillwiseReportPdf/'
-							+ fromDate + '/' + toDate + '/' + frId);
-		}
+		var fromdate = $("#fromdatepicker").val();
+		var todate = $("#todatepicker").val();
+		window
+				.open('${pageContext.request.contextPath}/getCRNoteRegisterDonePdf/'
+						+ fromdate + '/' + todate + '/');
+
 	}
 </script>
 </body>
