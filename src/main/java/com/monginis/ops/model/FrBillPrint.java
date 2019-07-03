@@ -20,11 +20,41 @@ public class FrBillPrint {
 	private String partyName;//new -08 feb 19
 	private String partyGstin;//new -08 feb 19
 	private String partyAddress;//new -08 feb 19
+	private String vehNo;//new -02 july 19
+	private String billTime;//new -02 july 19
+	private String exVarchar1;//new -02 july 19
+	private String exVarchar2;//new -02 july 19
+	
+	
 	public List<SubCategory> subCatList;
 	
 	Company company;
 	
 	
+	public String getVehNo() {
+		return vehNo;
+	}
+	public void setVehNo(String vehNo) {
+		this.vehNo = vehNo;
+	}
+	public String getBillTime() {
+		return billTime;
+	}
+	public void setBillTime(String billTime) {
+		this.billTime = billTime;
+	}
+	public String getExVarchar1() {
+		return exVarchar1;
+	}
+	public void setExVarchar1(String exVarchar1) {
+		this.exVarchar1 = exVarchar1;
+	}
+	public String getExVarchar2() {
+		return exVarchar2;
+	}
+	public void setExVarchar2(String exVarchar2) {
+		this.exVarchar2 = exVarchar2;
+	}
 	public String getPartyName() {
 		return partyName;
 	}
@@ -123,8 +153,9 @@ public class FrBillPrint {
 				+ frName + ", frAddress=" + frAddress + ", invoiceNo=" + invoiceNo + ", isSameState=" + isSameState
 				+ ", billDate=" + billDate + ", amtInWords=" + amtInWords + ", grandTotal=" + grandTotal
 				+ ", partyName=" + partyName + ", partyGstin=" + partyGstin + ", partyAddress=" + partyAddress
-				+ ", subCatList=" + subCatList + ", company=" + company + "]";
+				+ ", vehNo=" + vehNo + ", billTime=" + billTime + ", exVarchar1=" + exVarchar1 + ", exVarchar2="
+				+ exVarchar2 + ", subCatList=" + subCatList + ", company=" + company + "]";
 	}
-	
+    
 
 }

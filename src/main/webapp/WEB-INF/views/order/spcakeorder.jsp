@@ -257,7 +257,7 @@ select {
 										Calendar cal = Calendar.getInstance();
 										cal.setTime(new Date()); // Now use today date.
 										if(menuId!=68 && menuId!=88){
-										cal.add(Calendar.DATE, 1); // Adding 1 days
+										cal.add(Calendar.DATE, incr); // Adding 1 days
 										}
 										Date date = cal.getTime();
 										SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -529,7 +529,7 @@ select {
 	<div class="colOuter">
 	<div class="col1"><div class="col1title">DOB</div></div>
 		
-		<div class="col2full"><input id="datepicker4" class="texboxitemcode texboxcal" placeholder="<%=fDate %>" name="datepicker4" type="text"required></div>
+		<div class="col2full"><input id="datepicker4" class="texboxitemcode texboxcal" autocomplete="off" placeholder="<%=fDate %>" name="datepicker4" type="text"required></div>
       </div>
 	<div class="colOuter">
 			<div class="col1"><div class="col1title">Mobile</div></div>
@@ -1276,9 +1276,9 @@ function validate() {
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
 <script>
-
+var b4=${specialCake.spBookb4};
 var todaysDate=new Date();
-var min=new Date(todaysDate.setDate(todaysDate.getDate()+1));
+var min=new Date(todaysDate.setDate(todaysDate.getDate()+b4));
 
   $( function() {
     $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' ,  minDate:min,

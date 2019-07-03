@@ -25,9 +25,49 @@ public class GetBillHeader {
     private String partyName;
 	private String partyAddress;
 	private String partyGstin;
+	private String vehNo;//new on 2 july
+	
+	private String billTime;//new on 2 july
+	
+	private String exVarchar1;//new on 2 july
+	
+	private String exVarchar2;//new on 2 july
 	
 	
-    public String getPartyName() {
+	
+    public String getVehNo() {
+		return vehNo;
+	}
+
+	public void setVehNo(String vehNo) {
+		this.vehNo = vehNo;
+	}
+
+	public String getBillTime() {
+		return billTime;
+	}
+
+	public void setBillTime(String billTime) {
+		this.billTime = billTime;
+	}
+
+	public String getExVarchar1() {
+		return exVarchar1;
+	}
+
+	public void setExVarchar1(String exVarchar1) {
+		this.exVarchar1 = exVarchar1;
+	}
+
+	public String getExVarchar2() {
+		return exVarchar2;
+	}
+
+	public void setExVarchar2(String exVarchar2) {
+		this.exVarchar2 = exVarchar2;
+	}
+
+	public String getPartyName() {
 		return partyName;
 	}
 
@@ -181,10 +221,10 @@ public class GetBillHeader {
 				+ ", grandTotal=" + grandTotal + ", taxableAmt=" + taxableAmt + ", totalTax=" + totalTax + ", status="
 				+ status + ", remark=" + remark + ", delStatus=" + delStatus + ", time=" + time + ", billDateTime="
 				+ billDateTime + ", partyName=" + partyName + ", partyAddress=" + partyAddress + ", partyGstin="
-				+ partyGstin + "]";
+				+ partyGstin + ", vehNo=" + vehNo + ", billTime=" + billTime + ", exVarchar1=" + exVarchar1
+				+ ", exVarchar2=" + exVarchar2 + "]";
 	}
 
-	
-
+    
 
 }

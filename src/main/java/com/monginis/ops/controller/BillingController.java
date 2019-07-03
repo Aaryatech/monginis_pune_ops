@@ -514,6 +514,13 @@ public class BillingController {
 						billPrint.setPartyName(billHeadersListForPrint.get(i).getPartyName());//new
 						billPrint.setPartyAddress(billHeadersListForPrint.get(i).getPartyAddress());//new
 						billPrint.setPartyGstin(billHeadersListForPrint.get(i).getPartyGstin());//new
+						
+						billPrint.setBillTime(billHeadersListForPrint.get(i).getBillTime());// new on 2july
+						billPrint.setVehNo(billHeadersListForPrint.get(i).getVehNo());// new on 2july
+						billPrint.setExVarchar1(billHeadersListForPrint.get(i).getExVarchar1());// new on 2july
+						billPrint.setExVarchar2(billHeadersListForPrint.get(i).getExVarchar2());// new on 2july
+						
+						
 						billPrint.setCompany(billHeadersListForPrint.get(i).getCompany());
 						billDetails.add(billDetailsListForPrint.get(j));
 
