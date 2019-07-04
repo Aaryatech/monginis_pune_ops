@@ -93,7 +93,7 @@ page-break-inside: auto !important
 					</p> --%>
 					<p
 						style="color: #000; font-size: 13px; text-align: left; margin: 0px;">Place
-						of supply: &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Maharashtra   &nbsp;&nbsp;&nbsp;&nbsp; Bill Preparation Time:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${frDetails.billTime}</p>
+						of supply: &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Maharashtra   &nbsp;&nbsp;&nbsp;&nbsp; Bill Prep Time:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${frDetails.billTime}</p>
 				</td>
 			</tr>
 			<tr>
@@ -363,7 +363,7 @@ page-break-inside: auto !important
 					</p>
 					<p
 						style="color: #000; font-size: 13px; text-align: left; margin: 0px;">Place
-						of supply:&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PUNE   &nbsp;&nbsp;&nbsp;&nbsp; Bill Preparation Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${frDetails.billTime}</p>
+						of supply:&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PUNE   &nbsp;&nbsp;&nbsp;&nbsp; Bill Prep Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${frDetails.billTime}</p>
 				</td>
 			</tr>
 			<tr>
