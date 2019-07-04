@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.monginis.ops.billing.SellBillDetail;
 import com.monginis.ops.billing.SellBillHeader;
 import com.monginis.ops.constant.Constant;
+import com.monginis.ops.model.AllItemsListResponse;
 import com.monginis.ops.model.CategoryList;
 import com.monginis.ops.model.CurrentStockResponse;
 import com.monginis.ops.model.FrMenu;
@@ -397,6 +398,9 @@ public class PhysicalStockController {
 	}
 
 	// insertDocTerm
+
+	AllItemsListResponse allItemsListResponse;
+
 	@RequestMapping(value = "/insertSellBillHeader", method = RequestMethod.POST)
 	public String insertSellBillHeader(HttpServletRequest request, HttpServletResponse response) {
 
@@ -416,26 +420,15 @@ public class PhysicalStockController {
 			String curDate = dateFormat.format(new Date());
 			SellBillHeader sellBillHead = new SellBillHeader();
 
-			sellBillHead.setDelStatus(0);
-			sellBillHead.setBillDate(curDate);
-			sellBillHead.setBillType('C');
-			sellBillHead.setDiscountAmt(0);
-			sellBillHead.setDiscountPer(0);
-			sellBillHead.setFrCode(frDetails.getFrCode());
-			sellBillHead.setFrId(frDetails.getFrId());
-			sellBillHead.setGrandTotal(0);
-			sellBillHead.setInvoiceNo(getInvoiceNo(request, response));
-			sellBillHead.setPaidAmt(0);
-			sellBillHead.setPayableAmt(0);
-			sellBillHead.setPaymentMode(1);
-			sellBillHead.setRemainingAmt(0);
-			sellBillHead.setSellBillNo(0);
-			sellBillHead.setStatus(1);
-			sellBillHead.setTaxableAmt(0);
-			sellBillHead.setTotalTax(0);
-			sellBillHead.setUserGstNo("-");
-			sellBillHead.setUserName("Consolated");
-			sellBillHead.setUserPhone("-");
+			float finalGrandTotal = 0;
+
+			float finalTotalTax = 0;
+			float finalTaxableAmtt = 0;
+
+			allItemsListResponse = restTemplate.getForObject(Constant.URL + "getAllItems", AllItemsListResponse.class);
+
+			List<Item> itemsList = new ArrayList<Item>();
+			itemsList = allItemsListResponse.getItems();
 
 			List<SellBillDetail> docDetailList = new ArrayList<>();
 
@@ -454,34 +447,108 @@ public class PhysicalStockController {
 
 				intStockDiff = currentStock - physicalStockQty;
 
-				if (intStockDiff > 0) {
-					SellBillDetail dDetail = new SellBillDetail();
+				for (int k = 0; k < itemsList.size(); k++) {
 
-					dDetail.setDelStatus(0);
-					dDetail.setBillStockType(1);
-					dDetail.setCatId(catId);
-					dDetail.setCgstPer(0);
-					dDetail.setCgstRs(0);
-					dDetail.setGrandTotal(0);
-					dDetail.setIgstPer(0);
-					dDetail.setIgstRs(0);
-					dDetail.setItemId(stockDetails.getId());
-					dDetail.setItemName(stockDetails.getItemName());
-					dDetail.setMrp((float) stockDetails.getSpTotalPurchase());
-					dDetail.setMrpBaseRate((float) stockDetails.getSpTotalPurchase());
-					dDetail.setQty(intStockDiff);
-					dDetail.setRemark("-");
-					dDetail.setSellBillDetailNo(0);
-					dDetail.setSellBillNo(0);
-					dDetail.setSgstPer(0);
-					dDetail.setSgstRs(0);
+					if (itemsList.get(k).getId() == stockDetails.getId()) {
 
-					docDetailList.add(dDetail);
+						String rate = String.valueOf(itemsList.get(k).getItemRate1());
+						String tax1 = String.valueOf(itemsList.get(k).getItemTax1());
+						String tax2 = String.valueOf(itemsList.get(k).getItemTax2());
+						String tax3 = String.valueOf(itemsList.get(k).getItemTax3());
+
+						float rate1 = Float.parseFloat(rate);
+						float tax1Float = Float.parseFloat(tax1);
+						float tax2Float = Float.parseFloat(tax2);
+						float tax3Float = Float.parseFloat(tax3);
+
+						float mrpBaseRate = ((rate1 * 100) / (100 + (tax1Float + tax2Float)));
+						mrpBaseRate = roundUp(mrpBaseRate);
+
+						System.out.println("Mrp: " + rate1);
+						System.out.println("Tax1 : " + tax1Float);
+						System.out.println("tax2 : " + tax2Float);
+						System.out.println("tax3 : " + tax3Float);
+
+						Float taxableAmt = (mrpBaseRate * intStockDiff);
+						taxableAmt = roundUp(taxableAmt);
+						// -----------------------------------------
+
+						float sgstRs = ((taxableAmt * tax1Float) / 100);
+						float cgstRs = ((taxableAmt * tax2Float) / 100);
+						float igstRs = ((taxableAmt * tax3Float) / 100);
+
+						sgstRs = roundUp(sgstRs);
+						cgstRs = roundUp(cgstRs);
+						igstRs = roundUp(igstRs);
+
+						Float totalTax = sgstRs + cgstRs;
+						totalTax = roundUp(totalTax);
+
+						Float grandTotal = totalTax + taxableAmt;
+						grandTotal = roundUp(grandTotal);
+						if (intStockDiff > 0) {
+							SellBillDetail dDetail = new SellBillDetail();
+
+							dDetail.setDelStatus(0);
+							dDetail.setBillStockType(1);
+							dDetail.setCatId(catId);
+							dDetail.setCgstPer(tax2Float);
+							dDetail.setCgstRs(cgstRs);
+							dDetail.setGrandTotal(grandTotal);
+							dDetail.setIgstPer(tax3Float);
+							dDetail.setIgstRs(igstRs);
+							dDetail.setItemId(stockDetails.getId());
+							dDetail.setItemName(stockDetails.getItemName());
+							dDetail.setMrp((float) stockDetails.getSpTotalPurchase());
+							dDetail.setMrpBaseRate(mrpBaseRate);
+							dDetail.setQty(intStockDiff);
+							dDetail.setRemark("-");
+							dDetail.setSellBillDetailNo(0);
+							dDetail.setSellBillNo(0);
+							dDetail.setSgstPer(tax1Float);
+							dDetail.setSgstRs(sgstRs);
+							dDetail.setTotalTax(totalTax);
+							dDetail.setTaxableAmt(taxableAmt);
+
+							finalGrandTotal = finalGrandTotal + grandTotal;
+							finalTaxableAmtt = finalTaxableAmtt + taxableAmt;
+							finalTotalTax = finalTotalTax + totalTax;
+
+							System.out.println("finalGrandTotal" + finalGrandTotal);
+							System.out.println("finalTaxableAmtt" + finalTaxableAmtt);
+							System.out.println("finalTotalTax" + finalTotalTax);
+
+							docDetailList.add(dDetail);
+						}
+					}
 
 				}
 
 			}
+
+			sellBillHead.setDelStatus(0);
+			sellBillHead.setBillDate(curDate);
+			sellBillHead.setBillType('C');
+			sellBillHead.setDiscountAmt(0);
+			sellBillHead.setDiscountPer(0);
+			sellBillHead.setFrCode(frDetails.getFrCode());
+			sellBillHead.setFrId(frDetails.getFrId());
+			sellBillHead.setGrandTotal(finalGrandTotal);
+			sellBillHead.setInvoiceNo(getInvoiceNo(request, response));
+			sellBillHead.setPaidAmt(0);
+			sellBillHead.setPayableAmt(0);
+			sellBillHead.setPaymentMode(1);
+			sellBillHead.setRemainingAmt(0);
+			sellBillHead.setSellBillNo(0);
+			sellBillHead.setStatus(1);
+			sellBillHead.setTaxableAmt(finalTaxableAmtt);
+			sellBillHead.setTotalTax(finalTotalTax);
+			sellBillHead.setUserGstNo("-");
+			sellBillHead.setUserName("Consolated");
+			sellBillHead.setUserPhone("-");
 			sellBillHead.setSellBillDetailsList(docDetailList);
+
+			System.out.println();
 
 			System.out.println("sellBillHeadsellBillHeadsellBillHeadsellBillHead" + sellBillHead.toString());
 

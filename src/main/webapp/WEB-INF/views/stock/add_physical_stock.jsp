@@ -176,13 +176,7 @@
 
 							</select>
 						</div>
-					</div>
 
-
-					<div class="colOuter">
-						<div class="col1">
-							<div class="col1title"></div>
-						</div>
 						<div class="col2">
 							<input name="search_stock" class="buttonsaveorder" value="Search"
 								type="button" onclick="searchStock()">
@@ -218,7 +212,7 @@
 
 							<div id="table-scroll" class="table-scroll">
 								<div id="faux-table" class="faux-table" aria="hidden">
-									<table id="table_grid1" class="main-table" border=1>
+									<!-- <table id="table_grid1" class="main-table" border=1>
 										<thead>
 											<tr class="bgpink">
 												<th>Item Id</th>
@@ -230,7 +224,7 @@
 												<th>Value</th>
 											</tr>
 										</thead>
-									</table>
+									</table> -->
 								</div>
 								<div class="table-wrap">
 									<table id="table_grid" class="main-table" border="1">
@@ -256,7 +250,7 @@
 
 
 
-							<div class="col2full">
+							<div class="colOuter" id="physicalStock" style="display: none">
 								<input name="" class="buttonsaveorder" value="Physical Stock"
 									type="submit">
 							</div>
@@ -438,6 +432,10 @@
 							var list = data.currentStockDetailList; //alert(data.monthClosed);	alert(selectedStockOption);
 							//alert(data.monthClosed); 
 
+							if (data != null) {
+								document.getElementById('physicalStock').style.display = "block";
+							}
+
 							$
 									.each(
 											list,
@@ -455,11 +453,8 @@
 
 												tr.append($('<td ></td>').html(
 														item.itemId));
-												tr
-														.append($(
-																'<td style=width:20px; ></td>')
-																.html(
-																		item.itemName));
+												tr.append($('<td  ></td>')
+														.html(item.itemName));
 
 												if (regCurrentStock < 0) {
 													tr.append($('<td > </td>')
@@ -494,11 +489,22 @@
 																.html(
 																		item.spTotalPurchase));
 
-												tr
-														.append($('<td > </td>')
-																.html(
-																		(item.spTotalPurchase)
-																				* (regCurrentStock)));
+												if (regCurrentStock < 0) {
+													tr
+															.append($(
+																	'<td > </td>')
+																	.html(
+																			(item.spTotalPurchase) * (0)));
+
+												} else {
+													tr
+															.append($(
+																	'<td > </td>')
+																	.html(
+																			(item.spTotalPurchase)
+																					* (regCurrentStock)));
+
+												}
 
 												$('#table_grid tbody').append(
 														tr);
