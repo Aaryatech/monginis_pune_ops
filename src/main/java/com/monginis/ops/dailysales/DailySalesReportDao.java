@@ -7,7 +7,7 @@ public class DailySalesReportDao {
 	
 	List<DailySalesRegular> dailySalesRegularList;
 	List<SpDailySales> spDailySalesList;
-	
+	 
 	
 	public List<DailySalesRegular> getDailySalesRegularList() {
 		return dailySalesRegularList;
