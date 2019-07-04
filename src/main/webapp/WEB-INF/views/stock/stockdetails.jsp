@@ -676,11 +676,7 @@ table, th, td {
 
 		$('#loader').show();
 
-		var isMonthClose = $
-		{
-			isMonthCloseApplicable
-		}
-		;
+		var isMonthClose = ${isMonthCloseApplicable};
 
 		//alert(isMonthClose);
 
