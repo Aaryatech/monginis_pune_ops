@@ -55,6 +55,7 @@ import com.monginis.ops.model.Menu;
 import com.monginis.ops.model.Message;
 import com.monginis.ops.model.MessageListResponse;
 import com.monginis.ops.model.SchedulerList;
+import com.monginis.ops.model.Setting;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -133,74 +134,73 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("home");
 		HttpSession session = request.getSession();
 		RestTemplate restTemplate = new RestTemplate();
-        try {
-		ArrayList<SchedulerList> schedulerLists = (ArrayList<SchedulerList>) session.getAttribute("schedulerLists");
-		ArrayList<Message> msgList = (ArrayList<Message>) session.getAttribute("msgList");
-		int frId = (Integer) session.getAttribute("frId");
+		try {
+			ArrayList<SchedulerList> schedulerLists = (ArrayList<SchedulerList>) session.getAttribute("schedulerLists");
+			ArrayList<Message> msgList = (ArrayList<Message>) session.getAttribute("msgList");
+			int frId = (Integer) session.getAttribute("frId");
 
-		System.out.println("***************Schedular List*****************" + schedulerLists);
-		System.out.println("***************msgList*****************" + msgList);
-		System.out.println("***************frId*****************" + frId);
+			System.out.println("***************Schedular List*****************" + schedulerLists);
+			System.out.println("***************msgList*****************" + msgList);
+			System.out.println("***************frId*****************" + frId);
 
-		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-		map.add("frId", frId);
+			map.add("frId", frId);
 
-		ConfiguredSpDayCkResponse configuredSpDayCkRes = restTemplate.postForObject(Constant.URL + "/getSpDayCkList",
-				map, ConfiguredSpDayCkResponse.class);
+			ConfiguredSpDayCkResponse configuredSpDayCkRes = restTemplate
+					.postForObject(Constant.URL + "/getSpDayCkList", map, ConfiguredSpDayCkResponse.class);
 
-		List<GetConfiguredSpDayCk> configureSpDayFrList = new ArrayList<GetConfiguredSpDayCk>();
+			List<GetConfiguredSpDayCk> configureSpDayFrList = new ArrayList<GetConfiguredSpDayCk>();
 
-		configureSpDayFrList = configuredSpDayCkRes.getConfiguredSpDayCkList();
+			configureSpDayFrList = configuredSpDayCkRes.getConfiguredSpDayCkList();
 
-		List<GetConfiguredSpDayCk> configureSpDayCk = new ArrayList<GetConfiguredSpDayCk>();
+			List<GetConfiguredSpDayCk> configureSpDayCk = new ArrayList<GetConfiguredSpDayCk>();
 
-		boolean flag = false, spDayShow = false;
-		int count = 0;
+			boolean flag = false, spDayShow = false;
+			int count = 0;
 
-		for (GetConfiguredSpDayCk getConfSpDayCk : configureSpDayFrList) {
+			for (GetConfiguredSpDayCk getConfSpDayCk : configureSpDayFrList) {
 
-			DateFormat dmyFormat = new SimpleDateFormat("dd-MM-yyyy");
-			Date startDate;
+				DateFormat dmyFormat = new SimpleDateFormat("dd-MM-yyyy");
+				Date startDate;
 
-			startDate = dmyFormat.parse(getConfSpDayCk.getOrderFromDate());
-			System.out.println("startDate" + startDate);
+				startDate = dmyFormat.parse(getConfSpDayCk.getOrderFromDate());
+				System.out.println("startDate" + startDate);
 
-			Date endDate = dmyFormat.parse(getConfSpDayCk.getOrderToDate());
-			System.out.println("endDate" + endDate);
+				Date endDate = dmyFormat.parse(getConfSpDayCk.getOrderToDate());
+				System.out.println("endDate" + endDate);
 
-			String todaysDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-			Date dateToCheck = dmyFormat.parse(todaysDate);
+				String todaysDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+				Date dateToCheck = dmyFormat.parse(todaysDate);
 
-			System.out.println("dateToCheck" + dateToCheck);
+				System.out.println("dateToCheck" + dateToCheck);
 
-			flag = checkBetween(dateToCheck, startDate, endDate);
-			System.out.println("ShowSpDayCk:" + flag);
+				flag = checkBetween(dateToCheck, startDate, endDate);
+				System.out.println("ShowSpDayCk:" + flag);
 
-			if (flag == true) {
-				count = count + 1;
-				configureSpDayCk.add(getConfSpDayCk);
-				System.out.println("Configure SpDay Cake To And From Date: " + configureSpDayCk.toString());
+				if (flag == true) {
+					count = count + 1;
+					configureSpDayCk.add(getConfSpDayCk);
+					System.out.println("Configure SpDay Cake To And From Date: " + configureSpDayCk.toString());
+				}
+
 			}
 
-		}
+			if (count > 0) {
+				spDayShow = true;
+			}
+			session.setAttribute("isSpDayShow", spDayShow);
+			System.out.println("isSpDayShow" + spDayShow);
 
-		if (count > 0) {
-			spDayShow = true;
-		}
-		session.setAttribute("isSpDayShow", spDayShow);
-		System.out.println("isSpDayShow" + spDayShow);
+			model.addObject("configureSpDayFrList", configureSpDayCk);
 
-		model.addObject("configureSpDayFrList", configureSpDayCk);
+			model.addObject("schedulerLists", schedulerLists);
+			model.addObject("msgList", msgList);
+			model.addObject("url", Constant.MESSAGE_IMAGE_URL);
+			model.addObject("isSpDayShow", spDayShow);
 
-		model.addObject("schedulerLists", schedulerLists);
-		model.addObject("msgList", msgList);
-		model.addObject("url", Constant.MESSAGE_IMAGE_URL);
-		model.addObject("isSpDayShow", spDayShow);
-
-		logger.info("/login request mapping.");
-        }
-        catch (Exception e) {
+			logger.info("/login request mapping.");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return model;
@@ -360,6 +360,15 @@ public class HomeController {
 			msgList = messageListResponse.getMessage();
 			System.out.println("messages are " + msgList.toString());
 
+			Setting[] settingListResponse = restTemplate.getForObject(Constant.URL + "/getLeftMenuBySettingValue",
+					Setting[].class);
+
+			List<Setting> setList = new ArrayList<Setting>(Arrays.asList(settingListResponse));
+
+			session.setAttribute("setList", setList);
+
+			System.out.println("setListsetListsetListsetListsetList" + setList.toString());
+
 			// Managing session
 			session.setAttribute("menuList", filteredFrMenuList);
 			session.setAttribute("allMenuList", frMenuList);
@@ -452,7 +461,6 @@ public class HomeController {
 			model.addObject("info", loginResponse.getLoginInfo());
 			return "redirect:/home";
 		}
-		
 
 	}
 
@@ -479,7 +487,8 @@ public class HomeController {
 		return model;
 		// return "redirect:/";
 	}
-	@RequestMapping(value = "/sessionTimeOut" , method = RequestMethod.GET)
+
+	@RequestMapping(value = "/sessionTimeOut", method = RequestMethod.GET)
 	public ModelAndView displayLoginAgain(HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("login");

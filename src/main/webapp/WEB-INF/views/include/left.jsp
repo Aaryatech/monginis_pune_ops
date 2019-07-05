@@ -14,7 +14,19 @@
 <div class="sidebarhome">
 	<div class="content mCustomScrollbar">
 		<ul>
-			<c:if test="${info.accessRight==1 or info.accessRight==2}">
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Order Booking'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2) && flag==1 }">
 				<li style="border: 1px;"><a href="#" onClick="openNav()"><div
 							class="img">
 							<img
@@ -26,23 +38,62 @@
 						</div></a></li>
 			</c:if>
 
-			<%-- <li><a href="${pageContext.request.contextPath}/showExpressBill"><div
-						class="img">
-						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						Express Bill <span></span>
-					</div></a></li> --%>
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Express Bill'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
 
 
-			<%-- <li><a href="${pageContext.request.contextPath}/showCustomerBill"><div
-						class="img">
-						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						Customer Bill <span></span>
-					</div></a></li> --%>
-			<c:if test="${info.accessRight==1 or info.accessRight==2}">
+				</c:choose>
+			</c:forEach>
+			<c:if test="${flag==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showExpressBill"><div
+							class="img">
+							<i class="fa fa-file-pdf-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							Express Bill <span></span>
+						</div></a></li>
+			</c:if>
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Customer Bill'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if test="${  flag==1 }">
+				<li><a
+					href="${pageContext.request.contextPath}/showCustomerBill"><div
+							class="img">
+							<i class="fa fa-file-pdf-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							Customer Bill <span></span>
+						</div></a></li>
+			</c:if>
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Goods Return'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if test="${(info.accessRight==1 or info.accessRight==2) && flag==1}">
 				<li><a href="#" onClick="openNav1()"><div class="img">
 							<img
 								src="${pageContext.request.contextPath}/resources/images/nav-goodsreturn.png"
@@ -51,48 +102,109 @@
 						<div class="title">
 							Goods <span>Return</span>
 						</div></a></li>
-				<c:if
-					test="${info.accessRight==1 or info.accessRight==2 or info.accessRight==3}">
+			</c:if>
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
 
-					<li><a href="${pageContext.request.contextPath}/orderHistory"><div
-								class="img">
-								<i class="fa fa-file-text-o icon"
-									style="font-size: 22px !important;"></i>
-							</div>
-							<div class="title">
-								Order <span>History</span>
-							</div></a></li>
-				</c:if>
+					<c:when test="${setting.settingKey eq 'Order History'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2 or info.accessRight==3) && flag==1}">
+
+				<li><a href="${pageContext.request.contextPath}/orderHistory"><div
+							class="img">
+							<i class="fa fa-file-text-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							Order <span>History</span>
+						</div></a></li>
 
 
 
 			</c:if>
 
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'View Purchase Bills'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
 
 
-			<li><a href="${pageContext.request.contextPath}/showBill"><div
-						class="img">
-						<i class="fa fa-money icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						View Purchase <span>Bills</span>
-					</div></a></li>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${flag==1}">
+				<li><a href="${pageContext.request.contextPath}/showBill"><div
+							class="img">
+							<i class="fa fa-money icon" style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							View Purchase <span>Bills</span>
+						</div></a></li>
+			</c:if>
 
-			<%-- <li><a href="${pageContext.request.contextPath}/showOthItemStock"><div
-						class="img">
-						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						Other Item Stock
-					</div></a></li> --%>
-			<%-- <li><a href="${pageContext.request.contextPath}/showOtherBill"><div
-						class="img">
-						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						Other Purchase Bill
-					</div></a></li> --%>
-			<c:if test="${info.accessRight==1}">
+
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Other Item Stock'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if test="${flag==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showOthItemStock"><div
+							class="img">
+							<i class="fa fa-file-pdf-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">Other Item Stock</div></a></li>
+			</c:if>
+
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Other Purchase Bill'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if test="${ flag==1}">
+				<li><a href="${pageContext.request.contextPath}/showOtherBill"><div
+							class="img">
+							<i class="fa fa-file-pdf-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">Other Purchase Bill</div></a></li>
+			</c:if>
+
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Reports'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if test="${info.accessRight==1  && flag==1}">
 
 				<li><a href="#" onClick="openNav4()"><div class="img">
 							<i class="fa fa-file-o icon" style="font-size: 22px !important;"></i>
@@ -102,28 +214,71 @@
 						</div></a></li>
 			</c:if>
 
-			<%-- 	<li><a href="${pageContext.request.contextPath}/showRuleFilePdf"><div
-						class="img">
-						<i class="fa fa-file-pdf-o icon" style="font-size: 22px !important;"></i>
-					</div>
-					<div class="title">
-						Rule And Regulation <span></span>
-					</div></a></li> --%>
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
 
-			<%-- <c:if test="${info.accessRight==1 or info.accessRight==2}">	
-					<li><a href="${pageContext.request.contextPath}/showstockdetail" ><div class="img">
-						<img
-							src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
-							alt="img">
-					</div>
-					<div class="title">
-						Stock <span>Details</span>
-					</div></a></li></c:if> --%>
+					<c:when test="${setting.settingKey eq 'Rule And Regulation'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
 
 
+				</c:choose>
+			</c:forEach>
+			<c:if test="${ flag==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showRuleFilePdf"><div
+							class="img">
+							<i class="fa fa-file-pdf-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							Rule And Regulation <span></span>
+						</div></a></li>
+			</c:if>
 
 
-			<c:if test="${info.accessRight==1}">
+
+
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Stock Details'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2) && flag==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showstockdetail"><div
+							class="img">
+							<img
+								src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
+								alt="img">
+						</div>
+						<div class="title">
+							Stock <span>Details</span>
+						</div></a></li>
+			</c:if>
+
+			<c:set var="flag" value="${0}"></c:set>
+			<c:forEach items="${setList}" var="setting" varStatus="count">
+				<c:choose>
+
+					<c:when test="${setting.settingKey eq 'Edit Profile'}">
+						<c:set var="flag" value="${1}"></c:set>
+					</c:when>
+
+
+				</c:choose>
+			</c:forEach>
+
+
+			<c:if test="${info.accessRight==1 && flag==1}">
 
 				<li><a
 					href="${pageContext.request.contextPath}/showeditprofile"><div
