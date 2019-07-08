@@ -93,7 +93,8 @@
 
 				</c:choose>
 			</c:forEach>
-			<c:if test="${(info.accessRight==1 or info.accessRight==2) && flag==1}">
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2) && flag==1}">
 				<li><a href="#" onClick="openNav1()"><div class="img">
 							<img
 								src="${pageContext.request.contextPath}/resources/images/nav-goodsreturn.png"
@@ -692,6 +693,33 @@
 								class="fa fa-files-o icon"></i>Sp Advance Tax Report</a> <a
 								href="${pageContext.request.contextPath}/showInsertCreditNote"><i
 								class="fa fa-files-o icon"></i>Credit Note Report</a>
+
+						</div>
+					</li>
+
+
+					<li class="small-box">
+
+						<div class="ibox">
+							<div class="ibox-head">
+								<div class="ibox-title">Purchase Sale Reports</div>
+							</div>
+
+							<a href="${pageContext.request.contextPath}/showTaxReport"><i
+								class="fa fa-files-o icon"></i>Tax Report 1</a> <a
+								href="${pageContext.request.contextPath}/showTax2Report"><i
+								class="fa fa-files-o icon"></i>Tax Report 2</a> <a
+								href="${pageContext.request.contextPath}/showCRNoteRegister"><i
+								class="fa fa-files-o icon"></i>Credit Note Register Report</a> <a
+								href="${pageContext.request.contextPath}/showCRNoteRegisterDone"><i
+								class="fa fa-files-o icon"></i>Credit Note Register Done Report</a>
+							<a
+								href="${pageContext.request.contextPath}/showHSNwiseReportBetDate"><i
+								class="fa fa-files-o icon"></i>HSN wise Report Report</a> <a
+								href="${pageContext.request.contextPath}/showGstRegister"><i
+								class="fa fa-files-o icon"></i>GST Register Done Report</a>
+
+
 
 						</div>
 					</li>

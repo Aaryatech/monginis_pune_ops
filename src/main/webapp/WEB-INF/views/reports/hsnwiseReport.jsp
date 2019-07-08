@@ -107,7 +107,7 @@ jQuery(document).ready(function(){
 
 				<div class="row">
 					<div class="col-md-12">
-						<h2 class="pageTitle">Credit Note Register Report</h2>
+						<h2 class="pageTitle">View HSN Wise Report</h2>
 					</div>
 				</div>
 
