@@ -517,7 +517,7 @@ public class SellReport {
 
 		String url = request.getParameter("reportURL");
 
-		File f = new File("/opt/apache-tomcat-8.5.37/webapps/uploadspune/report1.pdf");
+		File f = new File(Constant.SELL_REPORT_PATH);
 		// File f = new File("C:/pdf/ordermemo221.pdf");
 		try {
 			runConverter(Constant.ReportURL + url, f, request, response);
@@ -532,7 +532,7 @@ public class SellReport {
 		String appPath = context.getRealPath("");
 		String filename = "ordermemo221.pdf";
 		// String filePath = "/opt/tomcat-latest/webapps/uploads/ordermemo.pdf";
-		String filePath = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/report1.pdf";
+		String filePath =Constant.SELL_REPORT_PATH;
 		// String filePath = "C:/pdf/ordermemo221.pdf";
 
 		// construct the complete absolute path of the file

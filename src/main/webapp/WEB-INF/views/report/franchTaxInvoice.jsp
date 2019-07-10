@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.monginis.ops.constant.Constant" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -64,7 +65,7 @@
 				<td colspan="2" align="center"
 					style="padding:2px; font-family: Arial; border-bottom: 1px solid #E7E7E7; font-size: 8px;">${billList[0].frAddress}
 						<br /> Phone:<strong>${billList[0].frMob}</strong><br /> 
-						<span style="font-size: 8px; font-family: Arial;">GSTIN:<b> ${billList[0].gstn}</b> State: 27-Maharashtra <br>FSSAI :
+						<span style="font-size: 8px; font-family: Arial;">GSTIN:<b> ${billList[0].gstn}</b> State: ${Constant.STATE} <br>FSSAI :
 							11515031000866
 						</span></td>
 			</tr>

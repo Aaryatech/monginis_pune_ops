@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.monginis.ops.constant.Constant" %>
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <style>
@@ -111,7 +112,7 @@ jQuery(document).ready(function(){
 
 				<div class="row">
 					<input type="hidden" name="frId" id="frId" value="${frId}">
-
+					<input type="hidden" name="factoryName" id="factoryName" value="${Constant.FACTORYNAME}">
 					<div class="col-md-2 from_date">
 						<h4 class="pull-left">From Date:-</h4>
 					</div>
@@ -244,9 +245,8 @@ jQuery(document).ready(function(){
 			//document.getElementById('btn_pdf').style.display = "block";
 			var fromDate = document.getElementById("fromdatepicker").value;
 			var toDate = document.getElementById("todatepicker").value;
-
-			$
-					.getJSON(
+			var factoryName= document.getElementById("factoryName").value;
+			$.getJSON(
 							'${getBillWisePurchase}',
 							{
 
@@ -284,7 +284,7 @@ jQuery(document).ready(function(){
 													document
 															.getElementById('range').style.display = 'block';
 
-													var partyname = "LUTF FOODS PVT. LTD.";
+													var partyname =factoryName;
 													var gstNo = "#012";
 
 													var tr = $('<tr></tr>');

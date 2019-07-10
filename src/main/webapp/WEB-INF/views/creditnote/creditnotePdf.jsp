@@ -2,6 +2,7 @@
 contentType="text/html; charset=ISO8859_1"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ page import="com.monginis.ops.constant.Constant" %>
  
 <%@ page import="java.lang.Math"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,7 +21,7 @@ contentType="text/html; charset=ISO8859_1"%>
 <br></br>  --%>
 <table width="100%" border="0"  cellpadding="0" cellspacing="0" style="border-left:1px solid #313131;border-right:1px solid #313131;">
    <tr >
-    <td   width="100%" colspan="12" align="left" style="border-top:1px solid #313131;padding:4px;font-size:16px;font-weight:bold;"><img src="${pageContext.request.contextPath}/resources/images/monginislogo.png" alt="logo" width="70px" height="37px"></img>&nbsp;&nbsp;&nbsp;LUTF FOOD PVT LTD</td>
+    <td   width="100%" colspan="12" align="left" style="border-top:1px solid #313131;padding:4px;font-size:16px;font-weight:bold;"><img src="${pageContext.request.contextPath}/resources/images/monginislogo.png" alt="logo" width="70px" height="37px"></img>&nbsp;&nbsp;&nbsp;${Constant.FACTORYNAME}</td>
   
   </tr>
    <tr >
@@ -32,7 +33,7 @@ contentType="text/html; charset=ISO8859_1"%>
   
   </tr>
     <tr >
-    <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">&nbsp;GSTIN Number&nbsp;&nbsp;&nbsp;: 27AAACL1073F1ZU</td>
+    <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">&nbsp;GSTIN Number&nbsp;&nbsp;&nbsp;: ${Constant.FACTORYGSTIN}</td>
       <td   width="70%" colspan="6" align="left"  style="border-top:1px solid #313131;border-left:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;"></td>
   
   </tr>
@@ -58,14 +59,14 @@ contentType="text/html; charset=ISO8859_1"%>
   </tr>
 
   <tr >
-    <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">Pune Gr. Maharashtra 1</td>
-      <td   width="70%" colspan="6" align="left"  style="border-top:1px solid #313131;border-left:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">Pune Gr. Maharashtra 1</td>
+    <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">${Constant.CITY} Gr. ${Constant.STATE} 1</td>
+      <td   width="70%" colspan="6" align="left"  style="border-top:1px solid #313131;border-left:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">${Constant.CITY} Gr. ${Constant.STATE} 1</td>
   
   </tr>
   
   <tr >
     <td   width="30%" colspan="3" align="left"  style="border-top:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">GSTIIN: &nbsp;<b>${headerH.creditHeader.frGstNo}</b></td>
-      <td   width="70%" colspan="6" align="left"  style="border-top:1px solid #313131;border-left:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">GSTIIN: &nbsp;<b>${headerH.creditHeader.frGstNo}</b>&nbsp;&nbsp;&nbsp;&nbsp;State: &nbsp;<b>Maharashtra</b></td>
+      <td   width="70%" colspan="6" align="left"  style="border-top:1px solid #313131;border-left:1px solid #313131;padding:4px;font-size:10px;font-weight:bold;">GSTIIN: &nbsp;<b>${headerH.creditHeader.frGstNo}</b>&nbsp;&nbsp;&nbsp;&nbsp;State: &nbsp;<b>${Constant.STATE}</b></td>
   
   </tr>
 <%--   <tr>
@@ -350,7 +351,7 @@ contentType="text/html; charset=ISO8859_1"%>
   <tr>
    
     <td colspan="12" width="100%" style="border-top:1px solid #313131;border-left:1px solid #313131; padding:8px;color:#000;font-size:15px;">     
-    <p style="color:#000; font-size:11px; text-align:left;margin:0px;text-align: right;"><b>For LUTF FOOD PVT LTD&nbsp;</b></p></td>
+    <p style="color:#000; font-size:11px; text-align:left;margin:0px;text-align: right;"><b>For ${Constant.FACTORYNAME}&nbsp;</b></p></td>
   </tr>
   
   <tr>

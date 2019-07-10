@@ -595,7 +595,7 @@ public class BillingController {
 		String url = request.getParameter("url");
 		System.out.println("URL " + url);
 		// http://monginis.ap-south-1.elasticbeanstalk.com
-		   File f = new File("/opt/apache-tomcat-8.5.37/webapps/uploadspune/reportbill.pdf");
+		   File f = new File(Constant.BILL_REPORT_PATH);
 		   //  File f = new File("/home/ats-12/bill.pdf");
 		//File f = new File("/Users/MIRACLEINFOTAINMENT/ATS/uplaods/reports/ordermemo221.pdf");
 
@@ -614,7 +614,7 @@ public class BillingController {
 		ServletContext context = request.getSession().getServletContext();
 		String appPath = context.getRealPath("");
 		String filename = "ordermemo221.pdf";
-		 	String filePath = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/reportbill.pdf";
+		 	String filePath =Constant.BILL_REPORT_PATH;
 		 	///	String filePath = "/home/ats-12/bill.pdf";
 		//String filePath = "/Users/MIRACLEINFOTAINMENT/ATS/uplaods/reports/ordermemo221.pdf";
 

@@ -53,6 +53,7 @@ import com.monginis.ops.model.GetFrItem;
 import com.monginis.ops.model.GetOrder;
 import com.monginis.ops.model.GetOrderList;
 import com.monginis.ops.model.Info;
+import com.monginis.ops.model.LoginInfo;
 import com.monginis.ops.model.Orders;
 import com.monginis.ops.model.TabTitleData;
 
@@ -481,6 +482,8 @@ public class ItemController {
 
 		HttpSession session = request.getSession();
 		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("loginInfo");
+
 
 		ModelAndView mav = new ModelAndView("redirect:/showSavouries/" + globalIndex);
 
@@ -804,7 +807,7 @@ public class ItemController {
 						order.setOrderType(Integer.parseInt(frItem.getItemGrp1()));
 						order.setProductionDate(Common.stringToSqlDate(productionDate));
 						order.setRefId(0);// frItem.getId()on 21 feb
-						order.setUserId(0);
+						order.setUserId(loginInfo.getAccessRight());//new c
 						order.setMenuId(currentMenuId);
 
 						System.out.println("order qty===***************" + frItem.getItemQty());
@@ -813,11 +816,7 @@ public class ItemController {
 							order.setOrderMrp(frItem.getItemMrp1());
 							order.setOrderRate(frItem.getItemRate1());
 
-						} else if (rateCat == 2) {
-							order.setOrderMrp(frItem.getItemMrp2());
-							order.setOrderRate(frItem.getItemRate2());
-
-						} else if (rateCat == 3) {
+						}  else if (rateCat == 3) {
 							order.setOrderMrp(frItem.getItemMrp3());
 							order.setOrderRate(frItem.getItemRate3());
 

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.monginis.ops.constant.Constant" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -100,9 +101,9 @@
 			<td colspan="2" align="center"
 					style="padding: 3px; font-family: Arial; border-bottom: 1px solid #E7E7E7; font-size: 12px;"><p
 						class="style5">
-						<br />To, <strong>LUTF FOODS PVT. LTD.</strong><br /> 
-						<br /> Sr No 37, Near Angraj Hotel, Kondhwa, Pune, Maharashtra 411048<br /> 
-						<br />GSTIN: <strong>27AAACL1073F1ZU</strong><br />
+						<br />To, <strong>${Constant.FACTORYNAME}</strong><br /> 
+						<br /> ${Constant.FACTORYADDRESS}<br /> 
+						<br />GSTIN: <strong>${Constant.FACTORYGSTIN}</strong><br />
                
                 </p>
                 </td>

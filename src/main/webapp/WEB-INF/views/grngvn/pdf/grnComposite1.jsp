@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.monginis.ops.constant.Constant" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -73,20 +75,20 @@
 			<tr style="height: 33.2px;">
 				<td
 					style="padding: 10px; font-family: Calibri; font-size: 14px; color: #000000; font-weight: bold; border-left: 1px solid; border-left-color: #000000;"
-					colspan=8><nobr>To, LUTF FOODS PVT. LTD.</nobr> <nobr>&nbsp;</nobr>
+					colspan=8><nobr>To, ${Constant.FACTORYNAME}</nobr> <nobr>&nbsp;</nobr>
 					<nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr></td>
 			</tr>
 			<tr style="height: 34px;">
 				<td colspan="8"
 					style="padding: 10px; font-family: Calibri; font-size: 14px; color: #000000; font-weight: bold; border-left: 1px solid; border-left-color: #000000;">
-					<nobr>Sr No 37, Near Angraj Hotel, Kondhwa, Pune, Maharashtra 411048</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr>
+					<nobr>${Constant.FACTORYADDRESS}</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr>
 					<nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr>
 				</td>
 			</tr>
 			<tr style="height: 33.2px;">
 				<td colspan="8"
 					style="padding: 10px; font-family: Calibri; font-size: 14px; color: #000000; font-weight: bold; border-left: 1px solid; border-bottom: 1px solid; border-left-color: #000000; border-bottom-color: #000000;">
-					<nobr>GST NO.27AAACL1073F1ZU</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr>
+					<nobr>GST NO.${Constant.FACTORYGSTIN}</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr>
 					<nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr> <nobr>&nbsp;</nobr>
 				</td>
 			</tr>

@@ -458,11 +458,7 @@ public class SpDayCakeController {
 					order.setOrderMrp(frItem.getItemMrp1());
 					order.setOrderRate(frItem.getItemRate1());
 
-				} else if (rateCat == 2) {
-					order.setOrderMrp(frItem.getItemMrp2());
-					order.setOrderRate(frItem.getItemRate2());
-
-				} else if (rateCat == 3) {
+				}else if (rateCat == 3) {
 					order.setOrderMrp(frItem.getItemMrp3());
 					order.setOrderRate(frItem.getItemRate3());
 

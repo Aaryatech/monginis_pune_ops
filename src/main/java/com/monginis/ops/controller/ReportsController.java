@@ -1303,7 +1303,7 @@ public class ReportsController {
 			expoExcel = new ExportToExcel();
 			rowData = new ArrayList<String>();
 			rowData.add("" + (i + 1));
-			rowData.add("LUTF FOODS PVT. LTD.");
+			rowData.add(Constant.FACTORYNAME);
 
 			/* rowData.add("" + itemWiseReportList.get(i).getItemId()); */
 			rowData.add("" + itemWiseReportList.get(i).getItemName());
@@ -1423,7 +1423,7 @@ public class ReportsController {
 			expoExcel = new ExportToExcel();
 			rowData = new ArrayList<String>();
 			rowData.add("" + (i + 1));
-			rowData.add("LUTF FOODS PVT. LTD.");
+			rowData.add(Constant.FACTORYNAME);
 			rowData.add("" + roundUp(billWiseTaxReport.get(i).getTaxableAmt()));
 			rowData.add("" + roundUp(billWiseTaxReport.get(i).getTaxRate()));
 			rowData.add("" + roundUp(billWiseTaxReport.get(i).getCgstRs()));
@@ -4414,7 +4414,7 @@ public class ReportsController {
 	public void showPDF(HttpServletRequest request, HttpServletResponse response) {
 
 		String url = request.getParameter("reportURL");
-		File f = new File("/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf");
+		File f = new File(Constant.CRN_REPORT_PATH);
 		// File f = new File("/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf");
 		// File f = new File("/home/ats-12/pdf/ordermemo221.pdf");
 		try {
@@ -4430,7 +4430,7 @@ public class ReportsController {
 		String appPath = context.getRealPath("");
 		String filename = "ordermemo221.pdf";
 		// String filePath = "/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf";
-		String filePath = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf";
+		String filePath =Constant.CRN_REPORT_PATH;// "/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf";
 		// String filePath = "/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf";
 		// String filePath="/home/ats-12/pdf/ordermemo221.pdf";
 		// construct the complete absolute path of the file
@@ -4680,7 +4680,7 @@ public class ReportsController {
 				rowData.add("" + crNoteRegItemListDone.get(i).getFrCode());
 				rowData.add("" + crNoteRegItemListDone.get(i).getCrnDate());
 				rowData.add(" ");
-				rowData.add("27-Maharashtra");
+				rowData.add(""+Constant.STATE);
 				rowData.add("" + roundUp(crnTotal));
 				rowData.add(" ");
 				rowData.add(

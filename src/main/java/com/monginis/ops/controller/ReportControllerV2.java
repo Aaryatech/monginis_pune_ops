@@ -1355,7 +1355,7 @@ public class ReportControllerV2 {
 				rowData.add("" + taxReportList.get(i).getBillDate());
 
 				rowData.add("" + finalTotal);
-				rowData.add("27-Maharashtra");
+				rowData.add(""+Constant.STATE);
 				rowData.add("N");
 				rowData.add(" ");
 

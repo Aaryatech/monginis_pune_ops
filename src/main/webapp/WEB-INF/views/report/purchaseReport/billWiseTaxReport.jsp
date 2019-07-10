@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<%@ page import="com.monginis.ops.constant.Constant" %>
 
 
 
@@ -62,6 +63,7 @@
 						<h2 class="pageTitle">Purchase Billwise Tax (Input) Report</h2>
 					</div>
 				</div>
+					<input type="hidden" name="factoryName" id="factoryName" value="${Constant.FACTORYNAME}">
 
 				<div class="row">
 					<input type="hidden" name="frId" id="frId" value="${frId}">
@@ -197,6 +199,7 @@
 			//document.getElementById('btn_pdf').style.display = "block";
 			var fromDate = document.getElementById("fromdatepicker").value;
 			var toDate = document.getElementById("todatepicker").value;
+			var factoryName= document.getElementById("factoryName").value;
 
 			$
 					.getJSON(
@@ -235,7 +238,7 @@
 												data,
 												function(key, billWiseTaxData) {
 
-													var partyname = "LUTF FOODS PVT. LTD.";
+													var partyname = factoryName;
 													/* var gstNo = "#012"; */
 
 													var tr = $('<tr></tr>');
