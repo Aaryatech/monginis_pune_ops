@@ -651,7 +651,7 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 			for (FrMenu frMenu : menuList) {
 
 				if (frMenu.getMenuId() == 26 || frMenu.getMenuId() == 31 || frMenu.getMenuId() == 33
-						|| frMenu.getMenuId() == 34 || frMenu.getMenuId()==63|| frMenu.getMenuId()==66|| frMenu.getMenuId()==68|| frMenu.getMenuId()==81) {
+						|| frMenu.getMenuId() == 34 || frMenu.getMenuId()==63|| frMenu.getMenuId()==66|| frMenu.getMenuId()==68|| frMenu.getMenuId()==81|| frMenu.getMenuId()==82||frMenu.getMenuId()==86) {
 
 					String str = frMenu.getItemShow();
 					System.out.println("getItemShow" + frMenu.getItemShow());

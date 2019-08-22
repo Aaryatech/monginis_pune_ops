@@ -629,7 +629,7 @@ page-break-inside: auto !important
 				<td style="border-bottom: 1px solid #313131; font-size: 12px;"><b>&nbsp;Total:</b></td>
 				<td align="right"
 					style="border-left: 1px solid #313131; border-bottom: 1px solid #313131; padding: 4px; color: #000; font-size: 12px;"><b>
-						<fmt:formatNumber type="number" value="${frDetails.grandTotal}" />
+						<fmt:formatNumber type="number" minFractionDigits="0" 	maxFractionDigits="0"  value="${finalAmt}" />
 				</b></td>
 			</tr>
 		</table>
@@ -844,8 +844,7 @@ page-break-inside: auto !important
 						<tr>
 							<td align="center" width="9%" colspan="2"
 								style="border-top: 0px solid #313131; padding: 2px; color: #000; font-size: 13px; text-align: center;"><b>Grand
-									Total: Rs. </b>&nbsp;&nbsp;<b><fmt:formatNumber type="number"
-										value="${frDetails.grandTotal}" /></b></td>
+									Total: Rs. </b>&nbsp;&nbsp;<b><fmt:formatNumber type="number" minFractionDigits="0" 	maxFractionDigits="0"  value="${finalAmt}" /></b></td>
 						</tr>
 
 					</table>

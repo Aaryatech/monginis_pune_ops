@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +58,7 @@ import com.monginis.ops.model.Info;
 import com.monginis.ops.model.LoginInfo;
 import com.monginis.ops.model.Orders;
 import com.monginis.ops.model.TabTitleData;
+import com.monginis.ops.model.setting.NewSetting;
 
 @Controller
 @Scope("session")
@@ -198,27 +201,36 @@ public class ItemController {
 		prevFrItemList = new ArrayList<GetFrItem>();
 		List<GetOrder> orderList = new ArrayList<GetOrder>();
 		int flagRes = 0;
+		NewSetting settingValue=new NewSetting();
 		try {
-
+			RestTemplate rest = new RestTemplate();
+			//new on 10 july
+			//-----------------------------------------------------------------------------
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("settingKey", "show_prev_order");
+			 settingValue= rest.postForObject(Constant.URL + "/findNewSettingByKey", map, NewSetting.class);	
+			//------------------------------------------------------------------------------
+			
 			System.out.println("Date is : " + currentDate);
 			currentMenuId = menuList.get(index).getMenuId();
-			try {
+			if(currentMenuId==Integer.parseInt(settingValue.getSettingValue1())) {
+			  try {
 				map = new LinkedMultiValueMap<String, Object>();
-				RestTemplate rest = new RestTemplate();
 				map.add("frId", frDetails.getFrId());
 				map.add("date", currentDateFc);
-				map.add("menuId", "66");
+				map.add("menuId", settingValue.getSettingValue2());//new on 10 july
 				orderList = rest.postForObject(Constant.URL + "/getOrdersListRes", map, List.class);
 				System.err.println("orderList:" + orderList.toString());
 				model.addObject("orderList", orderList);
 
 				flagRes = 1;
 				model.addObject("flagRes", flagRes);
-			} catch (Exception e) {
+			  } catch (Exception e) {
 				flagRes = 0;
 				model.addObject("flagRes", flagRes);
 
 				e.printStackTrace();
+			  }
 			}
 			map = new LinkedMultiValueMap<String, Object>();
 
@@ -366,6 +378,7 @@ public class ItemController {
 		model.addObject("deliveryDate", strDeliveryDate);
 		model.addObject("menuTitle", menuTitle);
 		model.addObject("menuIdFc", menuList.get(index).getMenuId());
+		model.addObject("menuIdShow",settingValue.getSettingValue1());
 		System.out.println("isSameDayApplicable" + isSameDayApplicable);
 		model.addObject("isSameDayApplicable", isSameDayApplicable);
 		model.addObject("qtyMessage", qtyAlert);
@@ -486,6 +499,7 @@ public class ItemController {
 
 
 		ModelAndView mav = new ModelAndView("redirect:/showSavouries/" + globalIndex);
+		RestTemplate restTemplate = new RestTemplate();
 
 		String orderDate = "";
 		String productionDate = "";
@@ -500,6 +514,15 @@ public class ItemController {
 		int rateCat = frDetails.getFrRateCat();
 		ArrayList<FrMenu> menuList = (ArrayList<FrMenu>) session.getAttribute("menuList");
 
+		//-----------------------------------------------------------------------------
+		map = new LinkedMultiValueMap<String, Object>();
+		map.add("settingKey", "grn_type3");
+		NewSetting settingValue= restTemplate.postForObject(Constant.URL + "/findNewSettingByKey", map, NewSetting.class);
+
+		List<Integer> settingMenuIds = Stream.of(settingValue.getSettingValue1().split(",")).map(Integer::parseInt)
+				.collect(Collectors.toList());
+		
+		//------------------------------------------------------------------------------
 		int isSameDayApplicable = menuList.get(globalIndex).getIsSameDayApplicable();
 		String menuTitle = request.getParameter("menuTitle");// For Notification
 		System.out.println("Fr Rate Cat " + rateCat);
@@ -601,7 +624,6 @@ public class ItemController {
 			if (isValidQty) {
 				frItemList = new ArrayList<GetFrItem>();
 
-				RestTemplate restTemplate = new RestTemplate();
 
 				ParameterizedTypeReference<List<GetFrItem>> typeRef = new ParameterizedTypeReference<List<GetFrItem>>() {
 				};
@@ -609,6 +631,8 @@ public class ItemController {
 						HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
 				frItemList = responseEntity.getBody();
+				
+				
 			}
 
 		}
@@ -657,10 +681,6 @@ public class ItemController {
 			if (isValid) {
 				// date verification
 
-				// LocalTime formatedFromTime = LocalTime.parse(fromTime);
-				// LocalTime formatedToTime = LocalTime.parse(toTime);
-
-				// currentTime = currentTime.plusHours(15);
 				System.out.println("current time " + now);
 				System.out.println("from time " + fromTimeLocalTime);
 
@@ -736,12 +756,7 @@ public class ItemController {
 					}
 
 				}
-
-				System.out.println("Order List " + orderList.toString());
-
 				try {
-
-					RestTemplate restTemplate = new RestTemplate();
 
 					String url = Constant.URL + "placeOrder";
 
@@ -756,10 +771,7 @@ public class ItemController {
 						Orders order = new Orders();
 
 						int frGrnTwo = frDetails.getGrnTwo();
-						/*
-						 * if(frItem.getGrnTwo()==1) {
-						 */
-
+					
 						if (frGrnTwo == 1) {
 
 							order.setGrnType(1);
@@ -769,28 +781,9 @@ public class ItemController {
 							order.setGrnType(0);
 						}
 
-						/*
-						 * }//end of if
-						 * 
-						 * else { if(frItem.getGrnTwo()==2) { order.setGrnType(2);
-						 * 
-						 * } else { order.setGrnType(0); } }// end of else
-						 */
-
 						// for no grn these menuIds
-						if (menuList.get(globalIndex).getMenuId() == 29 || menuList.get(globalIndex).getMenuId() == 30
-								|| menuList.get(globalIndex).getMenuId() == 42
-								|| menuList.get(globalIndex).getMenuId() == 43
-								|| menuList.get(globalIndex).getMenuId() == 44
-								|| menuList.get(globalIndex).getMenuId() == 47) {
-
+						if (settingMenuIds.contains(menuList.get(globalIndex).getMenuId())) {
 							order.setGrnType(3);
-
-						}
-						// for push grn
-						if (menuList.get(globalIndex).getMenuId() == 48) {
-
-							order.setGrnType(4);
 						}
 
 						order.setDeliveryDate(Common.stringToSqlDate(deliveryDate));

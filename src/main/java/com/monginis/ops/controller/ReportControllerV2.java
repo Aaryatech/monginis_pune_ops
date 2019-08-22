@@ -195,7 +195,10 @@ public class ReportControllerV2 {
 		rowData.add("Central Tax Amount");
 		rowData.add("State/UT Tax Amount");
 		rowData.add("Cess Amount");
-
+		rowData.add("TAX %");
+		rowData.add("MANUF");
+		rowData.add("RET");
+		rowData.add("TOTAL");
 		/*
 		 * rowData.add("TAX %"); rowData.add("MANUF"); rowData.add("RET");
 		 * 
@@ -231,6 +234,10 @@ public class ReportControllerV2 {
 			rowData.add("" + roundUp(hsnListBill.get(i).getCgstRs()));
 			rowData.add("" + roundUp(hsnListBill.get(i).getSgstRs()));
 			rowData.add(" " + 0);
+			rowData.add(" " + (hsnListBill.get(i).getItemTax1()+hsnListBill.get(i).getItemTax1()));
+			rowData.add(" " + hsnListBill.get(i).getBillQty());
+			rowData.add(" " + hsnListBill.get(i).getGrnGvnQty());
+			rowData.add(" " + (hsnListBill.get(i).getBillQty()-hsnListBill.get(i).getGrnGvnQty()));
 
 			/*
 			 * rowData.add(" " + roundUp(hsnListBill.get(i).getItemTax1() +
@@ -270,7 +277,10 @@ public class ReportControllerV2 {
 		rowData.add("" + roundUp(igstSum));
 		rowData.add("" + roundUp(cgstSum));
 		rowData.add("" + roundUp(sgstSum));
-		rowData.add("" + roundUp(igstSum));
+		rowData.add("0.00");
+		rowData.add("");
+		rowData.add("");
+	
 		/* rowData.add("" + roundUp(totalTax)); */
 
 		rowData.add("");
@@ -285,8 +295,8 @@ public class ReportControllerV2 {
 		session.setAttribute("excelNameNew", "HSNWiseReport");
 		session.setAttribute("reportNameNew", "View HSN Wise Report");
 		session.setAttribute("searchByNew", "From Date: " + fromDate + "  To Date: " + toDate + " ");
-		session.setAttribute("mergeUpto1", "$A$1:$L$1");
-		session.setAttribute("mergeUpto2", "$A$2:$L$2");
+		session.setAttribute("mergeUpto1", "$A$1:$O$1");
+		session.setAttribute("mergeUpto2", "$A$2:$O$2");
 
 		session.setAttribute("exportExcelList", exportToExcelList);
 		session.setAttribute("excelName", "HSNWiseReport");

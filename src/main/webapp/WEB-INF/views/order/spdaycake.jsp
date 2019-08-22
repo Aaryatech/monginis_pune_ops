@@ -229,6 +229,7 @@ $("#tech").change(function() {
 															<tr class="bgpink">
 																<th class="col-md-1">Sr No.</th>
 																<th class="col-md-3">Item Name</th>
+																<th class="col-md-1">Min Qty</th>
 																<th class="col-md-1">Quantity</th>
 																<th class="col-md-1">MRP</th>
 																<th class="col-md-1">Rate</th>
@@ -245,6 +246,7 @@ $("#tech").change(function() {
 															<tr class="bgpink">
 																<th class="col-md-1">Sr No.</th>
 																<th class="col-md-3">Item Name</th>
+																<th class="col-md-1">Min Qty</th>
 																<th class="col-md-1">Quantity</th>
 																<th class="col-md-1">MRP</th>
 																<th class="col-md-1">Rate</th>
@@ -258,9 +260,13 @@ $("#tech").change(function() {
 																<c:choose>
 																	<c:when test="${frDetails.frRateCat=='1'}">
 																		<tr>
-																			<td class="col-md-1"><c:out value='${loop.index+1}' /></td>
+																			<td class="col-md-1"><c:out value='${loop.index+1}' />
+																			<input type="hidden" value="${items.minQty}"
+																		id="minqty${items.id}" />
+																			</td>
 
 																			<td class="col-md-1"><c:out value='${items.itemName}' /></td>
+																			<td class="col-md-1">${items.minQty}</td>
 																			<td class="col-md-1"><input name='${items.id}' id='${items.id}'
 																				value='${items.itemQty}' class="tableInput"
 																				type="text" onkeydown="myFunction()"
@@ -277,7 +283,8 @@ $("#tech").change(function() {
 
 																	<c:when test="${frDetails.frRateCat=='2'}">
 																		<tr>
-																			<td class="col-md-1"><c:out value='${loop.index+1}' /></td>
+																			<td class="col-md-1"><c:out value='${loop.index+1}' /><input type="hidden" value="${items.minQty}"
+																		id="minqty${items.id}" /></td>
 
 																			<td class="col-md-1"><c:out value='${items.itemName}' /></td>
 																			<td class="col-md-1"><input name='${items.id}' id='${items.id}'
@@ -296,7 +303,8 @@ $("#tech").change(function() {
 
 																	<c:when test="${frDetails.frRateCat=='3'}">
 																		<tr>
-																			<td class="col-md-1"><c:out value='${loop.index+1}' /></td>
+																			<td class="col-md-1"><c:out value='${loop.index+1}' /><input type="hidden" value="${items.minQty}"
+																		id="minqty${items.id}" /></td>
 
 																			<td class="col-md-1"><c:out value='${items.itemName}' /></td>
 																			<td class="col-md-1"><input name='${items.id}' id='${items.id}'
@@ -391,16 +399,30 @@ function closeNav3() {
            
 </script>
 
+
 	<script type="text/javascript">
 		function onChange(rate,id) {
 
 			//calculate total value  
 			var qty = $('#'+id).val();
 			
-			var total = rate * qty;
 			
-			  $('#total'+id).html(total);
+			var minqty = $('#minqty'+id).val();
 			
+			if(qty % minqty==0){
+			    var total = rate * qty;
+			
+			   $('#total'+id).html(total.toFixed(2));
+			}else
+			{
+				 var total =0;
+				 
+				alert("Please Enter Qty Multiple of Minimum Qty");
+				$('#'+id).val('0');
+				
+				$('#total'+id).html(total);
+				$('#'+id).focus();
+			}
 		}
 	</script>
 

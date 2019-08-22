@@ -468,22 +468,22 @@
 
 			<li>
 
-				<div class="listareaBox">
+				<div class="listareaBox" style="background-color: #eedfdf;">
 
-					<a class="listareaBoximg"> <%-- <img
+					<a class="listareaBoximg"> <img
 										src="${pageContext.request.contextPath}/resources/images/${menu.menuImage}"
 										alt="monginis"> <img
 										src="${pageContext.request.contextPath}/resources/images/${menu.selectedMenuImage}"
-										alt="monginis"> --%></a>
+										alt="monginis"> </a>
 
-					<%--
-									<h2>
+				
+									<h2 style="color:grey;">
 										<c:out value='${menu.menuTitle}' />
 									</h2>
-								 	<h3>
+								 	<h3 style="color:grey;">
 										Booking - <c:out value='${fromTime}' /> To 
 											<c:out value='${toTime}' />
-									</h3> --%>
+									</h3>
 					</a>
 				</div>
 

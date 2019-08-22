@@ -418,17 +418,19 @@ table, th, td {
 											<tr class="bgpink">
 												<th class="col-md-1">Item Id</th>
 												<th class="col-md-1">Item_Name</th>
-												<th class="col-md-1">Reg Op Stock</th>
-												<!-- 	<th class="col-md-1">Sp Op Stock</th> -->
-												<th class="col-md-1">Reg Pur Qty</th>
+												<th class="col-md-1">Rate/MRP</th><!---->
+												<th class="col-md-1">Op Stock</th>
+												<th class="col-md-1">Op Stock Value</th>
+											<!-- 	<th class="col-md-1">Sp Op Stock</th> -->
+												<th class="col-md-1">Pur Qty</th>
+												<th class="col-md-1">Pur Value</th>
 												<!-- <th class="col-md-1">Sp Pur Qty</th> -->
 												<th class="col-md-1">Grn-Gvn Qty</th>
-												<th class="col-md-1">Regular Sale</th>
-												<!-- <th class="col-md-1">Sp Sale</th> -->
-												<!-- <th>Reorder Qty</th> -->
-												<th class="col-md-1">Reg Curr Stock</th>
-												<!-- <th class="col-md-1">Sp Cur Stock</th> -->
-
+												<th class="col-md-1">Grn-Gvn VAlue</th>
+												<th class="col-md-1">Reg Sale</th>
+												<th class="col-md-1">Reg Sale Value</th>
+												<th class="col-md-1">Curr Stock</th>
+												<th class="col-md-1">Curr Stock Value</th>
 												<c:if test="${isMonthCloseApplicable eq true}">
 													<th>Physical Stock</th>
 													<th>Stock Difference</th>
