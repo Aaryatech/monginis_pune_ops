@@ -68,10 +68,27 @@ jQuery(document).ready(function(){
 		
 		<h3> Forgot your Password ?</h3>
 		
-		<div class="loginfildset">
-		<div class="loginfildset"><input class="texboxlogin" placeholder="Enter Mobile No" name="" type="text"></div>
-		<div class="loginfildset"><input name="" class="buttonlogin" value="SUBMIT" type="button"></div>
-		</div>
+		<form action="getFranchiseeInfo" class="form-horizontal"
+							id="validation-form" method="post">
+
+
+							<div class="loginfildset">
+								<input class="texboxlogin" placeholder="Franchisee Code"
+									name="username" type="text" data-rule-required="true">
+							</div>
+
+							<div class="loginfildset">
+								<input name="" class="buttonlogin" value="Send OTP"
+									type="submit">
+							</div>
+							<div class="loginfildset">
+								<div class="logintexboxleft">
+									<a href="${pageContext.request.contextPath}/"><i
+										class="fa fa-lock"></i> Back To Login Page</a>
+								</div>
+
+							</div>
+						</form>
 	
 	</div>
 </div> 
