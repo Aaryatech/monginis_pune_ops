@@ -74,7 +74,7 @@ jQuery(document).ready(function(){
 
 <c:if test="${not empty message}">
    <!-- here would be a message with a result of processing -->
-    <div class="messages messagesErr"> ${message} </div>
+    <div class="messages messagesErr" id="err_msg"> ${message} </div>
         	
 </c:if>
 
@@ -88,9 +88,9 @@ jQuery(document).ready(function(){
 										id="validation-form" method="post">
 		
 		
-		<div class="loginfildset"><input class="texboxlogin" placeholder="New Password" name="newPass" id="newPass" type="text"  data-rule-required="true"></div>
+		<div class="loginfildset"><input class="texboxlogin" placeholder="New Password" name="newPass" id="newPass" type="password"  data-rule-required="true"></div>
 		
-		<div class="loginfildset"><input class="texboxlogin" placeholder="Confirm Password" name="confirmPass" id="confirmPass" type="text" data-rule-required="true"></div>
+		<div class="loginfildset"><input class="texboxlogin" placeholder="Confirm Password" name="confirmPass" id="confirmPass" type="password" data-rule-required="true"></div>
 		
 		<input class="texboxlogin"  name="frId" id="frId" value="${frId}" type="hidden" data-rule-required="true">
 		
@@ -147,7 +147,7 @@ jQuery(document).ready(function(){
 $("#login").validate();
 </script>
 <script type="text/javascript">
-$("#confirmPass").keyup(function(){
+/* $("#confirmPass").keyup(function(){
 	var newPass = $("#newPass").val();
 	var conrfmPass = $("#confirmPass").val();
 	
@@ -157,7 +157,18 @@ $("#confirmPass").keyup(function(){
 		document. getElementById("sendOTP"). disabled = false;
 	}
 	
-	});
+	}); */
+	
+	$( "form" ).submit(function( event ) {  
+		
+		
+		  if ( $("#newPass").val() === $("#confirmPass").val() ) {  
+		  //  $( "span" ).text( "Submitted Successfully." ).show();  
+		    return;  
+		  }  
+		  $( "#err_msg" ).text( "Password not matched with confirm password!" ).show().fadeOut( 3000 );  
+		  event.preventDefault();  
+		}); 
 
 </script>
 
