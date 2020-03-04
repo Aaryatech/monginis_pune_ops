@@ -172,6 +172,11 @@ public class ItemController {
 				System.out.println("inside 1.2");
 
 			}
+			else if(isSameDayApplicable==4) {
+				System.err.println("Hi In SDA 4 " );
+				deliveryDate = incrementDate(todaysDate, 1);
+				productionDate = todaysDate;
+			}
 
 		} else {
 
@@ -703,6 +708,12 @@ public class ItemController {
 						System.out.println("inside 1.2");
 
 					}
+					//new Sachin -sumit for pune 10.30 menu
+					else if(isSameDayApplicable==4) {
+						
+						deliveryDate = incrementDate(todaysDate, 1);
+						productionDate = incrementDate(todaysDate, 1);
+					}
 
 				} else {
 
@@ -728,6 +739,10 @@ public class ItemController {
 				System.out.println("Delivery date: " + deliveryDate);
 
 				// if date time verified then place order
+				
+				
+				
+			
 // 
 				List<GetFrItem> orderList = new ArrayList<>();
 
