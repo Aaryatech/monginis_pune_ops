@@ -31,6 +31,19 @@ public class GetCurrentStockDetails {
 	private int currentSpStock;
 
 	private int reOrderQty;
+	
+	private int subCatId;//new for stock match utility --and add sell bill
+
+	
+	
+
+	public int getSubCatId() {
+		return subCatId;
+	}
+
+	public void setSubCatId(int subCatId) {
+		this.subCatId = subCatId;
+	}
 
 	public int getStockDetailId() {
 		return stockDetailId;

@@ -56,6 +56,7 @@ import com.monginis.ops.model.Message;
 import com.monginis.ops.model.MessageListResponse;
 import com.monginis.ops.model.SchedulerList;
 import com.monginis.ops.model.Setting;
+import com.monginis.ops.model.frsetting.FrSetting;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -366,6 +367,12 @@ public class HomeController {
 			List<Setting> setList = new ArrayList<Setting>(Arrays.asList(settingListResponse));
 
 			session.setAttribute("setList", setList);
+			
+			menuMap = new LinkedMultiValueMap<String, Object>();
+			menuMap.add("frId", loginResponse.getFranchisee().getFrId());
+			FrSetting frSetting = restTemplate.postForObject(Constant.URL + "getFrSettingValue", menuMap, FrSetting.class);
+			
+			session.setAttribute("isActiveFr", frSetting.getExVarchar());
 
 			System.out.println("setListsetListsetListsetListsetList" + setList.toString());
 

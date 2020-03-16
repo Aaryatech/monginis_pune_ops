@@ -179,6 +179,8 @@ input:checked+.slider:before {
 	<c:url var="getSpOrders" value="/getSpOrders" />
 	<c:url var="getSpOrder" value="/getSpOrder" />
 	<c:url var="dayClose" value="/dayClose" />
+	<c:url var="getSpBill" value="/getSpBill" />
+	
 	<div class="wrapper">
 		<jsp:include page="/WEB-INF/views/include/logo.jsp"></jsp:include>
 		<!--rightContainer-->
@@ -304,7 +306,7 @@ input:checked+.slider:before {
 								<table id="table_history" class="main-table" border="1px">
 									<thead>
 										<tr class="bgpink">
-											<th class="col-md-1" style="text-align: center;">Type</th>
+											<th class="col-md-1" style="text-align: center;">Bill No</th>
 											<th class="col-md-1" style="text-align: center;">Order
 												No</th>
 											<th class="col-md-2" style="text-align: center;">Item
@@ -326,6 +328,8 @@ input:checked+.slider:before {
 									<tbody>
 									</tbody>
 								</table>
+								
+								<br><br>
 							</div>
 						</div>
 					</div>
@@ -337,21 +341,18 @@ input:checked+.slider:before {
 									<td align="center" valign="middle" style="padding: 0px;">
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr class="bgpink">
-												<td>BARCODE</td>
-												<td>QTY</td>
-												<td>ITEM NAME</td>
-												<td>RATE</td>
+												<td style="display: none; ">BARCODE</td>
+												<td style="text-align: center; width:50%; ">ITEM NAME</td>
+												<td style="text-align: center; width:25%;">QTY</td>
+												<td style="text-align: center; width:25%;">RATE</td>
 											</tr>
 											<tr>
-												<td><input type="text" class="form-control"
-													style="border-radius: 18px;"
+												<td style="display: none;"><input type="text"
+													class="form-control" style="border-radius: 18px;"
 													data-placeholder="Enter Barcode" id='input' autofocus
 													onchange='onInput()' /></td>
-												<td><input type="number" min="1" max="500"
-													style="border-radius: 18px;" class="form-control"
-													placeholder="1" name="qty1" onkeypress="onQty(event)"
-													id="qty1" value="1" onfocusout="myFunction1()"></td>
-												<td><input list="items" id="itemName" name="itemName"
+
+												<td style=" width:50%;"><input list="items" id="itemName" name="itemName"
 													class="form-control chosen" autocomplete="off"
 													placeholder="Item Name" onchange="onSelectItem()"
 													style="border-radius: 18px;" type="text"> <datalist
@@ -359,12 +360,19 @@ input:checked+.slider:before {
 														<c:forEach items="${itemsList}" var="itemsList">
 															<option value='${itemsList.itemId}'
 																data-value='${itemsList.itemName}'
-																data-id='${itemsList.itemName}'>${itemsList.itemName}</option>
+																data-id='${itemsList.itemName}'>${itemsList.itemName}&nbsp;-&nbsp;${itemsList.mrp}</option>
 														</c:forEach>
 													</datalist></td>
-												<td>&nbsp;&nbsp;<input type="text" name="rateTdVal1"
-													id="rateTdVal1" value="00" oninput="onRateChange(this.value)"
-													style="width: 65px; border-radius: 18px; text-align: center;"  />
+
+												<td style=" width:25%;"><input type="number" min="1" max="500"
+													style="border-radius: 18px;" class="form-control"
+													placeholder="1" name="qty1" onkeypress="onQty(event)"
+													id="qty1" value="1" onfocusout="myFunction1()"></td>
+
+												<td style=" width:25%;"><input type="text" name="rateTdVal1"
+													id="rateTdVal1" value="00" class="form-control"
+													oninput="onRateChange(this.value)"
+													style=" border-radius: 18px; text-align: center;" >
 												</td>
 											</tr>
 										</table>
@@ -378,7 +386,7 @@ input:checked+.slider:before {
 					<div class="row">
 						<div class="col-md-12">
 							<center>
-								<button class="btn btn-primary" onclick="insertItem1()"
+								<button style="display:none;" class="btn btn-primary" onclick="insertItem1()" 
 									disabled="disabled" id="insertItemButton">Submit Item</button>
 								<button style="float: right; margin-top: 13px;" type="button"
 									class="btn btn-primary" onclick="printExBill()" disabled
@@ -590,7 +598,8 @@ input:checked+.slider:before {
 														onkeypress="onQty(event)" value="1"></td>
 													<td>&nbsp;&nbsp;<input type="text" name="rateTdVal1"
 														id="rateTdVal1" value="00"
-														style="width: 65px; border-radius: 18px; text-align: center;" oninput="onRateChange(this.value)" /></td>
+														style="width: 65px; border-radius: 18px; text-align: center;"
+														oninput="onRateChange(this.value)" /></td>
 												</tr>
 											</table>
 										</td>
@@ -701,7 +710,7 @@ function  hideMe(startId){
 }
 
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 function onRateChange(rate)
 {
    if(rate>0)
@@ -1178,18 +1187,35 @@ $('#sp').change(function() {
 
 								
 									var tr = $('<tr></tr>');
-									tr.append($('<td class="col-md-1"></td>').html("SP"));
+									var spName="";
+									if((order.spBookForMobNo).length==1)
+									{
+									tr.append($('<td class="col-md-1"></td>').html("&nbsp;&nbsp; <button class='btn btn-info' value='Generate' id='genBill'"+order.spOrderNo+"  onclick='genBill("+order.spOrderNo+")'>Generate</button>"));
+									spName=order.spName+"&nbsp;&nbsp;&nbsp;	<a href='editSpOrder/"+order.spOrderNo+"'  ><span	class='fa fa-pencil'></span></a>";
+									}else
+										{
+										tr.append($('<td class="col-md-1"></td>').html(order.spBookForMobNo));
+										spName=order.spName;   
+										}
+									
 									tr.append($('<td class="col-md-1"></td>').html(order.spDeliveryPlace));
-								  	tr.append($('<td class="col-md-1"></td>').html(order.spName));
+								  	tr.append($('<td class="col-md-1"></td>').html(spName));
 									tr.append($('<td class="col-md-1"></td>').html(order.spfName));	
-									tr.append($('<td class="col-md-1"></td>').html("NA"));
+									tr.append($('<td class="col-md-1"></td>').html(order.spSelectedWeight+" Kg"));
 									var price=parseFloat(order.spGrandTotal-order.spTotalAddRate);
 									tr.append($('<td class="col-md-1"></td>').html(order.spDeliveryDate));	
 									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(price));
-									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(order.spTotalAddRate));
+								/* 	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(order.spTotalAddRate)); */
 									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(order.spGrandTotal));
 									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(order.spAdvance));
+									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(order.spGrandTotal-order.spAdvance));
+									if((order.spBookForMobNo).length>1)
+									{
 									tr.append($('<td class="col-md-1"></td>').html("&nbsp;&nbsp;&nbsp;&nbsp;<a href='${pageContext.request.contextPath}/showSpCakeOrderHisPDF/"+order.spOrderNo+"' target='_blank' >	<abbr title='Order Memo'><i class='fa fa-file-pdf-o'></i></abbr></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='${pageContext.request.contextPath}/printSpCkBill/"+order.spOrderNo+"' target='_blank'><abbr title='Bill'><i class='fa fa-file-pdf-o'></i></abbr></a>"));
+									}else{
+									tr.append($('<td class="col-md-1"></td>').html("&nbsp;&nbsp;&nbsp;&nbsp;<a href='${pageContext.request.contextPath}/showSpCakeOrderHisPDF/"+order.spOrderNo+"' target='_blank' >	<abbr title='Order Memo'><i class='fa fa-file-pdf-o'></i></abbr></a>&nbsp;&nbsp;&nbsp;&nbsp;"));
+
+									}
 									$('#table_history tbody').append(tr);
 
 
@@ -1286,6 +1312,43 @@ $('#sp').change(function() {
 		
 	}
 	</script>
+	
+	
+	<script type="text/javascript">
+	function genBill(spOrderNo)
+	{
+		var selectedValue = document.getElementById("type").value;
+
+		   $.getJSON('${getSpBill}', {
+			   spOrderNo:spOrderNo,
+               ajax : 'true'
+           }, function(data) {
+        	   
+        	   alert(data);
+        	   
+        	   if(data==true)
+        		   {
+        		   alert("Bill Generated Successfully");
+        		  // document.getElementById("frm_search").submit();
+                 if(selectedValue==1)
+                	 {
+                	 searchOrders();
+                	 }else
+                		 {
+                		 searchOrder();
+                		 }
+        		   document.getElementById("genBill"+spOrderNo).disabled = true;
+
+        		   }
+        	   
+           });
+		
+	}
+    </script>
+	
+	
+	
+	
 	<script type="text/javascript">
 /* 	$(".table tbody tr").click(function(e) {
 	    if($(e.target).is(':checkbox')) return; //ignore when click on the checkbox

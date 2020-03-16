@@ -38,8 +38,10 @@
 	href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/autocomplete.js"></script>
 <link rel="stylesheet"
@@ -86,35 +88,48 @@
 
 <!----------------------------------------Dropdown With Search----------------------------------------------- -->
 
-<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/customerBill/chosen.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/customerBill/chosen.css">
 <!--------------------------------------------------------------------------------------- -->
 <%-- <script src="${pageContext.request.contextPath}/resources/jquery.confirm/jquery.confirm.js"></script> --%>
 <style>
-.chosen-container{width: 80% !important;}
+.chosen-container {
+	width: 80% !important;
+}
 
 /* Paste this css to your style sheet file or under head tag */
 /* This only works with JavaScript, 
 if it's not present, don't show loader */
-.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.no-js #loader {
+	display: none;
+}
+
+.js #loader {
+	display: block;
+	position: absolute;
+	left: 100px;
+	top: 0;
+}
+
 .se-pre-con {
-    position: absolute;
-    left: 20px;
-    top: 230px;
-    width: 96%;
-    height: 53%;
-    z-index: 9999;
+	position: absolute;
+	left: 20px;
+	top: 230px;
+	width: 96%;
+	height: 53%;
+	z-index: 9999;
 	z-index: 9999;
 	opacity: 1;
 	background: url(resources/images/loader1.gif) center no-repeat #fff;
 }
+
 .checkdiv {
-    position: absolute;
-    left: 20px;
-    top: 230px;
-    width: 96%;
-    height: 53%;
-    z-index: 9999;
+	position: absolute;
+	left: 20px;
+	top: 230px;
+	width: 96%;
+	height: 53%;
+	z-index: 9999;
 	z-index: 9999;
 	opacity: 1;
 	background: url(resources/images/check.gif) center no-repeat #fff;
@@ -216,63 +231,65 @@ body {
 </style>
 <style>
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
 }
 
-.switch input {display:none;}
+.switch input {
+	display: none;
+}
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
- 
-  transition: .4s;
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+input:checked+.slider {
+	background-color: #2196F3;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus+.slider {
+	box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+input:checked+.slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+	border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+	border-radius: 50%;
 }
-label:before{
-    border: 0px solid #ccc;
+
+label:before {
+	border: 0px solid #ccc;
 }
 </style>
 </head>
@@ -336,20 +353,21 @@ label:before{
 						<!--tabMenu-->
 						<nav>
 							<ul class="cd-tabs-navigation">
-								<li id="li1"><a data-content="tab1" class="selected" href="#0"
-									onclick="onloadTab(1)" onshow="onloadTab(2)">Token 1</a></li>
-								<li id="li2"><a data-content="tab2" href="#0" onclick="onloadTab(2)">Token
-										2</a></li>
-								<li id="li3"><a data-content="tab3" href="#0" onclick="onloadTab(3)">Token
-										3</a></li>
-								<li id="li4"><a data-content="tab4" href="#0" onclick="onloadTab(4)">Token
-										4</a></li>
-								<li id="li5"><a data-content="tab5" href="#0" onclick="onloadTab(5)">Token
-										5</a></li>
-								<li id="li6"><a data-content="tab6" href="#0" onclick="onloadTab(6)">Token
-										6</a></li>
-								<li id="li7"><a data-content="tab7" href="#0" onclick="onloadTab(7)">Token
-										7</a></li>
+								<li id="li1"><a data-content="tab1" class="selected"
+									href="#0" onclick="onloadTab(1)" onshow="onloadTab(2)">Token
+										1</a></li>
+								<li id="li2"><a data-content="tab2" href="#0"
+									onclick="onloadTab(2)">Token 2</a></li>
+								<li id="li3"><a data-content="tab3" href="#0"
+									onclick="onloadTab(3)">Token 3</a></li>
+								<li id="li4"><a data-content="tab4" href="#0"
+									onclick="onloadTab(4)">Token 4</a></li>
+								<li id="li5"><a data-content="tab5" href="#0"
+									onclick="onloadTab(5)">Token 5</a></li>
+								<li id="li6"><a data-content="tab6" href="#0"
+									onclick="onloadTab(6)">Token 6</a></li>
+								<li id="li7"><a data-content="tab7" href="#0"
+									onclick="onloadTab(7)">Token 7</a></li>
 							</ul>
 						</nav>
 						<!--tabMenu-->
@@ -369,22 +387,23 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
-																		
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
 																	<tr>
-																		<td><input type="text" class="form-control"
-																			id="barcode1" name="barcode1"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode1" name="barcode1"
 																			placeholder="Enter Barcode" onchange="selectItem(1)"
 																			onkeypress="onBarcode(event,1)"></td>
-																		<td><select class="chosen-select" 
-																			data-live-search="true" title="Please Select Item"
-																			name="itemName1" id="itemName1"
-																			data-rule-required="true">
-																			<option value=""></option>
+																		<td style="width: 60%"><select
+																			class="chosen-select" data-live-search="true"
+																			title="Please Select Item" name="itemName1"
+																			id="itemName1" data-rule-required="true">
+																				<option value=""></option>
 																				<c:forEach items="${catList}" var="cat">
 
 																					<optgroup label="${cat.catName}">
@@ -405,14 +424,15 @@ label:before{
 
 																		</select> <input name="item_name1" id="item_name1"
 																			type="hidden" value="" /></td>
-																		<td><input type="number" min="0" max="500"
-																			class="form-control" name="qty1" id="qty1" value="1"
-																			onkeypress="onQty(event,1)" onblur="onTab(1)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" max="500" class="form-control" name="qty1"
+																			id="qty1" value="1" onkeypress="onQty(event,1)"
+																			onblur="onTab(1)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal1">00</td>
+																		<td style="width: 20%" id="rateTdVal1">00</td>
 
-                                                                        
-									                      
+
+
 																	</tr>
 																</table>
 															</td>
@@ -423,7 +443,7 @@ label:before{
 											</div>
 										</div>
 									</div>
-                                     
+
 
 
 
@@ -435,15 +455,15 @@ label:before{
 												id="b1">Add Item</button>
 										</center>
 									</div>
-									<div class="col-md-3"> 
-                                      <span style="padding-top: 0px;float: left;margin-top: 13px;margin-left: 13px;font-size: 16px; ">B2B:</span>
-                                       <label class="switch">
-                                                           <input type="checkbox" name='isb2b' id='is_b2b' />
-                                                           <span class="slider round"></span>
-                                                             </label>
-                                </div>
-									
-								</div>	
+									<div class="col-md-3" style="display: none;">
+										<span
+											style="padding-top: 0px; float: left; margin-top: 13px; margin-left: 13px; font-size: 16px;">B2B:</span>
+										<label class="switch"> <input type="checkbox"
+											name='isb2b' id='is_b2b' /> <span class="slider round"></span>
+										</label>
+									</div>
+
+								</div>
 								<div class="se-pre-con" style="display: none;" id="loader1"></div>
 								<div class="checkdiv" style="display: none;" id="check1"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
@@ -457,7 +477,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th class="col-md-1" style="display: none;">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -470,9 +490,11 @@ label:before{
 											</tbody>
 
 										</table>
+
 									</div>
 								</div>
-
+								 <br>
+							
 
 
 
@@ -518,7 +540,7 @@ label:before{
 
 												<option value="1">Cash</option>
 												<option value="2">Card</option>
-												<option value="3">Other</option>
+												<option value="3">e-Pay</option>
 
 											</select>
 
@@ -580,9 +602,9 @@ label:before{
 									<button class="btn additem_btn" id="generateBill1"
 										onclick="generateSellBill(1)">Generate Bill</button>
 
-									<button class="btn additem_btn" id="pdfBtn1" 
+									<button class="btn additem_btn" id="pdfBtn1"
 										onclick="pdfBtn(1)">Print Bill</button>
-									<button class="btn additem_btn" id="clear1" 
+									<button class="btn additem_btn" id="clear1"
 										onclick="clearData(1)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo1"
 								value="" />
@@ -605,28 +627,31 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
+
 																	<tr>
-																		<td><input type="text" class="form-control"
+																		<td style="display: none;"><input type="text" class="form-control"
 																			id="barcode2" name="barcode2"
 																			placeholder="Enter Barcode" onchange="selectItem(2)"
 																			onkeypress="onBarcode(event,2)"></td>
-																		<td>
+																		<td style="width: 60%">
 																			<!-- input type="text" class="form-control"
 																id="item_name" name="item_name"
 																placeholder="Enter Item Name" list="items">
 																<datalist id="items">
 																
 																
-																</datalist> --> <select class="chosen-select" 
+																</datalist> --> <select class="chosen-select"
 																			data-show-subtext="true" data-live-search="true"
-																			title="Please Select Item" name="itemName2" id="itemName2"
-																			data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
-																				<option value=""></option>					
+																			title="Please Select Item" name="itemName2"
+																			id="itemName2" data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
+																				<option value=""></option>
 																				<c:forEach items="${catList}" var="cat">
 
 																					<optgroup label="${cat.catName}">
@@ -649,11 +674,11 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" 
+																		<td style="width: 20%"><input type="number" min="0"
 																			class="form-control" name="qty2" id="qty2" value="1"
 																			onkeypress="onQty(event,2)" onblur="onTab(2)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal2">00</td>
+																		<td style="width: 20%" id="rateTdVal2">00</td>
 
 
 																	</tr>
@@ -680,7 +705,7 @@ label:before{
 									</div>
 								</div>
 
-	                            <div class="se-pre-con" style="display: none;" id="loader2"></div>
+								<div class="se-pre-con" style="display: none;" id="loader2"></div>
 								<div class="checkdiv" style="display: none;" id="check2"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
@@ -693,7 +718,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -714,6 +739,8 @@ label:before{
 										</table>
 									</div>
 								</div>
+								<br>
+								
 
 
 
@@ -765,7 +792,7 @@ label:before{
 
 												<option value="1">Cash</option>
 												<option value="2">Card</option>
-												<option value="3">Other</option>
+												<option value="3">e-Pay</option>
 
 											</select>
 
@@ -826,7 +853,7 @@ label:before{
 								<center>
 									<button class="btn additem_btn" id="generateBill2"
 										onclick="generateSellBill(2)">Generate Bill</button>
-									<button class="btn additem_btn" id="pdfBtn2" 
+									<button class="btn additem_btn" id="pdfBtn2"
 										onclick="pdfBtn(2)">Print Bill</button>
 									<button class="btn additem_btn" id="clear2"
 										onclick="clearData(2)">Clear</button>
@@ -850,28 +877,30 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
+
 																	<tr>
-																		<td><input type="text" class="form-control"
+																		<td style="display: none;"><input type="text" class="form-control"
 																			id="barcode3" name="barcode3"
 																			placeholder="Enter Barcode" onchange="selectItem(3)"
 																			onkeypress="onBarcode(event,3)"></td>
-																		<td>
+																		<td style="width: 60%">
 																			<!-- input type="text" class="form-control"
 																id="item_name" name="item_name"
 																placeholder="Enter Item Name" list="items">
 																<datalist id="items">
 																
 																
-																</datalist> --> <select class="chosen-select" 
+																</datalist> --> <select class="chosen-select"
 																			data-show-subtext="true" data-live-search="true"
 																			title="Please Select Item" name="itemName3"
-																			 id="itemName3"
-																			data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
+																			id="itemName3" data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
 																				<option value=""></option>
 																				<c:forEach items="${catList}" var="cat">
 
@@ -896,11 +925,11 @@ label:before{
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" 
+																		<td style="width: 20%"><input type="number" min="0"
 																			class="form-control" name="qty3" id="qty3" value="1"
 																			onkeypress="onQty(event,3)" onblur="onTab(3)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal3">00</td>
+																		<td style="width: 20%" id="rateTdVal3">00</td>
 
 
 																	</tr>
@@ -927,7 +956,7 @@ label:before{
 									</div>
 								</div>
 
-                                <div class="se-pre-con" style="display: none;" id="loader3"></div>
+								<div class="se-pre-con" style="display: none;" id="loader3"></div>
 								<div class="checkdiv" style="display: none;" id="check3"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
@@ -940,7 +969,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -961,7 +990,7 @@ label:before{
 										</table>
 									</div>
 								</div>
-
+								<br>
 
 
 
@@ -1073,7 +1102,7 @@ label:before{
 								<center>
 									<button class="btn additem_btn" id="generateBill3"
 										onclick="generateSellBill(3)">Generate Bill</button>
-									<button class="btn additem_btn" id="pdfBtn3" 
+									<button class="btn additem_btn" id="pdfBtn3"
 										onclick="pdfBtn(3)">Print Bill</button>
 									<button class="btn additem_btn" id="clear3"
 										onclick="clearData(3)">Clear</button>
@@ -1095,28 +1124,30 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
+
 																	<tr>
-																		<td><input type="text" class="form-control"
+																		<td style="display: none;"><input type="text" class="form-control"
 																			id="barcode4" name="barcode4"
 																			placeholder="Enter Barcode" onchange="selectItem(4)"
 																			onkeypress="onBarcode(event,4)"></td>
-																		<td>
+																		<td style="width: 60%">
 																			<!-- input type="text" class="form-control"
 																id="item_name" name="item_name"
 																placeholder="Enter Item Name" list="items">
 																<datalist id="items">
 																
 																
-																</datalist> --> <select class="chosen-select" 
+																</datalist> --> <select class="chosen-select"
 																			data-show-subtext="true" data-live-search="true"
 																			title="Please Select Item" name="itemName4"
-																			 id="itemName4"
-																			data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
+																			id="itemName4" data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
 																				<option value=""></option>
 																				<c:forEach items="${catList}" var="cat">
 
@@ -1125,26 +1156,27 @@ label:before{
 																						<c:forEach items="${itemListResponse}"
 																							var="itemListResponse">
 
-																							<c:if test="${itemListResponse.catId == cat.catId}">
+																							<c:if
+																								test="${itemListResponse.catId == cat.catId}">
 																								<option value="${itemListResponse.id}">${itemListResponse.itemId}--${itemListResponse.itemName}</option>
 																							</c:if>
 
 																						</c:forEach>
 
 																					</optgroup>
-																					
+
 																				</c:forEach>
-		
+
 
 																		</select> <input name="item_name4" id="item_name4"
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" 
+																		<td style="width: 20%"><input type="number" min="0"
 																			class="form-control" name="qty4" id="qty4" value="1"
 																			onkeypress="onQty(event,4)" onblur="onTab(4)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal4">00</td>
+																		<td style="width: 20%" id="rateTdVal4">00</td>
 
 
 																	</tr>
@@ -1171,7 +1203,7 @@ label:before{
 									</div>
 								</div>
 
-	                            <div class="se-pre-con" style="display: none;" id="loader4"></div>
+								<div class="se-pre-con" style="display: none;" id="loader4"></div>
 								<div class="checkdiv" style="display: none;" id="check4"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
@@ -1184,7 +1216,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th  style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1206,7 +1238,7 @@ label:before{
 									</div>
 								</div>
 
-
+								<br>
 
 
 
@@ -1256,7 +1288,7 @@ label:before{
 
 												<option value="1">Cash</option>
 												<option value="2">Card</option>
-												<option value="3">Other</option>
+												<option value="3">e-Pay</option>
 
 											</select>
 
@@ -1317,7 +1349,7 @@ label:before{
 								<center>
 									<button class="btn additem_btn" id="generateBill4"
 										onclick="generateSellBill(4)">Generate Bill</button>
-									<button class="btn additem_btn" id="pdfBtn4" 
+									<button class="btn additem_btn" id="pdfBtn4"
 										onclick="pdfBtn(4)">Print Bill</button>
 									<button class="btn additem_btn" id="clear4"
 										onclick="clearData(4)">Clear</button>
@@ -1339,28 +1371,29 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
 																	<tr>
-																		<td><input type="text" class="form-control"
+																		<td style="display: none;"><input type="text" class="form-control"
 																			id="barcode5" name="barcode5"
 																			placeholder="Enter Barcode" onchange="selectItem(5)"
 																			onkeypress="onBarcode(event,5)"></td>
-																		<td>
+																		<td style="width: 60%">
 																			<!-- input type="text" class="form-control"
 																id="item_name" name="item_name"
 																placeholder="Enter Item Name" list="items">
 																<datalist id="items">
 																
 																
-																</datalist> --> <select class="chosen-select" 
+																</datalist> --> <select class="chosen-select"
 																			data-show-subtext="true" data-live-search="true"
 																			title="Please Select Item" name="itemName5"
-																			 id="itemName5"
-																			data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
+																			id="itemName5" data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
 																				<option value=""></option>
 																				<c:forEach items="${catList}" var="cat">
 
@@ -1369,25 +1402,26 @@ label:before{
 																						<c:forEach items="${itemListResponse}"
 																							var="itemListResponse">
 
-																							<c:if test="${itemListResponse.catId == cat.catId}">
+																							<c:if
+																								test="${itemListResponse.catId == cat.catId}">
 																								<option value="${itemListResponse.id}">${itemListResponse.itemId}--${itemListResponse.itemName}</option>
 																							</c:if>
 
 																						</c:forEach>
 
 																					</optgroup>
-																					
+
 																				</c:forEach>
-																				
+
 																		</select> <input name="item_name5" id="item_name5"
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" 
+																		<td style="width: 20%"><input type="number" min="0"
 																			class="form-control" name="qty5" id="qty5" value="1"
 																			onkeypress="onQty(event,5)" onblur="onTab(5)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal5">00</td>
+																		<td style="width: 20%" id="rateTdVal5">00</td>
 
 
 																	</tr>
@@ -1414,7 +1448,7 @@ label:before{
 									</div>
 								</div>
 
-                                <div class="se-pre-con" style="display: none;" id="loader5"></div>
+								<div class="se-pre-con" style="display: none;" id="loader5"></div>
 								<div class="checkdiv" style="display: none;" id="check5"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
@@ -1427,7 +1461,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th  style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1443,7 +1477,7 @@ label:before{
 										</table>
 									</div>
 								</div>
-
+								<br>
 
 
 
@@ -1490,7 +1524,7 @@ label:before{
 
 												<option value="1">Cash</option>
 												<option value="2">Card</option>
-												<option value="3">Other</option>
+												<option value="3">e-Pay</option>
 
 											</select>
 
@@ -1553,7 +1587,7 @@ label:before{
 										onclick="generateSellBill(5)">Generate Bill</button>
 									<button class="btn additem_btn" id="pdfBtn5"
 										onclick="pdfBtn(5)">Print Bill</button>
-									<button class="btn additem_btn" id="clear5" 
+									<button class="btn additem_btn" id="clear5"
 										onclick="clearData(5)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo5"
 								value="" />
@@ -1573,24 +1607,27 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
+
 																	<tr>
-																		<td><input type="text" class="form-control"
+																		<td style="display: none;"><input type="text" class="form-control"
 																			id="barcode6" name="barcode6"
 																			placeholder="Enter Barcode" onchange="selectItem(6)"
 																			onkeypress="onBarcode(event,6)"></td>
-																		<td>
+																		<td style="width: 60%">
 																			<!-- input type="text" class="form-control"
 																id="item_name" name="item_name"
 																placeholder="Enter Item Name" list="items">
 																<datalist id="items">
 																
 																
-																</datalist> --> <select class="chosen-select" 
+																</datalist> --> <select class="chosen-select"
 																			data-show-subtext="true" data-live-search="true"
 																			title="Please Select Item" name="itemName6"
 																			class="form-control" id="itemName6"
@@ -1603,25 +1640,26 @@ label:before{
 																						<c:forEach items="${itemListResponse}"
 																							var="itemListResponse">
 
-																							<c:if test="${itemListResponse.catId == cat.catId}">
+																							<c:if
+																								test="${itemListResponse.catId == cat.catId}">
 																								<option value="${itemListResponse.id}">${itemListResponse.itemId}--${itemListResponse.itemName}</option>
 																							</c:if>
 
 																						</c:forEach>
 
 																					</optgroup>
-																					
+
 																				</c:forEach>
 
 																		</select> <input name="item_name6" id="item_name6"
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" 
+																		<td style="width: 20%"><input type="number" min="0"
 																			class="form-control" name="qty6" id="qty6" value="1"
 																			onkeypress="onQty(event,6)" onblur="onTab(6)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal6">00</td>
+																		<td style="width: 20%" id="rateTdVal6">00</td>
 
 
 																	</tr>
@@ -1648,7 +1686,7 @@ label:before{
 									</div>
 								</div>
 
-                                	<div class="se-pre-con" style="display: none;" id="loader6"></div>
+								<div class="se-pre-con" style="display: none;" id="loader6"></div>
 								<div class="checkdiv" style="display: none;" id="check6"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
@@ -1661,7 +1699,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1682,7 +1720,7 @@ label:before{
 										</table>
 									</div>
 								</div>
-
+								<br>
 
 
 
@@ -1733,7 +1771,7 @@ label:before{
 
 												<option value="1">Cash</option>
 												<option value="2">Card</option>
-												<option value="3">Other</option>
+												<option value="3">e-Pay</option>
 
 											</select>
 
@@ -1794,9 +1832,9 @@ label:before{
 								<center>
 									<button class="btn additem_btn" id="generateBill6"
 										onclick="generateSellBill(6)">Generate Bill</button>
-									<button class="btn additem_btn" id="pdfBtn6" 
+									<button class="btn additem_btn" id="pdfBtn6"
 										onclick="pdfBtn(6)">Print Bill</button>
-									<button class="btn additem_btn" id="clear6" 
+									<button class="btn additem_btn" id="clear6"
 										onclick="clearData(6)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo6"
 								value="" />
@@ -1816,28 +1854,30 @@ label:before{
 																<table width="100%" border="0" cellspacing="0"
 																	cellpadding="0">
 																	<tr class="bgpink">
-																		<td>Barcode</td>
-																		<td>Item Name</td>
-																		<td>Qty</td>
-																		<td>Rate</td>
+																		<td style="display: none;">Barcode</td>
+																		<td style="text-align: center; width: 60%;">Item
+																			Name</td>
+																		<td style="text-align: center; width: 20%;">Qty</td>
+																		<td style="text-align: center; width: 20%;">Rate</td>
+
 																	</tr>
+
 																	<tr>
-																		<td><input type="text" class="form-control"
+																		<td style="display: none;"><input type="text" class="form-control"
 																			id="barcode7" name="barcode7"
 																			placeholder="Enter Barcode" onchange="selectItem(7)"
 																			onkeypress="onBarcode(event,7)"></td>
-																		<td>
+																		<td style="width: 60%">
 																			<!-- input type="text" class="form-control"
 																id="item_name" name="item_name"
 																placeholder="Enter Item Name" list="items">
 																<datalist id="items">
 																
 																
-																</datalist> --> <select class="chosen-select" 
+																</datalist> --> <select class="chosen-select"
 																			data-show-subtext="true" data-live-search="true"
 																			title="Please Select Item" name="itemName7"
-																			 id="itemName7"
-																			data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
+																			id="itemName7" data-rule-required="true"<%-- onchange="setRate(1,${itemListResponse.itemId},${itemListResponse.itemRate1})" --%>>
 																				<option value=""></option>
 																				<c:forEach items="${catList}" var="cat">
 
@@ -1846,25 +1886,26 @@ label:before{
 																						<c:forEach items="${itemListResponse}"
 																							var="itemListResponse">
 
-																							<c:if test="${itemListResponse.catId == cat.catId}">
+																							<c:if
+																								test="${itemListResponse.catId == cat.catId}">
 																								<option value="${itemListResponse.id}">${itemListResponse.itemId}--${itemListResponse.itemName}</option>
 																							</c:if>
 
 																						</c:forEach>
 
 																					</optgroup>
-																					
+
 																				</c:forEach>
-																				
+
 																		</select> <input name="item_name7" id="item_name7"
 																			type="hidden" value="" />
 
 																		</td>
-																		<td><input type="number" min="0" 
+																		<td style="width: 20%"><input type="number" min="0"
 																			class="form-control" name="qty7" id="qty7" value="1"
 																			onkeypress="onQty(event,7)" onblur="onTab(7)"
 																			oninput="validity.valid||(value='');"></td>
-																		<td id="rateTdVal7">00</td>
+																		<td style="width: 20%" id="rateTdVal7">00</td>
 
 
 																	</tr>
@@ -1891,7 +1932,7 @@ label:before{
 									</div>
 								</div>
 
-                                	<div class="se-pre-con" style="display: none;" id="loader7"></div>
+								<div class="se-pre-con" style="display: none;" id="loader7"></div>
 								<div class="checkdiv" style="display: none;" id="check7"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
@@ -1902,7 +1943,7 @@ label:before{
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th class="col-md-1">Barcode</th>
+													<th  style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1918,7 +1959,7 @@ label:before{
 										</table>
 									</div>
 								</div>
-
+								<br>
 
 
 								<div class="row">
@@ -1964,7 +2005,7 @@ label:before{
 
 												<option value="1">Cash</option>
 												<option value="2">Card</option>
-												<option value="3">Other</option>
+												<option value="3">e-Pay</option>
 
 											</select>
 
@@ -2025,7 +2066,7 @@ label:before{
 								<center>
 									<button class="btn additem_btn" id="generateBill7"
 										onclick="generateSellBill(7)">Generate Bill</button>
-									<button class="btn additem_btn" id="pdfBtn7" 
+									<button class="btn additem_btn" id="pdfBtn7"
 										onclick="pdfBtn(7)">Print Bill</button>
 									<button class="btn additem_btn" id="clear7"
 										onclick="clearData(7)">Clear</button>
@@ -2815,9 +2856,8 @@ label:before{
 							}); //ajax
 			document.getElementById("barcode" + token).value = "";
 			//document.getElementById("itemName" + token).value = "";
-	       // $("#itemName" + token).val("").change();
+			// $("#itemName" + token).val("").change();
 
-				
 			//	document.getElementById("generateBill"+token).focus();	
 		} //main function
 	</script>
@@ -2829,9 +2869,10 @@ label:before{
 
 			tr.append($('<td></td>').html(key + 1));
 
-			tr.append($('<td></td>').html(data.itemId));
+			//tr.append($('<td></td>').html(data.itemId));
 			tr.append($('<td></td>').html(data.itemName));
-			tr.append($('<td></td>')
+			tr
+					.append($('<td></td>')
 							.html(
 									"<div class=col-md-1 pull-left><input type=number min=0 max=30  style= width: 50px;class=form-control onchange=editQty("
 											+ key
@@ -2881,24 +2922,22 @@ label:before{
 			$('#table_grid' + token + ' tbody').append(tr);
 
 			var container = document.getElementById('table-scroll');
-		
-			var rowToScrollTo = document.getElementById("edit"+token+""+key);
-			rowToScrollTo.scrollIntoView(true); 
 
-			
+			var rowToScrollTo = document.getElementById("edit" + token + ""
+					+ key);
+			rowToScrollTo.scrollIntoView(true);
 
 			container.scrollTop = rowToScrollTo.offsetTop;
-		
-		$('.table-scroll').scrollTop(0);
 
-		
+			$('.table-scroll').scrollTop(0);
+
 			return total;
 		}
 	</script>
 
 	<script type="text/javascript">
 		function calTotal(allTotal, token) {
-			document.getElementById("li"+token).style.backgroundColor ="skyblue";
+			document.getElementById("li" + token).style.backgroundColor = "skyblue";
 			$("#total" + token).html(allTotal);
 			document.getElementById("tot" + token).setAttribute('value',
 					allTotal);
@@ -2977,7 +3016,7 @@ label:before{
 			$('#grandtotal' + token).html(grandAmt);
 			document.getElementById("grandtot" + token).setAttribute('value',
 					grandAmt);
-			
+
 			$('#paidAmount' + token).html(grandAmt);
 			document.getElementById("paidAmount" + token).setAttribute('value',
 					grandAmt);
@@ -3043,15 +3082,15 @@ label:before{
 			//var isValid = validation(token);
 			var grandtot = $("#grandtot" + token).val();
 			// Animate loader off screen
-			$("#loader"+token).show();
+			$("#loader" + token).show();
 
-		//	alert(grandtot);
+			//	alert(grandtot);
 			if (validation(token) && grandtot > 0) {
-				var isb2b=0;
-				if(document.getElementById('is_b2b').checked && token==1) {
-				 isb2b=1;
+				var isb2b = 0;
+				if (document.getElementById('is_b2b').checked && token == 1) {
+					isb2b = 1;
 				}
-				
+
 				var custName = $("#custName" + token).val();
 				var gstNo = $("#gstNo" + token).val();
 				var phoneNo = $("#phoneNo" + token).val();
@@ -3059,14 +3098,14 @@ label:before{
 				var paymentMode = $("#paymentMode" + token).val();
 				var paidAmount = $("#paidAmount" + token).val();
 
-			//	$('#loader').show();
-		     //   var loginWindow = window.open('', 'UserLogin');
+				//	$('#loader').show();
+				//   var loginWindow = window.open('', 'UserLogin');
 
 				$
 						.getJSON(
 								'${generateBill}',
 								{
-									isb2b: isb2b,
+									isb2b : isb2b,
 									custName : custName,
 									gstNo : gstNo,
 									phoneNo : phoneNo,
@@ -3078,30 +3117,30 @@ label:before{
 
 								},
 								function(data) {
-									
 
-									$("#loader"+token).hide();
-									$("#check"+token).show();
+									$("#loader" + token).hide();
+									$("#check" + token).show();
 									if (data == "") {
 										alert("Order Not Placed !!");
-										$("#check"+token).hide();
+										$("#check" + token).hide();
 									} else {
 										//setTimeout('document.getElementById("check2").style.display="none"', 1000); 
 										function showIt() {
-											  document.getElementById("check"+token).style.visibility = "hidden";
-											}
-											setTimeout(showIt, 500);
-										document.getElementById("li"+token).style.backgroundColor = "white";
-										
-									  //  loginWindow.location.href = '${pageContext.request.contextPath}/pdfSellBill?billNo='
-									//		+ data.sellBillNo;
+											document.getElementById("check"
+													+ token).style.visibility = "hidden";
+										}
+										setTimeout(showIt, 500);
+										document.getElementById("li" + token).style.backgroundColor = "white";
+
+										//  loginWindow.location.href = '${pageContext.request.contextPath}/pdfSellBill?billNo='
+										//		+ data.sellBillNo;
 										document.getElementById("sellBillNo"
 												+ token).value = data.sellBillNo;
 										document.getElementById("pdfBtn"
 												+ token).disabled = false;
 										document
 												.getElementById("clear" + token).disabled = false;
-									
+
 										$('#table_grid' + token + ' td')
 												.remove();
 										// alert(data.sellBillNo);
@@ -3134,14 +3173,13 @@ label:before{
 
 										document.getElementById(
 												"barcode" + token).focus();
-										
 
 									}
-									
+
 								});
 			}
 			document.getElementById("clear" + token).focus();
-			
+
 		}
 	</script>
 	<script type="text/javascript">
@@ -3166,8 +3204,8 @@ label:before{
 		function pdfBtn(token) {
 			//var isValid = validation(token);
 			var grandtot = $("#grandtot" + token).val();
-			
-		//	alert(grandtot);
+
+			//	alert(grandtot);
 			if (validation(token) && grandtot > 0) {
 				var custName = $("#custName" + token).val();
 				var gstNo = $("#gstNo" + token).val();
@@ -3177,7 +3215,7 @@ label:before{
 				var paidAmount = $("#paidAmount" + token).val();
 
 				$('#loader').show();
-		        var loginWindow = window.open('', 'UserLogin');
+				var loginWindow = window.open('', 'UserLogin');
 
 				$
 						.getJSON(
@@ -3199,10 +3237,10 @@ label:before{
 									if (data == "") {
 										alert("Order Not Placed !!");
 									} else {
-										
-										document.getElementById("li"+token).style.backgroundColor = "white";
-									    loginWindow.location.href = '${pageContext.request.contextPath}/pdfSellBill?billNo='
-											+ data.sellBillNo;
+
+										document.getElementById("li" + token).style.backgroundColor = "white";
+										loginWindow.location.href = '${pageContext.request.contextPath}/pdfSellBill?billNo='
+												+ data.sellBillNo;
 										document.getElementById("sellBillNo"
 												+ token).value = data.sellBillNo;
 										document.getElementById("pdfBtn"
@@ -3242,15 +3280,14 @@ label:before{
 
 										document.getElementById(
 												"barcode" + token).focus();
-										
-					                
+
 									}
 								});
 			}
 			document.getElementById("clear" + token).focus();
 		}
-function pdfPrint(token) {
-						
+		function pdfPrint(token) {
+
 			var billNo = document.getElementById("sellBillNo" + token).value;
 
 			window
@@ -3258,14 +3295,14 @@ function pdfPrint(token) {
 							+ billNo);
 			clearData(token);
 		}
-		
+
 		function clearData(token) {
 			$.getJSON('${clearData}', {
 				token : token,
 				ajax : 'true'
 			}, function(data) {
 
-			//	document.getElementById("pdfBtn" + token).disabled = true;
+				//	document.getElementById("pdfBtn" + token).disabled = true;
 				document.getElementById("clear" + token).disabled = true;
 
 			});
@@ -3311,9 +3348,9 @@ function pdfPrint(token) {
 			}
 
 		}
-		function onTab(token) { 
-		
-			   addNewRow1(token);
+		function onTab(token) {
+
+			addNewRow1(token);
 		}
 		function onBarcode(event, token) {
 			var x = event.which || event.keyCode;
@@ -3395,11 +3432,11 @@ function pdfPrint(token) {
 			$("#barcode1").focus();
 
 		}
-	/* 	$(window).load(function() {
-			// Animate loader off screen
-		//	$(".se-pre-con").fadeOut("slow");
-			$("#loader1").show();
-		});  */
+		/* 	$(window).load(function() {
+				// Animate loader off screen
+			//	$(".se-pre-con").fadeOut("slow");
+				$("#loader1").show();
+			});  */
 	</script>
 
 	<!-- document.getElementById("mySelect").value = "orange"; -->

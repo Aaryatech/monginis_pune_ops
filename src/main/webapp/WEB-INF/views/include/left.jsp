@@ -15,6 +15,10 @@
 	<div class="content mCustomScrollbar">
 		<ul>
 			<c:set var="flag" value="${0}"></c:set>
+			<c:set var="isActiveFr" value="${isActiveFr}"></c:set>
+
+
+
 			<c:forEach items="${setList}" var="setting" varStatus="count">
 				<c:choose>
 
@@ -26,7 +30,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if
-				test="${(info.accessRight==1 or info.accessRight==2) && flag==1 }">
+				test="${(info.accessRight==1 or info.accessRight==2) && isActiveFr==1 }">
 				<li style="border: 1px;"><a href="#" onClick="openNav()"><div
 							class="img">
 							<img
@@ -49,7 +53,7 @@
 
 				</c:choose>
 			</c:forEach>
-			<c:if test="${flag==1}">
+			<c:if test="${isActiveFr==1}">
 				<li><a
 					href="${pageContext.request.contextPath}/showExpressBill"><div
 							class="img">
@@ -71,7 +75,7 @@
 
 				</c:choose>
 			</c:forEach>
-			<c:if test="${  flag==1 }">
+			<c:if test="${  isActiveFr==1 }">
 				<li><a
 					href="${pageContext.request.contextPath}/showCustomerBill"><div
 							class="img">
@@ -82,6 +86,35 @@
 							Customer Bill <span></span>
 						</div></a></li>
 			</c:if>
+
+
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2) && isActiveFr==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showStockMatchUtility"><div
+							class="img">
+							<img
+								src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
+								alt="img">
+						</div>
+						<div class="title">
+							Bill As Per <span>Physical Stock </span>
+						</div></a></li>
+			</c:if>
+
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2) && isActiveFr==1}">
+				<li><a href="${pageContext.request.contextPath}/viewBill"><div
+							class="img">
+							<i class="fa fa-file-pdf-o icon"
+								style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							View Sell Bills <span></span>
+						</div></a></li>
+			</c:if>
+
+
 			<c:set var="flag" value="${0}"></c:set>
 			<c:forEach items="${setList}" var="setting" varStatus="count">
 				<c:choose>
@@ -253,7 +286,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if
-				test="${(info.accessRight==1 or info.accessRight==2) && flag==1}">
+				test="${(info.accessRight==1 or info.accessRight==2) && isActiveFr==1}">
 				<li><a
 					href="${pageContext.request.contextPath}/showstockdetail"><div
 							class="img">
@@ -277,6 +310,21 @@
 
 				</c:choose>
 			</c:forEach>
+
+
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2 or info.accessRight==3) && isActiveFr==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showPattyCashMgmnt"><div
+							class="img">
+							<img
+								src="${pageContext.request.contextPath}/resources/images//nav-orerhistory.png"
+								alt="img">
+						</div>
+						<div class="title">
+							Petty <span>Cash</span>
+						</div></a></li>
+			</c:if>
 
 
 			<c:if test="${info.accessRight==1 && flag==1}">
@@ -471,19 +519,22 @@
 				<div class="listareaBox" style="background-color: #eedfdf;">
 
 					<a class="listareaBoximg"> <img
-										src="${pageContext.request.contextPath}/resources/images/${menu.menuImage}"
-										alt="monginis"> <img
-										src="${pageContext.request.contextPath}/resources/images/${menu.selectedMenuImage}"
-										alt="monginis"> </a>
+						src="${pageContext.request.contextPath}/resources/images/${menu.menuImage}"
+						alt="monginis"> <img
+						src="${pageContext.request.contextPath}/resources/images/${menu.selectedMenuImage}"
+						alt="monginis">
+					</a>
 
-				
-									<h2 style="color:grey;">
-										<c:out value='${menu.menuTitle}' />
-									</h2>
-								 	<h3 style="color:grey;">
-										Booking - <c:out value='${fromTime}' /> To 
-											<c:out value='${toTime}' />
-									</h3>
+
+					<h2 style="color: grey;">
+						<c:out value='${menu.menuTitle}' />
+					</h2>
+					<h3 style="color: grey;">
+						Booking -
+						<c:out value='${fromTime}' />
+						To
+						<c:out value='${toTime}' />
+					</h3>
 					</a>
 				</div>
 
@@ -524,9 +575,13 @@
 								<div class="ibox-title">GRN</div>
 							</div>
 
-
 							<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i
-								class="fa fa-plus-circle icon"></i> Request GRN </a>
+								class="fa fa-plus-circle icon"></i> Request GRN (Grn Based on Expiry of
+								product) </a>
+							<div class="clearfix"></div>
+							<a href="${pageContext.request.contextPath}/showGrn"><i
+								class="fa fa-plus-circle icon"></i> Auto GRN </a>
+							
 							<div class="clearfix"></div>
 							<a href="${pageContext.request.contextPath}/displayGrn"><i
 								class="fa fa-search-plus icon"></i> View GRN </a>

@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +65,8 @@ import com.monginis.ops.model.Item;
 import com.monginis.ops.model.MCategory;
 import com.monginis.ops.model.PostFrItemStockDetail;
 import com.monginis.ops.model.PostFrItemStockHeader;
+import com.monginis.ops.model.SubCategory;
+import com.monginis.ops.model.TabTitleData;
 
 @Controller
 @Scope("session")
@@ -1307,4 +1310,241 @@ public class StockController {
 		}
 
 	}
+	
+	
+	List<GetCurrentStockDetails> stockMatchList=new ArrayList<>();
+	@RequestMapping(value = "/showStockMatchUtility")
+	public ModelAndView showStockMatchUtility(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("stock/stockMatchUtility");
+
+		try {
+			CategoryList categoryList=null;
+			try {
+				RestTemplate restTemplate = new RestTemplate();
+
+				categoryList = restTemplate.getForObject(Constant.URL + "showAllCategory", CategoryList.class);
+
+			} catch (Exception e) {
+				System.out.println("Exception in getAllGategory" + e.getMessage());
+				e.printStackTrace();
+
+			}
+
+			mAllCategoryList = categoryList.getmCategoryList();
+
+			model.addObject("category", mAllCategoryList);
+			
+			
+		 String catId = request.getParameter("cat_id");
+		 if(catId!=null)
+		 {       HttpSession session = request.getSession();
+				Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+
+				menuList = (ArrayList<FrMenu>) session.getAttribute("allMenuList");
+				System.out.println("Menu List " + menuList.toString());
+
+				List<Integer> menuIdList=null;
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+				map.add("frId", frDetails.getFrId());
+				RestTemplate restTemplate = new RestTemplate();
+
+				ParameterizedTypeReference<List<PostFrItemStockHeader>> typeRef1 = new ParameterizedTypeReference<List<PostFrItemStockHeader>>() {
+				};
+				ResponseEntity<List<PostFrItemStockHeader>> responseEntity1 = restTemplate
+						.exchange(Constant.URL + "getCurrentMonthOfCatId", HttpMethod.POST, new HttpEntity<>(map), typeRef1);
+				List<PostFrItemStockHeader> list = responseEntity1.getBody();
+				int intCatId = Integer.parseInt(catId);
+				System.out.println("## catId" + intCatId);
+
+				if (catId.equalsIgnoreCase("1")) {
+					menuIdList =new ArrayList<>();
+					for (PostFrItemStockHeader header : list) {
+
+						if (header.getCatId() == intCatId) {
+							runningMonth = header.getMonth();
+						}
+
+					}
+
+					menuIdList.add(26);
+
+				} else if (catId.equalsIgnoreCase("2")) {
+					menuIdList =new ArrayList<>();
+				
+					for (PostFrItemStockHeader header : list) {
+
+						if (header.getCatId() == intCatId) {
+							runningMonth = header.getMonth();
+						}
+
+					}
+						menuIdList.add(82);
+				} else if (catId.equalsIgnoreCase("3")) {
+					menuIdList =new ArrayList<>();
+					for (PostFrItemStockHeader header : list) {
+
+						if (header.getCatId() == intCatId) {
+							runningMonth = header.getMonth();
+						}
+
+					}
+					menuIdList.add(33);
+				} else if (catId.equalsIgnoreCase("4")) {
+					menuIdList =new ArrayList<>();
+					for (PostFrItemStockHeader header : list) {
+
+						if (header.getCatId() == intCatId) {
+							runningMonth = header.getMonth();
+						}
+
+					}
+					menuIdList.add(34);
+				} else if (catId.equalsIgnoreCase("6")) {
+					menuIdList =new ArrayList<>();
+					for (PostFrItemStockHeader header : list) {
+
+						if (header.getCatId() == intCatId) {
+							runningMonth = header.getMonth();
+						}
+
+					}
+					menuIdList.add(49);
+				}
+				
+
+				String itemShow = "";
+
+				for (int i = 0; i < menuList.size(); i++) {
+					for(int j=0;j<menuIdList.size();j++) {
+					if (menuList.get(i).getMenuId() == menuIdList.get(j)) {
+
+						itemShow = menuList.get(i).getItemShow();
+
+					}
+					}
+				}
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+				DateFormat yearFormat = new SimpleDateFormat("yyyy");
+
+				Date todaysDate = new Date();
+				System.out.println(dateFormat.format(todaysDate));
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(todaysDate);
+
+				cal.set(Calendar.DAY_OF_MONTH, 1);
+
+				Date firstDay = cal.getTime();
+
+
+				boolean isMonthCloseApplicable = false;
+
+					map = new LinkedMultiValueMap<String, Object>();
+
+					DateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
+					Date date = new Date();
+					System.out.println(dateFormat1.format(date));
+
+					Calendar cal1 = Calendar.getInstance();
+					cal1.setTime(date);
+
+					int calCurrentMonth = cal1.get(Calendar.MONTH) + 1;
+					
+					if (runningMonth < calCurrentMonth) {
+
+						isMonthCloseApplicable = true;
+						System.out.println("Day Of Month End ......");
+
+					} else if (runningMonth == 12 && calCurrentMonth == 1) {
+						isMonthCloseApplicable = true;
+					}
+
+					if (isMonthCloseApplicable) {
+						String strDate;
+						int year;
+						if (runningMonth == 12) {
+							System.err.println("running month =12");
+							year = (Calendar.getInstance().getWeekYear() - 1);
+							System.err.println("year value " + year);
+						} else {
+							System.err.println("running month not eq 12");
+							year = Calendar.getInstance().getWeekYear();
+							System.err.println("year value " + year);
+						}
+
+						strDate = year + "/" + runningMonth + "/01";
+
+						map.add("fromDate", strDate);
+					} else {
+
+						map.add("fromDate", dateFormat.format(firstDay));
+
+					}
+
+					map.add("frId", frDetails.getFrId());
+					map.add("frStockType", frDetails.getStockType());
+					map.add("toDate", dateFormat.format(todaysDate));
+					map.add("currentMonth", String.valueOf(runningMonth));
+					map.add("year", yearFormat.format(todaysDate));
+					map.add("catId", catId);
+					map.add("itemIdList", itemShow);
+					System.out.println("itemShow : " + itemShow.toString());
+					ParameterizedTypeReference<List<GetCurrentStockDetails>> typeRef = new ParameterizedTypeReference<List<GetCurrentStockDetails>>() {
+					};
+					ResponseEntity<List<GetCurrentStockDetails>> responseEntity = restTemplate
+							.exchange(Constant.URL + "getCurrentStock", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+
+					currentStockDetailList = responseEntity.getBody();
+
+				
+				SubCategory[] subCatList = restTemplate.getForObject(Constant.URL + "getAllSubCatList",
+						SubCategory[].class);
+
+				ArrayList<SubCategory> subCatAList = new ArrayList<SubCategory>(Arrays.asList(subCatList));
+				
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("itemGrp1", catId);
+				Item[] itemList = restTemplate.postForObject(Constant.URL + "getItemsByCatId",
+					map,Item[].class);
+				ArrayList<Item> itemListRes = new ArrayList<Item>(Arrays.asList(itemList));
+
+				
+				List<TabTitleData> subCatListWithQtyTotal = new ArrayList<>();
+               for(SubCategory subCat:subCatAList) {
+            	   if(subCat.getCatId()==Integer.parseInt(catId)) {
+				TabTitleData tabTitleData=new TabTitleData();
+				tabTitleData.setHeader(""+subCat.getSubCatId());
+				tabTitleData.setName(subCat.getSubCatName());
+				subCatListWithQtyTotal.add(tabTitleData);
+            	   }
+               }
+            	   for(int i=0;i<currentStockDetailList.size();i++)
+            	   {
+            		   for(Item item:itemListRes)
+            		   {
+            			   if(currentStockDetailList.get(i).getId()==item.getId())
+            			   {
+            				   currentStockDetailList.get(i).setSubCatId(item.getItemGrp2());
+            			   }
+            		   }
+            	   }
+					System.out.println("Current Stock Details : " + currentStockDetailList.toString());
+					stockMatchList=currentStockDetailList;
+   			    System.err.println("currentStockDetailList"+currentStockDetailList.toString());
+   			    System.err.println("subCatListWithQtyTotal"+subCatListWithQtyTotal.toString());
+				model.addObject("stockDetailList", currentStockDetailList);
+				model.addObject("subCatListTitle", subCatListWithQtyTotal);
+						 }
+
+		 model.addObject("catId", catId);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	
 }
