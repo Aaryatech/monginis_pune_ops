@@ -42,6 +42,7 @@ import com.monginis.ops.billing.SellBillDetail;
 import com.monginis.ops.billing.SellBillHeader;
 import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.CategoryList;
+import com.monginis.ops.model.CustListFromBill;
 import com.monginis.ops.model.CustomerBillData;
 import com.monginis.ops.model.CustomerBillItem;
 import com.monginis.ops.model.FrItemStockConfiResponse;
@@ -562,6 +563,11 @@ for(int i=0;i<getSellBillHeaderList.size();i++) {
 				try {
 					 map = new LinkedMultiValueMap<String, Object>();
 					map.add("frId", frDetails.getFrId());
+					
+					List<CustListFromBill> custList = restTemplate.postForObject(Constant.URL + "getCustomerListForBill", map,
+							List.class);
+					model.addObject("custList", custList);
+					
 					
 					List<PostFrItemStockHeader> list = restTemplate.postForObject(Constant.URL + "getCurrentMonthOfCatId", map,
 							List.class);

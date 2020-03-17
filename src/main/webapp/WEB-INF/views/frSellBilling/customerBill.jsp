@@ -492,9 +492,8 @@ label:before {
 										</table>
 
 									</div>
-								</div>
-								 <br>
-							
+								</div> <br>
+
 
 
 
@@ -579,7 +578,15 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName1" id="custName1"
-												value="Cash">
+												value="Cash" list="customerList">
+
+											<datalist id="customerList">
+												<c:forEach items="${custList}"
+													var="cust">
+													<option value="${custList}"></option>
+												</c:forEach>
+											</datalist>
+											
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -636,8 +643,8 @@ label:before {
 																	</tr>
 
 																	<tr>
-																		<td style="display: none;"><input type="text" class="form-control"
-																			id="barcode2" name="barcode2"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode2" name="barcode2"
 																			placeholder="Enter Barcode" onchange="selectItem(2)"
 																			onkeypress="onBarcode(event,2)"></td>
 																		<td style="width: 60%">
@@ -674,9 +681,10 @@ label:before {
 																			type="hidden" value="" />
 
 																		</td>
-																		<td style="width: 20%"><input type="number" min="0"
-																			class="form-control" name="qty2" id="qty2" value="1"
-																			onkeypress="onQty(event,2)" onblur="onTab(2)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" class="form-control" name="qty2" id="qty2"
+																			value="1" onkeypress="onQty(event,2)"
+																			onblur="onTab(2)"
 																			oninput="validity.valid||(value='');"></td>
 																		<td style="width: 20%" id="rateTdVal2">00</td>
 
@@ -738,9 +746,8 @@ label:before {
 
 										</table>
 									</div>
-								</div>
-								<br>
-								
+								</div> <br>
+
 
 
 
@@ -886,8 +893,8 @@ label:before {
 																	</tr>
 
 																	<tr>
-																		<td style="display: none;"><input type="text" class="form-control"
-																			id="barcode3" name="barcode3"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode3" name="barcode3"
 																			placeholder="Enter Barcode" onchange="selectItem(3)"
 																			onkeypress="onBarcode(event,3)"></td>
 																		<td style="width: 60%">
@@ -925,9 +932,10 @@ label:before {
 																			type="hidden" value="" />
 
 																		</td>
-																		<td style="width: 20%"><input type="number" min="0"
-																			class="form-control" name="qty3" id="qty3" value="1"
-																			onkeypress="onQty(event,3)" onblur="onTab(3)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" class="form-control" name="qty3" id="qty3"
+																			value="1" onkeypress="onQty(event,3)"
+																			onblur="onTab(3)"
 																			oninput="validity.valid||(value='');"></td>
 																		<td style="width: 20%" id="rateTdVal3">00</td>
 
@@ -989,8 +997,7 @@ label:before {
 
 										</table>
 									</div>
-								</div>
-								<br>
+								</div> <br>
 
 
 
@@ -1133,8 +1140,8 @@ label:before {
 																	</tr>
 
 																	<tr>
-																		<td style="display: none;"><input type="text" class="form-control"
-																			id="barcode4" name="barcode4"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode4" name="barcode4"
 																			placeholder="Enter Barcode" onchange="selectItem(4)"
 																			onkeypress="onBarcode(event,4)"></td>
 																		<td style="width: 60%">
@@ -1172,9 +1179,10 @@ label:before {
 																			type="hidden" value="" />
 
 																		</td>
-																		<td style="width: 20%"><input type="number" min="0"
-																			class="form-control" name="qty4" id="qty4" value="1"
-																			onkeypress="onQty(event,4)" onblur="onTab(4)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" class="form-control" name="qty4" id="qty4"
+																			value="1" onkeypress="onQty(event,4)"
+																			onblur="onTab(4)"
 																			oninput="validity.valid||(value='');"></td>
 																		<td style="width: 20%" id="rateTdVal4">00</td>
 
@@ -1216,7 +1224,7 @@ label:before {
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th  style="display: none;" class="col-md-1">Barcode</th>
+													<th style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1236,9 +1244,7 @@ label:before {
 
 										</table>
 									</div>
-								</div>
-
-								<br>
+								</div> <br>
 
 
 
@@ -1379,8 +1385,8 @@ label:before {
 
 																	</tr>
 																	<tr>
-																		<td style="display: none;"><input type="text" class="form-control"
-																			id="barcode5" name="barcode5"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode5" name="barcode5"
 																			placeholder="Enter Barcode" onchange="selectItem(5)"
 																			onkeypress="onBarcode(event,5)"></td>
 																		<td style="width: 60%">
@@ -1417,9 +1423,10 @@ label:before {
 																			type="hidden" value="" />
 
 																		</td>
-																		<td style="width: 20%"><input type="number" min="0"
-																			class="form-control" name="qty5" id="qty5" value="1"
-																			onkeypress="onQty(event,5)" onblur="onTab(5)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" class="form-control" name="qty5" id="qty5"
+																			value="1" onkeypress="onQty(event,5)"
+																			onblur="onTab(5)"
 																			oninput="validity.valid||(value='');"></td>
 																		<td style="width: 20%" id="rateTdVal5">00</td>
 
@@ -1461,7 +1468,7 @@ label:before {
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th  style="display: none;" class="col-md-1">Barcode</th>
+													<th style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1476,8 +1483,7 @@ label:before {
 
 										</table>
 									</div>
-								</div>
-								<br>
+								</div> <br>
 
 
 
@@ -1616,8 +1622,8 @@ label:before {
 																	</tr>
 
 																	<tr>
-																		<td style="display: none;"><input type="text" class="form-control"
-																			id="barcode6" name="barcode6"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode6" name="barcode6"
 																			placeholder="Enter Barcode" onchange="selectItem(6)"
 																			onkeypress="onBarcode(event,6)"></td>
 																		<td style="width: 60%">
@@ -1655,9 +1661,10 @@ label:before {
 																			type="hidden" value="" />
 
 																		</td>
-																		<td style="width: 20%"><input type="number" min="0"
-																			class="form-control" name="qty6" id="qty6" value="1"
-																			onkeypress="onQty(event,6)" onblur="onTab(6)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" class="form-control" name="qty6" id="qty6"
+																			value="1" onkeypress="onQty(event,6)"
+																			onblur="onTab(6)"
 																			oninput="validity.valid||(value='');"></td>
 																		<td style="width: 20%" id="rateTdVal6">00</td>
 
@@ -1719,8 +1726,7 @@ label:before {
 
 										</table>
 									</div>
-								</div>
-								<br>
+								</div> <br>
 
 
 
@@ -1863,8 +1869,8 @@ label:before {
 																	</tr>
 
 																	<tr>
-																		<td style="display: none;"><input type="text" class="form-control"
-																			id="barcode7" name="barcode7"
+																		<td style="display: none;"><input type="text"
+																			class="form-control" id="barcode7" name="barcode7"
 																			placeholder="Enter Barcode" onchange="selectItem(7)"
 																			onkeypress="onBarcode(event,7)"></td>
 																		<td style="width: 60%">
@@ -1901,9 +1907,10 @@ label:before {
 																			type="hidden" value="" />
 
 																		</td>
-																		<td style="width: 20%"><input type="number" min="0"
-																			class="form-control" name="qty7" id="qty7" value="1"
-																			onkeypress="onQty(event,7)" onblur="onTab(7)"
+																		<td style="width: 20%"><input type="number"
+																			min="0" class="form-control" name="qty7" id="qty7"
+																			value="1" onkeypress="onQty(event,7)"
+																			onblur="onTab(7)"
 																			oninput="validity.valid||(value='');"></td>
 																		<td style="width: 20%" id="rateTdVal7">00</td>
 
@@ -1943,7 +1950,7 @@ label:before {
 											<thead>
 												<tr class="bgpink">
 													<th class="col-sm-1">Sr no.</th>
-													<th  style="display: none;" class="col-md-1">Barcode</th>
+													<th style="display: none;" class="col-md-1">Barcode</th>
 													<th class="col-md-2">Item Name</th>
 													<th class="col-md-1">Qty</th>
 													<th class="col-md-1">Rate</th>
@@ -1958,8 +1965,7 @@ label:before {
 
 										</table>
 									</div>
-								</div>
-								<br>
+								</div> <br>
 
 
 								<div class="row">
@@ -2301,6 +2307,12 @@ label:before {
 			var modal = document.getElementById('mypopupMsg');
 			var id = $("#itemName" + token).val();
 			var barcode = $("#barcode" + token).val();
+			//var rate=$("#rateTdVal"+token).innerHtml;
+
+			var r = document.getElementById("rateTdVal" + token).innerHTML;
+
+			//alert(r);
+
 			//alert(barcode);
 			var qty = $("#qty" + token).val();
 			//alert(qty);
@@ -2327,6 +2339,12 @@ label:before {
 								if (data == "") {
 									alert("No records found !!");
 								}
+
+								//$("#barcode" + token).val()="";
+								//$("#itemName" + token).val()="";
+								document.getElementById("rateTdVal" + token).innerHTML = "00";
+								document.getElementById("qty" + token).value = "1";
+								//$("#itemName"+ token)[0].selectedIndex = 0;
 
 								var allTotal = 0;
 
