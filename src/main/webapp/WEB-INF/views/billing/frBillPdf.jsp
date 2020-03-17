@@ -814,18 +814,14 @@ page-break-inside: auto !important
 			style="border-top: 1px solid #313131; border-right: 1px solid #313131;">
 			<tr>
 				<td colspan="10" width="100%"
-					style="border-left: 1px solid #313131; padding: 4px; color: #000; font-size: 10px;">
+					style="border-left: 1px solid #313131; border-right: 1px solid #313131; padding: 4px; color: #000; font-size: 10px;">
 					<p
 						style="color: #000; font-size: 12px; text-align: left; margin: 0px;">FDA
 						Declaration:${frDetails.company.fdaDeclaration} FDA Lic. No: ${frDetails.company.fdaLicenceNo}</p>
 				</td>
 
 
-			 <td colspan="11" width="40%" rowspan="2"
-					style="color: #000; font-size: 10px;">
-
-					
-				</td> 
+			
 			</tr>
 			<!-- <tr>
 				<td colspan="6" width="50%"

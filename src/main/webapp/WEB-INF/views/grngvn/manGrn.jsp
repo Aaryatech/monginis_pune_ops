@@ -288,15 +288,36 @@ table, th, td {
 								</table>
 							</div>
 						</div>
-
-						<div class="form-group">
+<br><br>
+						<!-- <div class="form-group">
 
 							<button type="submit" class="buttonsaveorder">
 								<i class="fa fa-check"></i> Save
 							</button>
+							<button type="button" class="btn">Cancel</button>
+
+						</div> -->
+						
+						<div class="form-group">
+
+							<c:choose>
+								<c:when test="${isOpen==1 || flag==0}">
+									<button type="submit" class="buttonsaveorder" disabled>
+										<i class="fa fa-check"></i> Save
+									</button>
+
+								</c:when>
+								<c:otherwise>
+									<button type="submit" class="buttonsaveorder">
+										<i class="fa fa-check"></i> Save
+									</button>
+								</c:otherwise>
+							</c:choose>
+
 							<!--<button type="button" class="btn">Cancel</button>-->
 
 						</div>
+						
 					</form>
 				</div>
 

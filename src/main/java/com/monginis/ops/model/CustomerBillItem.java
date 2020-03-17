@@ -23,8 +23,17 @@ private boolean isRegOpStockLess;
 private boolean isRegOpStockGretor;
 private boolean isCurrentStockOver;
 
+private String hsnCode;
 
 
+
+
+public String getHsnCode() {
+	return hsnCode;
+}
+public void setHsnCode(String hsnCode) {
+	this.hsnCode = hsnCode;
+}
 public int getTotalSpStock() {
 	return totalSpStock;
 }
@@ -143,7 +152,7 @@ public String toString() {
 			+ ", itemTax3=" + itemTax3 + ", billStockType=" + billStockType + ", totalSpStock=" + totalSpStock
 			+ ", totalRegStock=" + totalRegStock + ", isSpStockGretor=" + isSpStockGretor + ", isSpStockLessthanQty="
 			+ isSpStockLessthanQty + ", isRegOpStockLess=" + isRegOpStockLess + ", isRegOpStockGretor="
-			+ isRegOpStockGretor + ", isCurrentStockOver=" + isCurrentStockOver + "]";
+			+ isRegOpStockGretor + ", isCurrentStockOver=" + isCurrentStockOver + ", hsnCode=" + hsnCode + "]";
 }
 
 

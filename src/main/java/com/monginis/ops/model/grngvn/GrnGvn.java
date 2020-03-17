@@ -108,7 +108,7 @@ public class GrnGvn {
 	
 	
 	private float igstPer;
-	
+	private float cessPer;// new1
 	
 	private float taxableAmt;
 	
@@ -156,6 +156,7 @@ public class GrnGvn {
 			float aprSgstRs;
 			float aprCgstRs;
 			float aprIgstRs;
+			float aprCessRs;// new1
 			float aprGrandTotal;
 			
 			float aprROff;
@@ -167,8 +168,30 @@ public class GrnGvn {
 			
 	        //added on 4june19
 			private String hsnCode;
+			
+			
 
 			
+	public float getAprCessRs() {
+				return aprCessRs;
+			}
+
+
+			public void setAprCessRs(float aprCessRs) {
+				this.aprCessRs = aprCessRs;
+			}
+
+
+	public float getCessPer() {
+				return cessPer;
+			}
+
+
+			public void setCessPer(float cessPer) {
+				this.cessPer = cessPer;
+			}
+
+
 	public String getHsnCode() {
 				return hsnCode;
 			}

@@ -17,6 +17,7 @@ public class ShowGrnBean {
 	    float sgstPer;
 	    float cgstPer;
 	    float igstPer;
+	    float cessPer;//new1
 	    float calcBaseRate;
 	    private int menuId;
 		private int catId;
@@ -33,7 +34,15 @@ public class ShowGrnBean {
        
         
         
-	    public String getHsnCode() {
+	    public float getCessPer() {
+			return cessPer;
+		}
+
+		public void setCessPer(float cessPer) {
+			this.cessPer = cessPer;
+		}
+
+		public String getHsnCode() {
 			return hsnCode;
 		}
 
@@ -224,16 +233,17 @@ public class ShowGrnBean {
 			this.taxAmt = taxAmt;
 		}
 
+		
 		@Override
 		public String toString() {
 			return "ShowGrnBean [billDetailNo=" + billDetailNo + ", itemId=" + itemId + ", frId=" + frId + ", itemName="
 					+ itemName + ", grnType=" + grnType + ", billNo=" + billNo + ", rate=" + rate + ", mrp=" + mrp
 					+ ", billQty=" + billQty + ", billDate=" + billDate + ", sgstPer=" + sgstPer + ", cgstPer="
-					+ cgstPer + ", igstPer=" + igstPer + ", calcBaseRate=" + calcBaseRate + ", menuId=" + menuId
-					+ ", catId=" + catId + ", invoiceNo=" + invoiceNo + ", autoGrnQty=" + autoGrnQty + ", taxPer="
-					+ taxPer + ", grnAmt=" + grnAmt + ", billDateTime=" + billDateTime + ", taxableAmt=" + taxableAmt
-					+ ", grnRate=" + grnRate + ", hsnCode=" + hsnCode + ", taxAmt=" + taxAmt + ", discPer=" + discPer
-					+ "]";
+					+ cgstPer + ", igstPer=" + igstPer + ", cessPer=" + cessPer + ", calcBaseRate=" + calcBaseRate
+					+ ", menuId=" + menuId + ", catId=" + catId + ", invoiceNo=" + invoiceNo + ", autoGrnQty="
+					+ autoGrnQty + ", taxPer=" + taxPer + ", grnAmt=" + grnAmt + ", billDateTime=" + billDateTime
+					+ ", taxableAmt=" + taxableAmt + ", grnRate=" + grnRate + ", hsnCode=" + hsnCode + ", taxAmt="
+					+ taxAmt + ", discPer=" + discPer + "]";
 		}
          
 }

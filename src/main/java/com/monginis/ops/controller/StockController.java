@@ -14,7 +14,10 @@ import java.text.DateFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -53,20 +56,26 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.monginis.ops.billing.SellBillDetail;
+import com.monginis.ops.billing.SellBillHeader;
 import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.CategoryList;
 import com.monginis.ops.model.CurrentStockResponse;
+import com.monginis.ops.model.CustomerBillItem;
 import com.monginis.ops.model.ExportToExcel;
+import com.monginis.ops.model.FrConfigModel;
 import com.monginis.ops.model.FrMenu;
 import com.monginis.ops.model.Franchisee;
 import com.monginis.ops.model.GetCurrentStockDetails;
 import com.monginis.ops.model.Info;
 import com.monginis.ops.model.Item;
+import com.monginis.ops.model.ItemResponse;
 import com.monginis.ops.model.MCategory;
 import com.monginis.ops.model.PostFrItemStockDetail;
 import com.monginis.ops.model.PostFrItemStockHeader;
 import com.monginis.ops.model.SubCategory;
 import com.monginis.ops.model.TabTitleData;
+import com.monginis.ops.model.frsetting.FrSetting;
 
 @Controller
 @Scope("session")
@@ -82,6 +91,7 @@ public class StockController {
 	ArrayList<FrMenu> menuList;
 
 	List<Item> itemList;
+	public List<Item> newItemsList;
 
 	List<GetCurrentStockDetails> currentStockDetailList = new ArrayList<GetCurrentStockDetails>();
 
@@ -1416,15 +1426,46 @@ public class StockController {
 
 				String itemShow = "";
 
-				for (int i = 0; i < menuList.size(); i++) {
-					for(int j=0;j<menuIdList.size();j++) {
-					if (menuList.get(i).getMenuId() == menuIdList.get(j)) {
+//				for (int i = 0; i < menuList.size(); i++) {
+//					for(int j=0;j<menuIdList.size();j++) {
+//					if (menuList.get(i).getMenuId() == menuIdList.get(j)) {
+//
+//						itemShow = menuList.get(i).getItemShow();
+//
+//					}
+//					}
+//				}
+				
+				
+				
+				//--------------------------------------
+				
+				map = new LinkedMultiValueMap<String, Object>();
 
-						itemShow = menuList.get(i).getItemShow();
-
-					}
+				map.add("frId", frDetails.getFrId());
+				map.add("catId", catId);
+				
+				
+				ParameterizedTypeReference<List<FrConfigModel>> frCfList = new ParameterizedTypeReference<List<FrConfigModel>>() {
+				};
+				ResponseEntity<List<FrConfigModel>> responseEntityFr = restTemplate
+						.exchange(Constant.URL + "getFrConfgByFrAndCat", HttpMethod.POST, new HttpEntity<>(map), frCfList);
+				List<FrConfigModel> tempList = responseEntityFr.getBody();
+				
+				if(tempList!=null) {
+					for(int i=0;i<tempList.size();i++) {
+						itemShow=String.join(",",tempList.get(i).getItemShow());
 					}
 				}
+				
+				
+				
+				
+				//--------------------------------------
+				
+				
+				
+				
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 				DateFormat yearFormat = new SimpleDateFormat("yyyy");
 
@@ -1544,6 +1585,316 @@ public class StockController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	
+	
+	@RequestMapping(value = "/addSellBill", method = RequestMethod.POST)
+	public  String addSellBill(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+		SellBillHeader sellBillHeaderRes = new SellBillHeader();
+		try {
+			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate localDate = LocalDate.now();
+			SellBillHeader sellBillHeader = new SellBillHeader();
+
+			List<SellBillDetail> sellBillDetailList = new ArrayList<SellBillDetail>();
+			List<CustomerBillItem> customerBillItemList = new ArrayList<CustomerBillItem>();
+			RestTemplate restTemplate = new RestTemplate();
+			
+			String items;
+			StringBuilder builder = new StringBuilder();
+			for (FrMenu frMenu : menuList) {
+
+				if (frMenu.getMenuId() == 26 || frMenu.getMenuId() == 31 || frMenu.getMenuId() == 33
+						|| frMenu.getMenuId() == 34 || frMenu.getMenuId()==63|| frMenu.getMenuId()==66|| frMenu.getMenuId()==68|| frMenu.getMenuId()==81|| frMenu.getMenuId()==82||frMenu.getMenuId()==86) {
+
+					builder.append("," + frMenu.getItemShow());
+
+				}
+
+			}
+			items = builder.toString();
+			items = items.substring(1, items.length());
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("itemList", items);
+			map.add("frId", frDetails.getFrId());
+
+			ItemResponse itemsList = restTemplate.postForObject(Constant.URL + "/getItemsNameByIdWithOtherItem", map,
+					ItemResponse.class);
+
+			newItemsList = itemsList.getItemList();
+
+			customerBillItemList = new ArrayList<CustomerBillItem>();
+
+			for (int i = 0; i < newItemsList.size(); i++) {
+
+				Item item = newItemsList.get(i);
+				String stQty=request.getParameter("qty"+item.getId());
+				if(stQty!=null && stQty!="") {
+                int qty=Integer.parseInt(stQty);
+                if(qty>0) {
+				CustomerBillItem customerBillItem = new CustomerBillItem();
+				customerBillItem.setCatId(item.getItemGrp1());
+				customerBillItem.setId(item.getId());
+				customerBillItem.setItemId(item.getItemId());
+				customerBillItem.setItemName(item.getItemName());
+				customerBillItem.setHsnCode(item.getItemImage());//hsn code from itemImage --query
+				customerBillItem.setQty(qty);
+				customerBillItem.setItemTax1(item.getItemTax1());
+				customerBillItem.setItemTax2(item.getItemTax2());
+				customerBillItem.setItemTax3(item.getItemTax3());
+
+				if (frDetails.getFrRateCat() == 1) {
+					customerBillItem.setMrp(item.getItemMrp1());
+					customerBillItem.setRate(item.getItemRate1());
+				}  else if (frDetails.getFrRateCat() == 3) {
+					customerBillItem.setMrp(item.getItemMrp3());
+
+					customerBillItem.setRate(item.getItemRate3());
+				}
+				customerBillItem.setBillStockType(1);//1 means regular Stock
+				customerBillItemList.add(customerBillItem);
+                }
+				}
+			}
+			float sumTaxableAmt = 0, sumTotalTax = 0, sumGrandTotal = 0, sumMrp = 0;
+
+			for (int i = 0; i < customerBillItemList.size(); i++) {
+				System.out.println("dddd");
+
+				SellBillDetail sellBillDetail = new SellBillDetail();
+
+				Float rate = (float) customerBillItemList.get(i).getMrp();
+
+				Float tax1 = (float) customerBillItemList.get(i).getItemTax1();
+				Float tax2 = (float) customerBillItemList.get(i).getItemTax2();
+				Float tax3 = (float) customerBillItemList.get(i).getItemTax3();
+
+				int qty = customerBillItemList.get(i).getQty();
+
+				Float mrpBaseRate = (rate * 100) / (100 + (tax1 + tax2));
+				mrpBaseRate = roundUp(mrpBaseRate);
+
+				System.out.println("Mrp: " + rate);
+				System.out.println("Tax1 : " + tax1);
+				System.out.println("tax2 : " + tax2);
+
+				Float taxableAmt = (float) (mrpBaseRate * qty);
+				taxableAmt = roundUp(taxableAmt);
+
+				// -----------------------------------------
+
+				float discAmt = ((taxableAmt * 0) / 100);
+				taxableAmt = taxableAmt - discAmt;
+
+				float sgstRs = (taxableAmt * tax1) / 100;
+				float cgstRs = (taxableAmt * tax2) / 100;
+				float igstRs = (taxableAmt * tax3) / 100;
+
+				sgstRs = roundUp(sgstRs);
+				cgstRs = roundUp(cgstRs);
+				igstRs = roundUp(igstRs);
+
+				Float totalTax = sgstRs + cgstRs;
+				totalTax = roundUp(totalTax);
+
+				Float grandTotal = totalTax + taxableAmt;
+				grandTotal = roundUp(grandTotal);
+
+				sellBillDetail.setCatId(customerBillItemList.get(i).getCatId());
+				sellBillDetail.setSgstPer(tax1);
+				sellBillDetail.setSgstRs(sgstRs);
+				sellBillDetail.setCgstPer(tax2);
+				sellBillDetail.setCgstRs(cgstRs);
+				sellBillDetail.setDelStatus(0);
+				sellBillDetail.setGrandTotal(grandTotal);
+				sellBillDetail.setIgstPer(tax3);
+				sellBillDetail.setIgstRs(igstRs);
+				sellBillDetail.setItemId(customerBillItemList.get(i).getId());
+				sellBillDetail.setMrp(rate);
+				sellBillDetail.setMrpBaseRate(mrpBaseRate);
+				sellBillDetail.setQty(customerBillItemList.get(i).getQty());
+				sellBillDetail.setRemark(customerBillItemList.get(i).getHsnCode());//hsncode --new
+				sellBillDetail.setSellBillDetailNo(0);
+				sellBillDetail.setSellBillNo(0);
+				sellBillDetail.setBillStockType(customerBillItemList.get(i).getBillStockType());
+
+				sumMrp = sumMrp + (rate * qty);
+				sumTaxableAmt = sumTaxableAmt + taxableAmt;
+				sumTotalTax = sumTotalTax + totalTax;
+				sumGrandTotal = sumGrandTotal + grandTotal;
+
+				sellBillDetail.setTaxableAmt(taxableAmt);
+				sellBillDetail.setTotalTax(totalTax);
+
+				sellBillDetailList.add(sellBillDetail);
+
+			}
+
+			sellBillHeader.setFrId(frDetails.getFrId());
+			sellBillHeader.setFrCode(frDetails.getFrCode());
+			sellBillHeader.setDelStatus(0);
+			sellBillHeader.setUserName("Physical stock");
+			sellBillHeader.setBillDate(dtf.format(localDate));
+
+			sellBillHeader.setInvoiceNo(getInvoiceNoForStkMatch(request,response));
+			sellBillHeader.setPaymentMode(1);
+			sellBillHeader.setBillType('P');
+			sellBillHeader.setSellBillNo(0);
+			sellBillHeader.setUserGstNo("-");
+     		sellBillHeader.setUserPhone("-");
+
+			System.out.println("Sell Bill Header: " + sellBillHeader.toString());
+			
+			
+			sellBillHeader.setTaxableAmt(sumTaxableAmt);
+			sellBillHeader.setDiscountPer(0);
+		
+			float payableAmt = sumGrandTotal;
+			sellBillHeader.setPaidAmt(Math.round(payableAmt));
+			payableAmt = roundUp(payableAmt);
+
+			sellBillHeader.setDiscountAmt(sumMrp);
+			sellBillHeader.setPayableAmt(Math.round(payableAmt));
+			System.out.println("Payable amt  : " + payableAmt);
+			sellBillHeader.setTotalTax(sumTotalTax);
+			sellBillHeader.setGrandTotal(Math.round(sumGrandTotal));
+            sellBillHeader.setRemainingAmt(0);
+			sellBillHeader.setStatus(1);
+			
+
+			sellBillHeader.setSellBillDetailsList(sellBillDetailList);
+			System.out.println("Sell Bill Detail: " + sellBillHeader.toString());
+			sellBillHeaderRes = restTemplate.postForObject(Constant.URL + "insertSellBillData", sellBillHeader,
+					SellBillHeader.class);
+
+			System.out.println("info :" + sellBillHeaderRes.toString());
+
+			if (sellBillHeaderRes != null) {
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map = new LinkedMultiValueMap<String, Object>();
+
+				map.add("frId", frDetails.getFrId());
+				FrSetting frSetting = restTemplate.postForObject(Constant.URL + "getFrSettingValue", map,
+						FrSetting.class);
+
+				int sellBillNo = frSetting.getSellBillNo();
+
+				sellBillNo = sellBillNo + 1;
+
+				map = new LinkedMultiValueMap<String, Object>();
+
+				map.add("frId", frDetails.getFrId());
+				map.add("sellBillNo", sellBillNo);
+
+				Info info = restTemplate.postForObject(Constant.URL + "updateFrSettingBillNo", map, Info.class);
+
+			}
+			
+		} catch (Exception e) {
+
+			System.out.println("Exception:" + e.getMessage());
+			e.printStackTrace();
+
+		}
+		System.out.println("Order Response:" + sellBillHeaderRes.toString());
+
+		return "redirect:/showStockMatchUtility";
+
+	}
+
+	public String getInvoiceNoForStkMatch(HttpServletRequest request, HttpServletResponse response) {
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		RestTemplate restTemplate = new RestTemplate();
+
+
+		HttpSession session = request.getSession();
+
+		Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+
+		int frId = frDetails.getFrId();
+
+		// String frCode = frDetails.getFrCode();
+
+		map.add("frId", frId);
+		FrSetting frSetting = restTemplate.postForObject(Constant.URL + "getFrSettingValue", map, FrSetting.class);
+
+		int billNo = frSetting.getSellBillNo();
+
+		int settingValue =billNo;
+
+		System.out.println("Setting Value Received " + settingValue);
+		int year = Year.now().getValue();
+		String curStrYear = String.valueOf(year);
+		curStrYear = curStrYear.substring(2);
+
+		int preMarchYear = Year.now().getValue() - 1;
+		String preMarchStrYear = String.valueOf(preMarchYear);
+		preMarchStrYear = preMarchStrYear.substring(2);
+
+		System.out.println("Pre MArch year ===" + preMarchStrYear);
+
+		int nextYear = Year.now().getValue() + 1;
+		String nextStrYear = String.valueOf(nextYear);
+		nextStrYear = nextStrYear.substring(2);
+
+		System.out.println("Next  year ===" + nextStrYear);
+
+		int postAprilYear = nextYear + 1;
+		String postAprilStrYear = String.valueOf(postAprilYear);
+		postAprilStrYear = postAprilStrYear.substring(2);
+
+		System.out.println("Post April   year ===" + postAprilStrYear);
+
+		java.util.Date date = new Date();
+		Calendar cale = Calendar.getInstance();
+		cale.setTime(date);
+		int month = cale.get(Calendar.MONTH);
+		
+		month=month+1;
+ 
+		if (month <= 3) {
+
+			curStrYear = preMarchStrYear + curStrYear;
+			System.out.println("Month <= 3::Cur Str Year " + curStrYear);
+		} else if (month >= 4) {
+
+			curStrYear = curStrYear + nextStrYear;
+			System.out.println("Month >=4::Cur Str Year " + curStrYear);
+		}
+
+		////
+
+		int length = String.valueOf(settingValue).length();
+
+		String invoiceNo = null;
+
+		if (length == 1)
+
+			invoiceNo = curStrYear + "-" + "0000" + settingValue;
+		if (length == 2)
+
+			invoiceNo = curStrYear + "-" + "000" + settingValue;
+
+		if (length == 3)
+
+			invoiceNo = curStrYear + "-" + "00" + settingValue;
+
+		if (length == 4)
+
+			invoiceNo = curStrYear + "-" + "0" + settingValue;
+
+		invoiceNo=frDetails.getFrCode()+invoiceNo;
+		System.out.println("*** settingValue= " + settingValue);
+		return invoiceNo;
+
 	}
 	
 	
