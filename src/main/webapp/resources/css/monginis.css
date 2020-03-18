@@ -441,6 +441,22 @@ input[type=checkbox]:checked + label:before {
 .loginUser{ position:absolute; text-align:center; left:0px; right:0px; height:1px;}
 .loginUser img{ top:-80px; position:relative;}
 
+/* ------Anmol----- */
+table.responsive-table {width:100%; border-collapse: collapse; overflow-x: auto; margin: 1.5em 0; background-color: transparent;}
+.responsive-table th{padding: 8px 3px; vertical-align: top; background: #ec268f !important; color: #fff !important; font-size: 16px;}
+.responsive-table tr:nth-child(2n+1) {background: #e1e1e1;}
+.responsive-table td{text-align: right; padding: 10px; font-size: 18px;}
+#insertItemButton,#printExBill {margin: 0 0 15px 0; }
+
+.responsive-table-one{width: 100%; overflow-x: scroll; display: inline-block !important;}
+
+.frm_txt{float: left; width: 15%; float: left; margin: 9px 0 0 0;}
+.float_l{float: left; width: 82%;}
+.right_btn{float: left; margin:9px 0 0 0;}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span{display: none !important;}
+.signout{display: none;}
+/* --------------------- */
 
 /*--css-divices--*/
 @media screen and (max-width:1366px){

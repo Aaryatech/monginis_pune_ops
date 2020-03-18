@@ -22,7 +22,7 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 
 		String path = request.getRequestURI().substring(request.getContextPath().length());
-		//System.out.println("path is: " + path);
+		System.out.println("path is: " + path);
 
 		if (path.startsWith("/pdf")) {
 			return true;

@@ -482,8 +482,8 @@ public class HomeController {
 		response.setDateHeader("Expires", -1);
 
 		session.removeAttribute("frId");
-
-		session.removeAttribute("frDetails");
+ 
+		session.removeAttribute("frDetails"); 
 		session.invalidate();
 		session.setMaxInactiveInterval(0);
 

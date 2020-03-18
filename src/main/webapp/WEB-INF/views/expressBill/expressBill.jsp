@@ -316,10 +316,9 @@ input:checked+.slider:before {
 											<th class="col-md-1" style="text-align: center;">Delivery
 												Date</th>
 											<th class="col-md-1" style="text-align: center;">Rate</th>
-											<th class="col-md-1" style="text-align: center;">Add On
-												Rate</th>
-											<th class="col-md-1" style="text-align: center;">Total</th>
+											<th class="col-md-1" style="text-align: center;">Grand Total</th>
 											<th class="col-md-1" style="text-align: center;">Advance</th>
+											<th class="col-md-1" style="text-align: center;">Pending Amt</th>
 											<th class="col-md-1" style="text-align: center;">Memo &
 												Bill</th>
 
@@ -352,9 +351,11 @@ input:checked+.slider:before {
 													data-placeholder="Enter Barcode" id='input' autofocus
 													onchange='onInput()' /></td>
 
+												<!-- onchange="onSelectItem()" -->
+
 												<td style=" width:50%;"><input list="items" id="itemName" name="itemName"
 													class="form-control chosen" autocomplete="off"
-													placeholder="Item Name" onchange="onSelectItem()"
+													placeholder="Item Name" onchange="showItemRate()"
 													style="border-radius: 18px;" type="text"> <datalist
 														id="items">
 														<c:forEach items="${itemsList}" var="itemsList">
@@ -366,7 +367,7 @@ input:checked+.slider:before {
 
 												<td style=" width:25%;"><input type="number" min="1" max="500"
 													style="border-radius: 18px;" class="form-control"
-													placeholder="1" name="qty1" onkeypress="onQty(event)"
+													placeholder="1" name="qty1" onblur="onQty(event)"
 													id="qty1" value="1" onfocusout="myFunction1()"></td>
 
 												<td style=" width:25%;"><input type="text" name="rateTdVal1"
@@ -515,7 +516,7 @@ input:checked+.slider:before {
 
 											<th>Sr.No.</th>
 											<th>Detail Id</th>
-											<th>Barcode</th>
+											<th style="display: none;">Barcode</th>
 											<th>Item Name</th>
 											<th style="width: 130px;">Qty</th>
 											<th>Rate</th>
@@ -531,7 +532,7 @@ input:checked+.slider:before {
 												<td><c:out value="${listSize}" /></td>
 												<c:set value="${listSize-1}" var="listSize"></c:set>
 												<td><c:out value="${sellBillDetails.sellBillNo}" /></td>
-												<td><c:out value="${sellBillDetails.itemId}" /></td>
+												<td style="display: none;"><c:out value="${sellBillDetails.itemId}" /></td>
 												<td><c:out value="${sellBillDetails.itemName}" /></td>
 												<td style="text-align: right;"><c:out
 														value="${sellBillDetails.qty}" /></td>
@@ -798,6 +799,41 @@ function onRateChange(rate)
 		});
 		
 	}
+	
+	
+	function showItemRate() {
+		 
+		var iId=document.getElementById("itemName").value;
+	  
+	    	val=iId;
+	    	
+	    //alert("iID " +iId);
+		  
+	    $.getJSON('${getItemDetails}',{
+	  
+           // itemId : JSON.stringify(val),
+           
+           itemId : val,
+			ajax : 'true',
+
+		}, function(data) {
+
+		//$('#itemName').val(data.itemId).prop('selected', true);
+			$('#itemName').selectpicker('val',''+data.itemId);
+		document.getElementById("input").value=val;
+			
+		document.getElementById("rateTdVal1").value=data.mrp;
+		document.getElementById("itemNameForZeroMrp").innerText=data.itemName;
+		
+			//$('#insertItemButton').focus();
+			 $('#input').focus();
+		
+		});
+		
+	}
+	
+	
+	
 	</script>
 	<script type="text/javascript">
 	function insertItem1() {
@@ -829,8 +865,9 @@ function onRateChange(rate)
 			alert("Stock Not Available. Can not place Item ");
 			document.getElementById("input").value="";
 			
-			 $('#qty1').focus();
-			 
+			 //$('#qty1').focus();
+			document.getElementById("qty1").value="1";
+			 $('#input').focus();
 			}
 		else
 	    {
@@ -848,6 +885,7 @@ function onRateChange(rate)
 
 				document.getElementById("rateTdVal1").value=00;
 				document.getElementById("itemName").value="";
+				document.getElementById("qty1").value="1";
 
 				$('#loader11').hide();
 				var len = data.length;
@@ -1104,6 +1142,10 @@ function myFunction1() {
 			   document.getElementById("qty1").value="1";
 
 		}
+		
+		//alert(x);
+		
+		onSelectItem();
 	}
 	</script>
 	<script>
@@ -1202,7 +1244,8 @@ $('#sp').change(function() {
 								  	tr.append($('<td class="col-md-1"></td>').html(spName));
 									tr.append($('<td class="col-md-1"></td>').html(order.spfName));	
 									tr.append($('<td class="col-md-1"></td>').html(order.spSelectedWeight+" Kg"));
-									var price=parseFloat(order.spGrandTotal-order.spTotalAddRate);
+									//var price=parseFloat(order.spGrandTotal-order.spTotalAddRate);
+									var price=parseFloat(order.spPrice/order.spSelectedWeight);
 									tr.append($('<td class="col-md-1"></td>').html(order.spDeliveryDate));	
 									tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(price));
 								/* 	tr.append($('<td class="col-md-1" style="text-align:right;"></td>').html(order.spTotalAddRate)); */

@@ -46,6 +46,8 @@ import com.monginis.ops.constant.Constant;
 import com.monginis.ops.model.pettycash.PettyCashDao;
 import com.monginis.ops.model.pettycash.PettyCashData;
 import com.monginis.ops.model.pettycash.PettyCashManagmt;
+import com.monginis.ops.model.pettycash.SellBillAmtModel;
+import com.monginis.ops.model.pettycash.SpCakeAmtModel;
 
 @Controller
 public class PettyCashController {
@@ -192,6 +194,48 @@ RestTemplate rest = new RestTemplate();
 			}
 			
 			model.addObject("pettyList", pettyList);
+			
+			
+			//-------------------------------
+			
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", frid);
+			map.add("date", newDate);
+			
+			SellBillAmtModel[] billAmtList = rest.postForObject(Constant.URL + "/getSellBillAmtForPettyCash",map,SellBillAmtModel[].class);
+			ArrayList<SellBillAmtModel> amtList = new ArrayList<>(Arrays.asList(billAmtList)); 
+			
+			float cash=0,card=0,epay=0,totalSell=0;
+			
+			if(amtList!=null) {
+				for(int i=0;i<amtList.size();i++) {
+					
+					totalSell=totalSell+amtList.get(i).getAmt();
+					
+					if(amtList.get(i).getPaymentMode()==1) {
+						cash=amtList.get(i).getAmt();
+					}else if(amtList.get(i).getPaymentMode()==2) {
+						card=amtList.get(i).getAmt();
+					}else if(amtList.get(i).getPaymentMode()==3) {
+						epay=amtList.get(i).getAmt();
+					}
+					
+				}
+			}
+			
+			model.addObject("totalSell", totalSell);
+			model.addObject("cash", cash);
+			model.addObject("card", card);
+			model.addObject("epay", epay);
+			
+			
+			SpCakeAmtModel spAmt = rest.postForObject(Constant.URL + "/getSpCakeAmtForPettyCash",map,SpCakeAmtModel.class);
+			float rmAmt=0,advAmt=0;
+			if(spAmt!=null) {
+				
+			}
+			
+			
 			
 			
 		}catch (Exception e) {

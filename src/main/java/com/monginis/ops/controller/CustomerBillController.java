@@ -1876,6 +1876,10 @@ public class CustomerBillController {
 		HttpSession session = request.getSession();
 		int token = Integer.parseInt(request.getParameter("token"));
 		int isB2b = 0;
+		int isCredit = 0;
+
+		float billTotalHeader = 0;
+
 		if (token == 1) {
 			try {
 				isB2b = Integer.parseInt(request.getParameter("isb2b"));
@@ -1888,6 +1892,17 @@ public class CustomerBillController {
 			}
 
 		}
+
+		try {
+			isCredit = Integer.parseInt(request.getParameter("isCredit"));
+
+		} catch (NullPointerException e) {
+			isCredit = 0;
+
+		} catch (Exception e) {
+			isCredit = 0;
+		}
+
 		System.out.println("Token " + token);
 		System.out.println("Token Data " + customerBillDataToken1.toString());
 
@@ -1897,7 +1912,7 @@ public class CustomerBillController {
 		try {
 
 			double billGrandTotal;
-			double calBillGrandTotal;
+			double calBillGrandTotal = 0;
 			double billTotal;
 			String gstNo = "";
 			String phoneNo = "";
@@ -1933,6 +1948,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken1.getTotal();
+
 				break;
 			case 2:
 				if (discountPer != 0) {
@@ -1946,6 +1964,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken2.getTotal();
+
 				break;
 			case 3:
 				if (discountPer != 0) {
@@ -1959,6 +1980,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken3.getTotal();
+
 				break;
 
 			case 4:
@@ -1973,6 +1997,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken4.getTotal();
+
 				break;
 			case 5:
 				if (discountPer != 0) {
@@ -1986,6 +2013,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken5.getTotal();
+
 				break;
 			case 6:
 				if (discountPer != 0) {
@@ -1999,6 +2029,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken6.getTotal();
+
 				break;
 			case 7:
 				if (discountPer != 0) {
@@ -2012,6 +2045,9 @@ public class CustomerBillController {
 					calBillGrandTotal = billTotal;
 
 				}
+
+				billTotalHeader = (float) customerBillDataToken7.getTotal();
+
 				break;
 			}
 
@@ -2028,7 +2064,8 @@ public class CustomerBillController {
 			sellBillHeader.setBillDate(dtf.format(localDate));
 
 			sellBillHeader.setInvoiceNo(getInvoiceNo(request, response));
-			sellBillHeader.setPaidAmt(Math.round(paidAmount));
+			//sellBillHeader.setPaidAmt(Math.round(paidAmount));
+			sellBillHeader.setPaidAmt(paidAmount);
 			sellBillHeader.setPaymentMode(paymentMode);
 			if (isB2b == 1) {
 				sellBillHeader.setBillType('B');
@@ -2072,9 +2109,10 @@ public class CustomerBillController {
 				break;
 			}
 			float sumTaxableAmt = 0, sumTotalTax = 0, sumGrandTotal = 0, sumMrp = 0;
+			
+			float headerTotal=0;
 
 			for (int i = 0; i < customerBillItemList.size(); i++) {
-				System.out.println("dddd");
 
 				SellBillDetail sellBillDetail = new SellBillDetail();
 
@@ -2085,6 +2123,8 @@ public class CustomerBillController {
 				Float tax3 = (float) customerBillItemList.get(i).getItemTax3();
 
 				int qty = customerBillItemList.get(i).getQty();
+				
+				headerTotal=headerTotal+(qty*rate);
 
 				Float mrpBaseRate = (rate * 100) / (100 + (tax1 + tax2));
 				mrpBaseRate = roundUp(mrpBaseRate);
@@ -2149,34 +2189,50 @@ public class CustomerBillController {
 			// float discountAmt = 0;
 			// if(discountPer!=0.0)
 			// discountAmt = ((sumGrandTotal * discountPer) / 100);
-			float payableAmt = sumGrandTotal;
 
-			payableAmt = roundUp(payableAmt);
+			float discountAmt = (headerTotal * (discountPer/100));
+			
+			System.err.println("DISC AMT = "+discountAmt+"            TOTAL = "+headerTotal );
+			
+			// float payableAmt = sumGrandTotal;
 
-			sellBillHeader.setDiscountAmt(sumMrp);
-			sellBillHeader.setPayableAmt(Math.round(payableAmt));
+			float payableAmt = (float) (headerTotal - discountAmt);
+			//payableAmt = roundUp(payableAmt);
+			
+			System.err.println("PAYABLE = "+payableAmt);
+
+			// sellBillHeader.setDiscountAmt(sumMrp);
+			sellBillHeader.setDiscountAmt(discountAmt);
+
+			sellBillHeader.setPayableAmt(payableAmt);
 			System.out.println("Payable amt  : " + payableAmt);
 			sellBillHeader.setTotalTax(sumTotalTax);
-			sellBillHeader.setGrandTotal(Math.round(sumGrandTotal));
+			// sellBillHeader.setGrandTotal(Math.round(sumGrandTotal));
+			sellBillHeader.setGrandTotal(headerTotal);
 
 			float calRemainingTotal = (payableAmt - paidAmount);
+			System.err.println("REM AMT = "+calRemainingTotal);
+			sellBillHeader.setRemainingAmt(calRemainingTotal);
+			sellBillHeader.setStatus(isCredit);
 
-			if (calRemainingTotal < 0) {
-				sellBillHeader.setRemainingAmt(0);
-
-			} else {
-
-				sellBillHeader.setRemainingAmt(calRemainingTotal);
-			}
-			if (calRemainingTotal <= 0) {
-
-				sellBillHeader.setStatus(1);
-			} else if (calRemainingTotal == payableAmt) {
-				sellBillHeader.setStatus(2);
-
-			} else if (payableAmt > calRemainingTotal) {
-				sellBillHeader.setStatus(3);
-			}
+//			if (calRemainingTotal < 0) {
+//				sellBillHeader.setRemainingAmt(0);
+//
+//			} else {
+//
+//				sellBillHeader.setRemainingAmt(calRemainingTotal);
+//			}
+			
+			
+//			if (calRemainingTotal <= 0) {
+//
+//				sellBillHeader.setStatus(1);
+//			} else if (calRemainingTotal == payableAmt) {
+//				sellBillHeader.setStatus(2);
+//
+//			} else if (payableAmt > calRemainingTotal) {
+//				sellBillHeader.setStatus(3);
+//			}
 
 			sellBillHeader.setSellBillDetailsList(sellBillDetailList);
 

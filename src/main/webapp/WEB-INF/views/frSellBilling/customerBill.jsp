@@ -375,7 +375,7 @@ label:before {
 							<!--tab1-->
 							<li data-content="tab1" class="selected" onshow="onloadTab(1)">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -463,6 +463,15 @@ label:before {
 										</label>
 									</div>
 
+									<div class="col-md-2" style="margin-top: 10px;">
+											<span
+												style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+												Bill</span> <label class="switch"> <input type="checkbox"
+												name='isCredit1' id='isCredit1' /> <span
+												class="slider round"></span>
+											</label>
+									</div>
+
 								</div>
 								<div class="se-pre-con" style="display: none;" id="loader1"></div>
 								<div class="checkdiv" style="display: none;" id="check1"></div>
@@ -512,7 +521,7 @@ label:before {
 										</h4>
 										<div class="col-md-5">
 											<input type="text" class="form-control" id="discount1"
-												onkeyup="disMinusTotal(1)" value="0">
+												onkeyup="disMinusTotal(1)" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 										</div>
 									</div>
 
@@ -552,7 +561,7 @@ label:before {
 										</h4>
 										<div class="col-md-5">
 											<input type="text" class="form-control" id="paidAmount1"
-												onkeyup="paidAmt(1)" value="0">
+												onkeyup="paidAmt(1)" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 										</div>
 
 									</div>
@@ -578,15 +587,15 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName1" id="custName1"
-												value="Cash" >
+												value="" list="customerList1">
 
-											<%-- <datalist id="customerList">
-												<c:forEach items="${custList}"
-													var="cust">
-													<option value="${custList}"></option>
+											<datalist id="customerList1">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
 												</c:forEach>
-											</datalist> --%>
-											
+											</datalist>
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -622,7 +631,7 @@ label:before {
 							<!--tab2-->
 							<li data-content="tab2" class=" ">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -711,6 +720,15 @@ label:before {
 												id="b2">Add Item</button>
 										</center>
 									</div>
+
+									<div class="col-md-2" style="margin-top: 10px;">
+										<span
+											style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+											Bill</span> <label class="switch"> <input type="checkbox"
+											name='isCredit2' id='isCredit2' /> <span
+											class="slider round"></span>
+										</label>
+									</div>
 								</div>
 
 								<div class="se-pre-con" style="display: none;" id="loader2"></div>
@@ -771,7 +789,7 @@ label:before {
 										</h4>
 										<div class="col-md-5">
 											<input type="text" class="form-control" id="discount2"
-												onkeyup="disMinusTotal(2)" value="0">
+												onkeyup="disMinusTotal(2)" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 										</div>
 									</div>
 
@@ -811,7 +829,7 @@ label:before {
 											<b>Paid Amount:-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="paidAmount2"
+											<input type="text" class="form-control" id="paidAmount2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="paidAmt(2)" value="0">
 										</div>
 
@@ -838,7 +856,15 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName2" id="custName2"
-												value="Cash">
+												value="" list="customerList2">
+
+											<datalist id="customerList2">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
+												</c:forEach>
+											</datalist>
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -872,7 +898,7 @@ label:before {
 							<!--tab3-->
 							<li data-content="tab3" class=" ">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -962,6 +988,15 @@ label:before {
 												id="b3">Add Item</button>
 										</center>
 									</div>
+
+									<div class="col-md-2" style="margin-top: 10px;">
+										<span
+											style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+											Bill</span> <label class="switch"> <input type="checkbox"
+											name='isCredit3' id='isCredit3' /> <span
+											class="slider round"></span>
+										</label>
+									</div>
 								</div>
 
 								<div class="se-pre-con" style="display: none;" id="loader3"></div>
@@ -1019,7 +1054,7 @@ label:before {
 											<b>Discount(%):-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="discount3"
+											<input type="text" class="form-control" id="discount3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="disMinusTotal(3)" value="0">
 										</div>
 									</div>
@@ -1060,7 +1095,7 @@ label:before {
 											<b>Paid Amount:-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="paidAmount3"
+											<input type="text" class="form-control" id="paidAmount3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="paidAmt(3)" value="0">
 										</div>
 
@@ -1087,7 +1122,15 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName3" id="custName3"
-												value="Cash">
+												value="" list="customerList3">
+
+											<datalist id="customerList3">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
+												</c:forEach>
+											</datalist>
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -1119,7 +1162,7 @@ label:before {
 							<!--tab4-->
 							<li data-content="tab4" class=" ">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -1209,6 +1252,15 @@ label:before {
 												id="b4">Add Item</button>
 										</center>
 									</div>
+
+									<div class="col-md-2" style="margin-top: 10px;">
+										<span
+											style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+											Bill</span> <label class="switch"> <input type="checkbox"
+											name='isCredit4' id='isCredit4' /> <span
+											class="slider round"></span>
+										</label>
+									</div>
 								</div>
 
 								<div class="se-pre-con" style="display: none;" id="loader4"></div>
@@ -1265,7 +1317,7 @@ label:before {
 											<b>Discount(%):-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="discount4"
+											<input type="text" class="form-control" id="discount4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="disMinusTotal(4)" value="0">
 										</div>
 									</div>
@@ -1306,7 +1358,7 @@ label:before {
 											<b>Paid Amount:-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="paidAmount4"
+											<input type="text" class="form-control" id="paidAmount4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="paidAmt(4)" value="0">
 										</div>
 
@@ -1333,7 +1385,16 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName4" id="custName4"
-												value="Cash">
+												value="" list="customerList4">
+
+											<datalist id="customerList4">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
+												</c:forEach>
+											</datalist>
+
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -1365,7 +1426,7 @@ label:before {
 							<!--tab5-->
 							<li data-content="tab5" class=" ">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -1453,6 +1514,15 @@ label:before {
 												id="b5">Add Item</button>
 										</center>
 									</div>
+
+									<div class="col-md-2" style="margin-top: 10px;">
+										<span
+											style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+											Bill</span> <label class="switch"> <input type="checkbox"
+											name='isCredit5' id='isCredit5' /> <span
+											class="slider round"></span>
+										</label>
+									</div>
 								</div>
 
 								<div class="se-pre-con" style="display: none;" id="loader5"></div>
@@ -1501,7 +1571,7 @@ label:before {
 											<b>Discount(%):-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="discount5"
+											<input type="text" class="form-control" id="discount5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="disMinusTotal(5)" value="0">
 										</div>
 									</div>
@@ -1542,7 +1612,7 @@ label:before {
 											<b>Paid Amount:-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="paidAmount5"
+											<input type="text" class="form-control" id="paidAmount5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="paidAmt(5)" value="0">
 										</div>
 
@@ -1569,7 +1639,15 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName5" id="custName5"
-												value="Cash">
+												value="" list="customerList5">
+
+											<datalist id="customerList5">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
+												</c:forEach>
+											</datalist>
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -1601,7 +1679,7 @@ label:before {
 							<!--tab6-->
 							<li data-content="tab6" class=" ">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -1691,6 +1769,15 @@ label:before {
 												id="b6">Add Item</button>
 										</center>
 									</div>
+
+									<div class="col-md-2" style="margin-top: 10px;">
+										<span
+											style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+											Bill</span> <label class="switch"> <input type="checkbox"
+											name='isCredit6' id='isCredit6' /> <span
+											class="slider round"></span>
+										</label>
+									</div>
 								</div>
 
 								<div class="se-pre-con" style="display: none;" id="loader6"></div>
@@ -1748,7 +1835,7 @@ label:before {
 											<b>Discount(%):-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="discount6"
+											<input type="text" class="form-control" id="discount6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="disMinusTotal(6)" value="0">
 										</div>
 									</div>
@@ -1789,7 +1876,7 @@ label:before {
 											<b>Paid Amount:-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="paidAmount6"
+											<input type="text" class="form-control" id="paidAmount6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="paidAmt(6)" value="0">
 										</div>
 
@@ -1816,7 +1903,15 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName6" id="custName6"
-												value="Cash">
+												value="" list="customerList6">
+
+											<datalist id="customerList6">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
+												</c:forEach>
+											</datalist>
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -1848,7 +1943,7 @@ label:before {
 							<!--tab7-->
 							<li data-content="tab7" class=" ">
 								<div class="row">
-									<div class="col-md-9">
+									<div class="col-md-8">
 										<div class="control-label">
 
 											<div>
@@ -1937,6 +2032,15 @@ label:before {
 												id="b7">Add Item</button>
 										</center>
 									</div>
+
+									<div class="col-md-2" style="margin-top: 10px;">
+										<span
+											style="float: left; margin-top: 7px; margin-left: 13px; margin-right: 13px; font-size: 16px;">Credit
+											Bill</span> <label class="switch"> <input type="checkbox"
+											name='isCredit7' id='isCredit7' /> <span
+											class="slider round"></span>
+										</label>
+									</div>
 								</div>
 
 								<div class="se-pre-con" style="display: none;" id="loader7"></div>
@@ -1982,8 +2086,8 @@ label:before {
 											<b>Discount(%):-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="discount7"
-												onkeyup="disMinusTotal(7)" value="0">
+											<input type="text" class="form-control" id="discount7" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+												onkeyup="disMinusTotal(7)" value="0"> 
 										</div>
 									</div>
 
@@ -2023,7 +2127,7 @@ label:before {
 											<b>Paid Amount:-</b>
 										</h4>
 										<div class="col-md-5">
-											<input type="text" class="form-control" id="paidAmount7"
+											<input type="text" class="form-control" id="paidAmount7" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												onkeyup="paidAmt(7)" value="0">
 										</div>
 
@@ -2050,7 +2154,16 @@ label:before {
 											<h4>Customer name:-</h4>
 											<input type="text" class="form-control"
 												placeholder="Enter Name" name="custName7" id="custName7"
-												value="Cash">
+												value="" list="customerList7">
+
+
+											<datalist id="customerList7">
+												<c:forEach items="${custList}" var="cust">
+													<option
+														value="${cust.userName}-${cust.userPhone}-${cust.userGstNo}"></option>
+												</c:forEach>
+											</datalist>
+
 										</div>
 										<div class="col-md-4">
 											<h4>GST No:-</h4>
@@ -2299,8 +2412,8 @@ label:before {
 
 		}
 	</script>
-	
-	
+
+
 	<!-- <script type="text/javascript">
 		function addNewRow1(token) {
 
@@ -2887,9 +3000,9 @@ label:before {
 			//	document.getElementById("generateBill"+token).focus();	
 		} //main function
 	</script> -->
-	
-	
-	
+
+
+
 	<script type="text/javascript">
 		function addNewRow1(token) {
 
@@ -3453,17 +3566,17 @@ label:before {
 							}); //ajax
 			document.getElementById("barcode" + token).value = "";
 			//document.getElementById("itemName" + token).value = "";
-	       // $("#itemName" + token).val("").change();
-                  document.getElementById("itemName"+token).value="";
-                    $('.chosen-select').trigger('chosen:updated');
-                    
-                    $("#rateTdVal"+token).html("0.0");
-				
+			// $("#itemName" + token).val("").change();
+			document.getElementById("itemName" + token).value = "";
+			$('.chosen-select').trigger('chosen:updated');
+
+			$("#rateTdVal" + token).html("0.0");
+
 			//	document.getElementById("generateBill"+token).focus();	
 		} //main function
 	</script>
-	
-	
+
+
 
 	<script type="text/javascript">
 		function appendToTable(key, data, token, allTotal) {
@@ -3614,7 +3727,8 @@ label:before {
 
 			var total = $("#tot" + token).val();
 
-			var grandAmt = total - (total * (discount / 100));
+			//var grandAmt = total - (total * (discount / 100));
+			var grandAmt = total-(total * (discount / 100));
 			grandAmt = grandAmt.toFixed(2);
 			$('#grandtotal' + token).html(grandAmt);
 			document.getElementById("grandtot" + token).setAttribute('value',
@@ -3639,6 +3753,9 @@ label:before {
 
 		}
 		function paidAmt(token) {
+			
+		
+			
 			var paidAmount = $("#paidAmount" + token).val();
 
 			var grandAmount = $("#grandtot" + token).val();
@@ -3673,11 +3790,11 @@ label:before {
 							+ appendToTable(key, regData, token, allTotal);
 				})
 				calTotal(allTotal, token)
-				 $('#discount' + token).val(0);
-				  $('#discountRs' + token).val(0);
-				  
-				  document.getElementById("itemName"+token).value="";
-                $('.chosen-select').trigger('chosen:updated');
+				$('#discount' + token).val(0);
+				//$('#discountRs' + token).val(0);
+
+				document.getElementById("itemName" + token).value = "";
+				$('.chosen-select').trigger('chosen:updated');
 
 			});
 
@@ -3686,18 +3803,21 @@ label:before {
 
 	<script type="text/javascript">
 		function generateSellBill(token) {
-			
-	
 
 			//var isValid = validation(token);
 			var grandtot = $("#grandtot" + token).val();
 			// Animate loader off screen
-			
+
 			if (validation(token) && grandtot > 0) {
-				$("#loader"+token).show();
+				$("#loader" + token).show();
 				var isb2b = 0;
 				if (document.getElementById('is_b2b').checked && token == 1) {
 					isb2b = 1;
+				}
+				
+				var isCredit=0;
+				if (document.getElementById('isCredit'+token).checked && token == 1) {
+					isCredit = 1;
 				}
 
 				var custName = $("#custName" + token).val();
@@ -3714,6 +3834,7 @@ label:before {
 						.getJSON(
 								'${generateBill}',
 								{
+									isCredit : isCredit,
 									isb2b : isb2b,
 									custName : custName,
 									gstNo : gstNo,
@@ -3726,8 +3847,6 @@ label:before {
 
 								},
 								function(data) {
-									
-									
 
 									$("#loader" + token).hide();
 									$("#check" + token).show();
@@ -3754,9 +3873,8 @@ label:before {
 
 										$('#table_grid' + token + ' td')
 												.remove();
-										// alert(data.sellBillNo);
 										
-										
+										clearData(token);
 
 										document.getElementById(
 												"barcode" + token)
@@ -3764,43 +3882,62 @@ label:before {
 
 										$("#rateTdVal" + token).html(0);
 
-										$("#total" + token).html(0.0);
+										$("#total" + token).html(00);
+										
 										document.getElementById("tot" + token)
 												.setAttribute('value', 0.0);
 
-										document.getElementById(
+										/* document.getElementById(
 												"paidAmount" + token)
-												.setAttribute('value', 0.0);
+												.setAttribute('value', 0.0); */
+												
+												
 
 										$('#grandtotal' + token).html(0.0);
+												
 										document.getElementById(
 												"grandtot" + token)
 												.setAttribute('value', 0.0);
 
 										$('#remAmt' + token).html(
 												grandMinusPaidAmt);
+										
 										document.getElementById(
 												"remAmount" + token)
 												.setAttribute('value', 0.0);
+										
+										
 										$("#discount" + token).html(0);
 										
-								
+										/* document.getElementById("discount"
+												+ token).value = "0.0"; */
 
-										 document.getElementById(
-												"barcode" + token).focus(); 
+										document.getElementById("paidAmount"
+												+ token).value = "0.0";
+
+										document.getElementById(
+												"barcode" + token).focus();
+
+										document
+												.getElementById("gstNo" + token).value = "";
+										document.getElementById("custName"
+												+ token).value = "Cash";
+										document.getElementById("phoneNo"
+												+ token).value = "";
+										$("#rateTdVal" + token).html("0.0");
+
+										document.getElementById("itemName"
+												+ token).value = "";
+										$('.chosen-select').trigger(
+												'chosen:updated');
+
+										document.getElementById("paymentMode"
+												+ token).value = "Cash";
+										$('.chosen-select').trigger(
+												'chosen:updated');
 										
-										document.getElementById(
-												"gstNo"+token).value="";
-										document.getElementById(
-												"custName"+token).value="Cash";
-										document.getElementById(
-												"phoneNo"+token).value="";
-									       $("#rateTdVal"+token).html("0.0");
-									       
-									       document.getElementById("itemName"+token).value="";
-						                    $('.chosen-select').trigger('chosen:updated');
+										
 
-						                   
 									}
 
 								});
@@ -3814,17 +3951,24 @@ label:before {
 			var custName = $("#custName" + token).val();
 			var phoneNo = $("#phoneNo" + token).val();
 			var itemName = $("#itemName" + token).val();
+			var total = $("#total" + token).text();
+			//alert(total);
+
 			var isValid = true;
-			if (custName == "" || custName == null) {
+			if (total == "" || total == null || parseFloat(total) == 0) {
+				isValid = false;
+				alert("Please Add Items for Token No. " + token);
+			} else if (custName == "" || custName == null) {
 				isValid = false;
 				alert("Please Enter Customer Name");
 			} else if (phoneNo != "" && phoneNo.length != 10) {
 				isValid = false;
 				alert("Please Enter Valid Phone No");
-			} else if (itemName == "" || itemName == null) {
+			}
+			/* else if (itemName == "" || itemName == null) {
 				isValid = false;
 				alert("Please Enter Select Item");
-			}
+			} */
 			return isValid;
 		}
 
@@ -3878,6 +4022,8 @@ label:before {
 										$('#table_grid' + token + ' td')
 												.remove();
 										// alert(data.sellBillNo);
+										
+										clearData(token);
 
 										document.getElementById(
 												"barcode" + token)
@@ -3907,17 +4053,27 @@ label:before {
 
 										document.getElementById(
 												"barcode" + token).focus();
+
+										document
+												.getElementById("gstNo" + token).value = "";
+										document.getElementById("custName"
+												+ token).value = "Cash";
+										document.getElementById("phoneNo"
+												+ token).value = "";
+										$("#rateTdVal" + token).html("0.0");
+										document.getElementById("itemName"
+												+ token).value = "";
+										$('.chosen-select').trigger(
+												'chosen:updated');
+
+										document
+												.getElementById("gstNo" + token).value = "";
+										document.getElementById("custName"
+												+ token).value = "";
+										document.getElementById("phoneNo"
+												+ token).value = "";
 										
-										document.getElementById(
-												"gstNo"+token).value="";
-										document.getElementById(
-												"custName"+token).value="Cash";
-										document.getElementById(
-												"phoneNo"+token).value="";
-									       $("#rateTdVal"+token).html("0.0");
-									       document.getElementById("itemName"+token).value="";
-						                    $('.chosen-select').trigger('chosen:updated');
-						                    
+										document.getElementById("isCredit"+token).checked = false;
 
 									}
 								});
@@ -3942,41 +4098,41 @@ label:before {
 
 				//	document.getElementById("pdfBtn" + token).disabled = true;
 				document.getElementById("clear" + token).disabled = true;
-				
-				$('#table_grid' + token + ' td').remove();
-				document.getElementById("discount"+token).value="0.0";
 
-				document.getElementById(
-						"barcode" + token).value="";
+				$('#table_grid' + token + ' td').remove();
+				document.getElementById("discount" + token).value = "0.0";
+
+				document.getElementById("barcode" + token).value = "";
 
 				$("#rateTdVal" + token).html("0.0");
 
 				$("#total" + token).html("0.0");
-				document.getElementById("tot" + token).value="0.0";
+				document.getElementById("tot" + token).value = "0.0";
 
-				
-				document.getElementById("paidAmount" + token).setAttribute('value',0);
+				document.getElementById("paidAmount" + token).setAttribute(
+						'value', 0);
 				$('#grandtotal' + token).html("0.0");
-				document.getElementById(
-						"grandtot" + token).value="0.0";
+				document.getElementById("grandtot" + token).value = "0.0";
 
 				$('#remAmt' + token).html(0);
-				document.getElementById(
-						"remAmount" + token).value="0.0";
-				document.getElementById("discount"+token).value="0.0";
-				document.getElementById("discountRs"+token).value="0.0";
 
-				document.getElementById(
-						"barcode" + token).focus();
-				document.getElementById(
-						"gstNo"+token).value="";
-				document.getElementById(
-						"custName"+token).value="Cash";
-				document.getElementById(
-						"phoneNo"+token).value="";
-			       $("#rateTdVal"+token).html("0.0");
-			       document.getElementById("itemName"+token).value="";
-                    $('.chosen-select').trigger('chosen:updated');
+				document.getElementById("paidAmount" + token).value = "0.0";
+
+				document.getElementById("remAmount" + token).value = "0.0";
+				document.getElementById("discount" + token).value = "0.0";
+				//document.getElementById("discountRs" + token).value = "0.0";
+
+				//alert("hi");
+
+				document.getElementById("barcode" + token).focus();
+				document.getElementById("gstNo" + token).value = "";
+				document.getElementById("custName" + token).value = "";
+				document.getElementById("phoneNo" + token).value = "";
+				$("#rateTdVal" + token).html("0.0");
+				document.getElementById("itemName" + token).value = "";
+				$('.chosen-select').trigger('chosen:updated');
+				
+				document.getElementById("isCredit"+token).checked = false;
 				
 
 			});
@@ -4112,6 +4268,144 @@ label:before {
 				$("#loader1").show();
 			});  */
 	</script>
+
+
+	<script type="text/javascript">
+		$("#custName1").on('input', function() {
+			var val = this.value;
+			if ($('#customerList1 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName1').value = data[0];
+					document.getElementById('phoneNo1').value = data[1];
+					document.getElementById('gstNo1').value = data[2];
+
+				}
+
+			}
+		});
+
+		$("#custName2").on('input', function() {
+			var val = this.value;
+			if ($('#customerList2 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName2').value = data[0];
+					document.getElementById('phoneNo2').value = data[1];
+					document.getElementById('gstNo2').value = data[2];
+
+				}
+
+			}
+		});
+
+		$("#custName3").on('input', function() {
+			var val = this.value;
+			if ($('#customerList3 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName3').value = data[0];
+					document.getElementById('phoneNo3').value = data[1];
+					document.getElementById('gstNo3').value = data[2];
+
+				}
+
+			}
+		});
+
+		$("#custName4").on('input', function() {
+			var val = this.value;
+			if ($('#customerList4 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName4').value = data[0];
+					document.getElementById('phoneNo4').value = data[1];
+					document.getElementById('gstNo4').value = data[2];
+
+				}
+
+			}
+		});
+
+		$("#custName5").on('input', function() {
+			var val = this.value;
+			if ($('#customerList5 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName5').value = data[0];
+					document.getElementById('phoneNo5').value = data[1];
+					document.getElementById('gstNo5').value = data[2];
+
+				}
+
+			}
+		});
+
+		$("#custName6").on('input', function() {
+			var val = this.value;
+			if ($('#customerList6 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName6').value = data[0];
+					document.getElementById('phoneNo6').value = data[1];
+					document.getElementById('gstNo6').value = data[2];
+
+				}
+
+			}
+		});
+
+		$("#custName7").on('input', function() {
+			var val = this.value;
+			if ($('#customerList7 option').filter(function() {
+				return this.value.toUpperCase() === val.toUpperCase();
+			}).length) {
+				//send ajax request
+				if (val != null || val != "") {
+
+					var data = val.split('-');
+
+					document.getElementById('custName7').value = data[0];
+					document.getElementById('phoneNo7').value = data[1];
+					document.getElementById('gstNo7').value = data[2];
+
+				}
+
+			}
+		});
+	</script>
+
+
 
 	<!-- document.getElementById("mySelect").value = "orange"; -->
 	<!----------------------------------------Dropdown With Search----------------------------------------------- -->
