@@ -150,10 +150,10 @@ table, th, td {
 
 
 				<div class="colOuter">
-					<div class="col-md-2">
+					<div class="col-md-1">
 						<div class="col1title">Current Month:</div>
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-11" style="text-align: left; margin: 8px 0 0 0;">
 
 						<c:forEach items="${category}" var="category" varStatus="count">
 							<c:forEach items="${getMonthList}" var="getMonthList"
@@ -219,7 +219,7 @@ table, th, td {
 				</div>
 				<div class="colOuter">
 					<div class="col-md-1">
-						<div class="col1title">Select Category</div>
+						<div class="col1title" style="text-align: right;">Category</div>
 					</div>
 					<div class="col-md-2">
 						<select name="select_category" class="form-control chosen"
@@ -244,7 +244,7 @@ table, th, td {
 
 
 					<div class="col-md-1">
-						<div class="col1title">Select View Option</div>
+						<div class="col1title" style="text-align: right;">View Type</div>
 					</div>
 					<div class="col-md-2">
 						<select name="selectStock" class="form-control chosen"
@@ -258,7 +258,7 @@ table, th, td {
 						</select>
 					</div>
 					<div class="col-md-1">
-						<div class="col1title">Type</div>
+						<div class="col1title" style="text-align: right;">Stock Type</div>
 					</div>
 					<div class="col-md-2">
 						<select name="st_type" class="form-control chosen" tabindex="4"
@@ -272,7 +272,9 @@ table, th, td {
 						</select>
 					</div>
 
-
+					<div class="col-md-1">
+						<div class="col1title" style="text-align: right;">Rate Type</div>
+					</div>
 					<div class="col-md-2">
 						<select name="select_rate" class="form-control chosen"
 							tabindex="4" id="select_rate" onchange="searchStock()" required>
@@ -317,7 +319,7 @@ table, th, td {
 
 
 				<div class="colOuter" style="display: none" id=select_date>
-					<div class="col-md-2">
+					<div class="col-md-1"  style="text-align: right;">
 						<div class="col1title">From Date:</div>
 					</div>
 					<div class="col-md-2" align="left">
@@ -332,13 +334,18 @@ table, th, td {
 
 
 
-					<div class="col-md-2">
-						<div class="col1title">To Date:</div>
+					<div class="col-md-1">
+						<div class="col1title"  style="text-align: right;">To Date:</div>
 					</div>
 					<div class="col-md-2" align="left">
 						<input id="todatepicker" class="texboxitemcode texboxcal"
 							autocomplete="off" placeholder="To Date" name="to_datepicker"
 							type="text">
+					</div>
+					
+					<div class="col-md-1">
+						<input name="search_stock" class="buttonsaveorder" value="Search"
+							type="button" onclick="searchStock()">
 					</div>
 
 				</div>
@@ -351,8 +358,8 @@ table, th, td {
 						<div class="col1title"></div>
 					</div>
 					<div class="col2">
-						<input name="search_stock" class="buttonsaveorder" value="Search"
-							type="button" onclick="searchStock()">
+						<!-- <input name="search_stock" class="buttonsaveorder" value="Search"
+							type="button" onclick="searchStock()"> -->
 
 						<div align="center" id="loader" style="display: none">
 

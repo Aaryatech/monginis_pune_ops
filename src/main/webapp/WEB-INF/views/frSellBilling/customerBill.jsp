@@ -103,6 +103,9 @@ if it's not present, don't show loader */
 .no-js #loader {
 	display: none;
 }
+.clr{clear: both;}
+.cd-tabs-content{border: 1px solid #FFF;}
+.cd-tabs-content li{padding: 25px 0;}
 
 .js #loader {
 	display: block;
@@ -624,7 +627,7 @@ label:before {
 										onclick="clearData(1)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo1"
 								value="" />
-
+								<div class="clr"></div>
 							</li>
 							<!--tab1-->
 
@@ -734,9 +737,6 @@ label:before {
 								<div class="se-pre-con" style="display: none;" id="loader2"></div>
 								<div class="checkdiv" style="display: none;" id="check2"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
-
-
-
 								<div id="table-scroll" class="table-scroll">
 									<div id="faux-table" class="faux-table" aria="hidden"></div>
 									<div class="table-wrap table-wrap-custbill">
@@ -765,14 +765,6 @@ label:before {
 										</table>
 									</div>
 								</div> <br>
-
-
-
-
-
-
-
-
 
 								<div class="row">
 									<div class="col-md-4">
@@ -892,6 +884,7 @@ label:before {
 										onclick="clearData(2)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo2"
 								value="" />
+								<div class="clr"></div>
 							</li>
 							<!--tab2-->
 
@@ -1003,8 +996,6 @@ label:before {
 								<div class="checkdiv" style="display: none;" id="check3"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
-
-
 								<div id="table-scroll" class="table-scroll">
 									<div id="faux-table" class="faux-table" aria="hidden"></div>
 									<div class="table-wrap table-wrap-custbill">
@@ -1033,12 +1024,6 @@ label:before {
 										</table>
 									</div>
 								</div> <br>
-
-
-
-
-
-
 
 								<div class="row">
 									<div class="col-md-4">
@@ -1158,6 +1143,7 @@ label:before {
 										onclick="clearData(3)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo3"
 								value="" />
+								<div class="clr"></div>
 							</li>
 							<!--tab4-->
 							<li data-content="tab4" class=" ">
@@ -1267,8 +1253,6 @@ label:before {
 								<div class="checkdiv" style="display: none;" id="check4"></div>
 								<div class="clearfix"></div> <br /> <!-- Form End -->
 
-
-
 								<div id="table-scroll" class="table-scroll">
 									<div id="faux-table" class="faux-table" aria="hidden"></div>
 									<div class="table-wrap table-wrap-custbill">
@@ -1297,11 +1281,6 @@ label:before {
 										</table>
 									</div>
 								</div> <br>
-
-
-
-
-
 
 								<div class="row">
 									<div class="col-md-4">
@@ -1422,6 +1401,7 @@ label:before {
 										onclick="clearData(4)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo4"
 								value="" />
+								<div class="clr"></div>
 							</li>
 							<!--tab5-->
 							<li data-content="tab5" class=" ">
@@ -1675,6 +1655,7 @@ label:before {
 										onclick="clearData(5)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo5"
 								value="" />
+								<div class="clr"></div>
 							</li>
 							<!--tab6-->
 							<li data-content="tab6" class=" ">
@@ -1939,6 +1920,7 @@ label:before {
 										onclick="clearData(6)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo6"
 								value="" />
+								<div class="clr"></div>
 							</li>
 							<!--tab7-->
 							<li data-content="tab7" class=" ">
@@ -2191,6 +2173,7 @@ label:before {
 										onclick="clearData(7)">Clear</button>
 								</center> <input type="hidden" class="form-control" id="sellBillNo7"
 								value="" />
+								<div class="clr"></div>
 							</li>
 							<!--tab8-->
 						</ul>
