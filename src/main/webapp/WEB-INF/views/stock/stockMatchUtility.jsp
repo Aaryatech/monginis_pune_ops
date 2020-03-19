@@ -10,9 +10,10 @@
 	href="${pageContext.request.contextPath}/resources/css/tableSearch.css">
 
 <style>
- .main-table tbody > tr:hover{
-  background-color: #ffa;
+.main-table tbody>tr:hover {
+	background-color: #ffa;
 }
+
 .alert {
 	padding: 15px;
 	background-color: #f44336;
@@ -33,13 +34,14 @@
 .closebtn:hover {
 	color: black;
 }
+
 a:link {
-    color: black;
-}
-a:hover {
-    color: black;
+	color: black;
 }
 
+a:hover {
+	color: black;
+}
 </style>
 
 <!--topLeft-nav-->
@@ -69,179 +71,206 @@ a:hover {
 				<jsp:param name="myMenu" value="${menuList}" />
 			</jsp:include>
 			<!--leftNav-->
-		
+
 			<!--rightSidebar-->
-			 	<div class="row"><div class="sidebarright">
-			 	<form action="${pageContext.request.contextPath}/showStockMatchUtility" method="POST" >
-			
-				<div class="order-left">
-					<h2 class="pageTitle">Bill As Per Physical Stock</h2>
-					<!--<h3 class="pageTitle2">Order Date : 22-02-2017 </h3>-->
-				</div>
-				<div class="order-right" align="right">
-             	</div>
-				<div class="colOuter">
-					<div class="col-md-2">
-						<div class="col1title">Select Category</div>
-					</div>
-					<div class="col-md-3">
-						<select name="cat_id" class="form-control chosen"
-							tabindex="4" id="cat_id"  required>
+			<div class="row">
+				<div class="sidebarright">
+					<form
+						action="${pageContext.request.contextPath}/showStockMatchUtility"
+						method="POST">
 
-							<option value="-1">Select Category</option>
-							<c:forEach items="${category}" var="category" varStatus="count">
-								<c:choose>
-									<c:when
-										test="${category.catId != '5' and category.catId != '6' and category.catId != '7' }">
-										<!-- and category.catId != '6' -->
-                                     <c:choose>
-									<c:when test="${category.catId==catId}">
-										<option value="${category.catId}" selected><c:out value="${category.catName}" /></option>
-									</c:when>
-									<c:otherwise>
-								    <option value="${category.catId}" ><c:out value="${category.catName}" /></option>
-									</c:otherwise>
-									</c:choose>
-									</c:when>
-								</c:choose>
-							</c:forEach>
+						<div class="order-left">
+							<h2 class="pageTitle">Bill As Per Physical Stock</h2>
+							<!--<h3 class="pageTitle2">Order Date : 22-02-2017 </h3>-->
+						</div>
+						<div class="order-right" align="right"></div>
+						<div class="colOuter">
+							<div class="col-md-2">
+								<div class="col1title">Select Category</div>
+							</div>
+							<div class="col-md-3">
+								<select name="cat_id" class="form-control chosen" tabindex="4"
+									id="cat_id" required>
 
-						</select>
-					</div>
-                  <input type="hidden" name="selectStock" id="selectStock" value="1" />
-				  <input type="hidden" name="st_type" id="st_type" value="1" />
-                 <input type="hidden" name="selectRate" id="selectRate" value="2" />
-			
+									<option value="-1">Select Category</option>
+									<c:forEach items="${category}" var="category" varStatus="count">
+										<c:choose>
+											<c:when
+												test="${category.catId != '5' and category.catId != '6' and category.catId != '7' }">
+												<!-- and category.catId != '6' -->
+												<c:choose>
+													<c:when test="${category.catId==catId}">
+														<option value="${category.catId}" selected><c:out
+																value="${category.catName}" /></option>
+													</c:when>
+													<c:otherwise>
+														<option value="${category.catId}"><c:out
+																value="${category.catName}" /></option>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+										</c:choose>
+									</c:forEach>
 
-					<div class="col2">
-						<input name="search" class="buttonsaveorder" value="Search"
-							type="submit" >
-					</div>
-             	</div>	
-             	</form>
-             	                   <c:set var="btnDisplayStyle" value="none;color:grey;" />
-             	
+								</select>
+							</div>
+							<input type="hidden" name="selectStock" id="selectStock"
+								value="1" /> <input type="hidden" name="st_type" id="st_type"
+								value="1" /> <input type="hidden" name="selectRate"
+								id="selectRate" value="2" />
+
+
+							<div class="col2">
+								<input name="search" class="buttonsaveorder" value="Search"
+									type="submit">
+							</div>
+						</div>
+					</form>
+					<c:set var="btnDisplayStyle" value="none;color:grey;" />
+
 					<div class="col-md-12">
 						<!--table-->
-						<form action="${pageContext.request.contextPath}/addSellBill" method="POST"
+						<form action="${pageContext.request.contextPath}/addSellBill"
+							method="POST"
 							onsubmit="substk.disabled = true; return confirm('Do you want to Submit ?');">
 							<div class="clearfix"></div>
 							<div class="col-md-9"></div>
-						  <div class="cd-tabs" style="margin-top: 2px;">
-						<nav>
-							<ul class="cd-tabs-navigation">
+							<div class="cd-tabs" style="margin-top: 2px;">
+								<nav>
+									<ul class="cd-tabs-navigation">
 
-								<c:forEach var="tab" items="${subCatListTitle}" varStatus="loop">
-
-
-									<c:choose>
-										<c:when test='${loop.index==0}'>
-											<li><a data-content='${tab.header}' href="#0"
-												class="selected"
-												onClick="javascript:se_tab_id('${loop.index}')">${tab.name}</a></li>
-
-										</c:when>
-										<c:otherwise>
-											<li><a data-content='${tab.header}' href="#0"
-												onClick="javascript:se_tab_id('${loop.index}')">${tab.name}</a></li>
-
-										</c:otherwise>
-									</c:choose>
+										<c:forEach var="tab" items="${subCatListTitle}"
+											varStatus="loop">
 
 
-								</c:forEach>
+											<c:choose>
+												<c:when test='${loop.index==0}'>
+													<li><a data-content='${tab.header}' href="#0"
+														class="selected"
+														onClick="javascript:se_tab_id('${loop.index}')">${tab.name}</a></li>
 
-							</ul>
-						</nav> 
-						<!--tabMenu-->
-						<ul class="cd-tabs-content">
-							<!--tab1-->
-							<c:forEach var="tabs" items="${subCatListTitle}" varStatus="loop"> 
+												</c:when>
+												<c:otherwise>
+													<li><a data-content='${tab.header}' href="#0"
+														onClick="javascript:se_tab_id('${loop.index}')">${tab.name}</a></li>
 
-								 <c:choose>
-									<c:when test='${loop.index==0}'>
-										<li data-content='${tabs.header}' class="selected">
-									</c:when>
-									<c:otherwise>
-										<li data-content='${tabs.header}'>
-									</c:otherwise>
-								</c:choose>
+												</c:otherwise>
+											</c:choose>
 
-								<div id="table-scroll" >
-							 
-									<div id="faux-table" class="faux-table" aria="hidden" style="display: none;">
-									 <table id="table_grid" class="main-table" >
-											<thead >
-												<tr class="bgpink"style="background-color: #ee578f;color:#ffffff;">
-                                                 <td class="col-md-1">Sr.No</td>
-                                                 <td class="col-md-2">Item Name</td>
-                                                 <td class="col-md-1">Current Stock</td>
-                                                 <td class="col-md-1">Physical Qty</td>
-                                                 <td class="col-md-1">Bill Qty</td>
-                                                 <td class="col-md-1">MRP</td>
-                                                 <td class="col-md-1">Total</td>
-												</tr>
-												</thead>
-												</table> 
-									
-									</div>
-									<div class="table-wrap">
-									
-										<table id="table_grid1" class="responsive-table">
-											<thead >
-												<tr class="bgpink"style="background-color: #ee578f;color:#ffffff;">
-												 <td class="col-md-1" style="text-align: left;">Sr.No</td>
-                                                 <td class="col-md-2" style="text-align: left;" >Item Name</td>
-                                                 <td class="col-md-1">Current Stock</td>
-                                                 <td class="col-md-1">Physical Qty</td>
-                                                 <td class="col-md-1">Bill Qty</td>
-                                                 <td class="col-md-1">MRP</td>
-                                                 <td class="col-md-1">Total</td>
-												</tr>
-												</thead>
-												<tbody>
-											<c:forEach var="stockDetailList" items="${stockDetailList}" varStatus="loop">
-											  <c:if test="${stockDetailList.subCatId eq tabs.header}">
 
-						                <c:set var="color" value="" />
-   												<c:set var="flag" value="0" />
-                                             	<c:if test="${stockDetailList.currentRegStock<=0}">
-                                             	  <c:set var="color" value="red" />	<c:set var="flag" value="1" />
-                                             	</c:if>
-                                             	<c:if test="${stockDetailList.currentRegStock>0}">
-                                             	<c:set var="btnDisplayStyle" value="block" />
-                                             	</c:if>
-                                       		 	<tr class="bgpink" style="color:${color}">
-												 <td class="col-md-1" style="text-align: left;">${(loop.index)+1}</td>
-                                                 <td class="col-md-2" style="text-align: left;">${stockDetailList.itemName}</td>
-                                                 <td class="col-md-1">${stockDetailList.currentRegStock}</td>
-                                                 <td class="col-md-1"><c:choose>
-                                                 <c:when test="${flag==0}">
-                                                  <input type="number" class="form-control" style="width: 80%;" name="physicalQty${stockDetailList.id}" id="physicalQty${stockDetailList.id}" value="0"  onchange="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock})"/>
-                                                 </c:when>
-                                                 <c:otherwise>
-                                                  <input type="number" class="form-control" style="width: 80%;" name="physicalQty${stockDetailList.id}" id="physicalQty${stockDetailList.id}" value="0"  onchange="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock})" readonly/>
-                                                 </c:otherwise>
-                                                 </c:choose>
-                                                </td>
-                                                <input type="hidden" name="qty${stockDetailList.id}" id="qty${stockDetailList.id}"  />
-                                                 <td class="col-md-1" id="billQty${stockDetailList.id}">0 </td>
-                                                 <td class="col-md-1">${stockDetailList.spTotalPurchase}</td>
-                                                 <td class="col-md-1" id="total${stockDetailList.id}">0</td>
-												</tr>
- 										 	</c:if>  
- 										 </c:forEach>
-												
-											   </tbody>
+										</c:forEach>
 
-						</table>
-					</div>
-				</div>
-						 	</c:forEach>  
-								
+									</ul>
+								</nav>
+								<!--tabMenu-->
+								<ul class="cd-tabs-content">
+									<!--tab1-->
+									<c:forEach var="tabs" items="${subCatListTitle}"
+										varStatus="loop">
 
-						</ul>
-					</div>
+										<c:choose>
+											<c:when test='${loop.index==0}'>
+												<li data-content='${tabs.header}' class="selected">
+											</c:when>
+											<c:otherwise>
+												<li data-content='${tabs.header}'>
+											</c:otherwise>
+										</c:choose>
+
+										<div id="table-scroll">
+
+											<div id="faux-table" class="faux-table" aria="hidden"
+												style="display: none;">
+												<table id="table_grid" class="main-table">
+													<thead>
+														<tr class="bgpink"
+															style="background-color: #ee578f; color: #ffffff;">
+															<td class="col-md-1">Sr.No</td>
+															<td class="col-md-2">Item Name</td>
+															<td class="col-md-1">Current Stock</td>
+															<td class="col-md-1">Physical Qty</td>
+															<td class="col-md-1">Bill Qty</td>
+															<td class="col-md-1">MRP</td>
+															<td class="col-md-1">Total</td>
+														</tr>
+													</thead>
+												</table>
+
+											</div>
+											<div class="table-wrap">
+
+												<table id="table_grid1" class="responsive-table">
+													<thead>
+														<tr class="bgpink"
+															style="background-color: #ee578f; color: #ffffff;">
+															<td class="col-md-1" style="text-align: left;">Sr.No</td>
+															<td class="col-md-2" style="text-align: left;">Item
+																Name</td>
+															<td class="col-md-1">Current Stock</td>
+															<td class="col-md-1">Physical Qty</td>
+															<td class="col-md-1">Bill Qty</td>
+															<td class="col-md-1">MRP</td>
+															<td class="col-md-1">Total</td>
+														</tr>
+													</thead>
+													<tbody>
+														<c:forEach var="stockDetailList"
+															items="${stockDetailList}" varStatus="loop">
+															<c:if test="${stockDetailList.subCatId eq tabs.header}">
+
+																<c:set var="color" value="" />
+																<c:set var="flag" value="0" />
+																<c:if test="${stockDetailList.currentRegStock<=0}">
+																	<c:set var="color" value="red" />
+																	<c:set var="flag" value="1" />
+																</c:if>
+																<c:if test="${stockDetailList.currentRegStock>0}">
+																	<c:set var="btnDisplayStyle" value="block" />
+																</c:if>
+																<tr class="bgpink" style="color:${color}">
+																	<td class="col-md-1" style="text-align: left;">${(loop.index)+1}</td>
+																	<td class="col-md-2" style="text-align: left;">${stockDetailList.itemName}</td>
+																	<td class="col-md-1">${stockDetailList.currentRegStock}</td>
+																	<td class="col-md-1"><c:choose>
+																			<c:when test="${flag==0}">
+																				<input type="number" class="form-control"
+																					style="width: 80%;"
+																					name="physicalQty${stockDetailList.id}"
+																					id="physicalQty${stockDetailList.id}" value="0"
+																					onkeyup="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock})"
+																					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" />
+																			</c:when>
+																			<c:otherwise>
+																				<input type="number" class="form-control"
+																					style="width: 80%;"
+																					name="physicalQty${stockDetailList.id}"
+																					id="physicalQty${stockDetailList.id}" value="0"
+																					onkeyup="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock})"
+																					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+																					readonly />
+																			</c:otherwise>
+																		</c:choose></td>
+																	<input type="text" name="qty${stockDetailList.id}"
+																		id="qty${stockDetailList.id}"
+																		value="${stockDetailList.currentRegStock}" />
+																	<td class="col-md-1" id="billQty${stockDetailList.id}">${stockDetailList.currentRegStock}
+																	</td>
+																	<td class="col-md-1">${stockDetailList.spTotalPurchase}</td>
+																	<td class="col-md-1" id="total${stockDetailList.id}">${stockDetailList.currentRegStock*stockDetailList.spTotalPurchase}</td>
+																</tr>
+															</c:if>
+														</c:forEach>
+
+													</tbody>
+
+												</table>
+											</div>
+										</div>
+									</c:forEach>
+
+
+								</ul>
+							</div>
 
 							<div class="colOuter" id="sellBillAdd">
 								<div class="col4full" align="right">
@@ -351,21 +380,39 @@ a:hover {
 
 <script type="text/javascript">
 		function onChange(rate,id,stkQty) {
+			
+			
 
 			//calculate total value  
 			var qty = $('#physicalQty'+id).val();
 			
-			if(qty<=stkQty){
+			if(qty==""){
+				
+				var total = rate * stkQty;
+				 
+			  	//$('#billQty'+id).html(insertQty);
+			   	$('#qty'+id).val(stkQty);
+			    $('#billQty'+id).html(stkQty);
+				$('#total'+id).html(total.toFixed(2));
+				$('#physicalQty'+id).val(0);
+				
+				
+			}else if(qty<=stkQty){
 				var insertQty=stkQty-qty;
 				
 			    var total = rate * insertQty;
 			   $('#billQty'+id).html(insertQty);
 			   $('#qty'+id).val(insertQty);
 			   $('#total'+id).html(total.toFixed(2));
-			}else
-			{   alert("Please Enter Valid Qty!!");
+			}else {   alert("Please Enter Valid Qty!!");
 				
-				$('#total'+id).html(0);$('#physicalQty'+id).val(0);
+			 	var total = rate * stkQty;
+			 
+			  	//$('#billQty'+id).html(insertQty);
+			   	$('#qty'+id).val(stkQty);
+			    $('#billQty'+id).html(stkQty);
+				$('#total'+id).html(total.toFixed(2));
+				$('#physicalQty'+id).val(0);
 			}
 		}
 	</script>
@@ -422,7 +469,7 @@ $(document).ready(function() {
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-	
+
 <script>
 function sortTable() {
   var table, rows, switching, i, x, y, shouldSwitch;

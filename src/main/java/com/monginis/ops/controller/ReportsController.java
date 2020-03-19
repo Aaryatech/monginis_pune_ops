@@ -88,6 +88,8 @@ import com.monginis.ops.model.MCategory;
 import com.monginis.ops.model.Main;
 import com.monginis.ops.model.MonthWiseReport;
 import com.monginis.ops.model.MonthWiseReportList;
+import com.monginis.ops.model.OPSViewSellBillModel;
+import com.monginis.ops.model.OpsDSRModel;
 import com.monginis.ops.model.grngvn.GrnGvnHeader;
 import com.monginis.ops.model.reportv2.CrNoteRegItem;
 import com.monginis.ops.model.reportv2.CrNoteRegSp;
@@ -1639,8 +1641,10 @@ public class ReportsController {
 		return model;
 	}
 
+	public List<OPSViewSellBillModel> getOPSSellBillHeaderList;
+
 	@RequestMapping(value = "/getBilwiselReport", method = RequestMethod.GET)
-	public @ResponseBody List<GetSellBillHeader> getSellBillHeader(HttpServletRequest request,
+	public @ResponseBody List<OPSViewSellBillModel> getSellBillHeader(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		try {
@@ -1659,36 +1663,23 @@ public class ReportsController {
 			map.add("fromDate", fromDate);
 			map.add("toDate", toDate);
 
-			getSellBillHeaderList = new ArrayList<GetSellBillHeader>();
+			getOPSSellBillHeaderList = new ArrayList<OPSViewSellBillModel>();
 
-			ParameterizedTypeReference<List<GetSellBillHeader>> typeRef = new ParameterizedTypeReference<List<GetSellBillHeader>>() {
+			ParameterizedTypeReference<List<OPSViewSellBillModel>> typeRef = new ParameterizedTypeReference<List<OPSViewSellBillModel>>() {
 			};
-			ResponseEntity<List<GetSellBillHeader>> responseEntity = restTemplate
-					.exchange(Constant.URL + "getSellBillHeader", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+			ResponseEntity<List<OPSViewSellBillModel>> responseEntity = restTemplate
+					.exchange(Constant.URL + "getSellBillForOPS", HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
-			getSellBillHeaderList = responseEntity.getBody();
+			getOPSSellBillHeaderList = responseEntity.getBody();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println("Sell Bill Header " + getSellBillHeaderList.toString());
+		System.out.println("Sell Bill Header " + getOPSSellBillHeaderList.toString());
 
-		// export to excel
-
-		/*
-		 * Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
-		 * public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
-		 * 
-		 * String[] ar1=c1.getInvoiceNo().split("-"); int a=Integer.parseInt(ar1[1]);
-		 * 
-		 * String[] ar2=c2.getInvoiceNo().split("-"); int b=Integer.parseInt(ar2[1]);
-		 * 
-		 * if (a > b) return 1; if (a < b) return -1; return 0; }});
-		 */
-
-		Collections.sort(getSellBillHeaderList, new Comparator<GetSellBillHeader>() {
-			public int compare(GetSellBillHeader c1, GetSellBillHeader c2) {
+		Collections.sort(getOPSSellBillHeaderList, new Comparator<OPSViewSellBillModel>() {
+			public int compare(OPSViewSellBillModel c1, OPSViewSellBillModel c2) {
 
 				String s1 = c1.getInvoiceNo();
 				String s2 = c2.getInvoiceNo();
@@ -1717,29 +1708,29 @@ public class ReportsController {
 
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
-		for (int i = 0; i < getSellBillHeaderList.size(); i++) {
+		for (int i = 0; i < getOPSSellBillHeaderList.size(); i++) {
 			expoExcel = new ExportToExcel();
 			rowData = new ArrayList<String>();
 
 			rowData.add("" + (i + 1));
-			rowData.add("" + getSellBillHeaderList.get(i).getInvoiceNo());
-			rowData.add("" + getSellBillHeaderList.get(i).getFrName());
-			rowData.add("" + getSellBillHeaderList.get(i).getBillDate());
-			rowData.add("" + getSellBillHeaderList.get(i).getDiscountPer());
-			rowData.add("" + roundUp(getSellBillHeaderList.get(i).getTaxableAmt()));
-			rowData.add("" + roundUp(getSellBillHeaderList.get(i).getTotalTax()));
-			rowData.add("" + roundUp(getSellBillHeaderList.get(i).getGrandTotal()));
-			rowData.add("" + roundUp(getSellBillHeaderList.get(i).getPayableAmt()));
-			rowData.add("" + roundUp(getSellBillHeaderList.get(i).getPaidAmt()));
-			rowData.add("" + roundUp(getSellBillHeaderList.get(i).getRemainingAmt()));
+			rowData.add("" + getOPSSellBillHeaderList.get(i).getInvoiceNo());
+			rowData.add("" + getOPSSellBillHeaderList.get(i).getFrName());
+			rowData.add("" + getOPSSellBillHeaderList.get(i).getBillDate());
+			rowData.add("" + getOPSSellBillHeaderList.get(i).getDiscountPer());
+			rowData.add("" + roundUp(getOPSSellBillHeaderList.get(i).getTaxableAmt()));
+			rowData.add("" + roundUp(getOPSSellBillHeaderList.get(i).getTotalTax()));
+			rowData.add("" + roundUp(getOPSSellBillHeaderList.get(i).getGrandTotal()));
+			rowData.add("" + roundUp(getOPSSellBillHeaderList.get(i).getPayableAmt()));
+			rowData.add("" + roundUp(getOPSSellBillHeaderList.get(i).getPaidAmt()));
+			rowData.add("" + roundUp(getOPSSellBillHeaderList.get(i).getRemainingAmt()));
 
-			if (getSellBillHeaderList.get(i).getPaymentMode() == 1) {
+			if (getOPSSellBillHeaderList.get(i).getPaymentMode() == 1) {
 				rowData.add("Cash");
 
-			} else if (getSellBillHeaderList.get(i).getPaymentMode() == 2) {
+			} else if (getOPSSellBillHeaderList.get(i).getPaymentMode() == 2) {
 				rowData.add("Card");
 
-			} else if (getSellBillHeaderList.get(i).getPaymentMode() == 3) {
+			} else if (getOPSSellBillHeaderList.get(i).getPaymentMode() == 3) {
 				rowData.add("other");
 			}
 
@@ -1752,7 +1743,7 @@ public class ReportsController {
 		session.setAttribute("exportExcelList", exportToExcelList);
 		session.setAttribute("excelName", "BillWiseSell");
 
-		return getSellBillHeaderList;
+		return getOPSSellBillHeaderList;
 
 	}
 
@@ -1858,7 +1849,7 @@ public class ReportsController {
 		rowData.add("Total Day Sale");
 		rowData.add("Cash");
 		rowData.add("Card");
-		/* rowData.add("Other"); */
+		rowData.add("EPay");
 
 		expoExcel.setRowData(rowData);
 		exportToExcelList.add(expoExcel);
@@ -1880,7 +1871,7 @@ public class ReportsController {
 			rowData.add("" + totalAmt);
 			rowData.add("" + getRepFrDatewiseSellResponse.get(i).getCash());
 			rowData.add("" + getRepFrDatewiseSellResponse.get(i).getCard());
-			/* rowData.add(""+getRepFrDatewiseSellResponse.get(i).getOther()); */
+			rowData.add("" + getRepFrDatewiseSellResponse.get(i).getOther());
 
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
@@ -1903,8 +1894,8 @@ public class ReportsController {
 			Calendar now = Calendar.getInstance();
 			HttpSession ses = request.getSession();
 			Franchisee frDetails = (Franchisee) ses.getAttribute("frDetails");
-			String toyear = "2018";
-			String fromyear = "2018";
+			String toyear = "2020";
+			String fromyear = "2019";
 
 			if ((now.get(Calendar.MONTH) + 1) > 3) {
 				fromyear = "" + (now.get(Calendar.YEAR));
@@ -2964,6 +2955,8 @@ public class ReportsController {
 		try {
 			System.out.println("BILL LIST try");
 
+			getOPSSellBillHeaderList = new ArrayList<OPSViewSellBillModel>();
+
 			/*
 			 * HttpSession ses = request.getSession(); Franchisee frDetails = (Franchisee)
 			 * ses.getAttribute("frDetails");
@@ -2976,15 +2969,15 @@ public class ReportsController {
 			map.add("fromDate", fromDate);
 			map.add("toDate", toDate);
 
-			getSellBillHeaderList = new ArrayList<GetSellBillHeader>();
+			getOPSSellBillHeaderList = new ArrayList<OPSViewSellBillModel>();
 
-			ParameterizedTypeReference<List<GetSellBillHeader>> typeRef = new ParameterizedTypeReference<List<GetSellBillHeader>>() {
+			ParameterizedTypeReference<List<OPSViewSellBillModel>> typeRef = new ParameterizedTypeReference<List<OPSViewSellBillModel>>() {
 			};
-			ResponseEntity<List<GetSellBillHeader>> responseEntity = restTemplate
-					.exchange(Constant.URL + "getSellBillHeader", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+			ResponseEntity<List<OPSViewSellBillModel>> responseEntity = restTemplate
+					.exchange(Constant.URL + "getSellBillForOPS", HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
-			getSellBillHeaderList = responseEntity.getBody();
-			System.out.println("BILL LIST" + getSellBillHeaderList.toString());
+			getOPSSellBillHeaderList = responseEntity.getBody();
+			System.out.println("BILL LIST" + getOPSSellBillHeaderList.toString());
 
 			map = new LinkedMultiValueMap<String, Object>();
 
@@ -3000,7 +2993,7 @@ public class ReportsController {
 			System.out.println(e.getMessage());
 		}
 
-		model.addObject("reportList", getSellBillHeaderList);
+		model.addObject("reportList", getOPSSellBillHeaderList);
 		return model;
 	}
 
@@ -3365,6 +3358,40 @@ public class ReportsController {
 			model.addObject("spList", getDailySalesDataList.getSpDailySalesList());
 
 			System.out.println("catList" + catList.toString());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		return model;
+
+	}
+
+	// Anmol
+	@RequestMapping(value = "/getDailySalesReportPrint/{date}", method = RequestMethod.GET)
+	public ModelAndView getDailySalesReportPrint(@PathVariable String date, HttpServletRequest request,
+			HttpServletResponse response) {
+		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView model = new ModelAndView("report/sellReport/dsrPrint");
+
+		try {
+			HttpSession session = request.getSession();
+
+			Franchisee frDetails = (Franchisee) session.getAttribute("frDetails");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("date", DateConvertor.convertToYMD(date));
+			map.add("frId", frDetails.getFrId());
+
+			OpsDSRModel drsModel = restTemplate.postForObject(Constant.URL + "getDailySalesDataPrint", map,
+					OpsDSRModel.class);
+			System.err.println("getDailySalesDataPrint" + drsModel.toString());
+
+			model.addObject("dsrModel", drsModel);
+			model.addObject("date", date);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4430,7 +4457,7 @@ public class ReportsController {
 		String appPath = context.getRealPath("");
 		String filename = "ordermemo221.pdf";
 		// String filePath = "/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf";
-		String filePath =Constant.CRN_REPORT_PATH;// "/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf";
+		String filePath = Constant.CRN_REPORT_PATH;// "/opt/apache-tomcat-8.5.37/webapps/uploadspune/crn.pdf";
 		// String filePath = "/opt/apache-tomcat-8.5.6/webapps/uploads/report.pdf";
 		// String filePath="/home/ats-12/pdf/ordermemo221.pdf";
 		// construct the complete absolute path of the file
@@ -4680,7 +4707,7 @@ public class ReportsController {
 				rowData.add("" + crNoteRegItemListDone.get(i).getFrCode());
 				rowData.add("" + crNoteRegItemListDone.get(i).getCrnDate());
 				rowData.add(" ");
-				rowData.add(""+Constant.STATE);
+				rowData.add("" + Constant.STATE);
 				rowData.add("" + roundUp(crnTotal));
 				rowData.add(" ");
 				rowData.add(

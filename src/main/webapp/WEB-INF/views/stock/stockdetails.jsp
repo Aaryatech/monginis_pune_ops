@@ -434,8 +434,8 @@ table, th, td {
 												<!-- <th class="col-md-1">Sp Pur Qty</th> -->
 												<th class="col-md-1">GRN/GVN Qty</th>
 												<th class="col-md-1">GRN/GVN Value</th>
-												<th class="col-md-1">REG Sale</th>
-												<th class="col-md-1">REG Sale Value</th>
+												<th class="col-md-1">Sale Qty</th>
+												<th class="col-md-1">Sale Value</th>
 												<th class="col-md-1">CUR Stock</th>
 												<th class="col-md-1">CUR Value</th>
 												<c:if test="${isMonthCloseApplicable eq true}">

@@ -62,6 +62,7 @@ import com.monginis.ops.model.Item;
 import com.monginis.ops.model.ItemResponse;
 import com.monginis.ops.model.MCategory;
 import com.monginis.ops.model.Main;
+import com.monginis.ops.model.OPSViewSellBillModel;
 import com.monginis.ops.model.PostFrItemStockHeader;
 import com.monginis.ops.model.SellBillDataCommon;
 import com.monginis.ops.model.SellBillDetailEdit;
@@ -102,7 +103,7 @@ public class CustomerBillController {
 
 	public CustomerBillData customerBillDataToken7 = new CustomerBillData();
 
-	List<GetSellBillHeader> getSellBillHeaderList;
+	List<OPSViewSellBillModel> getSellBillHeaderList;
 	List<GetSellBillDetail> getSellBillDetailList;
 
 	int menuId;
@@ -128,7 +129,7 @@ public class CustomerBillController {
 	}
 
 	@RequestMapping(value = "/getSellBillHeader", method = RequestMethod.GET)
-	public @ResponseBody List<GetSellBillHeader> getSellBillHeader(HttpServletRequest request,
+	public @ResponseBody List<OPSViewSellBillModel> getSellBillHeader(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		System.out.println("in method");
@@ -149,10 +150,37 @@ public class CustomerBillController {
 		// getFrGrnDetail
 		try {
 
-			ParameterizedTypeReference<List<GetSellBillHeader>> typeRef = new ParameterizedTypeReference<List<GetSellBillHeader>>() {
+			ParameterizedTypeReference<List<OPSViewSellBillModel>> typeRef = new ParameterizedTypeReference<List<OPSViewSellBillModel>>() {
 			};
-			ResponseEntity<List<GetSellBillHeader>> responseEntity = restTemplate
-					.exchange(Constant.URL + "getSellBillHeader", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+//			ResponseEntity<List<GetSellBillHeader>> responseEntity = restTemplate
+//					.exchange(Constant.URL + "getSellBillHeader", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+			
+			ResponseEntity<List<OPSViewSellBillModel>> responseEntity = restTemplate
+					.exchange(Constant.URL + "getSellBillForOPS", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+			
+			//getSellBillHeaderList=new ArrayList<>();
+			
+			/*
+			 * if(responseEntity.getBody()!=null) { for(int
+			 * i=0;i<responseEntity.getBody().size();i++) { GetSellBillHeader model=new
+			 * GetSellBillHeader();
+			 * model.setSellBillNo(responseEntity.getBody().get(i).getSellBillNo());
+			 * model.setInvoiceNo(responseEntity.getBody().get(i).getInvoiceNo());
+			 * model.setBillDate(responseEntity.getBody().get(i).getBillDate());
+			 * model.setTaxableAmt(responseEntity.getBody().get(i).getTaxableAmt());
+			 * model.setTotalTax(responseEntity.getBody().get(i).getTotalTax());
+			 * model.setGrandTotal(responseEntity.getBody().get(i).getGrandTotal());
+			 * model.setPaidAmt(responseEntity.getBody().get(i).getPaidAmt());
+			 * model.setRemainingAmt(responseEntity.getBody().get(i).getRemainingAmt());
+			 * model.setPaymentMode(responseEntity.getBody().get(i).getPaymentMode());
+			 * model.setDiscountPer(responseEntity.getBody().get(i).getDiscountPer());
+			 * model.setPayableAmt(responseEntity.getBody().get(i).getPayableAmt());
+			 * model.setFrName(responseEntity.getBody().get(i).getFrName());
+			 * model.setBillType(responseEntity.getBody().get(i).getBillType());
+			 * 
+			 * getSellBillHeaderList.add(model); } }
+			 */
+			
 
 			getSellBillHeaderList = responseEntity.getBody();
 		} catch (Exception e) {

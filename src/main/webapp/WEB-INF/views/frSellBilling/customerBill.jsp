@@ -3961,6 +3961,9 @@ label:before {
 
 			//	alert(grandtot);
 			if (validation(token) && grandtot > 0) {
+				
+				$('#loader'+token).show();
+				
 				var custName = $("#custName" + token).val();
 				var gstNo = $("#gstNo" + token).val();
 				var phoneNo = $("#phoneNo" + token).val();
@@ -3968,8 +3971,8 @@ label:before {
 				var paymentMode = $("#paymentMode" + token).val();
 				var paidAmount = $("#paidAmount" + token).val();
 
-				$('#loader').show();
-				var loginWindow = window.open('', 'UserLogin');
+				//$('#loader').show();
+				//var loginWindow = window.open('', 'UserLogin');
 
 				$
 						.getJSON(
@@ -3986,11 +3989,17 @@ label:before {
 
 								},
 								function(data) {
+									
+									$('#loader'+token).hide();
+									
+									//alert("hi");
 
 									$('#loader').hide();
 									if (data == "") {
 										alert("Order Not Placed !!");
 									} else {
+										
+										var loginWindow = window.open('', 'UserLogin');
 
 										document.getElementById("li" + token).style.backgroundColor = "white";
 										loginWindow.location.href = '${pageContext.request.contextPath}/pdfSellBill?billNo='

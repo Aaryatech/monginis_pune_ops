@@ -125,77 +125,80 @@ jQuery(document).ready(function(){
 
 				</div>
 				<br />
-	<form name="editSellBill" id="editSellBill" method="post"
+				<form name="editSellBill" id="editSellBill" method="post"
 					action="${pageContext.request.contextPath}/editSellBill">
-			<input type="hidden" name="sellBillNo" id="sellBillNo" value="${sellBillNo}" />
-				<input type="hidden" name="billDate" id="billDate" value="${billDate}" />
-				<div class="row">
-					<div class="col-md-12">
-						<!--table-->
-						<div class="table-responsive">
-							<div class="shInnerwidth">
-
-							
-								<table width="100%" border="0" cellspacing="0" cellpadding="0"
-									id="table_grid6" class="table table-bordered">
-									<tr class="bgpink">
-										<th>Index</th>
-										<th>Item Name
-										</th>
-										<th>Qty
-										</th>
-										<th>Edit Qty
-										</th>
-										<th>MRP Base Rate
-										</th>
-										<th>Taxable Amount
-										</th>
-										<th>Tax %
-										</th>
-										<th>Total Tax
-										</th>
-										<th>MRP
-										</th>
-
-										<th>Total
-										</th>
+					<input type="hidden" name="sellBillNo" id="sellBillNo"
+						value="${sellBillNo}" /> <input type="hidden" name="billDate"
+						id="billDate" value="${billDate}" />
+					<div class="row">
+						<div class="col-md-12">
+							<!--table-->
+							<div class="table-responsive">
+								<div class="shInnerwidth">
 
 
-									</tr>
-									<tbody>
+									<table width="100%" border="0" cellspacing="0" cellpadding="0"
+										id="table_grid6" class="table table-bordered">
+										<tr class="bgpink">
+											<th>Index</th>
+											<th>Item Name</th>
+											<th>Qty</th>
+											<th>Edit Qty</th>
+											<th>MRP Base Rate</th>
+											<th>Taxable Amount</th>
+											<th>Tax %</th>
+											<th>Total Tax</th>
+											<th>MRP</th>
 
-										<c:set var="taxableSum" value="0"></c:set>
-										<c:set var="taxSum" value="0"></c:set>
-										<c:set var="totalSum" value="0"></c:set>
-										<c:set var="qtySum" value="0"></c:set>
+											<th>Total</th>
 
 
-										<c:forEach items="${sellBillDetails}" var="sellBill"
-											varStatus="count">
+										</tr>
+										<tbody>
 
-											<tr>
-												<td><c:out value="${count.index+1}" /></td>
-											
-												<td align="left"><c:out value="${sellBill.itemName}" /></td><td align="left">${sellBill.qty}</td>
-												<td align="left"><input type="number" style="width:50px;" value="${sellBill.qty}" id="qty${sellBill.sellBillDetailNo}" name="qty${sellBill.sellBillDetailNo}"  onchange="onQtyChange(${sellBill.sellBillDetailNo},${sellBillHeader.discountPer},${sellBill.mrpBaseRate},${sellBill.sgstPer},${sellBill.cgstPer},this.value)"/></td>
-												<td align="left"><c:out value="${sellBill.mrpBaseRate}" /></td>
-												<td align="left" id="taxableAmt${sellBill.sellBillDetailNo}"><c:out value="${sellBill.taxableAmt}" /></td>
-												<td align="left"><c:out
-														value="${sellBill.sgstPer+sellBill.cgstPer}" /></td>
-												<td align="left" id="totalTax${sellBill.sellBillDetailNo}"><c:out value="${sellBill.totalTax}" /></td>
-												<td align="left" ><c:out value="${sellBill.mrp}" /></td>
-												<td align="left" id="grandTotal${sellBill.sellBillDetailNo}"><c:out value="${sellBill.grandTotal}" /></td>
+											<c:set var="taxableSum" value="0"></c:set>
+											<c:set var="taxSum" value="0"></c:set>
+											<c:set var="totalSum" value="0"></c:set>
+											<c:set var="qtySum" value="0"></c:set>
 
-												<c:set var="taxableSum"
-													value="${sellBill.taxableAmt +taxableSum}"></c:set>
-												<c:set var="taxSum" value="${sellBill.totalTax +taxSum}"></c:set>
-												<c:set var="totalSum"
-													value="${sellBill.grandTotal +totalSum}"></c:set>
-												<c:set var="qtySum" value="${sellBill.qty+qtySum}"></c:set>
 
-											</tr>
-										</c:forEach>
-									<%-- 	<tr align="right" >
+											<c:forEach items="${sellBillDetails}" var="sellBill"
+												varStatus="count">
+
+												<tr>
+													<td><c:out value="${count.index+1}" /></td>
+
+													<td align="left"><c:out value="${sellBill.itemName}" /></td>
+													<td align="left">${sellBill.qty}</td>
+													<td align="left"><input type="number"
+														style="width: 50px;" value="${sellBill.qty}"
+														id="qty${sellBill.sellBillDetailNo}"
+														name="qty${sellBill.sellBillDetailNo}"
+														onchange="onQtyChange(${sellBill.sellBillDetailNo},${sellBillHeader.discountPer},${sellBill.mrpBaseRate},${sellBill.sgstPer},${sellBill.cgstPer},this.value)" /></td>
+													<td align="left"><c:out
+															value="${sellBill.mrpBaseRate}" /></td>
+													<td align="left"
+														id="taxableAmt${sellBill.sellBillDetailNo}"><c:out
+															value="${sellBill.taxableAmt}" /></td>
+													<td align="left"><c:out
+															value="${sellBill.sgstPer+sellBill.cgstPer}" /></td>
+													<td align="left" id="totalTax${sellBill.sellBillDetailNo}"><c:out
+															value="${sellBill.totalTax}" /></td>
+													<td align="left"><c:out value="${sellBill.mrp}" /></td>
+													<td align="left"
+														id="grandTotal${sellBill.sellBillDetailNo}"><c:out
+															value="${sellBill.grandTotal}" /></td>
+
+													<c:set var="taxableSum"
+														value="${sellBill.taxableAmt +taxableSum}"></c:set>
+													<c:set var="taxSum" value="${sellBill.totalTax +taxSum}"></c:set>
+													<c:set var="totalSum"
+														value="${sellBill.grandTotal +totalSum}"></c:set>
+													<c:set var="qtySum" value="${sellBill.qty+qtySum}"></c:set>
+
+												</tr>
+											</c:forEach>
+											<%-- 	<tr align="right" >
 											<td width="100" colspan='3' align="right"><b>Total</b></td>
 											
 											<td width="100" align="right"><b><fmt:formatNumber
@@ -215,34 +218,42 @@ jQuery(document).ready(function(){
 														value="${totalSum}" /></b></td>
 										</tr>
  --%>
-									</tbody>
+										</tbody>
 
-								</table>
+									</table>
 
+								</div>
 							</div>
-							</div>
-						<!--table end-->
+							<!--table end-->
 
+						</div>
 					</div>
-				</div>
 					<div class="row">
-					<div class="col-md-2"><b>PrevPaid Amt:</b>&nbsp;${sellBillHeader.paidAmt}
-				</div>
-				<div class="col-md-1"><b>Paid Amt</b>
-				</div>
-				<div class="col-md-2">
-					<input type="number" name="paidAmt" class="form-control"  id="paidAmt" value="${sellBillHeader.grandTotal}" min="0" onchange="onPaidAmt(${sellBillHeader.paidAmt},${sellBillHeader.remainingAmt},this.value)"/>
-				</div>
-				<div class="col-md-1"><b>Remaining Amt</b>
-				</div>
-				<div class="col-md-1" id="remainingAmt">
-				       0.00
-				</div>
-				</div>
-				 <div align="center">
-				<input	name="submit" class="buttonsaveorder" value="Update" type="submit">
-				</div> 
-</form>
+						<div class="col-md-2">
+							<b>Prev Paid Amt = </b>&nbsp;&nbsp;&nbsp;${sellBillHeader.paidAmt}
+						</div>
+						<div class="col-md-1">
+							<b>Paid Amt</b>
+						</div>
+						<div class="col-md-2">
+							<input type="number" name="paidAmt" class="form-control"
+								id="paidAmt" value="${sellBillHeader.grandTotal}" min="0"
+								onchange="onPaidAmt(${sellBillHeader.paidAmt},${sellBillHeader.remainingAmt},this.value)" />
+						</div>
+						<div class="col-md-2" style="text-align: end;">
+							<b>Remaining Amt = </b>
+						</div>
+						<div class="col-md-1" id="remainingAmt" style="text-align: left; padding: 0;" >0.00</div>
+						<div class="col-md-4">
+							<div align="center">
+								<input name="submit" class="buttonsaveorder" value="Update"
+									type="submit">
+							</div>
+						</div>
+					</div>
+					<br><br><br>
+
+				</form>
 				<%-- <div align="center">
 					<a href="${pageContext.request.contextPath}/viewBill"><input
 						name="" class="buttonsaveorder" value="Go Back" align="center"
@@ -256,7 +267,7 @@ jQuery(document).ready(function(){
 	</div>
 	<!--rightContainer-->
 </div>
-<script >
+<script>
 function onPaidAmt(paidAmt,remainingAmt,currentPaidAmt)
 {
 	var remAmt=remainingAmt-currentPaidAmt;

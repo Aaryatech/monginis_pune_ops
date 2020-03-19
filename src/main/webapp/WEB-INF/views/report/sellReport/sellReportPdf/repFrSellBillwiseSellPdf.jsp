@@ -80,7 +80,7 @@ th {
 						</c:when>
 						<c:when test="${reportList.paymentMode==3}">
 
-							<td style="text-align: center;"><c:out value="Other" /></td>
+							<td style="text-align: center;"><c:out value="EPay" /></td>
 						</c:when>
 					</c:choose>
 

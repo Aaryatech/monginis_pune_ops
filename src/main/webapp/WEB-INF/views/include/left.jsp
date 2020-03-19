@@ -576,12 +576,12 @@
 							</div>
 
 							<a href="${pageContext.request.contextPath}/getGrnBillDetail"><i
-								class="fa fa-plus-circle icon"></i> Request GRN (Grn Based on Expiry of
-								product) </a>
+								class="fa fa-plus-circle icon"></i> Request GRN (Grn Based on
+								Expiry of product) </a>
 							<div class="clearfix"></div>
 							<a href="${pageContext.request.contextPath}/showGrn"><i
 								class="fa fa-plus-circle icon"></i> Auto GRN </a>
-							
+
 							<div class="clearfix"></div>
 							<a href="${pageContext.request.contextPath}/displayGrn"><i
 								class="fa fa-search-plus icon"></i> View GRN </a>
@@ -659,25 +659,73 @@
 				src="${pageContext.request.contextPath}/resources//images/closebtn.png"
 				alt="monginis"></a>
 			<div class="listarea">
-				<ul>
-					<%-- <li class="small-box">
-						
-							<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">Punching Based Reports</div>
-						</div>
-						<a href="${pageContext.request.contextPath}/viewBillwiseSell"><i class="fa fa-files-o icon"></i>Billwise Sale Report</a>
-						<a href="${pageContext.request.contextPath}/viewDatewiseSellBill"><i class="fa fa-calendar-o icon"></i>Datewise Sale Report</a>
-						<a href="${pageContext.request.contextPath}/viewMonthwiseSellBill"><i class="fa fa-calendar-o  icon"></i>Monthwise Sale Report</a>
-						<a href="${pageContext.request.contextPath}/viewItemwiseSellBill"><i class="fa fa-chevron-circle-down icon"></i>Categorywise- Itemwise Sale Report</a>
-					<a href="${pageContext.request.contextPath}/viewDateItemwiseSellBill"> <i class="fa fa-chevron-circle-down icon"></i>Datewise-Itemwise Sale Report</a>
-						
-								
-						</div>
-						
-					</li> --%>
 
-					<li class="small-box">
+				<div class="row">
+
+					<ul>
+
+						<c:if test="${isActiveFr==1}">
+
+
+							<li class="small-box">
+								<div class="ibox">
+									<div class="ibox-head">
+										<div class="ibox-title">Sale Reports</div>
+									</div>
+									<a href="${pageContext.request.contextPath}/viewBillwiseSell"><i
+										class="fa fa-files-o icon"></i>Billwise Sale Report</a> <a
+										href="${pageContext.request.contextPath}/viewDatewiseSellBill"><i
+										class="fa fa-calendar-o icon"></i>Datewise Sale Report</a> <a
+										href="${pageContext.request.contextPath}/viewMonthwiseSellBill"><i
+										class="fa fa-calendar-o  icon"></i>Monthwise Sale Report</a> <a
+										href="${pageContext.request.contextPath}/viewItemwiseSellBill"><i
+										class="fa fa-chevron-circle-down icon"></i>Categorywise-
+										Itemwise Sale Report</a> <a
+										href="${pageContext.request.contextPath}/viewDateItemwiseSellBill">
+										<i class="fa fa-chevron-circle-down icon"></i>Datewise-Itemwise
+										Sale Report
+									</a>
+									<%-- <a
+										href="${pageContext.request.contextPath}/showYearlySellReport"><i
+										class="fa fa-files-o icon"></i>Month Wise Sub Category Sale
+										Report Or Month Wise Item Sale Report</a> <a
+										href="${pageContext.request.contextPath}/showSubCatDateWiseSellReport"><i
+										class="fa fa-files-o icon"></i>Datewise Sub Category Sale
+										Report</a> <a
+										href="${pageContext.request.contextPath}/showHsnDateWiseSellReport"><i
+										class="fa fa-files-o icon"></i>Bill wise HSN wise Report</a> --%>
+
+
+								</div>
+
+							</li>
+						</c:if>
+
+						<li class="small-box">
+
+							<div class="ibox">
+								<div class="ibox-head">
+									<div class="ibox-title">Purchase Reports</div>
+								</div>
+
+								<a
+									href="${pageContext.request.contextPath}/viewBillWisePurchaseReport"><i
+									class="fa fa-files-o icon"></i>Billwise Purchase Report</a> <a
+									href="${pageContext.request.contextPath}/viewMonthWisePurchaseReport"><i
+									class="fa fa-files-o icon"></i>Monthwise Purchase Report</a> <a
+									href="${pageContext.request.contextPath}/viewItemWiseDetailReport"><i
+									class="fa fa-files-o icon"></i>Itemwise-Billwise-Datewise
+									Purchase Report</a> <a
+									href="${pageContext.request.contextPath}/viewItemWiseReport"><i
+									class="fa fa-files-o icon"></i>Itemwise Purchase Report</a> <a
+									href="${pageContext.request.contextPath}/viewBillTaxPurchaseReport"><i
+									class="fa fa-files-o icon"></i>Purchase Billwise Tax (Input)
+									Report</a>
+
+							</div>
+						</li>
+
+						<%-- 					<li class="small-box">
 
 						<div class="ibox">
 							<div class="ibox-head">
@@ -692,48 +740,97 @@
 								href="${pageContext.request.contextPath}/viewItemWiseDetailReport"><i
 								class="fa fa-files-o icon"></i>Itemwise-Billwise-Datewise
 								Purchase Report</a> <a
-								href="${pageContext.request.contextPath}/viewItemWiseReport"><i
-								class="fa fa-files-o icon"></i>Itemwise Purchase Report</a> <a
-								href="${pageContext.request.contextPath}/viewBillTaxPurchaseReport"><i
-								class="fa fa-files-o icon"></i>Purchase Billwise Tax (Input)
-								Report</a>
+								href="${pageContext.request.contextPath}/showSaleReportBySubCategory"><i
+								class="fa fa-files-o icon"></i> Subcategory Summery Report</a> <a
+								href="${pageContext.request.contextPath}/showFranchiseeWiseBillReport"><i
+								class="fa fa-files-o icon"></i> Bill Credit Note Summery Report</a>
+							<a href="${pageContext.request.contextPath}/viewItemWiseReport"><i
+								class="fa fa-files-o icon"></i>Itemwise Purchase Report</a>
 
-						</div>
-					</li>
-					<!-- 	
-							<li class="small-box">
-							
-								<div class="ibox">
-						<div class="ibox-head">
-						<div class="ibox-title">Item wise</div>
-						</div>
-						
+<a
+								href="${pageContext.request.contextPath}/showYearlyFrSubCatSaleReport"><i
+								class="fa fa-files-o icon"></i>Month Wise Sub Category Purchase
+								Report Or Month Wise Item Purchase Report</a>
 								
+
 						</div>
-						
-							</li> -->
-
-					<li class="small-box">
+					</li> --%>
 
 
-						<div class="ibox">
-							<div class="ibox-head">
-								<div class="ibox-title">GRN GVN Report</div>
+						<%-- <li class="small-box">
+							<div class="ibox">
+								<div class="ibox-head">
+									<div class="ibox-title">GRN GVN Report</div>
+								</div>
+								
+								<a href="${pageContext.request.contextPath}/grnReport"><i
+									class="fa fa-files-o icon"></i> GRN Report (Sell)</a> <a
+									href="${pageContext.request.contextPath}/gvnReport"><i
+									class="fa fa-files-o icon"></i> GVN Report (Sell)</a>
+
 							</div>
-							<%-- <a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i class="fa fa-file-text-o icon"></i> Tax Report summary (Sell) </a>
-						<a href="${pageContext.request.contextPath}/viewFrDatewiseTaxSellBill"><i class="fa fa-calendar icon"></i> Date Report (Sell) </a>
-						<a href="${pageContext.request.contextPath}/viewFrBillwiseTaxSellBill"><i class="fa fa-files-o icon"></i> Bill Report (Sell)</a>
-						<a href="${pageContext.request.contextPath}/hsnWiseReport"><i class="fa fa-files-o icon"></i> HSN Code wise Report (Sell)</a> --%>
-							<a href="${pageContext.request.contextPath}/grnReport"><i
-								class="fa fa-files-o icon"></i> GRN Report (Sell)</a> <a
-								href="${pageContext.request.contextPath}/gvnReport"><i
-								class="fa fa-files-o icon"></i> GVN Report (Sell)</a>
+						</li> --%>
 
 
 
-						</div>
 
-					</li>
+						<li class="small-box">
+
+							<div class="ibox">
+								<div class="ibox-head">
+									<div class="ibox-title">Purchase Tax Reports</div>
+								</div>
+
+								<a href="${pageContext.request.contextPath}/showTaxReport"><i
+									class="fa fa-files-o icon"></i>Billwise Tax Report (Vertically)</a>
+								<a href="${pageContext.request.contextPath}/showTax2Report"><i
+									class="fa fa-files-o icon"></i>Billwise Tax Report
+									(Horizontally)</a> <a
+									href="${pageContext.request.contextPath}/showCRNoteRegister"><i
+									class="fa fa-files-o icon"></i>Credit Note Register Report</a> <a
+									href="${pageContext.request.contextPath}/showCRNoteRegisterDone"><i
+									class="fa fa-files-o icon"></i>Credit Note Register Done Report</a>
+								<a
+									href="${pageContext.request.contextPath}/showHSNwiseReportBetDate"><i
+									class="fa fa-files-o icon"></i>HSN wise Report Report</a>
+
+								<%-- <a
+									href="${pageContext.request.contextPath}/showGstRegister"><i
+									class="fa fa-files-o icon"></i>GST Register Done Report</a> --%>
+
+
+
+							</div>
+						</li>
+
+						<c:if test="${isActiveFr==1}">
+							<li class="small-box">
+								<div class="ibox">
+									<div class="ibox-head">
+										<div class="ibox-title">Sale Tax Report</div>
+									</div>
+									<a href="${pageContext.request.contextPath}/viewFrTaxSellBill"><i
+										class="fa fa-file-text-o icon"></i> Tax Report summary (Sale)
+									</a> <a
+										href="${pageContext.request.contextPath}/viewFrDatewiseTaxSellBill"><i
+										class="fa fa-calendar icon"></i> Date Report (Sale) </a> <a
+										href="${pageContext.request.contextPath}/viewFrBillwiseTaxSellBill"><i
+										class="fa fa-files-o icon"></i> Bill Report (Sale)</a> <a
+										href="${pageContext.request.contextPath}/hsnWiseReport"><i
+										class="fa fa-files-o icon"></i> HSN Code wise Report (Sale)</a>
+								</div>
+
+							</li>
+						</c:if>
+
+
+
+					</ul>
+				</div>
+
+
+
+				<div class="row">
 
 					<li class="small-box">
 
@@ -742,46 +839,27 @@
 								<div class="ibox-title">Other Reports</div>
 							</div>
 
-							<a href="${pageContext.request.contextPath}/showSpAdvanceReport"><i
-								class="fa fa-files-o icon"></i>SP Advance Report</a> <a
-								href="${pageContext.request.contextPath}/showSpAdvTaxReport"><i
-								class="fa fa-files-o icon"></i>Sp Advance Tax Report</a> <a
-								href="${pageContext.request.contextPath}/showInsertCreditNote"><i
-								class="fa fa-files-o icon"></i>Credit Note Report</a>
+							<%-- 								<a href="${pageContext.request.contextPath}/showSpAdvanceReport"><i
+									class="fa fa-files-o icon"></i>SP Advance Report</a> <a
+									href="${pageContext.request.contextPath}/showSpAdvTaxReport"><i
+									class="fa fa-files-o icon"></i>Sp Advance Tax Report</a>  --%>
+
+							<a href="${pageContext.request.contextPath}/showInsertCreditNote"><i
+								class="fa fa-files-o icon"></i>Credit Note Report</a> <a
+								href="${pageContext.request.contextPath}/grnReport"><i
+								class="fa fa-files-o icon"></i> GRN Report (Sell)</a> <a
+								href="${pageContext.request.contextPath}/gvnReport"><i
+								class="fa fa-files-o icon"></i> GVN Report (Sell)</a> <a
+								href="${pageContext.request.contextPath}/viewDailySalesReport"><i
+								class="fa fa-files-o icon"></i> Daily Sales Report</a>
 
 						</div>
 					</li>
 
 
-					<li class="small-box">
-
-						<div class="ibox">
-							<div class="ibox-head">
-								<div class="ibox-title">Purchase Sale Reports</div>
-							</div>
-
-							<a href="${pageContext.request.contextPath}/showTaxReport"><i
-								class="fa fa-files-o icon"></i>Tax Report 1</a> <a
-								href="${pageContext.request.contextPath}/showTax2Report"><i
-								class="fa fa-files-o icon"></i>Tax Report 2</a> <a
-								href="${pageContext.request.contextPath}/showCRNoteRegister"><i
-								class="fa fa-files-o icon"></i>Credit Note Register Report</a> <a
-								href="${pageContext.request.contextPath}/showCRNoteRegisterDone"><i
-								class="fa fa-files-o icon"></i>Credit Note Register Done Report</a>
-							<a
-								href="${pageContext.request.contextPath}/showHSNwiseReportBetDate"><i
-								class="fa fa-files-o icon"></i>HSN wise Report Report</a> <a
-								href="${pageContext.request.contextPath}/showGstRegister"><i
-								class="fa fa-files-o icon"></i>GST Register Done Report</a>
+				</div>
 
 
-
-						</div>
-					</li>
-
-
-
-				</ul>
 			</div>
 
 		</div>

@@ -308,7 +308,7 @@ table, th, td {
 															mode = "Card";
 															//	cardTotal==cardTotal + sellBillData.paidAmt;
 														} else if (paymentMode == 3) {
-															mode = "Other";
+															mode = "EPay";
 															//otherTotal==otherTotal + sellBillData.paidAmt;
 														}
 

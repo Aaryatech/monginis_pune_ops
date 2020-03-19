@@ -116,15 +116,18 @@ jQuery(document).ready(function(){
 					<input type="hidden" name="frId" id="frId" value="${frId}">
 
 
-					<div class="col-md-1">
+					<div class="col-md-7" style="text-align: left;">
 						<button class="btn btn-primary" value="PDF" id="PDFButton"
 							onclick="genPdf()">PDF</button>
+							
+							<button class="btn btn-primary" value="Search" id="Search"
+							onclick="genJSP()">Detail Search</button>
+							
+							<button class="btn btn-primary" value="Search" id="Search"
+							onclick="genDSR()">Search</button>
 					</div>
 
-					<div class="col-md-1">
-						<button class="btn btn-primary" value="Search" id="Search"
-							onclick="genJSP()">Search</button>
-					</div>
+					
 					<br>
 				</div>
 			</div>
@@ -202,5 +205,21 @@ jQuery(document).ready(function(){
 		}
 	}
 </script>
+
+
+<script type="text/javascript">
+	function genDSR() {
+		var isValid = validate();
+		if (isValid == true) {
+			var date = document.getElementById("fromdatepicker").value;
+
+			window
+					.open('${pageContext.request.contextPath}/getDailySalesReportPrint/'
+							+ date);
+		}
+	}
+</script>
+
+
 </body>
 </html>
