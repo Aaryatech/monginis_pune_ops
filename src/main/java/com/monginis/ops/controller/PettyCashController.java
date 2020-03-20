@@ -233,6 +233,8 @@ RestTemplate rest = new RestTemplate();
 			float rmAmt=0,advAmt=0;
 			if(spAmt!=null) {
 				
+				model.addObject("remAmt", spAmt.getRemAmt());
+				model.addObject("advAmt", spAmt.getAdvAmt());
 			}
 			
 			

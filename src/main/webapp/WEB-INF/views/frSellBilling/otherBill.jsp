@@ -243,7 +243,9 @@ body {
 
 					</div>
 					<br>
-					<div class="order-right" align="right">
+					<div class="col-md-12" align="right"  style="width:100%">
+					 <a href="${pageContext.request.contextPath}/addOtherItem"><input type="button" value="Add Item" class="btn btn-info">
+										</a>
 					 <a href="${pageContext.request.contextPath}/showOthItemStock"><input type="button" value="Other Stock" class="btn btn-info">
 										</a>
 					 <a href="${pageContext.request.contextPath}/toOtherStock"><input type="button" value="Other Op Stock" class="btn btn-info">

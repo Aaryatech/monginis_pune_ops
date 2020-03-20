@@ -184,6 +184,9 @@
 							View Purchase <span>Bills</span>
 						</div></a></li>
 			</c:if>
+			
+			
+			
 
 
 			<c:set var="flag" value="${0}"></c:set>
@@ -197,7 +200,7 @@
 
 				</c:choose>
 			</c:forEach>
-			<c:if test="${flag==1}">
+			<c:if test="${isActiveFr==1}">
 				<li><a
 					href="${pageContext.request.contextPath}/showOthItemStock"><div
 							class="img">
@@ -218,7 +221,10 @@
 
 				</c:choose>
 			</c:forEach>
-			<c:if test="${ flag==1}">
+			
+			
+			
+			<c:if test="${ isActiveFr==1}">
 				<li><a href="${pageContext.request.contextPath}/showOtherBill"><div
 							class="img">
 							<i class="fa fa-file-pdf-o icon"

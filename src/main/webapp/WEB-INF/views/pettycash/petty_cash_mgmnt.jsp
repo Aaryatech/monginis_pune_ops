@@ -183,7 +183,11 @@ table, th, td {
 						<div class="col1title" align="left">Cash Amt</div>
 					</div>
 					<div class="col-md-3">
-							<input id="cash_amt"  class="form-control" value="${pettycash.cashAmt}"
+							<%-- <input id="cash_amt"  class="form-control" value="${pettycash.cashAmt}"
+							autocomplete="off" placeholder="Cash Amt" name="cash_amt" onchange="calClosingAmt()"
+							type="text"> --%>
+							
+							<input id="cash_amt"  class="form-control" value="${totalSell+remAmt+advAmt}"
 							autocomplete="off" placeholder="Cash Amt" name="cash_amt" onchange="calClosingAmt()"
 							type="text">
 					</div>					
@@ -230,7 +234,11 @@ table, th, td {
 					</div>
 					
 					<div class="col-md-3">
-							<input id="closing_amt"  class="form-control" value="${pettycash.closingAmt}" readonly="readonly"
+							<%-- <input id="closing_amt"  class="form-control" value="${pettycash.closingAmt}" readonly="readonly"
+							autocomplete="off" placeholder="Closing Amt" name="closing_amt"
+							type="text"> --%>
+							
+							<input id="closing_amt"  class="form-control" value="${pettycash.openingAmt+totalSell+remAmt+advAmt-pettycash.withdrawalAmt}" readonly="readonly"
 							autocomplete="off" placeholder="Closing Amt" name="closing_amt"
 							type="text">
 					</div>
@@ -262,7 +270,7 @@ table, th, td {
 						<div class="col1title"></div>
 					</div>
 					<div class="col2">
-						<input class="buttonsaveorder" value="Submit"
+						<input class="buttonsaveorder" value="Day End"
 							type="submit" id="btnsub">
 
 						<!-- <div align="center" id="loader" style="display: none">
