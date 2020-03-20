@@ -258,7 +258,7 @@ public class RegularSpCakeController {
 				spNoNewStr=""+spNoNew;
 				
 			} catch (Exception e) {
-
+e.printStackTrace();
 			}
 
 			return spNoNewStr;
