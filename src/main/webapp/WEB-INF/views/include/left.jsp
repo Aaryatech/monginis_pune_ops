@@ -30,7 +30,7 @@
 				</c:choose>
 			</c:forEach>
 			<c:if
-				test="${(info.accessRight==1 or info.accessRight==2) && isActiveFr==1 }">
+				test="${(info.accessRight==1 or info.accessRight==2) }">
 				<li style="border: 1px;"><a href="#" onClick="openNav()"><div
 							class="img">
 							<img
