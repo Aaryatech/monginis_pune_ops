@@ -579,9 +579,10 @@
 								class="fa fa-plus-circle icon"></i> Request GRN (Grn Based on
 								Expiry of product) </a>
 							<div class="clearfix"></div>
-							<a href="${pageContext.request.contextPath}/showGrn"><i
-								class="fa fa-plus-circle icon"></i> Auto GRN </a>
-
+							<c:if test="${isActiveFr==1}">
+								<a href="${pageContext.request.contextPath}/showGrn"><i
+									class="fa fa-plus-circle icon"></i> Auto GRN </a>
+							</c:if>
 							<div class="clearfix"></div>
 							<a href="${pageContext.request.contextPath}/displayGrn"><i
 								class="fa fa-search-plus icon"></i> View GRN </a>
