@@ -250,7 +250,7 @@ a:hover {
 																					readonly />
 																			</c:otherwise>
 																		</c:choose></td>
-																	<input type="text" name="qty${stockDetailList.id}"
+																	<input type="hidden" name="qty${stockDetailList.id}"
 																		id="qty${stockDetailList.id}"
 																		value="${stockDetailList.currentRegStock}" />
 																	<td class="col-md-1" id="billQty${stockDetailList.id}">${stockDetailList.currentRegStock}
