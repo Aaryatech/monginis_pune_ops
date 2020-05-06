@@ -209,7 +209,7 @@ public class SpDayCakeController {
 			map.add("frId", frDetails.getFrId());
 			map.add("date", strProdDate);
 			map.add("menuId",spDayCk.getMenuId());
-
+			map.add("isSameDayApplicable", 0);
 			RestTemplate restTemplate = new RestTemplate();
 
 			ParameterizedTypeReference<List<GetFrItem>> typeRef = new ParameterizedTypeReference<List<GetFrItem>>() {};
@@ -302,6 +302,7 @@ public class SpDayCakeController {
 				map.add("frId", frDetails.getFrId());
 				map.add("date", strProdDate);
 				map.add("menuId",spDayCk.getMenuId());
+				map.add("isSameDayApplicable", 0);
 
 				RestTemplate restTemplate = new RestTemplate();
 
