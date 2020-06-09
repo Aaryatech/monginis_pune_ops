@@ -340,22 +340,22 @@ jQuery(document).ready(function(){
 															.append($(
 																	'<td  class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			(itemWiseTaxData.qty)
-																					.toFixed(2)));
+																			addCommas((itemWiseTaxData.qty)
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td  class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			(itemWiseTaxData.rate)
-																					.toFixed(2)));
+																			addCommas((itemWiseTaxData.rate)
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td  class="col-md-1" style="text-align:right;"></td>')
 																	.html(
-																			(itemWiseTaxData.total)
-																					.toFixed(2)));
+																			addCommas((itemWiseTaxData.total)
+																					.toFixed(2))));
 
 													tr
 															.append($(
@@ -391,7 +391,7 @@ jQuery(document).ready(function(){
 								tr
 										.append($(
 												'<td  class="col-md-1" style="text-align:right;"></td>')
-												.html(qtyTotal.toFixed(2)));
+												.html(addCommas(qtyTotal.toFixed(2))));
 
 								tr.append($('<td  class="col-md-1"></td>')
 										.html(""));
@@ -399,7 +399,7 @@ jQuery(document).ready(function(){
 								tr
 										.append($(
 												'<td  class="col-md-1" style="text-align:right;"></td>')
-												.html(amtTotal.toFixed(2)));
+												.html(addCommas(amtTotal.toFixed(2))));
 								tr.append($('<td  class="col-md-1"></td>')
 										.html(""));
 								$('#table_grid tbody').append(tr);
@@ -560,5 +560,25 @@ jQuery(document).ready(function(){
 		}
 	}
 </script>
+
+<script>
+
+function addCommas(x){
+
+	x=String(x).toString();
+	 var afterPoint = '';
+	 if(x.indexOf('.') > 0)
+	    afterPoint = x.substring(x.indexOf('.'),x.length);
+	 x = Math.floor(x);
+	 x=x.toString();
+	 var lastThree = x.substring(x.length-3);
+	 var otherNumbers = x.substring(0,x.length-3);
+	 if(otherNumbers != '')
+	     lastThree = ',' + lastThree;
+	 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+	}
+
+</script>
+
 </body>
 </html>

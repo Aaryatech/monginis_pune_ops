@@ -290,8 +290,7 @@ table, th, td {
 																.append($(
 																		'<td class="col-md-1" style="text-align:right;"></td>')
 																		.html(
-																				(sellBillData.grandTotal)
-																						.toFixed(2)));
+																				addCommas((sellBillData.grandTotal).toFixed(2)) ));
 
 														amtTotal = amtTotal
 																+ sellBillData.grandTotal;
@@ -314,7 +313,7 @@ table, th, td {
 
 														tr
 																.append($(
-																		'<td class="col-md-2" style="text-align:center;"></td>')
+																		'<td class="col-md-2" style="text-align:left;"></td>')
 																		.html(
 																				mode));
 
@@ -340,7 +339,7 @@ table, th, td {
 															
 														tr
 														.append($(
-																'<td class="col-md-2" style="text-align:center;"></td>')
+																'<td class="col-md-2" style="text-align:left;"></td>')
 																.html(
 																		billType));
 
@@ -424,7 +423,7 @@ table, th, td {
 									var total = "<td colspan='4'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
 
 									var totalAmt = "<td style=text-align:right;>&nbsp;&nbsp;&nbsp;<b>"
-											+ (amtTotal).toFixed(2);
+											+ addCommas((amtTotal).toFixed(2));
 									+"</b></td>";
 									var td = "<td></td>";
 									/* var cash = "<td>&nbsp;&nbsp;&nbsp;"
@@ -456,6 +455,28 @@ table, th, td {
 			}
 		}
 	</script>
+	
+	<script type="text/javascript">
+	
+	function addCommas(x){
+
+		x=String(x).toString();
+		 var afterPoint = '';
+		 if(x.indexOf('.') > 0)
+		    afterPoint = x.substring(x.indexOf('.'),x.length);
+		 x = Math.floor(x);
+		 x=x.toString();
+		 var lastThree = x.substring(x.length-3);
+		 var otherNumbers = x.substring(0,x.length-3);
+		 if(otherNumbers != '')
+		     lastThree = ',' + lastThree;
+		 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		}
+	
+	</script>
+	
+	
+	
 	<script type="text/javascript">
 		function validate() {
 

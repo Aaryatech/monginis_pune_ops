@@ -316,6 +316,19 @@
 
 				</c:choose>
 			</c:forEach>
+			
+			
+			<c:if
+				test="${(info.accessRight==1 or info.accessRight==2 or info.accessRight==3) && isActiveFr==1}">
+				<li><a
+					href="${pageContext.request.contextPath}/showAddExpense"><div
+							class="img">
+							<i class="fa fa-money icon" style="font-size: 22px !important;"></i>
+						</div>
+						<div class="title">
+							Expenses
+						</div></a></li>
+			</c:if>
 
 
 			<c:if
@@ -331,6 +344,8 @@
 							Petty <span>Cash</span>
 						</div></a></li>
 			</c:if>
+			
+			
 
 
 			<c:if test="${info.accessRight==1 && flag==1}">

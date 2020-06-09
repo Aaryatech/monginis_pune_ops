@@ -1367,74 +1367,50 @@ public class StockController {
 				List<PostFrItemStockHeader> list = responseEntity1.getBody();
 				int intCatId = Integer.parseInt(catId);
 				System.out.println("## catId" + intCatId);
-
-				if (catId.equalsIgnoreCase("1")) {
-					menuIdList =new ArrayList<>();
-					for (PostFrItemStockHeader header : list) {
-
-						if (header.getCatId() == intCatId) {
-							runningMonth = header.getMonth();
-						}
-
-					}
-
-					menuIdList.add(26);
-
-				} else if (catId.equalsIgnoreCase("2")) {
-					menuIdList =new ArrayList<>();
 				
-					for (PostFrItemStockHeader header : list) {
-
-						if (header.getCatId() == intCatId) {
-							runningMonth = header.getMonth();
-						}
-
-					}
-						menuIdList.add(82);
-				} else if (catId.equalsIgnoreCase("3")) {
-					menuIdList =new ArrayList<>();
-					for (PostFrItemStockHeader header : list) {
-
-						if (header.getCatId() == intCatId) {
-							runningMonth = header.getMonth();
-						}
-
-					}
-					menuIdList.add(33);
-				} else if (catId.equalsIgnoreCase("4")) {
-					menuIdList =new ArrayList<>();
-					for (PostFrItemStockHeader header : list) {
-
-						if (header.getCatId() == intCatId) {
-							runningMonth = header.getMonth();
-						}
-
-					}
-					menuIdList.add(34);
-				} else if (catId.equalsIgnoreCase("6")) {
-					menuIdList =new ArrayList<>();
-					for (PostFrItemStockHeader header : list) {
-
-						if (header.getCatId() == intCatId) {
-							runningMonth = header.getMonth();
-						}
-
-					}
-					menuIdList.add(49);
+				try {
+					runningMonth = list.get(0).getMonth();
+				}catch (Exception e) {
 				}
+
+				/*
+				 * if (catId.equalsIgnoreCase("1")) { menuIdList =new ArrayList<>(); for
+				 * (PostFrItemStockHeader header : list) {
+				 * 
+				 * if (header.getCatId() == intCatId) { runningMonth = header.getMonth(); }
+				 * 
+				 * }
+				 * 
+				 * menuIdList.add(26);
+				 * 
+				 * } else if (catId.equalsIgnoreCase("2")) { menuIdList =new ArrayList<>();
+				 * 
+				 * for (PostFrItemStockHeader header : list) {
+				 * 
+				 * if (header.getCatId() == intCatId) { runningMonth = header.getMonth(); }
+				 * 
+				 * } menuIdList.add(82); } else if (catId.equalsIgnoreCase("3")) { menuIdList
+				 * =new ArrayList<>(); for (PostFrItemStockHeader header : list) {
+				 * 
+				 * if (header.getCatId() == intCatId) { runningMonth = header.getMonth(); }
+				 * 
+				 * } menuIdList.add(33); } else if (catId.equalsIgnoreCase("4")) { menuIdList
+				 * =new ArrayList<>(); for (PostFrItemStockHeader header : list) {
+				 * 
+				 * if (header.getCatId() == intCatId) { runningMonth = header.getMonth(); }
+				 * 
+				 * } menuIdList.add(34); } else if (catId.equalsIgnoreCase("6")) { menuIdList
+				 * =new ArrayList<>(); for (PostFrItemStockHeader header : list) {
+				 * 
+				 * if (header.getCatId() == intCatId) { runningMonth = header.getMonth(); }
+				 * 
+				 * } menuIdList.add(49); }
+				 */
 				
 
 				String itemShow = "";
 
-//				for (int i = 0; i < menuList.size(); i++) {
-//					for(int j=0;j<menuIdList.size();j++) {
-//					if (menuList.get(i).getMenuId() == menuIdList.get(j)) {
-//
-//						itemShow = menuList.get(i).getItemShow();
-//
-//					}
-//					}
-//				}
+
 				
 				
 				
@@ -1534,8 +1510,11 @@ public class StockController {
 					System.out.println("itemShow : " + itemShow.toString());
 					ParameterizedTypeReference<List<GetCurrentStockDetails>> typeRef = new ParameterizedTypeReference<List<GetCurrentStockDetails>>() {
 					};
+//					ResponseEntity<List<GetCurrentStockDetails>> responseEntity = restTemplate
+//							.exchange(Constant.URL + "getCurrentStock", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+					
 					ResponseEntity<List<GetCurrentStockDetails>> responseEntity = restTemplate
-							.exchange(Constant.URL + "getCurrentStock", HttpMethod.POST, new HttpEntity<>(map), typeRef);
+							.exchange(Constant.URL + "getCurrentStockNew", HttpMethod.POST, new HttpEntity<>(map), typeRef);
 
 					currentStockDetailList = responseEntity.getBody();
 

@@ -40,7 +40,7 @@ th {
 									<th style="text-align:center;">Amount</th>
 									<th style="text-align:center;">Cash</th>
 								 	<th style="text-align:center;">Card</th>
-									<th style="text-align:center;">Other </th> 
+									<th style="text-align:center;">E-Pay </th> 
 								  </tr>
 								</thead>
 								

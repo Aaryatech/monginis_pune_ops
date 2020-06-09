@@ -205,22 +205,22 @@
 								  	
 								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.hsnNo));
 
-								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.cgst.toFixed(2)));
+								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(addCommas(list.cgst.toFixed(2))));
 								  	cgstTotal=cgstTotal + list.cgst;
 								  	
-								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.sgst.toFixed(2)));
+								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(addCommas(list.sgst.toFixed(2))));
 								  	sgstTotal=sgstTotal + list.sgst;
 								  	
-								   	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.igst.toFixed(2)));
+								   	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(addCommas(list.igst.toFixed(2))));
 								   	igstTotal=igstTotal + list.igst;
 								  	  
-									tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.taxableAmt.toFixed(2)));
+									tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(addCommas(list.taxableAmt.toFixed(2))));
 									taxableTotal=taxableTotal + list.taxableAmt;
 									
-									tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.totalTax.toFixed(2)));
+									tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(addCommas(list.totalTax.toFixed(2))));
 									taxTotal=taxTotal + list.totalTax;
 									
-								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(list.grandTotal.toFixed(2)));
+								  	tr.append($('<td class="col-md-1" style="text-align:right"></td>').html(addCommas(list.grandTotal.toFixed(2))));
 								  	grandTotal=grandTotal + list.grandTotal;
    
 									$('#table_grid tbody').append(tr);
@@ -234,26 +234,26 @@
 								 
 								  
 								 var cgst = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
-											+  cgstTotal.toFixed(2);
+											+  addCommas(cgstTotal.toFixed(2));
 											+ "</b></td>";
 											
 								var sgst = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
-											+ sgstTotal.toFixed(2);
+											+ addCommas(sgstTotal.toFixed(2));
 											+ "</b></td>";
 											
 								var igst = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
-										+  igstTotal.toFixed(2);
+										+  addCommas(igstTotal.toFixed(2));
 										+ "</b></td>";
 										
 								 var totalAmt="<td style='text-align:right'>&nbsp;&nbsp;&nbsp;<b>"
-												+ taxableTotal.toFixed(2);
+												+ addCommas(taxableTotal.toFixed(2));
 												+ "</b></td>";
 								var totalTax = "<td style='text-align:right'>&nbsp;&nbsp;&nbsp;<b>"
-											+ taxTotal.toFixed(2);
+											+ addCommas(taxTotal.toFixed(2));
 											+ "</b></td>";
 								
 								var grand = "<td style='text-align:right'><b>&nbsp;&nbsp;&nbsp;"
-									+ grandTotal.toFixed(2);
+									+addCommas(grandTotal.toFixed(2));
 									+ "</b></td>"; 
 									
 								
@@ -287,6 +287,25 @@
 		}
 	}
 	</script>
+	
+	<script>
+	function addCommas(x){
+
+		x=String(x).toString();
+		 var afterPoint = '';
+		 if(x.indexOf('.') > 0)
+		    afterPoint = x.substring(x.indexOf('.'),x.length);
+		 x = Math.floor(x);
+		 x=x.toString();
+		 var lastThree = x.substring(x.length-3);
+		 var otherNumbers = x.substring(0,x.length-3);
+		 if(otherNumbers != '')
+		     lastThree = ',' + lastThree;
+		 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+		}
+	
+	</script>
+	
 	<script type="text/javascript">
 	function validate() {
 	

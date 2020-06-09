@@ -199,7 +199,7 @@ a:hover {
 											</div>
 											<div class="table-wrap">
 
-												<table id="table_grid1" class="responsive-table">
+												<table id="table_grid1${tabs.header}" class="responsive-table">
 													<thead>
 														<tr class="bgpink"
 															style="background-color: #ee578f; color: #ffffff;">
@@ -214,12 +214,18 @@ a:hover {
 														</tr>
 													</thead>
 													<tbody>
+
+														<c:set var="totQty" value="0" />
+														<c:set var="totAmt" value="0" />
+
 														<c:forEach var="stockDetailList"
 															items="${stockDetailList}" varStatus="loop">
 															<c:if test="${stockDetailList.subCatId eq tabs.header}">
 
+
 																<c:set var="color" value="" />
 																<c:set var="flag" value="0" />
+
 																<c:if test="${stockDetailList.currentRegStock<=0}">
 																	<c:set var="color" value="red" />
 																	<c:set var="flag" value="1" />
@@ -231,23 +237,22 @@ a:hover {
 																	<td class="col-md-1" style="text-align: left;">${(loop.index)+1}</td>
 																	<td class="col-md-2" style="text-align: left;">${stockDetailList.itemName}</td>
 																	<td class="col-md-1">${stockDetailList.currentRegStock}</td>
-																	<td class="col-md-1"><c:choose>
+																	<td class="col-md-1" style="text-align: center;"><c:choose>
 																			<c:when test="${flag==0}">
-																				<input type="number" class="form-control"
+																				<input type="text" class="form-control"
 																					style="width: 80%;"
 																					name="physicalQty${stockDetailList.id}"
 																					id="physicalQty${stockDetailList.id}" value="0"
-																					onkeyup="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock})"
+																					onkeyup="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock},${tabs.header})"
 																					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" />
 																			</c:when>
 																			<c:otherwise>
-																				<input type="number" class="form-control"
+																				<input type="text" class="form-control"
 																					style="width: 80%;"
 																					name="physicalQty${stockDetailList.id}"
 																					id="physicalQty${stockDetailList.id}" value="0"
-																					onkeyup="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock})"
-																					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
-																					readonly />
+																					onkeyup="onChange(${stockDetailList.spTotalPurchase},${stockDetailList.id},${stockDetailList.currentRegStock},${tabs.header})"
+																					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" readonly="readonly"/>
 																			</c:otherwise>
 																		</c:choose></td>
 																	<input type="hidden" name="qty${stockDetailList.id}"
@@ -257,9 +262,28 @@ a:hover {
 																	</td>
 																	<td class="col-md-1">${stockDetailList.spTotalPurchase}</td>
 																	<td class="col-md-1" id="total${stockDetailList.id}">${stockDetailList.currentRegStock*stockDetailList.spTotalPurchase}</td>
+
+																	<c:set var="totQty"
+																		value="${totQty+stockDetailList.currentRegStock}" />
+																	<c:set var="totAmt"
+																		value="${totAmt+stockDetailList.currentRegStock*stockDetailList.spTotalPurchase}" />
+
 																</tr>
 															</c:if>
 														</c:forEach>
+
+														<tr>
+															<td class="col-md-1"></td>
+															<td class="col-md-1"
+																style="text-align: center; font-weight: bold;">TOTAL</td>
+															<td class="col-md-1"></td>
+															<td class="col-md-1"></td>
+															<td class="col-md-1" style="font-weight: bold;"
+																id="totQty${tabs.header}">${totQty}</td>
+															<td class="col-md-1"></td>
+															<td class="col-md-1" style="font-weight: bold;"
+																id="totAmt${tabs.header}">${totAmt}</td>
+														</tr>
 
 													</tbody>
 
@@ -379,9 +403,9 @@ a:hover {
         </script>
 
 <script type="text/javascript">
-		function onChange(rate,id,stkQty) {
+		function onChange(rate,id,stkQty,tab) {
 			
-			
+		
 
 			//calculate total value  
 			var qty = $('#physicalQty'+id).val();
@@ -414,6 +438,39 @@ a:hover {
 				$('#total'+id).html(total.toFixed(2));
 				$('#physicalQty'+id).val(0);
 			}
+			
+			
+			
+			var tableElem = window.document.getElementById("table_grid1"+tab); 
+			var tableBody = tableElem.getElementsByTagName("tbody").item(0);
+			var howManyRows = tableBody.rows.length;
+			
+			var totalQty = 0;
+			var totalAmt = 0;
+			
+			for (i=0; i<(howManyRows-1); i++) 
+		    {
+/* 		       var thisTrElem = tableBody.rows[i];
+		       var thisTdElem = thisTrElem.cells[4];			
+		       var thisTextNode = thisTdElem.childNodes.item(0);
+ */		       
+		       var qtyColVal=tableBody.rows[i].cells[4].childNodes.item(0);
+ 				var amtColVal=tableBody.rows[i].cells[6].childNodes.item(0);
+
+		       var qtyColNumber = parseFloat(qtyColVal.data);
+		       var amtColNumber = parseFloat(amtColVal.data);
+		       
+		       if (!isNaN(qtyColNumber))
+		    	   totalQty += qtyColNumber;
+		       
+		       if (!isNaN(amtColNumber))
+		    	   totalAmt += amtColNumber;
+		       
+			 }
+			
+			$('#totQty'+tab).html(totalQty);
+			$('#totAmt'+tab).html(totalAmt);
+			
 		}
 	</script>
 

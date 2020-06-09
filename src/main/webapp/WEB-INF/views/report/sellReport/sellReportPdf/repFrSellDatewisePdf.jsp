@@ -42,7 +42,7 @@ th {
 									<th style="text-align:center;">Total Day Sale</th>
 									<th style="text-align:center;">Cash</th>
 								 	<th style="text-align:center;">Card</th>
-									<!-- <th style="text-align:center;">Other </th>  -->
+									 <th style="text-align:center;">E-Pay </th>  
 								  </tr>
 								</thead>
 								
@@ -65,8 +65,8 @@ th {
 														<c:set var="totalCash"  value="${totalCash + reportList.cash}"/>
 													<td style="text-align:right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value="${reportList.card}" /></td>
 														<c:set var="totalCard"  value="${totalCard+reportList.card }"/>
-													<%-- <td style="text-align:right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value="${reportList.other}" /></td>
-														<c:set var="totalOther"  value="${totalOther+reportList.other }"/> --%>
+													 <td style="text-align:right;"><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value="${reportList.other}" /></td>
+														<c:set var="totalOther"  value="${totalOther+reportList.other }"/> 
 													<%-- <td><c:out value="${reportList.sess}" /></td> --%>
 													
 													
@@ -77,7 +77,7 @@ th {
 								  <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value ="${totalAmount}"/></b></td>
 								     <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${totalCash}"/></b></td>
 								      <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${totalCard}"/></b></td>
-								      <%--  <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${totalOther}"/></b></td> --%>
+								        <td style="text-align:right;"><b><fmt:formatNumber type = "number" minFractionDigits = "2" maxFractionDigits = "2" value = "${totalOther}"/></b></td> 
 								     <!--  <td><b>Total</b></td> -->
 								  </tr>
 							 </tbody>

@@ -189,11 +189,12 @@ public class SpDayCakeController {
 
 		 deliDate = cal.getTime();
 		 
+		 
 		  cal.add(Calendar.DATE, -1);
 		
 		// manipulate date
 		//c.add(Calendar.DATE, prodTime);
-			productionDate = cal.getTime();
+			productionDate = cal.getTime(); 
 
 			
 			DateFormat ymdFormat = new SimpleDateFormat("yyyy-MM-dd");

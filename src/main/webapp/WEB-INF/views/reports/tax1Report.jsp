@@ -155,19 +155,17 @@ jQuery(document).ready(function(){
 									<thead>
 										<tr class="bgpink">
 
-											<th>Sr.No.</th>
-											<th>Invoice No</th>
-											<th>Bill No.</th>
-											<th>Bill Date</th>
-											<th>Franchise</th>
-											<th>GSTIN</th>
-											<th>CGST %</th>
-											<th>SGST %</th>
-											<th>CGST Amt</th>
-											<th>SGST Amt</th>
-											<th>Taxable Amt</th>
-											<th>Total Tax</th>
-											<th>Grand Total</th>
+											<th class="col-sm-1">Sr.No.</th>
+											<th class="col-sm-1">Invoice No</th>
+											<th class="col-sm-1">Bill Date</th>
+											<th class="col-sm-1">GSTIN</th>
+											<th class="col-sm-1">CGST %</th>
+											<th class="col-sm-1">SGST %</th>
+											<th class="col-sm-1">CGST Amt</th>
+											<th class="col-sm-1">SGST Amt</th>
+											<th class="col-sm-1">Taxable Amt</th>
+											<th class="col-sm-1">Total Tax</th>
+											<th class="col-sm-1">Grand Total</th>
 										</tr>
 
 									</thead>
@@ -175,23 +173,21 @@ jQuery(document).ready(function(){
 								</table>
 							</div>
 							<div class="table-wrap">
-								<table id="table_grid" class="main-table">
+								<table id="table_grid" class="main-table" border="1">
 									<thead>
 										<tr class="bgpink">
 
-											<th>Sr.No.</th>
-											<th>Invoice No</th>
-											<th>Bill No.</th>
-											<th>Bill Date</th>
-											<th>Franchise</th>
-											<th>GSTIN</th>
-											<th>CGST %</th>
-											<th>SGST %</th>
-											<th>CGST Amt</th>
-											<th>SGST Amt</th>
-											<th>Taxable Amt</th>
-											<th>Total Tax</th>
-											<th>Grand Total</th>
+											<th class="col-sm-1">Sr.No.</th>
+											<th class="col-sm-1">Invoice No</th>
+											<th class="col-sm-1">Bill Date</th>
+											<th class="col-sm-1">GSTIN</th>
+											<th class="col-sm-1">CGST %</th>
+											<th class="col-sm-1">SGST %</th>
+											<th class="col-sm-1">CGST Amt</th>
+											<th class="col-sm-1">SGST Amt</th>
+											<th class="col-sm-1">Taxable Amt</th>
+											<th class="col-sm-1">Total Tax</th>
+											<th class="col-sm-1">Grand Total</th>
 										</tr>
 
 
@@ -216,61 +212,73 @@ jQuery(document).ready(function(){
 													value="${totalGrandTotal+taxList.grandTotal}" />
 
 
-												<td><c:out value="${count.index+1}" /></td>
-												<td><c:out value="${taxList.invoiceNo}" /></td>
-												<td><c:out value="${taxList.billNo}" /></td>
-												<td><c:out value="${taxList.billDate}" /></td>
-												<td><c:out value="${taxList.frName}" /></td>
+												<td class="col-sm-1"><c:out value="${count.index+1}" /></td>
+												<td class="col-sm-1"><c:out
+														value="${taxList.invoiceNo}" /></td>
 
-												<td><c:out value="${taxList.frGstNo}" /></td>
-												<td style="text-align: right;"><c:out
+												<td class="col-sm-1"><c:out value="${taxList.billDate}" /></td>
+
+
+												<td class="col-sm-1"><c:out value="${taxList.frGstNo}" /></td>
+												<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
+														type="number" minFractionDigits="2" maxFractionDigits="2"
 														value="${taxList.cgstPer}" /></td>
-												<td style="text-align: right;"><c:out
+												<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
+														type="number" minFractionDigits="2" maxFractionDigits="2"
 														value="${taxList.sgstPer}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.cgstAmt}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.sgstAmt}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.taxableAmt}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.totalTax}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.grandTotal}" /></td>
+												<td class="col-sm-1" style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.cgstAmt}" />
+														</td>
+												<td class="col-sm-1" style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.sgstAmt}" />
+														</td>
+												<td class="col-sm-1" style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.taxableAmt}" />
+														</td>
+												<td class="col-sm-1" style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.totalTax}" />
+														</td>
+												<td class="col-sm-1" style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.grandTotal}" />
+														</td>
 
 											</tr>
 										</c:forEach>
 
 										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-
-											<td style="text-align: left;">Total</td>
+											<td class="col-sm-1"></td>
+											<td class="col-sm-1"></td>
+											<td class="col-sm-1"></td>
+											<td class="col-sm-1"></td>
+											<td class="col-sm-1"></td>
 
 
-											<td style="text-align: right;"><fmt:formatNumber
+											<td class="col-sm-1" style="text-align: left;">Total</td>
+
+
+											<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
 													value="${totalCgstAmt}" /></td>
-											<td style="text-align: right;"><fmt:formatNumber
+											<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
 													value="${totalIgstAmt}" /></td>
 
-											<td style="text-align: right;"><fmt:formatNumber
+											<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
 													value="${totalTaxableAmt}" /></td>
 
 
-											<td style="text-align: right;"><fmt:formatNumber
+											<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
 													value="${totalTax}" /></td>
 
 
-											<td style="text-align: right;"><fmt:formatNumber
+											<td class="col-sm-1" style="text-align: right;"><fmt:formatNumber
 													type="number" maxFractionDigits="2" minFractionDigits="2"
 													value="${totalGrandTotal}" /></td>
 
@@ -364,20 +372,20 @@ jQuery(document).ready(function(){
 					tr.append($('<td style="text-align:left;"></td>').html(
 							report.hsnCode));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							(report.billQty)));
+							(addCommas(report.billQty))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.taxableAmt.toFixed(2)));
+							addCommas(report.taxableAmt.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.cgstPer));
+							addCommas(report.cgstPer)));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.cgstAmt.toFixed(2)));
+							addCommas(report.cgstAmt.toFixed(2))));
 
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.sgstPer));
+							addCommas(report.sgstPer)));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.sgstAmt.toFixed(2)));
+							addCommas(report.sgstAmt.toFixed(2))));
 					tr.append($('<td style="text-align:right;"></td>').html(
-							report.grandTotal.toFixed(2)));
+							addCommas(report.grandTotal.toFixed(2))));
 
 					$('#table_grid tbody').append(tr);
 
@@ -448,5 +456,24 @@ jQuery(document).ready(function(){
 		}
 	}
 </script>
+
+<script>
+	function addCommas(x) {
+
+		x = String(x).toString();
+		var afterPoint = '';
+		if (x.indexOf('.') > 0)
+			afterPoint = x.substring(x.indexOf('.'), x.length);
+		x = Math.floor(x);
+		x = x.toString();
+		var lastThree = x.substring(x.length - 3);
+		var otherNumbers = x.substring(0, x.length - 3);
+		if (otherNumbers != '')
+			lastThree = ',' + lastThree;
+		return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree
+				+ afterPoint;
+	}
+</script>
+
 </body>
 </html>

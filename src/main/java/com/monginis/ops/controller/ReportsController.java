@@ -1978,7 +1978,7 @@ public class ReportsController {
 		rowData.add("Total Month Sale");
 		rowData.add("Cash");
 		rowData.add("Card");
-		rowData.add("Other");
+		rowData.add("E-Pay");
 
 		String[] monthNames = { "0", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
 				"Dec" };
@@ -4868,6 +4868,8 @@ public class ReportsController {
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
 
+			float totCrnQty = 0, totTaxable = 0, totCgst = 0, totSgst = 0, tot = 0;
+
 			int index = 0;
 			for (int j = 0; j < crNoteRegItemListDone.size(); j++) {
 
@@ -4959,7 +4961,98 @@ public class ReportsController {
 				cell.setPaddingRight(8);
 				table.addCell(cell);
 
+				totCrnQty =totCrnQty+crNoteRegItemListDone.get(j).getCrnQty();
+				totTaxable = totTaxable+crNoteRegItemListDone.get(j).getCrnTaxable();
+				totCgst = totCgst+crNoteRegItemListDone.get(j).getCgstAmt();
+				totSgst = totSgst+crNoteRegItemListDone.get(j).getSgstAmt();
+				tot = tot+crNoteRegItemListDone.get(j).getCrnAmt();
+
 			}
+			
+			PdfPCell cell;
+
+	
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("Total", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(""+roundUp(totCrnQty), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(8);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(""+roundUp(totTaxable), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(8);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(""+roundUp(totCgst), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(8);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(""+roundUp(totSgst), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(8);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(""+roundUp(tot), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(8);
+			table.addCell(cell);
+
+			
+			
 			document.open();
 
 			Paragraph heading = new Paragraph(
@@ -5013,6 +5106,21 @@ public class ReportsController {
 			ex.printStackTrace();
 
 		}
+	}
+
+	// Anmol
+	@RequestMapping(value = "/viewDSReport", method = RequestMethod.GET)
+	public ModelAndView viewDSReport(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("report/sellReport/sellReport");
+		try {
+			HttpSession ses = request.getSession();
+			Franchisee frDetails = (Franchisee) ses.getAttribute("frDetails");
+			model.addObject("frId", frDetails.getFrId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
 	}
 
 }

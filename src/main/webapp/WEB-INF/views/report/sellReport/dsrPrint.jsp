@@ -43,6 +43,8 @@
 </head>
 <body>
 
+	
+
 	<table width="250" border="0" cellspacing="0" cellpadding="0"
 		style="padding: 0px; font-family: Times New Roman; font-size: 12px; border: 1px solid #E7E7E7;">
 
@@ -85,18 +87,60 @@
 											<tr>
 												<td style="font-size: 10px; padding-left: 5px;">OPENING
 													STOCK</td>
-												<td style="font-size: 10px; text-align: right;">${dsrModel.openingAmt}</td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.openingStock}</td>
 											</tr>
 
 											<tr>
-												<td style="font-size: 10px; padding-left: 5px;">ADD
-													PURCHASES</td>
-												<td style="font-size: 10px; text-align: right;">${dsrModel.purchase}</td>
+												<td style="font-size: 10px; padding-left: 5px;"><u>ADD
+														PURCHASES</u></td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.totalPurchase}</td>
 											</tr>
+
+											<tr>
+
+												<td style="font-size: 10px; padding-left: 5px;">
+													<table style="width: 100%;">
+														<tr>
+															<td style="text-align: center;"><u>Bill No.</u></td>
+															<td style="text-align: center;"><u>Date</u></td>
+														</tr>
+
+													</table>
+
+												</td>
+
+												<td style="font-size: 10px; text-align: right;"></td>
+
+											</tr>
+
+
+											<c:forEach items="${purList}" var="pur">
+												<tr>
+
+													<td style="font-size: 10px; padding-left: 5px;">
+														<table style="width: 100%;">
+															<tr>
+																<td>${pur.invoiceNo}</td>
+																<td style="text-align: right;">${pur.billDate}</td>
+															</tr>
+
+
+														</table>
+
+													</td>
+
+													<td style="font-size: 10px; text-align: right;">${pur.grandTotal}</td>
+
+												</tr>
+
+											</c:forEach>
+
+
+
 
 											<fmt:formatNumber type="number" maxFractionDigits="1"
 												minFractionDigits="1" var="tot"
-												value="${dsrModel.openingAmt+dsrModel.purchase}" />
+												value="${dsrModel.openingStock+dsrModel.totalPurchase}" />
 
 											<tr>
 												<td
@@ -107,44 +151,91 @@
 											<tr>
 												<td style="font-size: 10px; padding-left: 5px;">LESS
 													GRN / GVN</td>
-												<td style="font-size: 10px; text-align: right;">${dsrModel.grnGvn}</td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.totalGrnGvn}</td>
 											</tr>
-
-											<tr>
-												<td style="font-size: 10px; padding-left: 5px;">SALE</td>
-												<td style="font-size: 10px; text-align: right;">${dsrModel.sale}</td>
-											</tr>
-
-
-											<fmt:formatNumber type="number" maxFractionDigits="1"
-												minFractionDigits="1" var="closing"
-												value="${dsrModel.openingAmt+dsrModel.purchase-dsrModel.grnGvn-dsrModel.sale}" />
-
 
 											<tr>
 												<td style="font-size: 10px; padding-left: 5px;">LESS
 													Closing Stock</td>
-												<td style="font-size: 10px; text-align: right;">${closing}</td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.closingStock}</td>
 											</tr>
+
+											<tr>
+												<td style="font-size: 10px; padding-left: 5px;">SALE</td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.totalSale}</td>
+											</tr>
+
+
+
+
+
 
 
 
 											<tr>
 												<td style="font-size: 10px; padding-left: 5px;">LESS
 													Card Sale</td>
-												<td style="font-size: 10px; text-align: right;"></td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.cardSale}</td>
+											</tr>
+
+											<tr>
+												<td style="font-size: 10px; padding-left: 5px;">LESS
+													Cash Sale</td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.cashSale}</td>
 											</tr>
 
 											<tr>
 												<td style="font-size: 10px; padding-left: 5px;">Shop
 													Expense</td>
-												<td style="font-size: 10px; text-align: right;"></td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.totalExp}</td>
 											</tr>
+
+											<tr>
+
+												<td style="font-size: 10px; padding-left: 5px;">
+													<table style="width: 100%;">
+														<tr>
+															<td style="text-align: center;"><u>Expense</u></td>
+															<td style="text-align: center;"><u>Date</u></td>
+														</tr>
+
+													</table>
+
+												</td>
+
+												<td style="font-size: 10px; text-align: right;"></td>
+
+											</tr>
+
+
+											<c:forEach items="${expList}" var="exp">
+												<tr>
+													<td style="font-size: 10px; padding-left: 5px;">
+														<table style="width: 100%;">
+															<tr>
+																<td>${exp.exVar1}</td>
+																<td style="text-align: right;">${exp.expDate}</td>
+															</tr>
+
+
+														</table>
+
+													</td>
+
+													<td style="font-size: 10px; text-align: right;">${exp.chAmt}</td>
+
+												</tr>
+											</c:forEach>
 
 											<tr>
 												<td style="font-size: 10px; padding-left: 5px;">Gift
 													Voucher / Coupon</td>
 												<td style="font-size: 10px; text-align: right;"></td>
+											</tr>
+											
+												<tr>
+												<td style="font-size: 10px; padding-left: 5px;">&nbsp;</td>
+												<td style="font-size: 10px; text-align: right;">&nbsp;</td>
 											</tr>
 
 
@@ -152,34 +243,52 @@
 												<td
 													style="font-size: 10px; padding-left: 5px; text-align: right;">Net
 													Cash</td>
-												<td style="font-size: 10px; text-align: right;"></td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.netCash}</td>
+											</tr>
+											
+											<tr>
+												<td
+													style="font-size: 10px; padding-left: 5px; text-align: right;">Physical Cash</td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.physicalCash}</td>
 											</tr>
 
 											<tr>
 												<td
 													style="font-size: 10px; padding-left: 5px; text-align: right;">Deposit
 													in Bank</td>
-												<td style="font-size: 10px; text-align: right;"></td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.depositInBank}</td>
 											</tr>
 
 											<tr>
 												<td
 													style="font-size: 10px; padding-left: 5px; text-align: right;">(Short)
 													/ Excess</td>
-												<td style="font-size: 10px; text-align: right;"></td>
+												<td style="font-size: 10px; text-align: right;">${dsrModel.excess}</td>
 											</tr>
 
-											<tr></tr>
-											<tr></tr>
-											<tr></tr>
-											<tr></tr>
-											
+											<tr>
+												<td
+													style="font-size: 10px; padding-left: 5px; text-align: right;">&nbsp;</td>
+												<td style="font-size: 10px; text-align: center;">Manager
+													/ Incharge</td>
+											</tr>
+											<tr>
+												<td
+													style="font-size: 10px; padding-left: 5px; text-align: right;">&nbsp;</td>
+												<td style="font-size: 10px; text-align: center;">&nbsp;</td>
+											</tr>
+											<tr>
+												<td
+													style="font-size: 10px; padding-left: 5px; text-align: right;">&nbsp;</td>
+												<td style="font-size: 10px; text-align: center;">&nbsp;</td>
+											</tr>
+										
+
 
 											<tr>
 												<td
 													style="font-size: 10px; padding-left: 5px; text-align: right;"></td>
-												<td style="font-size: 10px; text-align: center;">Manager
-													/ Incharge</td>
+												<td style="font-size: 10px; text-align: center;">Signature</td>
 											</tr>
 
 

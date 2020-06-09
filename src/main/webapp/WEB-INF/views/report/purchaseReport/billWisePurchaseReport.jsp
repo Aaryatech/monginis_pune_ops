@@ -314,29 +314,29 @@ jQuery(document).ready(function(){
 															.append($(
 																	'<td class="col-md-1" style="text-align:right"></td>')
 																	.html(
-																			(billWisePurchaseData.taxableAmt)
-																					.toFixed(2)));
+																			addCommas((billWisePurchaseData.taxableAmt)
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right"></td>')
 																	.html(
-																			(billWisePurchaseData.igstRs)
-																					.toFixed(2)));
+																			addCommas((billWisePurchaseData.igstRs)
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right"></td>')
 																	.html(
-																			(billWisePurchaseData.cgstRs)
-																					.toFixed(2)));
+																			addCommas((billWisePurchaseData.cgstRs)
+																					.toFixed(2))));
 
 													tr
 															.append($(
 																	'<td class="col-md-1" style="text-align:right"></td>')
 																	.html(
-																			(billWisePurchaseData.sgstRs)
-																					.toFixed(2)));
+																			addCommas((billWisePurchaseData.sgstRs)
+																					.toFixed(2))));
 
 													/* 	tr
 																.append($(
@@ -349,8 +349,8 @@ jQuery(document).ready(function(){
 															.append($(
 																	'<td class="col-md-1" style="text-align:right"></td>')
 																	.html(
-																			(billWisePurchaseData.grandTotal)
-																					.toFixed(2)));
+																			addCommas((billWisePurchaseData.grandTotal)
+																					.toFixed(2))));
 
 													taxTotal = taxTotal
 															+ billWisePurchaseData.taxableAmt;
@@ -388,21 +388,21 @@ jQuery(document).ready(function(){
 								tr
 										.append($(
 												'<td class="col-md-1" style="text-align:right"></td>')
-												.html((taxTotal).toFixed(2)));
+												.html(addCommas((taxTotal).toFixed(2))));
 								tr
 										.append($(
 												'<td class="col-md-1" style="text-align:right"></td>')
-												.html(igstTotal.toFixed(2)));
+												.html(addCommas(igstTotal.toFixed(2))));
 
 								tr
 										.append($(
 												'<td class="col-md-1" style="text-align:right"></td>')
-												.html(cgstTotal.toFixed(2)));
+												.html(addCommas(cgstTotal.toFixed(2))));
 
 								tr
 										.append($(
 												'<td class="col-md-1" style="text-align:right"></td>')
-												.html(sgstTotal.toFixed(2)));
+												.html(addCommas(sgstTotal.toFixed(2))));
 
 								/* 	tr
 											.append($(
@@ -412,7 +412,7 @@ jQuery(document).ready(function(){
 								tr
 										.append($(
 												'<td class="col-md-1" style="text-align:right"></td>')
-												.html(billTotal.toFixed(2)));
+												.html(addCommas(billTotal.toFixed(2))));
 
 								$('#table_grid tbody').append(tr);
 
@@ -481,5 +481,23 @@ jQuery(document).ready(function(){
 		}
 	}
 </script>
+
+<script>
+function addCommas(x){
+
+	x=String(x).toString();
+	 var afterPoint = '';
+	 if(x.indexOf('.') > 0)
+	    afterPoint = x.substring(x.indexOf('.'),x.length);
+	 x = Math.floor(x);
+	 x=x.toString();
+	 var lastThree = x.substring(x.length-3);
+	 var otherNumbers = x.substring(0,x.length-3);
+	 if(otherNumbers != '')
+	     lastThree = ',' + lastThree;
+	 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+	}
+</script>
+
 </body>
 </html>

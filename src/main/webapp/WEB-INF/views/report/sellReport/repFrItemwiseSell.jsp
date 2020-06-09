@@ -379,7 +379,7 @@ table, th, td {
 									tr.append($('<td style=text-align:right; class="col-md-1"></td>').html((sellBillData.qty).toFixed(2)));
 									totalQty=totalQty + sellBillData.qty;
 								  	
-								  	tr.append($('<td style=text-align:right; class="col-md-1"></td>').html((sellBillData.amount).toFixed(2)));
+								  	tr.append($('<td style=text-align:right; class="col-md-1"></td>').html( addCommas((sellBillData.amount).toFixed(2))));
 								  	
 								  	amtTotal=amtTotal + sellBillData.amount;
 								  	
@@ -397,10 +397,10 @@ table, th, td {
 								 var total = "<td colspan='3'>&nbsp;&nbsp;&nbsp;<b> Total</b></td>";
 								 
 								var totalAmt = "<td style=text-align:right;>&nbsp;&nbsp;&nbsp;<b>"
-									+ (amtTotal).toFixed(2)
+									+ addCommas((amtTotal).toFixed(2))
 									+ "</b></td>";
 								 var totalQty = "<td style=text-align:right;><b>&nbsp;&nbsp;&nbsp;"
-									+  (totalQty).toFixed(2)
+									+  addCommas((totalQty).toFixed(2))
 									+ "</b></td>";
 							
 									
@@ -693,5 +693,25 @@ function genPdf()
 }
 
 </script>	
+
+<script>
+
+function addCommas(x){
+
+	x=String(x).toString();
+	 var afterPoint = '';
+	 if(x.indexOf('.') > 0)
+	    afterPoint = x.substring(x.indexOf('.'),x.length);
+	 x = Math.floor(x);
+	 x=x.toString();
+	 var lastThree = x.substring(x.length-3);
+	 var otherNumbers = x.substring(0,x.length-3);
+	 if(otherNumbers != '')
+	     lastThree = ',' + lastThree;
+	 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+	}
+
+</script>
+
 </body>
 </html>

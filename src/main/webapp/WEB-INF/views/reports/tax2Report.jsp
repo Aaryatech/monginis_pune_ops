@@ -150,46 +150,8 @@ jQuery(document).ready(function(){
 
 
 						<div id="table-scroll" class="table-scroll">
-							<div id="faux-table" class="faux-table" aria="hidden">
-								<table id="table_grid1" class="main-table" border="1">
-									<thead>
-										<tr class="bgpink">
-
-
-											<th>Sr.No.</th>
-											<th>Invoice No</th>
-											<th>Bill No.</th>
-											<th>Bill_Date</th>
-											<th>Party Name</th>
-											<th>GSTIN</th>
-											<th>Sell @ 28%</th>
-											<th>Sell @ 18%</th>
-											<th>Sell @ 12%</th>
-											<th>Sell @ 5%</th>
-											<th>Sell @ 0%</th>
-											<th>Taxable Value</th>
-											<th>SGST @ 14%</th>
-											<th>CGST @ 14%</th>
-											<th>SGST @ 9%</th>
-											<th>CGST @ 9%</th>
-											<th>SGST @ 6%</th>
-											<th>CGST @ 6%</th>
-											<th>SGST @ 2.5%</th>
-											<th>CGST @ 2.5%</th>
-											<th>SGST @ 0%</th>
-											<th>CGST @ 0%</th>
-											<th>SGST Value</th>
-											<th>CGST Value</th>
-											<th>GROSS BILL</th>
-
-
-										</tr>
-
-									</thead>
-
-								</table>
-							</div>
-							<div class="table-wrap">
+							
+							<div class="table-responsive">
 								<table id="table_grid" class="main-table">
 									<thead>
 										<tr class="bgpink">
@@ -197,9 +159,7 @@ jQuery(document).ready(function(){
 
 											<th>Sr.No.</th>
 											<th>Invoice No</th>
-											<th>Bill No.</th>
 											<th>Bill_Date</th>
-											<th>Party Name</th>
 											<th>GSTIN</th>
 											<th>Sell @ 28%</th>
 											<th>Sell @ 18%</th>
@@ -242,18 +202,24 @@ jQuery(document).ready(function(){
 											<tr>
 												<td><c:out value="${count.index+1}" /></td>
 												<td><c:out value="${taxList.invoiceNo}" /></td>
-												<td><c:out value="${taxList.billNo}" /></td>
 												<td><c:out value="${taxList.billDate}" /></td>
-												<td><c:out value="${taxList.frName}" /></td>
 												<td><c:out value="${taxList.frGstNo}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.taxableAmtTwentyEight}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.taxableAmtEighteen}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.taxableAmtTwelve}" /></td>
-												<td style="text-align: right;"><c:out
-														value="${taxList.taxableAmtFive}" /></td>
+												<td style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.taxableAmtTwentyEight}" />
+														</td>
+												<td style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.taxableAmtEighteen}" />
+														</td>
+												<td style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.taxableAmtTwelve}" />
+														</td>
+												<td style="text-align: right;">
+														<fmt:formatNumber type="number" minFractionDigits="2"
+														maxFractionDigits="2" value="${taxList.taxableAmtFive}" />
+														</td>
 												<td style="text-align: right;"><c:out
 														value="${taxList.taxableAmtZero}" /></td>
 												<c:set var="taxableAmt">
@@ -318,8 +284,6 @@ jQuery(document).ready(function(){
 
 
 										<tr>
-											<td></td>
-											<td></td>
 											<td></td>
 											<td></td>
 											<td></td>

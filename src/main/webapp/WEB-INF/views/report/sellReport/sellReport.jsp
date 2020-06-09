@@ -124,7 +124,7 @@ jQuery(document).ready(function(){
 							onclick="genJSP()">Detail Search</button>
 							
 							<button class="btn btn-primary" value="Search" id="Search"
-							onclick="genDSR()">Search</button>
+							onclick="genDSR()" style="display: none;">Search</button>
 					</div>
 
 					

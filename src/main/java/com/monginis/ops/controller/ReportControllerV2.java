@@ -234,10 +234,10 @@ public class ReportControllerV2 {
 			rowData.add("" + roundUp(hsnListBill.get(i).getCgstRs()));
 			rowData.add("" + roundUp(hsnListBill.get(i).getSgstRs()));
 			rowData.add(" " + 0);
-			rowData.add(" " + (hsnListBill.get(i).getItemTax1()+hsnListBill.get(i).getItemTax1()));
+			rowData.add(" " + (hsnListBill.get(i).getItemTax1() + hsnListBill.get(i).getItemTax1()));
 			rowData.add(" " + hsnListBill.get(i).getBillQty());
 			rowData.add(" " + hsnListBill.get(i).getGrnGvnQty());
-			rowData.add(" " + (hsnListBill.get(i).getBillQty()-hsnListBill.get(i).getGrnGvnQty()));
+			rowData.add(" " + (hsnListBill.get(i).getBillQty() - hsnListBill.get(i).getGrnGvnQty()));
 
 			/*
 			 * rowData.add(" " + roundUp(hsnListBill.get(i).getItemTax1() +
@@ -280,7 +280,7 @@ public class ReportControllerV2 {
 		rowData.add("0.00");
 		rowData.add("");
 		rowData.add("");
-	
+
 		/* rowData.add("" + roundUp(totalTax)); */
 
 		rowData.add("");
@@ -402,6 +402,8 @@ public class ReportControllerV2 {
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
 
+			float totTaxable = 0, totCgst = 0, totSgst = 0, tot = 0;
+
 			int index = 0;
 			for (int j = 0; j < hsnListBill.size(); j++) {
 
@@ -482,7 +484,89 @@ public class ReportControllerV2 {
 				cell.setPaddingRight(1);
 				table.addCell(cell);
 
+				totTaxable = totTaxable+hsnListBill.get(j).getTaxableAmt();
+				totCgst = totCgst+hsnListBill.get(j).getCgstRs();
+				totSgst = totSgst+hsnListBill.get(j).getSgstRs();
+				tot = tot+roundUp(hsnListBill.get(j).getSgstRs()
+						+ hsnListBill.get(j).getTaxableAmt() + hsnListBill.get(j).getCgstRs());
+
 			}
+			
+			PdfPCell cell;
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("Total", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" + roundUp(totTaxable), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" + roundUp(totCgst), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" + roundUp(totSgst), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" + roundUp(tot), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+			
+			
 			document.open();
 
 			Paragraph heading = new Paragraph(
@@ -842,7 +926,7 @@ public class ReportControllerV2 {
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Bill Qty", headFont1)); // Varience title replaced with P2 Production
+			hcell = new PdfPCell(new Phrase("CRN Qty", headFont1)); // Varience title replaced with P2 Production
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
@@ -877,10 +961,12 @@ public class ReportControllerV2 {
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Crn Amt", headFont1)); // Varience title replaced with P2 Production
+			hcell = new PdfPCell(new Phrase("CRN Amt", headFont1)); // Varience title replaced with P2 Production
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(BaseColor.PINK);
 			table.addCell(hcell);
+
+			float totCrnQty = 0, totTaxable = 0, totCgstAmt = 0, totSgstAmt = 0, totCrnAmt = 0, tot = 0;
 
 			int index = 0;
 			for (int j = 0; j < crNoteRegItemList.size(); j++) {
@@ -997,7 +1083,103 @@ public class ReportControllerV2 {
 				cell.setPaddingRight(8);
 				table.addCell(cell);
 
+				totCrnQty = totCrnQty + roundUp(crNoteRegItemList.get(j).getCrnQty());
+				totTaxable = totTaxable + roundUp(crNoteRegItemList.get(j).getCrnTaxable());
+				totCgstAmt = totCgstAmt + roundUp(crNoteRegItemList.get(j).getCgstAmt());
+				totSgstAmt = totSgstAmt + roundUp(crNoteRegItemList.get(j).getSgstAmt());
+				totCrnAmt = totCrnAmt + roundUp(crNoteRegItemList.get(j).getCrnAmt());
+				tot = tot + roundUp(crnTotalAmt);
+
 			}
+
+			PdfPCell cell;
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("Total", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + totCrnQty, headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + totTaxable, headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + totCgstAmt, headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase(" ", headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + totSgstAmt, headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + roundUp(totCrnAmt), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + roundUp(tot), headFont));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPaddingRight(1);
+			table.addCell(cell);
+
 			document.open();
 
 			Paragraph heading = new Paragraph(
@@ -1365,7 +1547,7 @@ public class ReportControllerV2 {
 				rowData.add("" + taxReportList.get(i).getBillDate());
 
 				rowData.add("" + finalTotal);
-				rowData.add(""+Constant.STATE);
+				rowData.add("" + Constant.STATE);
 				rowData.add("N");
 				rowData.add(" ");
 

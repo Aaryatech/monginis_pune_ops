@@ -147,34 +147,8 @@ jQuery(document).ready(function(){
 
 
 					<div id="table-scroll" class="table-scroll">
-						<div id="faux-table" class="faux-table" aria="hidden">
-							<table id="table_grid1" class="main-table" border="1">
-								<thead>
-									<tr class="bgpink">
-
-										<th>Sr</th>
-										<th>CRN No</th>
-										<th>CRN Date</th>
-										<th>Invoice No</th>
-										<th>Invoice Date</th>
-										<th>Party Name</th>
-										<th>GST No</th>
-										<th>HSN Code</th>
-										<th>Crn Qty</th>
-										<th>Taxable Amt</th>
-										<th>Cgst %</th>
-										<th>Cgst Amt</th>
-										<th>Sgst %</th>
-										<th>Sgst Amt</th>
-										<th>Crn Amt</th>
-									</tr>
-
-
-								</thead>
-								<tbody>
-							</table>
-						</div>
-						<div class="table-wrap">
+						
+						<div class="table-responsive">
 							<table id="table_grid" class="main-table" border="1">
 								<thead>
 									<tr class="bgpink">
@@ -184,7 +158,6 @@ jQuery(document).ready(function(){
 										<th>CRN Date</th>
 										<th>Invoice No</th>
 										<th>Invoice Date</th>
-										<th>Party Name</th>
 										<th>GST No</th>
 										<th>HSN Code</th>
 										<th>Crn Qty</th>
@@ -283,8 +256,8 @@ jQuery(document).ready(function(){
 				tr.append($('<td></td>').html(report.crnDate));
 				tr.append($('<td></td>').html(report.invoiceNo));
 				tr.append($('<td></td>').html(report.billDate));
-				tr.append($('<td style="text-align:left;"></td>').html(
-						report.frName));
+				/* tr.append($('<td style="text-align:left;"></td>').html(
+						report.frName)); */
 				tr.append($('<td style="text-align:left;"></td>').html(
 						report.frGstNo));
 				crnQty = crnQty + report.crnQty;
@@ -294,21 +267,21 @@ jQuery(document).ready(function(){
 				crnAmt = crnAmt + report.crnAmt;
 				tr.append($('<td style="text-align:left;"></td>').html(
 						report.hsnCode));
-				tr.append($('<td style="text-align:center;"></td>').html(
+				tr.append($('<td style="text-align:right;"></td>').html(
 						(report.crnQty)));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						report.crnTaxable.toFixed(2)));
+						addCommas(report.crnTaxable.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						report.cgstPer.toFixed(2)));
+						addCommas(report.cgstPer.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						report.cgstAmt.toFixed(2)));
+						addCommas(report.cgstAmt.toFixed(2))));
 
 				tr.append($('<td style="text-align:right;"></td>').html(
-						report.sgstPer.toFixed(2)));
+						addCommas(report.sgstPer.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						report.sgstAmt.toFixed(2)));
+						addCommas(report.sgstAmt.toFixed(2))));
 				tr.append($('<td style="text-align:right;"></td>').html(
-						report.crnAmt.toFixed(2)));
+						addCommas(report.crnAmt.toFixed(2))));
 
 				$('#table_grid tbody').append(tr);
 
@@ -319,26 +292,44 @@ jQuery(document).ready(function(){
 			tr.append($('<td></td>').html(""));
 			tr.append($('<td></td>').html(""));
 			tr.append($('<td></td>').html(""));
-			tr.append($('<td></td>').html(""));
 			tr.append($('<td style="font-weight:12px;"></td>').html(""));
 			tr.append($('<td></td>').html("Total"));
-			tr.append($('<td style="font-weight:12px;"></td>').html(
+			tr.append($('<td style="font-weight:12px;text-align:right;"></td>').html(
 					"" + crnQty.toFixed(2)));
-			tr.append($('<td style="font-weight:12px;"></td>').html(
-					"" + crnTaxable.toFixed(2)));
+			tr.append($('<td style="font-weight:12px;text-align:right;"></td>').html(
+					"" + addCommas(crnTaxable.toFixed(2))));
 			tr.append($('<td></td>').html(""));
-			tr.append($('<td style="font-weight:12px;"></td>').html(
-					"" + cgstAmt.toFixed(2)));
+			tr.append($('<td style="font-weight:12px;text-align:right;"></td>').html(
+					"" + addCommas(cgstAmt.toFixed(2))));
 			tr.append($('<td></td>').html(""));
-			tr.append($('<td style="font-weight:12px;"></td>').html(
-					"" + sgstAmt.toFixed(2)));
-			tr.append($('<td style="font-weight:12px;"></td>').html(
-					"" + crnAmt.toFixed(0)));
+			tr.append($('<td style="font-weight:12px;text-align:right;"></td>').html(
+					"" + addCommas(sgstAmt.toFixed(2))));
+			tr.append($('<td style="font-weight:12px;text-align:right;"></td>').html(
+					"" + addCommas(crnAmt.toFixed(0))));
 			$('#table_grid tbody').append(tr);
 
 		});
 
 	}
+</script>
+
+<script>
+
+function addCommas(x){
+
+	x=String(x).toString();
+	 var afterPoint = '';
+	 if(x.indexOf('.') > 0)
+	    afterPoint = x.substring(x.indexOf('.'),x.length);
+	 x = Math.floor(x);
+	 x=x.toString();
+	 var lastThree = x.substring(x.length-3);
+	 var otherNumbers = x.substring(0,x.length-3);
+	 if(otherNumbers != '')
+	     lastThree = ',' + lastThree;
+	 return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+	}
+
 </script>
 
 <script type="text/javascript">
