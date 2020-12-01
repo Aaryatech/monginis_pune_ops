@@ -124,7 +124,7 @@ table, th, td {
 					onsubmit="return confirm('Do you really want to save ?');"
 						name="grn_add" id="grn_add" method="post">
 						
-						<div class="col-md-9">
+						<div class="col-md-9" >
 						<h6 class="pageTitle">Request GRN</h6>
 					</div>
 					<label for="search" class="col-md-3" id="search">
