@@ -416,9 +416,9 @@ public class ManualGrnController {
 						float grnRate = 0.0f;
 
 						if (objShowGrnList.get(i).getGrnType() == 0) {
-							grnBaseRate = baseRate * 80 / 100;
+							grnBaseRate = baseRate * 85 / 100;
 
-							grnRate = (objShowGrnList.get(i).getRate() * 80) / 100;
+							grnRate = (objShowGrnList.get(i).getRate() * 85) / 100;
 							// postGrnGvn.setGrnGvnAmt(roundUp(grnAmt));
 						}
 
