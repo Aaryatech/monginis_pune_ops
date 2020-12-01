@@ -169,8 +169,8 @@
 														<c:otherwise>
 															<c:choose>
 																<c:when test="${detail.grnType==0}">
-																	<c:set var="type" value="GRN 1(80%)"></c:set>
-																	<c:set var="rate" value="${(detail.baseRate-(detail.baseRate*(detail.itemMrp/100)))* 0.80}"></c:set>
+																	<c:set var="type" value="GRN 1(85%)"></c:set>
+																	<c:set var="rate" value="${(detail.baseRate-(detail.baseRate*(detail.itemMrp/100)))* 0.85}"></c:set>
 
 																</c:when>
 																<c:when test="${detail.grnType==1}">

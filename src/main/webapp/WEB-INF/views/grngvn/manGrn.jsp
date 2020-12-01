@@ -208,7 +208,7 @@ table, th, td {
 													value="${grnConfList.itemName}"></c:out></td>
 											<c:choose>
 												<c:when test="${grnConfList.grnType==0}">
-													<td class="col-md-1"  style="text-align: center;"><c:out value="GRN 1(80%)"></c:out></td>
+													<td class="col-md-1"  style="text-align: center;"><c:out value="GRN 1(85%)"></c:out></td>
 												</c:when>
 												<c:when test="${grnConfList.grnType==1}">
 													<td class="col-md-1"  style="text-align: center;"><c:out value="GRN 2(70%)"></c:out></td>
@@ -435,9 +435,9 @@ table, th, td {
 			
 			var grnRate=$("#grn_rate"+detailId).text();
 			
-			grnBaseRate = baseRate * 80 / 100;
+			grnBaseRate = baseRate * 85 / 100;
 			 
-			 grnRate=(rate * 80) / 100;
+			 grnRate=(rate * 85) / 100;
 			
 			//var grnAmt=parseFloat(grnQty)*parseFloat(grnRate);
 			//grnAmt=grnAmt*80/100;	
