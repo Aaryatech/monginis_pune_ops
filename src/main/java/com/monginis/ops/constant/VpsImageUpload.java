@@ -10,12 +10,13 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class VpsImageUpload {
-	
-	private static final String FR_FOLDER = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/FR/";
-	private static final String SP_CAKE_FOLDER = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/SPCAKE/";
-	private static final String CUST_CHOICE_PHOTO_CAKE_FOLDER = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/CUSTCHOICEPHOTOCAKE/";
-	private static final String GVN_PHOTO_FOLDER = "/opt/apache-tomcat-8.5.37/webapps/uploadspune/GVN/";
-	
+
+	public static final String UPLOADBASEPATH = "/opt/cpanel/ea-tomcat85/webapps/uploadspune/";
+
+	private static final String FR_FOLDER = UPLOADBASEPATH + "FR/";
+	private static final String SP_CAKE_FOLDER = UPLOADBASEPATH + "SPCAKE/";
+	private static final String CUST_CHOICE_PHOTO_CAKE_FOLDER = UPLOADBASEPATH + "CUSTCHOICEPHOTOCAKE/";
+	private static final String GVN_PHOTO_FOLDER = UPLOADBASEPATH + "GVN/";
 
 	public void saveUploadedFiles(List<MultipartFile> files, int imageType, String imageName) throws IOException {
 
@@ -38,24 +39,21 @@ public class VpsImageUpload {
 
 				System.out.println("Path= " + path.toString());
 
-			} 
-			else if (imageType == 4) {
+			} else if (imageType == 4) {
 
 				path = Paths.get(SP_CAKE_FOLDER + imageName);
 
 			}
-			
+
 			else if (imageType == 5) {
 
 				path = Paths.get(CUST_CHOICE_PHOTO_CAKE_FOLDER + imageName);
 
-			}
-			else if (imageType == 6) {
+			} else if (imageType == 6) {
 
 				path = Paths.get(GVN_PHOTO_FOLDER + imageName);
 
 			}
-
 
 			Files.write(path, bytes);
 
